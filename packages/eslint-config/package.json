@@ -1,5 +1,5 @@
 {
-  "name": "@omnirepo/eslint-config",
+  "name": "@language-app/eslint-config",
   "version": "1.0.0",
   "main": ".eslintrc.js",
   "license": "MIT",
