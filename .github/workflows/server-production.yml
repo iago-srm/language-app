@@ -3,7 +3,7 @@ name: Build & Deploy (Production)
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - 'packages/server/**'
       # - 'packages/another-package/**'
