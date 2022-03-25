@@ -1,0 +1,16 @@
+name: Build & Test
+
+on:
+  push:
+    branches:
+      - feature/*
+      - bugfix/*
+      - hotfix/*
+    paths:
+      - 'packages/web-api/**'
+
+jobs:
+  build_and_test:
+    uses: './reusable-build-and-test.yml'
+    with:
+      path: 'web-api'

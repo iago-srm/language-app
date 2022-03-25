@@ -5,6 +5,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "echo": "echo \"Hello from monorepo setup\"",
     "test": "jest"
   },
   "workspaces": {

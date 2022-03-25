@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "echo": "echo \"Hello from web-app\" ",
     "dev": "next dev",
     "build": "next build",
     "start": "next start"

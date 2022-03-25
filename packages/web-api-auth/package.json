@@ -1,9 +1,9 @@
 {
-  "name": "@language-app/web-api",
+  "name": "@language-app/web-api-auth",
   "version": "1.0.0",
   "description": "A proof of concept of a very complete NodeJS API",
   "scripts": {
-    "echo": "echo \"Hello from web-api\" ",
+    "echo": "echo \"Hello from web-api-auth\" ",
     "generate-initial-migration": "npx typeorm migration:generate -n Initial",
     "gen-env": "gen-env-types .env -o src/env.d.ts -e .",
     "build": "cross-env NODE_ENV=production tsc",
