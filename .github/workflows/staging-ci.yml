@@ -1,3 +1,5 @@
+name: Perform E2E tests
+
 on:
   push:
     branches:
