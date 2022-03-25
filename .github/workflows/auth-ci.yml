@@ -1,16 +1,16 @@
-name: Build & Test
+# name: Build & Test
 
-on:
-  push:
-    branches:
-      - feature/*
-      - bugfix/*
-      - hotfix/*
-    paths:
-      - 'packages/web-api-auth/**'
+# on:
+#   push:
+#     branches:
+#       - feature/*
+#       - bugfix/*
+#       - hotfix/*
+#     paths:
+#       - 'packages/web-api-auth/**'
 
-jobs:
-  build_and_test:
-    uses: './reusable-build-and-test.yml'
-    with:
-      path: 'web-api-auth'
+# jobs:
+#   build_and_test:
+#     uses: 'iago-srm/language-app/.github/workflows/reusable-build-and-test.yml@main'
+#     with:
+#       path: 'web-api-auth'

@@ -1,28 +1,28 @@
-name: Build & Test
+# name: Build & Test
 
-on:
-  push:
-    branches:
-      - feature/*
-      - bugfix/*
-      - hotfix/*
-    paths:
-      - 'jest.config.js'
-      - 'eslintrc.js'
-      - 'tsconfig.json'
+# on:
+#   push:
+#     branches:
+#       - feature/*
+#       - bugfix/*
+#       - hotfix/*
+#     paths:
+#       - 'jest.config.js'
+#       - 'eslintrc.js'
+#       - 'tsconfig.json'
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v1
+#         with:
+#           node-version: 14.x
 
-      - name: Tests
-        run: npm run echo
+#       - name: Tests
+#         run: npm run echo
