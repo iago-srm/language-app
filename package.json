@@ -1,5 +1,5 @@
 {
-  "name": "language-app",
+  "name": "@language-app",
   "private": true,
   "version": "1.0.0",
   "main": "index.js",
@@ -8,11 +8,9 @@
     "echo": "echo \"Hello from monorepo setup\"",
     "test": "jest"
   },
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ]
-  },
+  "workspaces": [
+    "packages/*"
+  ],
   "devDependencies": {
     "@language-app/eslint-config": "*",
     "@types/jest": "^26.0.5",
