@@ -1,0 +1,38 @@
+datasource db {
+  url      = env("DATABASE_URL")
+  provider = "postgresql"
+}
+
+// gets DATABASE_URL of the postgres format from env variables
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  STUDENT
+  INSTRUCTOR
+  ADMIN
+}
+
+model User {
+  id             String   @id @default(uuid())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  email          String   @unique
+  name           String?
+  role           Role     @default(STUDENT)
+  hashedPassword String
+
+  @@index([role])
+  @@map("users")
+}
+
+// npx prisma migrate dev prompts information to create a migration (.sql) file.
+// npx prisma migrate deploy
+// dev uses a shadow db and deploy applies migrations directly
+// how do migrations fit into the development workflow?
+
+// npx prisma studio opens a database data explorer (no more pgadmin)
+
+// com a lib prisma-erd-generator, ele gera um svg do UML dos seus dados.
