@@ -34,11 +34,11 @@ export const SignUpUseCaseFactory: ISignUpUseCaseFactory = ({
         execute: async ({ email, cpf, name, password }) => {
             const user = new User({ email, cpf, name, password });
 
-
             const userDTO = {
                 email: user.getEmail(),
                 cpf: user.getCPF(),
                 name: user.getName(),
+                role: "STUDENT",
                 hashedPassword: await encryptionService.encrypt(user.getPassword()),
                 extracts: [],
                 lastExtractFetch: 0
