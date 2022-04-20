@@ -1,0 +1,29 @@
+datasource db {
+  url      = env("DATABASE_URL")
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model ActivityVersion {
+  id        String     @id @default(uuid())
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  Activity  Activity[]
+}
+
+model Activity {
+  id                String          @id @default(uuid())
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  version           ActivityVersion @relation(fields: [activityVersionId], references: [id])
+  activityVersionId String
+}
+
+//writing "version ActivityVersion" autocompletes the id, the @s and the one-to-many in the other table
+
+// for many-to-many, just create the array fields in both entities and
+// prisma creates the relationships table automatically. If you want to
+// manipulate this relationship entity somehow, explicitly declare it.
