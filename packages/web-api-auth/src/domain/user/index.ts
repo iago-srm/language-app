@@ -19,7 +19,7 @@ export class User {
         this.email = args.email!;
         this.validateCPF(args.cpf);
         this.cpf = args.cpf!;
-        this.name = args.name || "";
+        this.name = args.name || "c";
         this.validatePassword(args.password);
         this.password = args.password!;
     }
