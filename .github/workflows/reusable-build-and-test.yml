@@ -25,8 +25,8 @@ jobs:
 
       - name: Install Dependencies
         working-directory: './packages/${{ inputs.package }}'
-        run: npm ci
+        run: npm i
 
       - name: Tests
         working-directory: './packages/${{ inputs.package }}'
-        run: npm run test
+        run: npm run test:ci

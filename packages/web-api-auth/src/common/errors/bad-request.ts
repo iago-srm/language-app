@@ -31,20 +31,6 @@ export class ParameterNotProvidedError extends CustomError {
     }
 }
 
-export class CategoryNotFoundError extends CustomError {
-    HTTPstatusCode = 404;
-    constructor() {
-        super(ErrorMessages.CATEGORY_NOT_FOUND)
-    }
-}
-
-export class ExtractNotFoundError extends CustomError {
-    HTTPstatusCode = 404;
-    constructor() {
-        super(ErrorMessages.EXTRACT_NOT_FOUND)
-    }
-}
-
 export class UserNotFoundError extends CustomError {
     HTTPstatusCode = 404;
     constructor() {
