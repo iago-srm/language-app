@@ -28,6 +28,11 @@ model User {
   @@map("users")
 }
 
+model OtherModel {
+  id    String @id @default(uuid())
+  field String
+}
+
 // for a postgres db running on a docker container not in the same .compose of the app, the IP is localhost
 
 // run npx prisma migrate dev to get vscode client types and to alter connected db.
