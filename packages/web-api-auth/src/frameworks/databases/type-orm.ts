@@ -1,6 +1,6 @@
 import {
   IDatabase,
-  IBaseCollection, 
+  IBaseCollection,
   // ITest
 } from "@adapters/repositories";
 import { createConnection, Connection, Repository, DeepPartial } from "typeorm";
@@ -78,8 +78,9 @@ class TypeORMCollectionAdapter<P> implements IBaseCollection<P> {
   }
 
   async insertMany(entities: P[]) {
-    const result = await this.repository.save(entities);
-    return result ? true : false;
+    // const result = await this.repository.save(entities);
+    // return result ? true : false;
+    return true;
   }
 
   async deleteAll() {
