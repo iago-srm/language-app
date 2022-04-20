@@ -25,4 +25,4 @@ jobs:
 
       - name: Tests
         working-directory: './packages/${{ inputs.package }}'
-        run: npm run echo
+        run: npm run test

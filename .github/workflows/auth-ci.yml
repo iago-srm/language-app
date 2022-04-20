@@ -13,4 +13,4 @@ jobs:
   build_and_test:
     uses: 'iago-srm/language-app/.github/workflows/reusable-build-and-test.yml@main'
     with:
-      path: 'web-api-auth'
+      package: 'web-api-auth'
