@@ -27,6 +27,10 @@ jobs:
         working-directory: './packages/${{ inputs.package }}'
         run: npm i
 
+      - name: Ensure code formatting
+        working-directory: './packages/${{ inputs.package }}'
+        run: npm run format:ci
+
       - name: Tests
         working-directory: './packages/${{ inputs.package }}'
         run: npm run test:ci

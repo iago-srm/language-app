@@ -1,3 +1,3 @@
 export interface IOpenBankingService {
-    getExtracts: (cpf: string, lastLogin: number) => Promise<any[]>
+  getExtracts: (cpf: string, lastLogin: number) => Promise<any[]>;
 }

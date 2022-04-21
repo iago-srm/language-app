@@ -13,17 +13,17 @@ export class PersonId {
 
   constructor(args: PersonIdConstructorParams) {
     this.id = args.id;
-    this.validateEmail(args.email)
+    this.validateEmail(args.email);
     this.email = args.email;
     this.validateName(args.name);
     this.name = args.name;
   }
 
   validateEmail(email: string) {
-    if(email === 'zoado') throw new InvalidEmailError()
+    if (email === 'zoado') throw new InvalidEmailError();
   }
 
   validateName(name: string) {
-    if(name.length < 2) throw new InvalidNameError()
+    if (name.length < 2) throw new InvalidNameError();
   }
 }

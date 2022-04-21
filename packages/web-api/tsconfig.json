@@ -4,50 +4,21 @@
     "baseUrl": "./src/",
     "paths": {
       "@adapters/repositories": ["adapters/repositories/index.ts"],
-      "@adapters/REST-controllers": [
-        "adapters/REST-controllers/index.ts"
-      ],
-      "@adapters/REST-middleware": [
-        "adapters/REST-middleware/index.ts"
-      ],
+      "@adapters/REST-controllers": ["adapters/REST-controllers/index.ts"],
+      "@adapters/REST-middleware": ["adapters/REST-middleware/index.ts"],
       "@application/use-cases": ["application/use-cases/index.ts"],
-      "@application/ports": [
-        "application/ports/index.ts"
-      ],
-      "@domain": [
-        "domain/index.ts"
-      ],
+      "@application/ports": ["application/ports/index.ts"],
+      "@domain": ["domain/index.ts"],
       "@frameworks/databases": ["frameworks/databases/index.ts"],
-      "@frameworks/http": [
-        "frameworks/http-server/index.ts"
-      ],
-      "@frameworks/services": [
-        "frameworks/services/index.ts"
-      ],
-      "@common/logger": [
-        "common/logger/index.ts"
-      ],
-      "@common/test-helpers": [
-        "common/test-helpers/index.ts"
-      ],
-      "@common/locales": [
-        "common/locales/index.ts"
-      ],
-      "@common/errors": [
-        "common/errors/index.ts"
-      ],
-      "@/*": [
-        "*"
-      ]
+      "@frameworks/http": ["frameworks/http-server/index.ts"],
+      "@frameworks/services": ["frameworks/services/index.ts"],
+      "@common/logger": ["common/logger/index.ts"],
+      "@common/test-helpers": ["common/test-helpers/index.ts"],
+      "@common/locales": ["common/locales/index.ts"],
+      "@common/errors": ["common/errors/index.ts"],
+      "@/*": ["*"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "src/__test__"
-  ],
-  "include": [
-    "./src/**/*.tsx",
-    "./src/**/*.ts"
-  ]
-
+  "exclude": ["node_modules", "src/__test__"],
+  "include": ["./src/**/*.tsx", "./src/**/*.ts"]
 }

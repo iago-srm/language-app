@@ -1,38 +1,40 @@
 import {
-    IUseCase,
-    IUseCaseFactory,
-    ICategoryRepository,
-    CategoryDTO,
-    IOpenBankingService,
-    IUserRepository
+  IUseCase,
+  IUseCaseFactory,
+  ICategoryRepository,
+  CategoryDTO,
+  IOpenBankingService,
+  IUserRepository,
 } from '../ports';
 import { UserNotFoundError } from '@common/errors';
 
 export type GetCategoriesInputParams = {
-    userId: string;
+  userId: string;
 };
 type Return = {
-    categories: any[];
+  categories: any[];
 };
 type Dependencies = {
-    categoriesRepository: ICategoryRepository;
+  categoriesRepository: ICategoryRepository;
 };
 
 export type IGetCategoriesUseCase = IUseCase<GetCategoriesInputParams, Return>;
 export type IGetCategoriesUseCaseFactory = IUseCaseFactory<
-    Dependencies,
-    GetCategoriesInputParams,
-    Return
+  Dependencies,
+  GetCategoriesInputParams,
+  Return
 >;
 
 export const GetCategoriesUseCaseFactory: IGetCategoriesUseCaseFactory = ({
-    categoriesRepository,
+  categoriesRepository,
 }) => {
-    return {
-        execute: async ({ userId }) => {
-            const categoriesDTOs = await categoriesRepository.getAllFromUser(userId);
-            
-            return {categories: categoriesDTOs.map(c => ({...c, user: undefined}))};
-        },
-    };
+  return {
+    execute: async ({ userId }) => {
+      const categoriesDTOs = await categoriesRepository.getAllFromUser(userId);
+
+      return {
+        categories: categoriesDTOs.map((c) => ({ ...c, user: undefined })),
+      };
+    },
+  };
 };

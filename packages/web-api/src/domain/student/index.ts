@@ -1,9 +1,5 @@
 import { PersonId } from '../person-id';
 
-interface StudentConstructorParams {
+interface StudentConstructorParams {}
 
-}
-
-export class Student {
-
-}
+export class Student {}

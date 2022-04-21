@@ -1,4 +1,4 @@
-import { CustomError} from "@common/errors";
+import { CustomError } from '@common/errors';
 import { ErrorMessages } from '@common/locales';
 
 export class InvalidEmailError extends CustomError {

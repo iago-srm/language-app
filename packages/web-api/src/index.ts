@@ -1,41 +1,43 @@
-import "reflect-metadata";
-require("dotenv-safe").config({
+import 'reflect-metadata';
+require('dotenv-safe').config({
   allowEmptyValues: true,
 });
-import { ExpressServer } from "./frameworks/http-server/app";
-import { 
-  SignUpUseCaseFactory, 
+import { ExpressServer } from './frameworks/http-server/app';
+import {
+  SignUpUseCaseFactory,
   LoginUseCaseFactory,
   GetCategoriesUseCaseFactory,
   GetExtractsUseCaseFactory,
-  CategorizeExtractsUseCaseFactory
+  CategorizeExtractsUseCaseFactory,
 } from '@application/use-cases';
-import { 
+import {
   UserRepository,
   ExtractRepository,
-  CategoryRepository
+  CategoryRepository,
 } from '@adapters/repositories';
-import { 
-  TypeORMDatabase, 
-  // InMemoryDatabase 
+import {
+  TypeORMDatabase,
+  // InMemoryDatabase
 } from '@frameworks/databases';
-import { 
-  SignUpControllerFactory, 
+import {
+  SignUpControllerFactory,
   LoginControllerFactory,
   CategorizeExtractsControllerFactory,
   GetCategoriesControllerFactory,
   GetExtractsControllerFactory,
-  ErrorHandlerControllerFactory
+  ErrorHandlerControllerFactory,
 } from '@adapters/REST-controllers';
-import {
-  AuthenticationMiddlewareControllerFactory
-} from '@adapters/REST-middleware';
+import { AuthenticationMiddlewareControllerFactory } from '@adapters/REST-middleware';
 import { ExpressControllerAdapter } from '@frameworks/http';
-import { BCryptEncryptionService, JWTTokenService, OpenBankingService } from '@frameworks/services';
+import {
+  BCryptEncryptionService,
+  JWTTokenService,
+  OpenBankingService,
+} from '@frameworks/services';
 
 (async () => {
   try {
-    const database = new TypeORMDatabase({ 
+    const database = new TypeORMDatabase({
       dbConnectionName: process.env.NODE_ENV,
       // logger: { info: console.log, error: console.error }
     });
@@ -43,56 +45,56 @@ import { BCryptEncryptionService, JWTTokenService, OpenBankingService } from '@f
 
     // services and repositories
     const userRepository = new UserRepository({ db: database });
-    const extractsRepository = new ExtractRepository({ db: database});
-    const categoriesRepository = new CategoryRepository({ db: database});
+    const extractsRepository = new ExtractRepository({ db: database });
+    const categoriesRepository = new CategoryRepository({ db: database });
     const encryptionService = new BCryptEncryptionService();
     const tokenService = new JWTTokenService();
     const openBankingService = new OpenBankingService();
 
     // use cases
-    const signUpUseCase = SignUpUseCaseFactory({ 
+    const signUpUseCase = SignUpUseCaseFactory({
       userRepository,
-      encryptionService
+      encryptionService,
     });
     const loginUseCase = LoginUseCaseFactory({
       userRepository,
       encryptionService,
-      tokenService
+      tokenService,
     });
     const categorizeExtractUseCase = CategorizeExtractsUseCaseFactory({
       extractsRepository,
-      categoriesRepository
+      categoriesRepository,
     });
     const getExtractsUseCase = GetExtractsUseCaseFactory({
       extractsRepository,
       openBankingService,
-      userRepository
+      userRepository,
     });
     const getCategoriesUseCase = GetCategoriesUseCaseFactory({
-      categoriesRepository
-    })
+      categoriesRepository,
+    });
 
     // controllers
     const signUpController = SignUpControllerFactory({
-      signUpUseCase
+      signUpUseCase,
     });
     const loginController = LoginControllerFactory({
-      loginUseCase
+      loginUseCase,
     });
     const getExtractController = GetExtractsControllerFactory({
-      getExtractsUseCase
+      getExtractsUseCase,
     });
     const getCategoriesController = GetCategoriesControllerFactory({
-      getCategoriesUseCase
+      getCategoriesUseCase,
     });
     const categorizeExtractController = CategorizeExtractsControllerFactory({
-      categorizeExtractUseCase
+      categorizeExtractUseCase,
     });
     const authMiddleware = AuthenticationMiddlewareControllerFactory({
-      tokenService
+      tokenService,
     });
     const errorHandler = ErrorHandlerControllerFactory();
-    
+
     // http server
     const expressAdapter = new ExpressControllerAdapter();
     const server = new ExpressServer({
@@ -100,27 +102,34 @@ import { BCryptEncryptionService, JWTTokenService, OpenBankingService } from '@f
       logger: { info: console.log, error: console.error },
       controllers: [
         signUpController,
-        loginController, 
-        getExtractController, 
+        loginController,
+        getExtractController,
         categorizeExtractController,
-        getCategoriesController
-      ].map(controller => ({
+        getCategoriesController,
+      ].map((controller) => ({
         middleware: controller.middleware,
         method: controller.method,
-        controller: expressAdapter.adaptControllerFunction(controller.controller),
-        path: controller.path
+        controller: expressAdapter.adaptControllerFunction(
+          controller.controller
+        ),
+        path: controller.path,
       })),
       middlewares: {
-        auth: expressAdapter.adaptMiddlewareControllerFunction(authMiddleware.controller)
+        auth: expressAdapter.adaptMiddlewareControllerFunction(
+          authMiddleware.controller
+        ),
       },
       errorHandlers: [
-        {controller: expressAdapter.adaptErrorControllerFunction(errorHandler.controller)}
-      ]
-    })
+        {
+          controller: expressAdapter.adaptErrorControllerFunction(
+            errorHandler.controller
+          ),
+        },
+      ],
+    });
 
     await server.start();
-
-  } catch(e) {
-    console.error("Server instanciating failed",e);
+  } catch (e) {
+    console.error('Server instanciating failed', e);
   }
 })();
