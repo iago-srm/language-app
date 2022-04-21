@@ -9,9 +9,9 @@ export default {
   [ErrorMessages.INVALID_TOKEN]: 'Expired token. Please login again',
   [ErrorMessages.PARAMETER_NOT_PROVIDED]:
     'Some request parameter was not provided. Please refer to the documentation.',
-  [ErrorMessages.EXTRACT_NOT_FOUND]: 'Extract not found',
-  [ErrorMessages.CATEGORY_NOT_FOUND]: 'Category not found',
   [ErrorMessages.USER_NOT_FOUND]: 'User not found',
   [ErrorMessages.MALFORMED_TOKEN]: 'Authentication token has wrong format',
   [ErrorMessages.MISSING_TOKEN]: 'Please provide an authentication token',
+  [ErrorMessages.ACTIVITY_OPTION_SHORT]: 'Activity option %{text} is too short. Minimum length is %{length}',
+  [ErrorMessages.ROUTE_NOT_FOUND]: 'Route not found'
 };
