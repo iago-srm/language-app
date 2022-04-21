@@ -1,3 +1,2 @@
-export * from './user';
-export * from './extract';
-export * from './category';
+export * from './student';
+export * from './teacher';
