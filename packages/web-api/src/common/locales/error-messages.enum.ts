@@ -8,8 +8,7 @@ export const ErrorMessages = {
   USER_NOT_FOUND: 'user_not_found',
   MISSING_TOKEN: 'missing_token',
   MALFORMED_TOKEN: 'malformed_token',
-  // ACTIVITY_OPTION_SHORT: (params) => ({ error: 'activity_option_short', params })
-  ACTIVITY_OPTION_SHORT: 'activity_option_short',
+  ACTIVITY_OPTION_LENGTH: 'activity_option_length',
   ROUTE_NOT_FOUND: 'route_not_found'
 
 }

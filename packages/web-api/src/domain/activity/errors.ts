@@ -1,12 +1,14 @@
 import { CustomError } from '@common/errors';
 import { ErrorMessages } from '@common/locales';
 
-export class ShortActivityOptionLengthError extends CustomError {
+export class InvalidActivityOptionLengthError extends CustomError {
   HTTPstatusCode = 400;
-  constructor({ text, length }: {text: string, length: number}) {
+  constructor({ text, min, max }: {text: string, min: number, max: number}) {
     super({
-      errorName: ErrorMessages.ACTIVITY_OPTION_SHORT,
-      params: { length, text }
+      errorName: ErrorMessages.ACTIVITY_OPTION_LENGTH,
+      params: { min, max, text }
     });
   }
 }
+
+

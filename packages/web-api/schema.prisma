@@ -7,19 +7,168 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum ActivityTypeValues {
+  TEXT
+  VIDEO
+}
+
+enum ActivityStatusValues {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+enum OutputStatusValues {
+  PENDING
+  FEEDBACK_GIVEN
+}
+
+enum CefrValues {
+  A1
+  A2
+  B1
+  B2
+  C1
+  C2
+}
+
+model Instructor {
+  id         String     @id @default(uuid())
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  name       String
+  email      String
+  activities Activity[]
+}
+
+model Student {
+  id        String          @id @default(uuid())
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+  name      String
+  email     String
+  cefr      CefrValues
+  outputs   StudentOutput[]
+}
+
+model StudentOutput {
+  id                  String              @id @default(uuid())
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
+  activityVersion     ActivityVersion     @relation(fields: [activityVersionId], references: [id])
+  answers             InstructionAnswer[]
+  feedbackToStudent   FeedbackToStudent   @relation(fields: [feedbackToStudentId], references: [id])
+  status              OutputStatusValues
+  Student             Student?            @relation(fields: [studentId], references: [id])
+  studentId           String?
+  activityVersionId   String
+  feedbackToStudentId String
+}
+
+model InstructionAnswer {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  studentOutput       StudentOutput?    @relation(fields: [studentOutputId], references: [id])
+  studentOutputId     String?
+  feedbackToStudent   FeedbackToStudent @relation(fields: [feedbackToStudentId], references: [id])
+  feedbackToStudentId String
+}
+
+model FeedbackToStudent {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  message String
+  grade   Int?
+
+  StudentOutput     StudentOutput[]
+  InstructionAnswer InstructionAnswer[]
+}
+
+model ActivityOption {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  ActivityInstruction   ActivityInstruction? @relation(fields: [activityInstructionId], references: [id])
+  activityInstructionId String?
+}
+
+model ActivityInstruction {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  instruction    String
+  isMultiCorrect Boolean
+
+  options ActivityOption[]
+
+  ActivityVersion   ActivityVersion? @relation(fields: [activityVersionId], references: [id])
+  activityVersionId String?
+}
+
+model FeedbackToActivity {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  activityVersion   ActivityVersion? @relation(fields: [activityVersionId], references: [id])
+  activityVersionId String?
+}
+
+model ActivityContent {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  type      ActivityTypeValues
+  videoUrl  String?
+  startTime Int?
+  endTime   Int?
+  text      String?
+
+  activity   Activity? @relation(fields: [activityId], references: [id])
+  activityId String?   @unique
+}
+
 model ActivityVersion {
-  id        String     @id @default(uuid())
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  Activity  Activity[]
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  title       String
+  description String
+
+  instructions  ActivityInstruction[]
+  feedbacks     FeedbackToActivity[]
+  StudentOutput StudentOutput[]
+
+  activity        Activity? @relation("Versions", fields: [activityId], references: [id])
+  activityId      String?
+  lastVersionOf   Activity? @relation("LastVersion", fields: [lastVersionOfId], references: [id])
+  lastVersionOfId String?   @unique
 }
 
 model Activity {
-  id                String          @id @default(uuid())
-  createdAt         DateTime        @default(now())
-  updatedAt         DateTime        @updatedAt
-  version           ActivityVersion @relation(fields: [activityVersionId], references: [id])
-  activityVersionId String
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  cefr           CefrValues
+  topic          String
+  timeToComplete Int
+  status         ActivityStatusValues
+
+  lastVersion ActivityVersion?  @relation("LastVersion")
+  versions    ActivityVersion[] @relation("Versions")
+  content     ActivityContent?
+
+  instructor   Instructor @relation(fields: [instructorId], references: [id])
+  instructorId String
 }
 
 //writing "version ActivityVersion" autocompletes the id, the @s and the one-to-many in the other table

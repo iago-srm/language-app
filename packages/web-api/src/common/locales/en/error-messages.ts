@@ -12,6 +12,6 @@ export default {
   [ErrorMessages.USER_NOT_FOUND]: 'User not found',
   [ErrorMessages.MALFORMED_TOKEN]: 'Authentication token has wrong format',
   [ErrorMessages.MISSING_TOKEN]: 'Please provide an authentication token',
-  [ErrorMessages.ACTIVITY_OPTION_SHORT]: 'Activity option %{text} is too short. Minimum length is %{length}',
+  [ErrorMessages.ACTIVITY_OPTION_LENGTH]: 'Activity option %{text} is invalid. Option length must be between %{min} and %{max} characters long.',
   [ErrorMessages.ROUTE_NOT_FOUND]: 'Route not found'
 };
