@@ -4,13 +4,13 @@ import { ErrorMessages } from '@common/locales';
 export class InvalidEmailError extends CustomError {
   HTTPstatusCode = 400;
   constructor() {
-    super(ErrorMessages.INVALID_EMAIL);
+    super({ errorName: ErrorMessages.INVALID_EMAIL });
   }
 }
 
 export class InvalidNameError extends CustomError {
   HTTPstatusCode = 400;
-  constructor() {
-    super(ErrorMessages.INVALID_NAME);
+  constructor({ min, max }) {
+    super({ errorName: ErrorMessages.INVALID_NAME, params: { min, max }});
   }
 }

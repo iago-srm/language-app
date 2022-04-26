@@ -1,8 +1,9 @@
 import { InvalidEmailError, InvalidNameError } from './errors';
+import { PersonIdRules } from './rules';
 
 interface PersonIdConstructorParams {
   id?: string;
-  emailValidator?: (email: string) => boolean;
+  emailValidator: (email: string) => boolean;
   email: string;
   name: string;
 }
@@ -14,17 +15,23 @@ export class PersonId {
 
   constructor(args: PersonIdConstructorParams) {
     this.id = args.id;
-    this.validateEmail(args.email);
+    this.validateEmail(args.email, args.emailValidator);
     this.email = args.email;
     this.validateName(args.name);
     this.name = args.name;
   }
 
-  validateEmail(email: string) {
-    if (email === 'zoado') throw new InvalidEmailError();
+  validateEmail(email: string, validator) {
+    if (!validator(email)) throw new InvalidEmailError();
   }
 
   validateName(name: string) {
-    if (name.length < 2) throw new InvalidNameError();
+    if (name.length < PersonIdRules.NAME.MIN_LENGTH ||
+      name.length > PersonIdRules.NAME.MAX_LENGTH) {
+        throw new InvalidNameError({
+          min: PersonIdRules.NAME.MIN_LENGTH,
+          max: PersonIdRules.NAME.MAX_LENGTH
+        });
+      }
   }
 }
