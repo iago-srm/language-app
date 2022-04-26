@@ -11,5 +11,6 @@ export const ErrorMessages = {
   ACTIVITY_OPTION_LENGTH: 'activity_option_length',
   ROUTE_NOT_FOUND: 'route_not_found',
   INVALID_EMAIL: 'invalid_email',
-  INVALID_NAME: 'invalid_name'
+  INVALID_NAME: 'invalid_name',
+  INVALID_CEFR: 'invalid_cefr'
 }

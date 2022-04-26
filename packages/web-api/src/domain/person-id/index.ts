@@ -1,5 +1,5 @@
 import { InvalidEmailError, InvalidNameError } from './errors';
-import { PersonIdRules } from './rules';
+import { DomainRules } from '@language-app/common';
 
 interface PersonIdConstructorParams {
   id?: string;
@@ -10,8 +10,8 @@ interface PersonIdConstructorParams {
 
 export class PersonId {
   public id?: string;
-  private email: string;
-  private name: string;
+  email: string;
+  name: string;
 
   constructor(args: PersonIdConstructorParams) {
     this.id = args.id;
@@ -26,11 +26,11 @@ export class PersonId {
   }
 
   validateName(name: string) {
-    if (name.length < PersonIdRules.NAME.MIN_LENGTH ||
-      name.length > PersonIdRules.NAME.MAX_LENGTH) {
+    if (name.length < DomainRules.PERSONID.NAME.MIN_LENGTH ||
+      name.length > DomainRules.PERSONID.NAME.MAX_LENGTH) {
         throw new InvalidNameError({
-          min: PersonIdRules.NAME.MIN_LENGTH,
-          max: PersonIdRules.NAME.MAX_LENGTH
+          min: DomainRules.PERSONID.NAME.MIN_LENGTH,
+          max: DomainRules.PERSONID.NAME.MAX_LENGTH
         });
       }
   }

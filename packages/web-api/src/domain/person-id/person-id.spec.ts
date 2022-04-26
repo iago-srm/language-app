@@ -1,8 +1,8 @@
 import { PersonId } from './index';
 import { EmailGenerator, NameGenerator, validateEmail } from '@language-app/common';
-import { PersonIdRules } from './rules';
+import { DomainRules } from '@language-app/common';
 
-describe("Tests for person-id entity", () => {
+describe("Unit Tests for person-id entity", () => {
 
   const mockName = (new NameGenerator()).getName();
   const emailGenerator = new EmailGenerator();
@@ -27,7 +27,7 @@ describe("Tests for person-id entity", () => {
     })).not.toThrow()
   })
 
-  const testCases = ['p'.repeat(PersonIdRules.NAME.MAX_LENGTH+1), 'o']
+  const testCases = ['p'.repeat(DomainRules.PERSONID.NAME.MAX_LENGTH+1), 'o']
   testCases.map(name => it("Should throw when an invalid name is passed", () => {
     try {
       new PersonId({
@@ -37,8 +37,8 @@ describe("Tests for person-id entity", () => {
       })
     } catch(e) {
       expect(e).toMatchObject({ errorName: 'invalid_name', params: {
-        min: PersonIdRules.NAME.MIN_LENGTH,
-        max: PersonIdRules.NAME.MAX_LENGTH,
+        min: DomainRules.PERSONID.NAME.MIN_LENGTH,
+        max: DomainRules.PERSONID.NAME.MAX_LENGTH,
       }})
     }
   }))
