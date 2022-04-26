@@ -1,13 +1,14 @@
 import { InvalidEmailError, InvalidNameError } from './errors';
 
 interface PersonIdConstructorParams {
-  id: string;
+  id?: string;
+  emailValidator?: (email: string) => boolean;
   email: string;
   name: string;
 }
 
 export class PersonId {
-  public id: string;
+  public id?: string;
   private email: string;
   private name: string;
 
