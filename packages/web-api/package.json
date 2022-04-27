@@ -12,7 +12,7 @@
     "start": "node -r ts-node/register/transpile-only -r tsconfig-paths/register ./dist/index.js",
     "typeorm:migration:generate": "node --require ts-node/register ./node_modules/typeorm/cli.js migration:generate -c development",
     "typeorm:migration:run": "node --require ts-node/register ./node_modules/typeorm/cli.js migration:run -c development",
-    "test": "cross-env NODE_ENV=test jest --watchAll --no-cache --runInBand src/domain/**/*.spec.ts",
+    "test": "cross-env NODE_ENV=test jest --watchAll --no-cache --runInBand src/domain/**/flashcard.spec.ts",
     "test:ci": "cross-env NODE_ENV=test jest --no-cache --runInBand",
     "format:ci": "npx prettier --check .",
     "docker:dev": "docker-compose -f docker-compose-dev.yaml up"

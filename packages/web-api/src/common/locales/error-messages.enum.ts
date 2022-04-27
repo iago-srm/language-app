@@ -12,5 +12,7 @@ export const ErrorMessages = {
   ROUTE_NOT_FOUND: 'route_not_found',
   INVALID_EMAIL: 'invalid_email',
   INVALID_NAME: 'invalid_name',
-  INVALID_CEFR: 'invalid_cefr'
+  INVALID_CEFR: 'invalid_cefr',
+  INVALID_BUCKET_VALUE: 'invalid_bucket_value',
+  INVALID_FLASHCARD_TEXT_LENGTH: 'invalid_flashcard_text_length'
 }

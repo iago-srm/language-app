@@ -1,5 +1,6 @@
 import { CustomError } from '@common/errors';
 import { ErrorMessages } from '@common/locales';
+import { DomainRules } from '@language-app/common';
 
 export class InvalidEmailError extends CustomError {
   HTTPstatusCode = 400;
@@ -10,7 +11,10 @@ export class InvalidEmailError extends CustomError {
 
 export class InvalidNameError extends CustomError {
   HTTPstatusCode = 400;
-  constructor({ min, max }) {
-    super({ errorName: ErrorMessages.INVALID_NAME, params: { min, max }});
+  constructor() {
+    super({ errorName: ErrorMessages.INVALID_NAME, params: {
+      min: DomainRules.PERSONID.NAME.MIN_LENGTH,
+      max: DomainRules.PERSONID.NAME.MAX_LENGTH
+    }});
   }
 }

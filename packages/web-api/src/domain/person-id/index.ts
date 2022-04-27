@@ -14,10 +14,11 @@ export class PersonId {
   name: string;
 
   constructor(args: PersonIdConstructorParams) {
-    this.id = args.id;
     this.validateEmail(args.email, args.emailValidator);
-    this.email = args.email;
     this.validateName(args.name);
+
+    this.id = args.id;
+    this.email = args.email;
     this.name = args.name;
   }
 
@@ -28,10 +29,7 @@ export class PersonId {
   validateName(name: string) {
     if (name.length < DomainRules.PERSONID.NAME.MIN_LENGTH ||
       name.length > DomainRules.PERSONID.NAME.MAX_LENGTH) {
-        throw new InvalidNameError({
-          min: DomainRules.PERSONID.NAME.MIN_LENGTH,
-          max: DomainRules.PERSONID.NAME.MAX_LENGTH
-        });
+        throw new InvalidNameError();
       }
   }
 }

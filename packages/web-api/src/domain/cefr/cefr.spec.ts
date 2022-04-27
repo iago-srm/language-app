@@ -1,12 +1,13 @@
-import { Cefr } from './index';
+import { Cefr } from '.';
 import { DomainRules } from '@language-app/common';
+import { ErrorMessages } from '@common/locales';
 
 describe("Unit Tests for Cefr Entity", () => {
   it("Should throw if invalid CEFR value is passed.", () => {
     try {
       new Cefr({ value: 'C3' });
     } catch(e) {
-      expect(e).toMatchObject({ errorName: 'invalid_cefr', params: {
+      expect(e).toMatchObject({ errorName: ErrorMessages.INVALID_CEFR, params: {
         possibleValues: DomainRules.CEFR.POSSIBLE_VALUES
       } })
     }

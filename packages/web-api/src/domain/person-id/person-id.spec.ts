@@ -1,6 +1,6 @@
-import { PersonId } from './index';
-import { EmailGenerator, NameGenerator, validateEmail } from '@language-app/common';
-import { DomainRules } from '@language-app/common';
+import { PersonId } from '.';
+import { EmailGenerator, NameGenerator, validateEmail, DomainRules } from '@language-app/common';
+import { ErrorMessages } from '@common/locales';
 
 describe("Unit Tests for person-id entity", () => {
 
@@ -15,7 +15,7 @@ describe("Unit Tests for person-id entity", () => {
         email
       })
     } catch(e) {
-      expect(e).toMatchObject({ errorName: 'invalid_email'})
+      expect(e).toMatchObject({ errorName: ErrorMessages.INVALID_EMAIL})
     }
   }))
 
@@ -36,7 +36,7 @@ describe("Unit Tests for person-id entity", () => {
         email: emailGenerator.getValidEmail()
       })
     } catch(e) {
-      expect(e).toMatchObject({ errorName: 'invalid_name', params: {
+      expect(e).toMatchObject({ errorName: ErrorMessages.INVALID_NAME, params: {
         min: DomainRules.PERSONID.NAME.MIN_LENGTH,
         max: DomainRules.PERSONID.NAME.MAX_LENGTH,
       }})
