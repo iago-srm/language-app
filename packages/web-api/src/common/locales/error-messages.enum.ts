@@ -9,6 +9,8 @@ export const ErrorMessages = {
   MISSING_TOKEN: 'missing_token',
   MALFORMED_TOKEN: 'malformed_token',
   ACTIVITY_OPTION_LENGTH: 'activity_option_length',
+  ACTIVITY_INSTRUCTION_LENGTH: 'activity_instruction_length',
+  ACTIVITY_INSTRUCTION_INVALID_OPTION_SET: 'invalid_activity_option_set',
   ROUTE_NOT_FOUND: 'route_not_found',
   INVALID_EMAIL: 'invalid_email',
   INVALID_NAME: 'invalid_name',

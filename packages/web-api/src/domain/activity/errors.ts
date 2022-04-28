@@ -30,4 +30,13 @@ export class InvalidActivityInstructionLengthError extends CustomError {
   }
 }
 
+export class InvalidInstructionOptionSetError extends CustomError {
+  HTTPstatusCode = 400;
+  constructor() {
+    super({
+      errorName: ErrorMessages.ACTIVITY_INSTRUCTION_INVALID_OPTION_SET
+    })
+  }
+}
+
 

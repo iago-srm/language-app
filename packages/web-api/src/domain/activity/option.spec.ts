@@ -7,7 +7,7 @@ describe("Unit Tests for ActivityOption Entity", () => {
   it("Should not throw an error if valid parameters are passed to constructor.", () => {
     expect(() => {
       new ActivityOption({ text: 'a'.repeat(DomainRules.ACTIVITY.OPTION.MIN_LENGTH), isCorrect: true });
-      new ActivityOption({ text: 'a'.repeat(DomainRules.ACTIVITY.OPTION.MAX_LENGTH), isCorrect: true })
+      new ActivityOption({ text: 'a'.repeat(DomainRules.ACTIVITY.OPTION.MAX_LENGTH), isCorrect: false })
     }).not.toThrow()
   });
 
@@ -18,7 +18,7 @@ describe("Unit Tests for ActivityOption Entity", () => {
       expect(e).toMatchObject({ errorName: ErrorMessages.ACTIVITY_OPTION_LENGTH})
     }
     try {
-      new ActivityOption({ text: 'a'.repeat(DomainRules.ACTIVITY.OPTION.MAX_LENGTH + 1), isCorrect: true })
+      new ActivityOption({ text: 'a'.repeat(DomainRules.ACTIVITY.OPTION.MAX_LENGTH + 1), isCorrect: false })
     } catch(e) {
       expect(e).toMatchObject({ errorName: ErrorMessages.ACTIVITY_OPTION_LENGTH})
     }

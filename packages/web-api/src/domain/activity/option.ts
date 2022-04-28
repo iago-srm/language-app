@@ -17,8 +17,8 @@ export class ActivityOption {
   }
 
   validateOption(text: string) {
-    if(text.length <= DomainRules.ACTIVITY.OPTION.MIN_LENGTH ||
-      text.length <= DomainRules.ACTIVITY.OPTION.MAX_LENGTH) {
+    if(text.length < DomainRules.ACTIVITY.OPTION.MIN_LENGTH ||
+      text.length > DomainRules.ACTIVITY.OPTION.MAX_LENGTH) {
       throw new InvalidActivityOptionLengthError({
         text
       })

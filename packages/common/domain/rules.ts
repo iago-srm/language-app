@@ -14,6 +14,15 @@ export const DomainRules = {
       MAX_LENGTH: 300
     },
     BUCKETS: [1,2,3,4,5,6,7]
-
+  },
+  ACTIVITY: {
+    OPTION: {
+      MIN_LENGTH: 3,
+      MAX_LENGTH: 50
+    },
+    INSTRUCTION: {
+      MIN_LENGTH: 5,
+      MAX_LENGTH: 200
+    }
   }
 }
