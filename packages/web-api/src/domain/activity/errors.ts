@@ -2,6 +2,7 @@ import { CustomError } from '@common/errors';
 import { ErrorMessages } from '@common/locales';
 import { DomainRules } from '@language-app/common';
 
+// Activity Instruction
 export class InvalidActivityOptionLengthError extends CustomError {
   HTTPstatusCode = 400;
   constructor({ text }) {
@@ -13,6 +14,15 @@ export class InvalidActivityOptionLengthError extends CustomError {
         text
       }
     });
+  }
+}
+
+export class InvalidInstructionOptionSetError extends CustomError {
+  HTTPstatusCode = 400;
+  constructor() {
+    super({
+      errorName: ErrorMessages.ACTIVITY_INSTRUCTION_INVALID_OPTION_SET
+    })
   }
 }
 
@@ -30,6 +40,7 @@ export class InvalidActivityInstructionLengthError extends CustomError {
   }
 }
 
+// Activity Title
 export class InvalidActivityTitleLengthError extends CustomError {
   HTTPstatusCode = 400;
   constructor({ text }) {
@@ -44,6 +55,7 @@ export class InvalidActivityTitleLengthError extends CustomError {
   }
 }
 
+// Activity Description
 export class InvalidActivityDescriptionLengthError extends CustomError {
   HTTPstatusCode = 400;
   constructor({ text }) {
@@ -58,12 +70,53 @@ export class InvalidActivityDescriptionLengthError extends CustomError {
   }
 }
 
-export class InvalidInstructionOptionSetError extends CustomError {
+// Activity Content
+export class InvalidActivityTypeError extends CustomError {
+  HTTPstatusCode = 400;
+  constructor({ type }) {
+    super({
+      errorName: ErrorMessages.ACTIVITY_TYPE,
+      params: {
+        validTypes: DomainRules.ACTIVITY.TYPES,
+        type
+      }
+    });
+  }
+}
+
+export class InvalidVideoUrlError extends CustomError {
   HTTPstatusCode = 400;
   constructor() {
     super({
-      errorName: ErrorMessages.ACTIVITY_INSTRUCTION_INVALID_OPTION_SET
-    })
+      errorName: ErrorMessages.ACTIVITY_VIDEO_URL,
+    });
+  }
+}
+
+export class InvalidVideoTimesError extends CustomError {
+  HTTPstatusCode = 400;
+  constructor() {
+    super({
+      errorName: ErrorMessages.ACTIVITY_VIDEO_TIMES,
+    });
+  }
+}
+
+export class InvalidVideoLengthError extends CustomError {
+  HTTPstatusCode = 400;
+  constructor() {
+    super({
+      errorName: ErrorMessages.ACTIVITY_VIDEO_LENGTH,
+    });
+  }
+}
+
+export class InvalidTextLengthError extends CustomError {
+  HTTPstatusCode = 400;
+  constructor() {
+    super({
+      errorName: ErrorMessages.ACTIVITY_TEXT_LENGTH,
+    });
   }
 }
 
