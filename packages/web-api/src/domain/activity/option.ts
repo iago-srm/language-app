@@ -1,4 +1,4 @@
-import { ActivityRules } from './rules';
+import { DomainRules } from '@language-app/common';
 import { InvalidActivityOptionLengthError } from './errors';
 
 interface ActivityOptionConstructorParams {
@@ -17,12 +17,10 @@ export class ActivityOption {
   }
 
   validateOption(text: string) {
-    if(text.length < ActivityRules.OPTION.MIN_LENGTH ||
-      text.length < ActivityRules.OPTION.MAX_LENGTH) {
+    if(text.length <= DomainRules.ACTIVITY.OPTION.MIN_LENGTH ||
+      text.length <= DomainRules.ACTIVITY.OPTION.MAX_LENGTH) {
       throw new InvalidActivityOptionLengthError({
-        text,
-        min: ActivityRules.OPTION.MIN_LENGTH,
-        max: ActivityRules.OPTION.MAX_LENGTH
+        text
       })
     }
   }

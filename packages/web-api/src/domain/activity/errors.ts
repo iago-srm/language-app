@@ -1,12 +1,31 @@
 import { CustomError } from '@common/errors';
 import { ErrorMessages } from '@common/locales';
+import { DomainRules } from '@language-app/common';
 
 export class InvalidActivityOptionLengthError extends CustomError {
   HTTPstatusCode = 400;
-  constructor({ text, min, max }: {text: string, min: number, max: number}) {
+  constructor({ text }) {
     super({
       errorName: ErrorMessages.ACTIVITY_OPTION_LENGTH,
-      params: { min, max, text }
+      params: {
+        min: DomainRules.ACTIVITY.OPTION.MIN_LENGTH,
+        max: DomainRules.ACTIVITY.OPTION.MAX_LENGTH,
+        text
+      }
+    });
+  }
+}
+
+export class InvalidActivityInstructionLengthError extends CustomError {
+  HTTPstatusCode = 400;
+  constructor({ text }) {
+    super({
+      errorName: ErrorMessages.ACTIVITY_INSTRUCTION_LENGTH,
+      params: {
+        min: DomainRules.ACTIVITY.INSTRUCTION.MIN_LENGTH,
+        max: DomainRules.ACTIVITY.INSTRUCTION.MAX_LENGTH,
+        text
+      }
     });
   }
 }
