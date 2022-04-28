@@ -55,8 +55,7 @@ describe("Unit Tests for flashcard entity", () => {
     { currentTime: new Date(2023,4,1), bucket: 7, nextDue: new Date(2023,6,4).valueOf() },
     // leap year: February has 29 days
     { currentTime: new Date(2024,1,27), bucket: 3, nextDue: new Date(2024,2,2).valueOf() },
-    { currentTime: new Date(2023,1,27), bucket: 3, nextDue: new Date(2023,2,3).valueOf() },
-
+    { currentTime: new Date(2023,1,27), bucket: 3, nextDue: new Date(2023,2,3).valueOf() }
   ]
 
   testCasesMoveBucket.map(({ currentTime, bucket, nextDue }) => it("Should move card to next bucket and set nextDue correctly.", () => {
@@ -64,6 +63,22 @@ describe("Unit Tests for flashcard entity", () => {
     const sut = new FlashCard({ bucket })
     sut.move()
     expect(sut.bucket).toBe(bucket+1)
+    expect(sut.nextDue).toBe(nextDue)
+  }));
+
+  const testCasesReset = [
+    // 1 day
+    { currentTime: new Date(2023,6,27), bucket: 1, nextDue: new Date(2023,6,28).valueOf() },
+    { currentTime: new Date(2023,0,31), bucket: 2, nextDue: new Date(2023,1,1).valueOf() },
+    { currentTime: new Date(2023,11,30), bucket: 3, nextDue: new Date(2023,11,31).valueOf() },
+  ]
+
+
+  testCasesReset.map(({ currentTime, bucket, nextDue }) => it("Should move card to next bucket and set nextDue correctly.", () => {
+    jest.useFakeTimers('modern').setSystemTime(currentTime)
+    const sut = new FlashCard({ bucket })
+    sut.reset()
+    expect(sut.bucket).toBe(1)
     expect(sut.nextDue).toBe(nextDue)
   }));
 

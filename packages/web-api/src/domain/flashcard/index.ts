@@ -33,8 +33,8 @@ export class FlashCard {
 
   validateTexts(texts: string[]) {
     texts.forEach(text => {
-      if(text.length > DomainRules.FLASHCARD.TEXT.MAX_LENGTH ||
-        text.length < DomainRules.FLASHCARD.TEXT.MIN_LENGTH) {
+      if(text.length >= DomainRules.FLASHCARD.TEXT.MAX_LENGTH ||
+        text.length <= DomainRules.FLASHCARD.TEXT.MIN_LENGTH) {
           throw new InvalidFlashcardTextLengthError()
         }
     })
