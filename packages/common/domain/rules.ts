@@ -23,6 +23,14 @@ export const DomainRules = {
     INSTRUCTION: {
       MIN_LENGTH: 5,
       MAX_LENGTH: 200
-    }
+    },
+    TITLE: {
+      MIN_LENGTH: 5,
+      MAX_LENGTH: 100
+    },
+    DESCRIPTION: {
+      MIN_LENGTH: 5,
+      MAX_LENGTH: 200
+    },
   }
 }

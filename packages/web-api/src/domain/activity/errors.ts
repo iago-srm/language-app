@@ -30,6 +30,34 @@ export class InvalidActivityInstructionLengthError extends CustomError {
   }
 }
 
+export class InvalidActivityTitleLengthError extends CustomError {
+  HTTPstatusCode = 400;
+  constructor({ text }) {
+    super({
+      errorName: ErrorMessages.ACTIVITY_TITLE_LENGTH,
+      params: {
+        min: DomainRules.ACTIVITY.TITLE.MIN_LENGTH,
+        max: DomainRules.ACTIVITY.TITLE.MAX_LENGTH,
+        text
+      }
+    });
+  }
+}
+
+export class InvalidActivityDescriptionLengthError extends CustomError {
+  HTTPstatusCode = 400;
+  constructor({ text }) {
+    super({
+      errorName: ErrorMessages.ACTIVITY_DESCRIPTION_LENGTH,
+      params: {
+        min: DomainRules.ACTIVITY.DESCRIPTION.MIN_LENGTH,
+        max: DomainRules.ACTIVITY.DESCRIPTION.MAX_LENGTH,
+        text
+      }
+    });
+  }
+}
+
 export class InvalidInstructionOptionSetError extends CustomError {
   HTTPstatusCode = 400;
   constructor() {

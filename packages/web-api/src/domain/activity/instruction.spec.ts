@@ -12,7 +12,7 @@ describe("Unit Tests for ActivityInstruction Entity", () => {
     }).not.toThrow()
   });
 
-  it("Should throw na error if invalid parameters are passed to constructor.", () => {
+  it("Should throw an error if invalid parameters are passed to constructor.", () => {
     try {
       new ActivityInstruction({ text: 'a'.repeat(DomainRules.ACTIVITY.INSTRUCTION.MIN_LENGTH - 1), isCheckbox: true });
     } catch (e) {
