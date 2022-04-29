@@ -27,19 +27,20 @@ export class ActivityContent {
 
   constructor(args: ActivityContentConstructorParams) {
     this.validateAndSetType(args.type);
+    this.validators = args.validators;
     this.validateAndSetUrl(args.videoUrl);
     this.validateAndSetTimes(args.startTime,args.endTime);
   }
 
   validateAndSetType(type: string) {
-    if(!DomainRules.ACTIVITY.TYPES.includes(type)) throw new InvalidActivityTypeError({ type });
+    if(!DomainRules.ACTIVITY.TYPES.ALL.includes(type)) throw new InvalidActivityTypeError({ type });
     this.type = type;
   }
 
   validateAndSetUrl(url: string) {
-    if(!url) return;
-    if(this.type === 'YOUTUBE') {
-      if(!this.validators['youtube'].validate(url)) throw new InvalidVideoUrlError();
+    if(!url || !this.validators) return;
+    if(DomainRules.ACTIVITY.TYPES.ALL.includes(this.type)) {
+      if(!this.validators[this.type].validate(url)) throw new InvalidVideoUrlError();
     }
     this.videoUrl = url;
   }

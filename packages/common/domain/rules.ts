@@ -32,7 +32,11 @@ export const DomainRules = {
       MIN_LENGTH: 5,
       MAX_LENGTH: 200
     },
-    TYPES: ['TEXT', 'YOUTUBE'],
+    TYPES: {
+      READING: ['TEXT'],
+      LISTENING: ['YOUTUBE'],
+      ALL: ['TEXT', 'YOUTUBE']
+    },
     MAX_VIDEO_LENGTH: 10*60, // in seconds. 10 min max
     MAX_TEXT_LENGTH: 2000 // in characters
   }
