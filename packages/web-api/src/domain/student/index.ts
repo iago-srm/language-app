@@ -1,3 +1,2 @@
-
-
-export class StudentOutput {}
+export * from './output';
+export * from './student';

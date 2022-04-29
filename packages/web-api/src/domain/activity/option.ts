@@ -1,5 +1,5 @@
 import { DomainRules } from '@language-app/common';
-import { InvalidActivityOptionLengthError } from './errors';
+import { InvalidActivityOptionLengthError } from '../errors';
 
 interface ActivityOptionConstructorParams {
   text: string;

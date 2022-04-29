@@ -1,5 +1,5 @@
 import { DomainRules } from '@language-app/common';
-import { InvalidCEFRError } from './errors';
+import { InvalidCEFRError } from '../errors';
 
 interface CEFRConstructorParams {
   value: string;

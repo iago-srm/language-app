@@ -19,12 +19,13 @@ export const ErrorMessages = {
   ACTIVITY_VIDEO_URL: 'activity_video_url',
   ACTIVITY_TOPIC: 'activity_topic',
   ACTIVITY_TIME_TO_COMPLETE: 'activity_time_to_complete',
-  ACTIVITY_INSTRUCTION_INVALID_OPTION_SET: 'invalid_activity_option_set',
+  ACTIVITY_INSTRUCTION_INVALID_OPTION_SET: 'activity_option_set',
   ROUTE_NOT_FOUND: 'route_not_found',
-  INVALID_EMAIL: 'invalid_email',
-  INVALID_NAME: 'invalid_name',
-  INVALID_CEFR: 'invalid_cefr',
-  INVALID_BUCKET_VALUE: 'invalid_bucket_value',
-  INVALID_FLASHCARD_TEXT_LENGTH: 'invalid_flashcard_text_length',
-
+  EMAIL: 'email',
+  NAME: 'name',
+  CEFR: 'cefr',
+  BUCKET_VALUE: 'bucket_value',
+  FLASHCARD_TEXT_LENGTH: 'flashcard_text_length',
+  FEEDBACK_GRADE: 'feedback_grade',
+  FEEDBACK_MESSAGE: 'feedback_message'
 }

@@ -2,7 +2,7 @@ import { DomainRules } from '@language-app/common';
 import {
   InvalidBucketValueError,
   InvalidFlashcardTextLengthError
-} from './errors';
+} from '../errors';
 
 export interface FlashCardConstructorParams {
   nextDue: string;

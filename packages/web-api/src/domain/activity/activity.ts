@@ -8,7 +8,7 @@ import { DomainRules } from '@language-app/common';
 import {
   InvalidActivityTimeToCompleteError,
   InvalidActivityTopicError
-} from './errors';
+} from '../errors';
 
 interface ActivityConstructorParams {
   topic: string;

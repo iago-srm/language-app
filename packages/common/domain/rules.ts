@@ -42,5 +42,9 @@ export const DomainRules = {
     STATUS: ['PENDING', 'ACCEPTED', 'REJECTED'],
     MAX_TIME_TO_COMPLETE: 30, // in minutes
     TOPICS: ['SCIENCE & TECHONOLOGY', 'ARTS', 'CURRENT AFFAIRS', 'SPORTS']
+  },
+  FEEDBACK: {
+    GRADES: [1,2,3,4,5],
+    MAX_LENGTH: 500 // in characters
   }
 }

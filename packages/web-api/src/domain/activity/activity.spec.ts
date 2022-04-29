@@ -1,7 +1,6 @@
 import { Activity } from '.';
 import { DomainRules } from '@language-app/common';
 import { ErrorMessages } from '@common/locales';
-import { jest } from '@jest/globals';
 
 describe("Unit Tests for Activity Entity", () => {
 

@@ -1,12 +1,13 @@
-import { FeedbackToActivity } from "../feedback";
-import { ActivityInstruction } from './instruction';
-import { StudentOutput } from '../student';
+import {
+  FeedbackToActivity,
+  ActivityInstruction,
+  StudentOutput
+} from "@domain";
 import { DomainRules } from '@language-app/common';
 import {
   InvalidActivityTitleLengthError,
   InvalidActivityDescriptionLengthError
-} from './errors';
-
+} from '../errors';
 
 interface ActivityVersionConstructorParams {
   title: string;

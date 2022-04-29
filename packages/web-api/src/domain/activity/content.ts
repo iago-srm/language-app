@@ -5,7 +5,7 @@ import {
   InvalidVideoTimesError,
   InvalidVideoLengthError,
   InvalidTextLengthError
-} from './errors';
+} from '../errors';
 
 type Validators = {[key: string]: { validate: (url: string) => boolean }};
 interface ActivityContentConstructorParams {

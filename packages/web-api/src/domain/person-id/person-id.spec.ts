@@ -15,7 +15,7 @@ describe("Unit Tests for person-id entity", () => {
         email
       })
     } catch(e) {
-      expect(e).toMatchObject({ errorName: ErrorMessages.INVALID_EMAIL})
+      expect(e).toMatchObject({ errorName: ErrorMessages.EMAIL})
     }
   }))
 
@@ -36,7 +36,7 @@ describe("Unit Tests for person-id entity", () => {
         email: emailGenerator.getValidEmail()
       })
     } catch(e) {
-      expect(e).toMatchObject({ errorName: ErrorMessages.INVALID_NAME, params: {
+      expect(e).toMatchObject({ errorName: ErrorMessages.NAME, params: {
         min: DomainRules.PERSONID.NAME.MIN_LENGTH,
         max: DomainRules.PERSONID.NAME.MAX_LENGTH,
       }})

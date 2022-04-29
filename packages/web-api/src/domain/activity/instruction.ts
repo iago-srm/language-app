@@ -2,7 +2,7 @@ import { DomainRules } from '@language-app/common';
 import {
   InvalidActivityInstructionLengthError,
   InvalidInstructionOptionSetError
-} from './errors';
+} from '../errors';
 import { ActivityOption } from './option';
 
 interface ActivityInstructionConstructorParams {

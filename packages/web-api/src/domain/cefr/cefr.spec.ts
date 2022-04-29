@@ -7,7 +7,7 @@ describe("Unit Tests for Cefr Entity", () => {
     try {
       new Cefr({ value: 'C3' });
     } catch(e) {
-      expect(e).toMatchObject({ errorName: ErrorMessages.INVALID_CEFR, params: {
+      expect(e).toMatchObject({ errorName: ErrorMessages.CEFR, params: {
         possibleValues: DomainRules.CEFR.POSSIBLE_VALUES
       } })
     }

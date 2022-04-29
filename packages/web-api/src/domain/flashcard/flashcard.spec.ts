@@ -11,7 +11,7 @@ describe("Unit Tests for flashcard entity", () => {
         bucket
       })
     } catch(e) {
-      expect(e).toMatchObject({ errorName: ErrorMessages.INVALID_BUCKET_VALUE})
+      expect(e).toMatchObject({ errorName: ErrorMessages.BUCKET_VALUE})
     }
   }));
 
@@ -25,7 +25,7 @@ describe("Unit Tests for flashcard entity", () => {
     try {
       new FlashCard({ front, back})
     } catch(e) {
-      expect(e).toMatchObject({ errorName: ErrorMessages.INVALID_FLASHCARD_TEXT_LENGTH })
+      expect(e).toMatchObject({ errorName: ErrorMessages.FLASHCARD_TEXT_LENGTH })
     }
   }));
 
