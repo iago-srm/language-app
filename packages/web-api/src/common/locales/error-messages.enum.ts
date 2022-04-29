@@ -17,6 +17,8 @@ export const ErrorMessages = {
   ACTIVITY_TEXT_LENGTH: 'activity_text_length',
   ACTIVITY_TYPE: 'activity_type',
   ACTIVITY_VIDEO_URL: 'activity_video_url',
+  ACTIVITY_TOPIC: 'activity_topic',
+  ACTIVITY_TIME_TO_COMPLETE: 'activity_time_to_complete',
   ACTIVITY_INSTRUCTION_INVALID_OPTION_SET: 'invalid_activity_option_set',
   ROUTE_NOT_FOUND: 'route_not_found',
   INVALID_EMAIL: 'invalid_email',

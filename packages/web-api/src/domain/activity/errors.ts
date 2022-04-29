@@ -120,4 +120,24 @@ export class InvalidTextLengthError extends CustomError {
   }
 }
 
+// Activity
+export class InvalidActivityTopicError extends CustomError {
+  HTTPstatusCode = 400;
+  constructor({ text }) {
+    super({
+      errorName: ErrorMessages.ACTIVITY_TOPIC,
+      params: { text }
+    });
+  }
+}
+
+export class InvalidActivityTimeToCompleteError extends CustomError {
+  HTTPstatusCode = 400;
+  constructor() {
+    super({
+      errorName: ErrorMessages.ACTIVITY_TIME_TO_COMPLETE,
+    });
+  }
+}
+
 

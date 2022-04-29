@@ -2,7 +2,6 @@ import { ActivityContent } from './content';
 import { DomainRules } from '@language-app/common';
 import { ErrorMessages } from '@common/locales';
 import { jest } from '@jest/globals';
-import { JsxEmit } from 'typescript';
 
 describe("Unit Tests for ActivityContent Entity", () => {
 
@@ -63,6 +62,17 @@ describe("Unit Tests for ActivityContent Entity", () => {
       startTime: 0,
       endTime: DomainRules.ACTIVITY.MAX_VIDEO_LENGTH - 1
     }))
+  });
+
+  it("Should throw na error if text activity is too long.", () => {
+    try {
+      new ActivityContent({
+        type: 'TEXT',
+        text: 'a'.repeat(DomainRules.ACTIVITY.MAX_TEXT_LENGTH+1)
+      });
+    } catch (e) {
+      expect(e).toMatchObject({ errorName: ErrorMessages.ACTIVITY_TEXT_LENGTH })
+    }
   })
 })
 

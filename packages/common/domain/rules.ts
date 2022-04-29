@@ -38,6 +38,9 @@ export const DomainRules = {
       ALL: ['TEXT', 'YOUTUBE']
     },
     MAX_VIDEO_LENGTH: 10*60, // in seconds. 10 min max
-    MAX_TEXT_LENGTH: 2000 // in characters
+    MAX_TEXT_LENGTH: 2000, // in characters
+    STATUS: ['PENDING', 'ACCEPTED', 'REJECTED'],
+    MAX_TIME_TO_COMPLETE: 30, // in minutes
+    TOPICS: ['SCIENCE & TECHONOLOGY', 'ARTS', 'CURRENT AFFAIRS', 'SPORTS']
   }
 }

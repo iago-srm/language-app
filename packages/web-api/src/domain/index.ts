@@ -1,2 +1,6 @@
 export * from './student';
-export * from './teacher';
+export * from './instructor';
+export * from './flashcard';
+export * from './activity';
+export * from './cefr';
+export * from './feedback';
