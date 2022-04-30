@@ -9,10 +9,10 @@ export class Cefr {
   value: string;
 
   constructor(args: CEFRConstructorParams) {
-    this.validateAndSetValue(args.value);
+    this.setValue(args.value);
   }
 
-  validateAndSetValue(value: string) {
+  setValue(value: string) {
     if(!DomainRules.CEFR.POSSIBLE_VALUES.includes(value)) throw new InvalidCEFRError()
     this.value = value;
   }

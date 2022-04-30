@@ -14,18 +14,18 @@ export class PersonId {
   name: string;
 
   constructor(args: PersonIdConstructorParams) {
-    this.validateAndSetEmail(args.email, args.emailValidator);
-    this.validateAndSetName(args.name);
+    this.setEmail(args.email, args.emailValidator);
+    this.setName(args.name);
 
     this.id = args.id;
   }
 
-  validateAndSetEmail(email: string, validator) {
+  setEmail(email: string, validator) {
     if (!validator(email)) throw new InvalidEmailError();
     this.email = email;
   }
 
-  validateAndSetName(name: string) {
+  setName(name: string) {
     if (name.length < DomainRules.PERSONID.NAME.MIN_LENGTH ||
       name.length > DomainRules.PERSONID.NAME.MAX_LENGTH) {
         throw new InvalidNameError();

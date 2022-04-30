@@ -11,16 +11,16 @@ export class Feedback {
   message: string;
 
   constructor(args: FeedbackConstructorParams) {
-    this.validateAndSetGrade(args.grade);
-    this.validateAndSetMessage(args.message);
+    this.setGrade(args.grade);
+    this.setMessage(args.message);
   }
 
-  validateAndSetGrade(grade: number) {
+  setGrade(grade: number) {
     if(isNaN(Number(grade)) || !DomainRules.FEEDBACK.GRADES.includes(grade)) throw new InvalidGradeError();
     this.grade = grade;
   }
 
-  validateAndSetMessage(message: string) {
+  setMessage(message: string) {
     if(message.length > DomainRules.FEEDBACK.MAX_LENGTH) throw new InvalidFeedbackMessageError();
     this.message = message;
   }
