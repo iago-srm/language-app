@@ -27,17 +27,17 @@ export class Activity {
   content: ActivityContent;
 
   constructor(args: ActivityConstructorParams) {
-    this.validateAndSetTopic(args.topic);
-    this.validateAndSetTimeToComplete(args.timeToComplete);
+    this.setTopic(args.topic);
+    this.setTimeToComplete(args.timeToComplete);
     this.status = 'PENDING'
   }
 
-  validateAndSetTopic(topic: string) {
+  setTopic(topic: string) {
     if(!DomainRules.ACTIVITY.TOPICS.includes(topic)) throw new InvalidActivityTopicError({ text: topic })
     this.topic = topic;
   }
 
-  validateAndSetTimeToComplete(timeToComplete: number) {
+  setTimeToComplete(timeToComplete: number) {
     if(timeToComplete > DomainRules.ACTIVITY.MAX_TIME_TO_COMPLETE) throw new InvalidActivityTimeToCompleteError();
     this.timeToComplete = timeToComplete;
   }

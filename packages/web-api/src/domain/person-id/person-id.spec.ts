@@ -20,11 +20,14 @@ describe("Unit Tests for person-id entity", () => {
   }))
 
   it("Should create object when valid e-mail and name are passed.", () => {
-    expect(() => new PersonId({
+    const email = emailGenerator.getValidEmail()
+    const pid = new PersonId({
       name: mockName,
       emailValidator: validateEmail,
-      email: emailGenerator.getValidEmail()
-    })).not.toThrow()
+      email
+    });
+    expect(pid.email).toEqual(email);
+    expect(pid.name).toEqual(mockName);
   })
 
   const testCases = ['p'.repeat(DomainRules.PERSONID.NAME.MAX_LENGTH+1), 'o']

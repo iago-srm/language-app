@@ -11,17 +11,17 @@ export class ActivityOption {
   isCorrect: boolean;
 
   constructor(args: ActivityOptionConstructorParams) {
-    this.validateOption(args.text);
-    this.text = args.text;
+    this.setOption(args.text);
     this.isCorrect = args.isCorrect;
   }
 
-  validateOption(text: string) {
+  setOption(text: string) {
     if(text.length < DomainRules.ACTIVITY.OPTION.MIN_LENGTH ||
       text.length > DomainRules.ACTIVITY.OPTION.MAX_LENGTH) {
       throw new InvalidActivityOptionLengthError({
         text
       })
     }
+    this.text = text;
   }
 }

@@ -6,10 +6,14 @@ import { ActivityOption } from './option';
 describe("Unit Tests for ActivityInstruction Entity", () => {
 
   it("Should not throw an error if valid parameters are passed to constructor.", () => {
-    expect(() => {
-      new ActivityInstruction({ text: 'a'.repeat(DomainRules.ACTIVITY.INSTRUCTION.MIN_LENGTH), isCheckbox: true });
-      new ActivityInstruction({ text: 'a'.repeat(DomainRules.ACTIVITY.INSTRUCTION.MAX_LENGTH), isCheckbox: false })
-    }).not.toThrow()
+    const instructionMax = 'a'.repeat(DomainRules.ACTIVITY.INSTRUCTION.MAX_LENGTH);
+    const instructionMin = 'a'.repeat(DomainRules.ACTIVITY.INSTRUCTION.MIN_LENGTH);
+    const sut1 = new ActivityInstruction({ text: instructionMin, isCheckbox: true });
+    const sut2 = new ActivityInstruction({ text: instructionMax, isCheckbox: false });
+    expect(sut1.text).toEqual(instructionMin);
+    expect(sut1.isCheckbox).toEqual(true);
+    expect(sut2.text).toEqual(instructionMax);
+    expect(sut2.isCheckbox).toEqual(false);
   });
 
   it("Should throw an error if invalid parameters are passed to constructor.", () => {
@@ -91,7 +95,7 @@ describe("Unit Tests for ActivityInstruction Entity", () => {
     }
   })
 
-  it("Should not throw an error if valid option set is passed to addOptions method.", () => {
+  it("Should not throw an error if valid option set is passed to addOptions method, and set options correctly", () => {
     const options = [
       new ActivityOption({ text: 'nosnsidunceib', isCorrect: false}),
       new ActivityOption({ text: 'nosnsidunceib', isCorrect: false}),
@@ -105,7 +109,8 @@ describe("Unit Tests for ActivityInstruction Entity", () => {
       isCheckbox: false
     });
 
-    expect(() => instruction.addOptions(options)).not.toThrow();
+    instruction.addOptions(options);
+    expect(instruction.options).toStrictEqual(options);
   })
 
   it("Should allow for checkbox instructions to have none, many or all correct options", () => {

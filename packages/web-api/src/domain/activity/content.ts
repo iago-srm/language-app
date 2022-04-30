@@ -26,18 +26,18 @@ export class ActivityContent {
   text?: string;
 
   constructor(args: ActivityContentConstructorParams) {
-    this.validateAndSetType(args.type);
+    this.setType(args.type);
     this.validators = args.validators;
-    this.validateAndSetUrl(args.videoUrl);
-    this.validateAndSetTimes(args.startTime,args.endTime);
+    this.setUrl(args.videoUrl);
+    this.setTimes(args.startTime,args.endTime);
   }
 
-  validateAndSetType(type: string) {
+  setType(type: string) {
     if(!DomainRules.ACTIVITY.TYPES.ALL.includes(type)) throw new InvalidActivityTypeError({ type });
     this.type = type;
   }
 
-  validateAndSetUrl(url: string) {
+  setUrl(url: string) {
     if(!url || !this.validators) return;
     if(DomainRules.ACTIVITY.TYPES.ALL.includes(this.type)) {
       if(!this.validators[this.type].validate(url)) throw new InvalidVideoUrlError();
@@ -45,8 +45,8 @@ export class ActivityContent {
     this.videoUrl = url;
   }
 
-  validateAndSetTimes(start: number, end: number) {
-    if(!start || !end) return;
+  setTimes(start: number, end: number) {
+    if(start === undefined || end === undefined) return; // can't do !start because it can be zero
     if(start > end) throw new InvalidVideoTimesError();
     if(end - start > DomainRules.ACTIVITY.MAX_VIDEO_LENGTH) throw new InvalidVideoLengthError()
     this.startTime = start;

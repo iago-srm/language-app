@@ -23,27 +23,27 @@ export class ActivityVersion {
   studentOutputs: StudentOutput[];
 
   constructor(args: ActivityVersionConstructorParams) {
-    this.validateTitle(args.title);
-    this.validateDescription(args.description);
-    this.title = args.title;
-    this.description = args.description;
+    this.setTitle(args.title);
+    this.setDescription(args.description);
   }
 
-  validateTitle(text) {
+  setTitle(text) {
     if(text.length < DomainRules.ACTIVITY.TITLE.MIN_LENGTH ||
       text.length > DomainRules.ACTIVITY.TITLE.MAX_LENGTH) {
       throw new InvalidActivityTitleLengthError({
         text
       })
     }
+    this.title = text;
   }
 
-  validateDescription(text) {
+  setDescription(text) {
     if(text.length < DomainRules.ACTIVITY.DESCRIPTION.MIN_LENGTH ||
       text.length > DomainRules.ACTIVITY.DESCRIPTION.MAX_LENGTH) {
       throw new InvalidActivityDescriptionLengthError({
         text
       })
     }
+    this.description = text;
   }
 }

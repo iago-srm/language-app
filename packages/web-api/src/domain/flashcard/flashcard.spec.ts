@@ -30,13 +30,10 @@ describe("Unit Tests for flashcard entity", () => {
   }));
 
   DomainRules.FLASHCARD.BUCKETS.map(bucket => it("Should not throw if valid values are passed.", () => {
-      expect(() => new FlashCard({ bucket })).not.toThrow()
+      const flashcard = new FlashCard({ bucket });
+      expect(flashcard.bucket).toEqual(bucket);
     })
   );
-
-  beforeEach(() => {
-    jest.useFakeTimers('modern').setSystemTime(new Date(2023,6,27))
-  });
 
   const testCasesMoveBucket = [
     // 1 day

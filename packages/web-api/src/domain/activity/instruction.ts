@@ -16,18 +16,18 @@ export class ActivityInstruction {
   options?: ActivityOption[];
 
   constructor(args: ActivityInstructionConstructorParams) {
-    this.validateInstruction(args.text);
-    this.text = args.text;
+    this.setInstruction(args.text);
     this.isCheckbox = args.isCheckbox;
   }
 
-  validateInstruction(text: string) {
+  setInstruction(text: string) {
     if(text.length < DomainRules.ACTIVITY.INSTRUCTION.MIN_LENGTH ||
       text.length > DomainRules.ACTIVITY.INSTRUCTION.MAX_LENGTH) {
       throw new InvalidActivityInstructionLengthError({
         text
       })
     }
+    this.text = text;
   }
 
   // if instruction is no checkbox type (is, therefore, radio), one and only one correct option is allowed.

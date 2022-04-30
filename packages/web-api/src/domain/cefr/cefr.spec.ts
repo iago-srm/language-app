@@ -15,8 +15,7 @@ describe("Unit Tests for Cefr Entity", () => {
 
 
   DomainRules.CEFR.POSSIBLE_VALUES.map(cefr => it("Should not throw if valid CEFR value is passed.", () => {
-    expect(() => {
-      new Cefr({ value: cefr })
-    }).not.toThrow()
+    const sut = new Cefr({ value: cefr });
+    expect(sut.value).toEqual(cefr);
   }))
 })

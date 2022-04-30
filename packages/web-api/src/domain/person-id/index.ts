@@ -14,22 +14,22 @@ export class PersonId {
   name: string;
 
   constructor(args: PersonIdConstructorParams) {
-    this.validateEmail(args.email, args.emailValidator);
-    this.validateName(args.name);
+    this.validateAndSetEmail(args.email, args.emailValidator);
+    this.validateAndSetName(args.name);
 
     this.id = args.id;
-    this.email = args.email;
-    this.name = args.name;
   }
 
-  validateEmail(email: string, validator) {
+  validateAndSetEmail(email: string, validator) {
     if (!validator(email)) throw new InvalidEmailError();
+    this.email = email;
   }
 
-  validateName(name: string) {
+  validateAndSetName(name: string) {
     if (name.length < DomainRules.PERSONID.NAME.MIN_LENGTH ||
       name.length > DomainRules.PERSONID.NAME.MAX_LENGTH) {
         throw new InvalidNameError();
       }
+      this.name = name;
   }
 }

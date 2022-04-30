@@ -20,24 +20,25 @@ export class FlashCard {
   nextDue: number;
 
   constructor(args: Partial<FlashCardConstructorParams>) {
-    if(args.bucket) this.validateBucket(args.bucket);
-    if(args.front && args.back) this.validateTexts([args.front, args.back]);
-    this.bucket = args.bucket;
+    if(args.bucket) this.validateAndSetBucket(args.bucket);
+    if(args.front && args.back) this.validateAndSetTexts({ front: args.front, back: args.back });
   }
 
-  validateBucket(bucket: number) {
-    if(!bucket || !DomainRules.FLASHCARD.BUCKETS.includes(bucket)) {
-      throw new InvalidBucketValueError()
-    }
+  validateAndSetBucket(bucket: number) {
+    if(!bucket || !DomainRules.FLASHCARD.BUCKETS.includes(bucket)) throw new InvalidBucketValueError()
+    this.bucket = bucket;
   }
 
-  validateTexts(texts: string[]) {
-    texts.forEach(text => {
+  validateAndSetTexts(args: { front: string, back: string}) {
+    const { front, back } = args;
+    [front, back].forEach(text => {
       if(text.length >= DomainRules.FLASHCARD.TEXT.MAX_LENGTH ||
         text.length <= DomainRules.FLASHCARD.TEXT.MIN_LENGTH) {
           throw new InvalidFlashcardTextLengthError()
         }
-    })
+    });
+    this.front = front;
+    this.back = back;
   }
 
   setNextDue() {
