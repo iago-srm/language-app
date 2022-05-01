@@ -33,36 +33,42 @@ enum CefrValues {
 }
 
 model Instructor {
-  id         String     @id @default(uuid())
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
-  name       String
-  email      String
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name  String
+  email String
+
   activities Activity[]
 }
 
 model Student {
-  id        String          @id @default(uuid())
-  createdAt DateTime        @default(now())
-  updatedAt DateTime        @updatedAt
-  name      String
-  email     String
-  cefr      CefrValues
-  outputs   StudentOutput[]
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name  String
+  email String
+
+  cefr    CefrValues
+  outputs StudentOutput[]
 }
 
+// output to an activity version
 model StudentOutput {
-  id                  String              @id @default(uuid())
-  createdAt           DateTime            @default(now())
-  updatedAt           DateTime            @updatedAt
-  activityVersion     ActivityVersion     @relation(fields: [activityVersionId], references: [id])
-  answers             InstructionAnswer[]
-  feedbackToStudent   FeedbackToStudent   @relation(fields: [feedbackToStudentId], references: [id])
-  status              OutputStatusValues
-  Student             Student?            @relation(fields: [studentId], references: [id])
-  studentId           String?
-  activityVersionId   String
-  feedbackToStudentId String
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  status   OutputStatusValues
+  answers  InstructionAnswer[]
+  feedback FeedbackToStudent?
+
+  activityVersion   ActivityVersion @relation(fields: [activityVersionId], references: [id])
+  activityVersionId String
+  Student           Student?        @relation(fields: [studentId], references: [id])
+  studentId         String?
 }
 
 model InstructionAnswer {
@@ -70,10 +76,10 @@ model InstructionAnswer {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  studentOutput       StudentOutput?    @relation(fields: [studentOutputId], references: [id])
-  studentOutputId     String?
-  feedbackToStudent   FeedbackToStudent @relation(fields: [feedbackToStudentId], references: [id])
-  feedbackToStudentId String
+  feedbackToStudent FeedbackToStudent?
+
+  studentOutput   StudentOutput? @relation(fields: [studentOutputId], references: [id])
+  studentOutputId String?
 }
 
 model FeedbackToStudent {
@@ -84,8 +90,10 @@ model FeedbackToStudent {
   message String
   grade   Int?
 
-  StudentOutput     StudentOutput[]
-  InstructionAnswer InstructionAnswer[]
+  studentOutput       StudentOutput     @relation(fields: [studentOutputId], references: [id])
+  studentOutputId     String            @unique
+  instructionAnswer   InstructionAnswer @relation(fields: [instructionAnswerId], references: [id])
+  instructionAnswerId String            @unique
 }
 
 model ActivityOption {
