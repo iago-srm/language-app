@@ -1,4 +1,4 @@
-export * from './student/output';
+export * from './student';
 export * from './instructor';
 export * from './flashcard';
 export * from './activity';

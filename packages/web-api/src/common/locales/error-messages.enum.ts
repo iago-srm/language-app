@@ -27,5 +27,6 @@ export const ErrorMessages = {
   BUCKET_VALUE: 'bucket_value',
   FLASHCARD_TEXT_LENGTH: 'flashcard_text_length',
   FEEDBACK_GRADE: 'feedback_grade',
-  FEEDBACK_MESSAGE: 'feedback_message'
+  FEEDBACK_MESSAGE: 'feedback_message',
+  STUDENT_OUTPUT_FEEDBACK_STATUS: 'student_output_feedback_status'
 }

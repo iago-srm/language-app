@@ -2,6 +2,14 @@ import { CustomError } from '@common/errors';
 import { ErrorMessages } from '@common/locales';
 import { DomainRules } from '@language-app/common';
 
+// student output
+export class InvalidStudentOutputStatusError extends CustomError {
+  HTTPstatusCode = 400;
+  constructor() {
+    super({ errorName: ErrorMessages.STUDENT_OUTPUT_FEEDBACK_STATUS });
+  }
+}
+
 // feedbacks
 export class InvalidGradeError extends CustomError {
   HTTPstatusCode = 400;

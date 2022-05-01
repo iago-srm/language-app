@@ -46,5 +46,8 @@ export const DomainRules = {
   FEEDBACK: {
     GRADES: [1,2,3,4,5],
     MAX_LENGTH: 500 // in characters
+  },
+  STUDENT_OUTPUT: {
+    STATUS: ['FEEDBACK_GIVEN', 'FEEDBACK_PENDING']
   }
 }
