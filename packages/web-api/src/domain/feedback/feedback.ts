@@ -1,4 +1,4 @@
-import { DomainRules } from "@language-app/common";
+import { DomainRules } from '@language-app/common';
 import { InvalidGradeError, InvalidFeedbackMessageError } from '../errors';
 
 interface FeedbackConstructorParams {
@@ -16,12 +16,14 @@ export class Feedback {
   }
 
   setGrade(grade: number) {
-    if(isNaN(Number(grade)) || !DomainRules.FEEDBACK.GRADES.includes(grade)) throw new InvalidGradeError();
+    if (isNaN(Number(grade)) || !DomainRules.FEEDBACK.GRADES.includes(grade))
+      throw new InvalidGradeError();
     this.grade = grade;
   }
 
   setMessage(message: string) {
-    if(message.length > DomainRules.FEEDBACK.MAX_LENGTH) throw new InvalidFeedbackMessageError();
+    if (message.length > DomainRules.FEEDBACK.MAX_LENGTH)
+      throw new InvalidFeedbackMessageError();
     this.message = message;
   }
 }

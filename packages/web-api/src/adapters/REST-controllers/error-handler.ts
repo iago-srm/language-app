@@ -11,10 +11,10 @@ export const ErrorHandlerControllerFactory =
         return {
           statusCode: error.HTTPstatusCode || 500,
           response: {
-            error: { message: translator(error.errorName, error.params) }
-          }
-        }
-      };
+            error: { message: translator(error.errorName, error.params) },
+          },
+        };
+      }
 
       return {
         statusCode: 500,

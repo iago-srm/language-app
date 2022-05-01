@@ -2,7 +2,6 @@ export interface UserDTO {
   id?: string;
   name: string;
   email: string;
-  role: string
+  role: string;
   hashedPassword: string;
 }
-

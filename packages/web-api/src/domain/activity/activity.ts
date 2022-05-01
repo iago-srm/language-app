@@ -1,13 +1,8 @@
-import {
-  Cefr,
-  ActivityVersion,
-  ActivityContent,
-  Instructor
-} from '..';
+import { Cefr, ActivityVersion, ActivityContent, Instructor } from '..';
 import { DomainRules } from '@language-app/common';
 import {
   InvalidActivityTimeToCompleteError,
-  InvalidActivityTopicError
+  InvalidActivityTopicError,
 } from '../errors';
 
 interface ActivityConstructorParams {
@@ -16,7 +11,6 @@ interface ActivityConstructorParams {
 }
 
 export class Activity {
-
   instructor: Instructor;
   latestVersion: ActivityVersion;
   versions: ActivityVersion[];
@@ -29,17 +23,18 @@ export class Activity {
   constructor(args: ActivityConstructorParams) {
     this.setTopic(args.topic);
     this.setTimeToComplete(args.timeToComplete);
-    this.status = 'PENDING'
+    this.status = 'PENDING';
   }
 
   setTopic(topic: string) {
-    if(!DomainRules.ACTIVITY.TOPICS.includes(topic)) throw new InvalidActivityTopicError({ text: topic })
+    if (!DomainRules.ACTIVITY.TOPICS.includes(topic))
+      throw new InvalidActivityTopicError({ text: topic });
     this.topic = topic;
   }
 
   setTimeToComplete(timeToComplete: number) {
-    if(timeToComplete > DomainRules.ACTIVITY.MAX_TIME_TO_COMPLETE) throw new InvalidActivityTimeToCompleteError();
+    if (timeToComplete > DomainRules.ACTIVITY.MAX_TIME_TO_COMPLETE)
+      throw new InvalidActivityTimeToCompleteError();
     this.timeToComplete = timeToComplete;
   }
-
 }

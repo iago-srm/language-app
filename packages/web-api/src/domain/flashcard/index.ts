@@ -1,7 +1,7 @@
 import { DomainRules } from '@language-app/common';
 import {
   InvalidBucketValueError,
-  InvalidFlashcardTextLengthError
+  InvalidFlashcardTextLengthError,
 } from '../errors';
 
 export interface FlashCardConstructorParams {
@@ -12,7 +12,6 @@ export interface FlashCardConstructorParams {
 }
 
 export class FlashCard {
-
   id?: string;
   bucket: number;
   front: string;
@@ -25,26 +24,31 @@ export class FlashCard {
   }
 
   setBucket(bucket: number) {
-    if(!bucket) return;
-    if(!DomainRules.FLASHCARD.BUCKETS.includes(bucket)) throw new InvalidBucketValueError()
+    if (!bucket) return;
+    if (!DomainRules.FLASHCARD.BUCKETS.includes(bucket))
+      throw new InvalidBucketValueError();
     this.bucket = bucket;
   }
 
-  setTexts(args: { front: string, back: string}) {
+  setTexts(args: { front: string; back: string }) {
     const { front, back } = args;
-    if(!front || !back) return;
-    [front, back].forEach(text => {
-      if(text.length >= DomainRules.FLASHCARD.TEXT.MAX_LENGTH ||
-        text.length <= DomainRules.FLASHCARD.TEXT.MIN_LENGTH) {
-          throw new InvalidFlashcardTextLengthError()
-        }
+    if (!front || !back) return;
+    [front, back].forEach((text) => {
+      if (
+        text.length >= DomainRules.FLASHCARD.TEXT.MAX_LENGTH ||
+        text.length <= DomainRules.FLASHCARD.TEXT.MIN_LENGTH
+      ) {
+        throw new InvalidFlashcardTextLengthError();
+      }
     });
     this.front = front;
     this.back = back;
   }
 
   setNextDue() {
-    this.nextDue = new Date(new Date().valueOf() + 24*60*60*1000*Math.pow(2,this.bucket-1)).valueOf();
+    this.nextDue = new Date(
+      new Date().valueOf() + 24 * 60 * 60 * 1000 * Math.pow(2, this.bucket - 1)
+    ).valueOf();
   }
 
   move() {
@@ -54,7 +58,6 @@ export class FlashCard {
 
   reset() {
     this.bucket = 1;
-    this.setNextDue()
+    this.setNextDue();
   }
-
 }

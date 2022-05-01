@@ -6,4 +6,3 @@ export interface IUserRepository {
   insertUser: (user: UserDTO) => Promise<boolean>;
   updateUser: (user: UserDTO) => Promise<boolean>;
 }
-

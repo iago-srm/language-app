@@ -1,4 +1,4 @@
-import { ActivityVersion, Student, Feedback } from "@domain";
+import { ActivityVersion, Student, Feedback } from '@domain';
 
 export class FeedbackToActivity {
   activityVersion: ActivityVersion;

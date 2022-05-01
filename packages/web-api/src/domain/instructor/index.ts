@@ -6,6 +6,4 @@ interface InstructorConstructorParams {
   activities: Activity[];
 }
 
-export class Instructor {
-
-}
+export class Instructor {}

@@ -9,5 +9,3 @@ export class DatabaseError extends CustomError {
     // Object.setPrototypeOf(this, DatabaseError.prototype);
   }
 }
-
-

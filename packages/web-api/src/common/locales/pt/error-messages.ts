@@ -14,5 +14,5 @@ export default {
   [ErrorMessages.MALFORMED_TOKEN]:
     'Token de autenticação está com formato errado',
   [ErrorMessages.MISSING_TOKEN]: 'Por favor, fornecer um token de autenticação',
-  [ErrorMessages.ROUTE_NOT_FOUND]: 'Rota não encontrada'
+  [ErrorMessages.ROUTE_NOT_FOUND]: 'Rota não encontrada',
 };

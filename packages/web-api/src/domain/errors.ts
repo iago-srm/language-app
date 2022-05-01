@@ -14,18 +14,24 @@ export class InvalidStudentOutputStatusError extends CustomError {
 export class InvalidGradeError extends CustomError {
   HTTPstatusCode = 400;
   constructor() {
-    super({ errorName: ErrorMessages.FEEDBACK_GRADE, params: {
-      possibleValues: DomainRules.CEFR.POSSIBLE_VALUES
-    } });
+    super({
+      errorName: ErrorMessages.FEEDBACK_GRADE,
+      params: {
+        possibleValues: DomainRules.CEFR.POSSIBLE_VALUES,
+      },
+    });
   }
 }
 
 export class InvalidFeedbackMessageError extends CustomError {
   HTTPstatusCode = 400;
   constructor() {
-    super({ errorName: ErrorMessages.FEEDBACK_MESSAGE, params: {
-      possibleValues: DomainRules.CEFR.POSSIBLE_VALUES
-    } });
+    super({
+      errorName: ErrorMessages.FEEDBACK_MESSAGE,
+      params: {
+        possibleValues: DomainRules.CEFR.POSSIBLE_VALUES,
+      },
+    });
   }
 }
 
@@ -33,9 +39,12 @@ export class InvalidFeedbackMessageError extends CustomError {
 export class InvalidCEFRError extends CustomError {
   HTTPstatusCode = 400;
   constructor() {
-    super({ errorName: ErrorMessages.CEFR, params: {
-      possibleValues: DomainRules.CEFR.POSSIBLE_VALUES
-    } });
+    super({
+      errorName: ErrorMessages.CEFR,
+      params: {
+        possibleValues: DomainRules.CEFR.POSSIBLE_VALUES,
+      },
+    });
   }
 }
 
@@ -43,19 +52,25 @@ export class InvalidCEFRError extends CustomError {
 export class InvalidBucketValueError extends CustomError {
   HTTPstatusCode = 400;
   constructor() {
-    super({ errorName: ErrorMessages.BUCKET_VALUE, params: {
-      possibleValues: DomainRules.FLASHCARD.BUCKETS
-    } });
+    super({
+      errorName: ErrorMessages.BUCKET_VALUE,
+      params: {
+        possibleValues: DomainRules.FLASHCARD.BUCKETS,
+      },
+    });
   }
 }
 
 export class InvalidFlashcardTextLengthError extends CustomError {
   HTTPstatusCode = 400;
   constructor() {
-    super({ errorName: ErrorMessages.FLASHCARD_TEXT_LENGTH, params: {
-      min: DomainRules.FLASHCARD.TEXT.MIN_LENGTH,
-      max: DomainRules.FLASHCARD.TEXT.MAX_LENGTH
-    }});
+    super({
+      errorName: ErrorMessages.FLASHCARD_TEXT_LENGTH,
+      params: {
+        min: DomainRules.FLASHCARD.TEXT.MIN_LENGTH,
+        max: DomainRules.FLASHCARD.TEXT.MAX_LENGTH,
+      },
+    });
   }
 }
 
@@ -68,8 +83,8 @@ export class InvalidActivityOptionLengthError extends CustomError {
       params: {
         min: DomainRules.ACTIVITY.OPTION.MIN_LENGTH,
         max: DomainRules.ACTIVITY.OPTION.MAX_LENGTH,
-        text
-      }
+        text,
+      },
     });
   }
 }
@@ -78,8 +93,8 @@ export class InvalidInstructionOptionSetError extends CustomError {
   HTTPstatusCode = 400;
   constructor() {
     super({
-      errorName: ErrorMessages.ACTIVITY_INSTRUCTION_INVALID_OPTION_SET
-    })
+      errorName: ErrorMessages.ACTIVITY_INSTRUCTION_INVALID_OPTION_SET,
+    });
   }
 }
 
@@ -91,8 +106,8 @@ export class InvalidActivityInstructionLengthError extends CustomError {
       params: {
         min: DomainRules.ACTIVITY.INSTRUCTION.MIN_LENGTH,
         max: DomainRules.ACTIVITY.INSTRUCTION.MAX_LENGTH,
-        text
-      }
+        text,
+      },
     });
   }
 }
@@ -106,8 +121,8 @@ export class InvalidActivityTitleLengthError extends CustomError {
       params: {
         min: DomainRules.ACTIVITY.TITLE.MIN_LENGTH,
         max: DomainRules.ACTIVITY.TITLE.MAX_LENGTH,
-        text
-      }
+        text,
+      },
     });
   }
 }
@@ -121,8 +136,8 @@ export class InvalidActivityDescriptionLengthError extends CustomError {
       params: {
         min: DomainRules.ACTIVITY.DESCRIPTION.MIN_LENGTH,
         max: DomainRules.ACTIVITY.DESCRIPTION.MAX_LENGTH,
-        text
-      }
+        text,
+      },
     });
   }
 }
@@ -135,8 +150,8 @@ export class InvalidActivityTypeError extends CustomError {
       errorName: ErrorMessages.ACTIVITY_TYPE,
       params: {
         validTypes: DomainRules.ACTIVITY.TYPES,
-        type
-      }
+        type,
+      },
     });
   }
 }
@@ -183,7 +198,7 @@ export class InvalidActivityTopicError extends CustomError {
   constructor({ text }) {
     super({
       errorName: ErrorMessages.ACTIVITY_TOPIC,
-      params: { text }
+      params: { text },
     });
   }
 }
@@ -196,4 +211,3 @@ export class InvalidActivityTimeToCompleteError extends CustomError {
     });
   }
 }
-

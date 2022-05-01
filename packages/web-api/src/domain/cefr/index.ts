@@ -13,7 +13,8 @@ export class Cefr {
   }
 
   setValue(value: string) {
-    if(!DomainRules.CEFR.POSSIBLE_VALUES.includes(value)) throw new InvalidCEFRError()
+    if (!DomainRules.CEFR.POSSIBLE_VALUES.includes(value))
+      throw new InvalidCEFRError();
     this.value = value;
   }
 }

@@ -1,3 +1,1 @@
-export class Student {
-
-}
+export class Student {}

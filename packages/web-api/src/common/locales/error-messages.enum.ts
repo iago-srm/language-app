@@ -3,7 +3,7 @@ export const ErrorMessages = {
   INVALID_CREDENTIALS: 'credentials_not_found',
   PARAMETER_NOT_PROVIDED: 'parameter_not_provided',
   INVALID_TOKEN: 'invalid_token',
-  CREDENTIALS_NOT_PROVIDED :'credentials_not_provided',
+  CREDENTIALS_NOT_PROVIDED: 'credentials_not_provided',
   DATABASE_ERROR: 'database_error',
   USER_NOT_FOUND: 'user_not_found',
   MISSING_TOKEN: 'missing_token',
@@ -28,5 +28,5 @@ export const ErrorMessages = {
   FLASHCARD_TEXT_LENGTH: 'flashcard_text_length',
   FEEDBACK_GRADE: 'feedback_grade',
   FEEDBACK_MESSAGE: 'feedback_message',
-  STUDENT_OUTPUT_FEEDBACK_STATUS: 'student_output_feedback_status'
-}
+  STUDENT_OUTPUT_FEEDBACK_STATUS: 'student_output_feedback_status',
+};

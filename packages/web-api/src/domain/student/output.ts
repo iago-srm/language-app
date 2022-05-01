@@ -6,7 +6,6 @@ interface StudentOutputConstructorParams {
 }
 
 export class StudentOutput {
-
   status: string;
 
   constructor(args: StudentOutputConstructorParams) {
@@ -14,7 +13,7 @@ export class StudentOutput {
   }
 
   setStatus(status: string) {
-    if(!DomainRules.STUDENT_OUTPUT.STATUS.includes(status))
+    if (!DomainRules.STUDENT_OUTPUT.STATUS.includes(status))
       throw new InvalidStudentOutputStatusError();
     this.status = status;
   }

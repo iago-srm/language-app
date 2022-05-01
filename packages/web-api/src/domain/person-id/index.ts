@@ -26,10 +26,12 @@ export class PersonId {
   }
 
   setName(name: string) {
-    if (name.length < DomainRules.PERSONID.NAME.MIN_LENGTH ||
-      name.length > DomainRules.PERSONID.NAME.MAX_LENGTH) {
-        throw new InvalidNameError();
-      }
-      this.name = name;
+    if (
+      name.length < DomainRules.PERSONID.NAME.MIN_LENGTH ||
+      name.length > DomainRules.PERSONID.NAME.MAX_LENGTH
+    ) {
+      throw new InvalidNameError();
+    }
+    this.name = name;
   }
 }

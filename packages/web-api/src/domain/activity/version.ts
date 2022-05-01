@@ -1,12 +1,12 @@
 import {
   FeedbackToActivity,
   ActivityInstruction,
-  StudentOutput
-} from "@domain";
+  StudentOutput,
+} from '@domain';
 import { DomainRules } from '@language-app/common';
 import {
   InvalidActivityTitleLengthError,
-  InvalidActivityDescriptionLengthError
+  InvalidActivityDescriptionLengthError,
 } from '../errors';
 
 interface ActivityVersionConstructorParams {
@@ -28,21 +28,25 @@ export class ActivityVersion {
   }
 
   setTitle(text) {
-    if(text.length < DomainRules.ACTIVITY.TITLE.MIN_LENGTH ||
-      text.length > DomainRules.ACTIVITY.TITLE.MAX_LENGTH) {
+    if (
+      text.length < DomainRules.ACTIVITY.TITLE.MIN_LENGTH ||
+      text.length > DomainRules.ACTIVITY.TITLE.MAX_LENGTH
+    ) {
       throw new InvalidActivityTitleLengthError({
-        text
-      })
+        text,
+      });
     }
     this.title = text;
   }
 
   setDescription(text) {
-    if(text.length < DomainRules.ACTIVITY.DESCRIPTION.MIN_LENGTH ||
-      text.length > DomainRules.ACTIVITY.DESCRIPTION.MAX_LENGTH) {
+    if (
+      text.length < DomainRules.ACTIVITY.DESCRIPTION.MIN_LENGTH ||
+      text.length > DomainRules.ACTIVITY.DESCRIPTION.MAX_LENGTH
+    ) {
       throw new InvalidActivityDescriptionLengthError({
-        text
-      })
+        text,
+      });
     }
     this.description = text;
   }
