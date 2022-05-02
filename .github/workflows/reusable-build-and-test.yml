@@ -24,7 +24,6 @@ jobs:
           node-version: 14.x
 
       - name: Install Dependencies
-        working-directory: './packages/${{ inputs.package }}'
         run: npm i
 
       - name: Ensure code formatting
