@@ -1,21 +1,10 @@
-export type FieldError = {
-    field?: string;
-    message: string;
-};
+export abstract class CustomError {
+  abstract HTTPstatusCode?: number;
+  errorName: string;
+  params?: any;
 
-export type ServerError = { errors: FieldError[] };
-
-export abstract class CustomError extends Error {
-    abstract HTTPstatusCode?: number;
-    message: string;
-    // message passed in instantiation for logging purposes
-    constructor(message: string) {
-        super(message);
-        this.message = message;
-        // Object.setPrototypeOf(this, CustomError.prototype);
-    }
-
-    serializeErrors(): FieldError[] {
-        return [{ message: this.message }];
-    }
+  constructor(args: { errorName: string; params?: any }) {
+    this.errorName = args.errorName;
+    this.params = args.params;
+  }
 }

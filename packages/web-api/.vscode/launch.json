@@ -12,9 +12,7 @@
       "name": "Attach debugger",
       "port": 4321,
       // "program": "${workspaceFolder}/src/index.ts",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
+      "skipFiles": ["<node_internals>/**"],
       "cwd": "${workspaceRoot}"
       // "outFiles": [
       //   "${workspaceFolder}/dist/**/*.js"

@@ -4,7 +4,6 @@
   "description": "A proof of concept of a very complete NodeJS API",
   "scripts": {
     "echo": "echo \"Hello from web-api\" ",
-    "tests:integration": "echo \"web-api integration tests\" ",
     "generate-initial-migration": "npx typeorm migration:generate -n Initial",
     "gen-env": "gen-env-types .env -o src/env.d.ts -e .",
     "build": "cross-env NODE_ENV=production tsc",
@@ -12,7 +11,11 @@
     "start": "node -r ts-node/register/transpile-only -r tsconfig-paths/register ./dist/index.js",
     "typeorm:migration:generate": "node --require ts-node/register ./node_modules/typeorm/cli.js migration:generate -c development",
     "typeorm:migration:run": "node --require ts-node/register ./node_modules/typeorm/cli.js migration:run -c development",
-    "test": "cross-env NODE_ENV=test jest --watchAll --no-cache --runInBand",
+    "test": "cross-env NODE_ENV=test jest --watchAll --no-cache --runInBand src/domain/**/*.spec.ts",
+    "test:ci": "cross-env NODE_ENV=test jest --no-cache --runInBand",
+    "tests:integration": "echo \"web-api integration tests\" ",
+    "format:ci": "npx prettier --check .",
+    "install:ci": "npm ci",
     "docker:dev": "docker-compose -f docker-compose-dev.yaml up"
   },
   "keywords": [],

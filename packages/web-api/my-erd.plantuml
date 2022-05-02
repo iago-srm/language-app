@@ -1,0 +1,129 @@
+@startuml
+
+
+entity Instructor {
+  * id: String
+  * name: String
+  * email: String
+  * activities: Activity[]
+}
+
+entity Student {
+  * id: String
+  * name: String
+  * email: String
+  * cefr: CefrValues
+  outputs: StudentOutput[]?
+  feedbacksToActivities: FeedbackToActivity[]?
+  flashCards: FlashCard[]?
+}
+
+note right of Student::cefr
+  A1 | A2 | B1 | B2 | C1 | C2
+end note
+
+entity StudentOutput {
+  * id: String
+  answers: InstructionAnswer[]?
+  feedback: FeedbackToStudent?
+  * status: OutputStatusValues
+}
+
+note right of StudentOutput::status
+  PENDING | FEEDBACK_GIVEN
+end note
+
+entity InstructionAnswer {
+  * id: String
+  answer: String
+  feedback: FeedbackToStudent?
+}
+
+entity FeedbackToStudent {
+  * id: String
+  * message: String
+  grade: Int?
+}
+
+entity ActivityOption {
+  * id: String
+  * text: String
+  * isCorrect: boolean
+}
+
+entity ActivityInstruction {
+  * id: String
+  * options: ActivityOption[]?
+  * instruction: String
+  * isMultiCorrect: Boolean
+}
+
+entity FeedbackToActivity {
+  * id: String
+  * message: String
+  grade: Int?
+}
+
+entity ActivityContent {
+  * id: String
+  * type: ActivityTypeValues
+  videoUrl: String?
+  startTime: Int?
+  endTime: Int?
+  text: String?
+}
+
+entity ActivityVersion {
+  * id: String
+  * instructions: ActivityInstruction[]
+  * feedbacks: FeedbackToActivity[]?
+  * StudentOutput: StudentOutput[]?
+  content: ActivityContent
+}
+
+entity Activity {
+  * id: String
+  * lastVersionId: String
+  * versions: ActivityVersion[]
+  * cefr: CefrValues
+  * topic: String
+  * timeToComplete: Int
+  * status: ActivityStatusValues
+}
+
+
+note right of Activity::status
+  PENDING | ACCEPTED | REJECTED
+end note
+
+
+entity FlashCard {
+  * id: String
+  * front: String
+  * back: String
+  activity: ActivityVersion?
+  * bucket: Int
+  * nextDue: DateTime
+}
+
+
+note right of FlashCard::bucket
+  [1,7]
+end note
+
+
+Student ||..o{ FlashCard
+FlashCard ||..o| ActivityVersion
+Instructor ||..|{ Activity
+Activity ||..|{ ActivityVersion
+ActivityVersion ||..|| ActivityContent
+ActivityVersion ||..o{ ActivityInstruction
+Student ||..o{ StudentOutput
+StudentOutput ||..o{ InstructionAnswer
+InstructionAnswer ||..o| FeedbackToStudent
+StudentOutput ||..o| FeedbackToStudent
+ActivityOption }o..|| ActivityInstruction
+FeedbackToActivity }o..|| ActivityVersion
+StudentOutput }o..|| ActivityVersion
+Student ||..o{ FeedbackToActivity
+@enduml

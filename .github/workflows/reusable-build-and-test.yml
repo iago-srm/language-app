@@ -23,6 +23,13 @@ jobs:
         with:
           node-version: 14.x
 
+      - name: Install Dependencies
+        run: npm run install:ci
+
+      - name: Ensure code formatting
+        working-directory: './packages/${{ inputs.package }}'
+        run: npm run format:ci
+
       - name: Tests
         working-directory: './packages/${{ inputs.package }}'
-        run: npm run echo
+        run: npm run test:ci

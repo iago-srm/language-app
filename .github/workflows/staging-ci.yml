@@ -1,3 +1,5 @@
+name: Perform E2E tests
+
 on:
   push:
     branches:
@@ -10,7 +12,9 @@ jobs:
   e2e-tests:
     runs-on: ubuntu-latest
     steps:
+
       - uses: actions/checkout@master
+
       - name: Merge main -> staging
         uses: devmasx/merge-branch@master
         with:
@@ -18,6 +22,15 @@ jobs:
           from_branch: main
           target_branch: staging
           github_token: ${{ github.token }}
+
       - name: Integration tests
         working-directory: './packages/web-api'
         run: npm run tests:integration
+
+      - name: Merge staging -> production
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          from_branch: staging
+          target_branch: production
+          github_token: ${{ github.token }}
