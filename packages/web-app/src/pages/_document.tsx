@@ -42,13 +42,13 @@ export default class MyDocument extends Document {
       <Html lang="pt">
         <Head>
           <meta charSet="utf-8" />
-
+          <link href="https://uspdigital.usp.br/comumwebdev/imagens/favicon.ico" rel="shortcut icon" type="image/x-icon" />
           <link
             href="https://fonts.googleapis.com/css?family=Roboto:400,500,700"
             rel="stylesheet"
           />
 
-          <link rel="icon" href="https://rocketseat.com.br/favicon.ico" />
+          {/* <link rel="icon" href="https://rocketseat.com.br/favicon.ico" /> */}
         </Head>
         <body>
           <Main />

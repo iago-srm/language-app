@@ -16,7 +16,7 @@ dist
 .DS_Store
 .env
 /certificates
-
+.next
 npm-debug.log*
 # yarn-debug.log*
 # yarn-error.log*
