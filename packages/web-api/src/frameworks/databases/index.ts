@@ -1,2 +1,2 @@
 // export * from "./in-memory";
-export * from "./type-orm";
+export * from './type-orm';

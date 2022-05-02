@@ -1,7 +1,10 @@
-import { container as testContainer, Dependencies } from "../main/dependency-injection/containers";
-import { Application } from "../frameworks/http/express/app";
-import { User } from "@domain";
-import { RedisProxy } from "src/frameworks";
+import {
+  container as testContainer,
+  Dependencies,
+} from '../main/dependency-injection/containers';
+import { Application } from '../frameworks/http/express/app';
+import { User } from '@domain';
+import { RedisProxy } from 'src/frameworks';
 
 export const normalizeJsonArray = (arr: any[]) => {
   return arr.map((obj: any) => normalizeJson(obj));
@@ -27,18 +30,18 @@ export const deleteAll = () => {
 };
 
 export const insertUser = (users: User[]) => {
-  return testDbInstance._connection.getRepository("users").save(users);
+  return testDbInstance._connection.getRepository('users').save(users);
 };
 
 export const getUser = (email: string) => {
   return testDbInstance._connection
-    .getRepository<User>("users")
+    .getRepository<User>('users')
     .find({ email });
 };
 
 export const getCachedUser = (user) => {
   return testDbInstance._redisClient.asyncGet(
-    testDbInstance._redisClient._getEntryName("users", {
+    testDbInstance._redisClient._getEntryName('users', {
       email: user.email,
     })
   );
