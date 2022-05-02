@@ -1,5 +1,5 @@
 {
-  "name": "@language-app",
+  "name": "language-app",
   "private": true,
   "version": "1.0.0",
   "main": "index.js",
