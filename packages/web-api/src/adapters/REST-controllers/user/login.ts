@@ -1,33 +1,35 @@
 import { ILoginUseCase } from '@application/use-cases';
-import { IHTTPController, IHTTPControllerDescriptor } from '../../ports/REST-controllers';
+import {
+  IHTTPController,
+  IHTTPControllerDescriptor,
+} from '../../ports/REST-controllers';
 import { CredentialsNotProvidedError } from '@common/errors';
 
 export const LoginControllerFactory = ({
-    loginUseCase,
+  loginUseCase,
 }: {
-    loginUseCase: ILoginUseCase;
+  loginUseCase: ILoginUseCase;
 }): IHTTPControllerDescriptor<IHTTPController> => {
-    const fn: IHTTPController = async (_, body) => {
-        const email = body.email;
-        const password = body.password;
+  const fn: IHTTPController = async (_, body) => {
+    const email = body.email;
+    const password = body.password;
 
-        if(!email || !password) throw new CredentialsNotProvidedError();
-        
-        const resp = await loginUseCase.execute({
-            email,
-            password
-        });
+    if (!email || !password) throw new CredentialsNotProvidedError();
 
-        return {
-            response: resp,
-            statusCode: 201,
-        };
-    };
+    const resp = await loginUseCase.execute({
+      email,
+      password,
+    });
 
     return {
-        controller: fn,
-        method: 'post',
-        path: '/login'
+      response: resp,
+      statusCode: 201,
     };
-};
+  };
 
+  return {
+    controller: fn,
+    method: 'post',
+    path: '/login',
+  };
+};
