@@ -1,1 +1,2 @@
-export const getPageTitle = (pageTitle: string) => `language app - ${pageTitle}`;
+export * from './html';
+export * from './validation';

@@ -12,7 +12,11 @@ interface IForm {
 }
 export function Form({ defaultValues, children, onSubmit, schema }: IForm) {
   const defaults = defaultValues || {};
-  const { register, formState: {errors}, handleSubmit } = useForm({ defaultValues: defaults, resolver: yupResolver(schema) });
+  const { register, formState: {errors}, handleSubmit } =
+    useForm({
+      defaultValues: defaults,
+      resolver: yupResolver(schema)
+    });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

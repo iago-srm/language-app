@@ -1,8 +1,8 @@
 import Link from "next/link";
-import styles from './navbar.module.css';
+import { Container, Button } from './styles';
 import { useRouter } from "next/router";
 import React from 'react';
-import { AuthContext } from '../../contexts/auth.context';
+import { AuthContext } from '../../contexts/auth';
 
 export const Navbar = ({children}) => {
 
@@ -21,8 +21,8 @@ export const Navbar = ({children}) => {
     const loggedInButtons = [];
 
     const insertButtonsIntoStateArray = (navChild, array) => {
-      navChild.props.children.length ? 
-      navChild.props.children.forEach(button => array.push(button)) 
+      navChild.props.children.length ?
+      navChild.props.children.forEach(button => array.push(button))
       : array.push(navChild.props.children);
     }
 
@@ -47,12 +47,12 @@ export const Navbar = ({children}) => {
     });
   }, []);
 
-  const renderButton = (button, i) => <Navbar.NavButton path={button.props.path} key={i}>{button.props.children}</Navbar.NavButton>;
+  const renderButton = (button, i) => <Navbar.NavButton key={i}>{button.props.children}</Navbar.NavButton>;
   return (
-    <ul className={styles.container}>
+    <Container>
       {buttons.regularButtons.map(renderButton)}
       {isAuthenticated ? buttons.loggedInButtons.map(renderButton) : buttons.loggedOutButtons.map(renderButton)}
-    </ul>
+    </Container>
   )
 }
 
@@ -63,16 +63,16 @@ interface IButtonProps {
   path?: string;
   children: any
 }
-const Button = ({path, children}: IButtonProps) => {
-  const router = useRouter();
-  const navbuttonClass = (buttonRef) => `${router.pathname == buttonRef ? styles.activeButton : ""} ${styles.button}`
+// const Button = ({path, children}: IButtonProps) => {
+//   const router = useRouter();
+//   const navbuttonClass = (buttonRef) => `${router.pathname == buttonRef ? styles.activeButton : ""} ${styles.button}`
 
-  return (
-    <li className={navbuttonClass(path)}>
-      {path ? <Link href={path}>{children}</Link> : <Link href="#">{children}</Link>}
-    </li>
-  )
-}
+//   return (
+//     <li className={navbuttonClass(path)}>
+//       {path ? <Link href={path}>{children}</Link> : <Link href="#">{children}</Link>}
+//     </li>
+//   )
+// }
 Navbar.NavButton = Button;
 
 const LoggedOutButtons = (props) => props;

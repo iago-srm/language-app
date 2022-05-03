@@ -2,9 +2,9 @@ import React from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 
-import { Container } from './home-styles'
-import { getPageTitle
-} from '../helpers'
+import { Container } from './styles'
+import { getPageTitle } from '@helpers'
+
 const Home: React.FC = () => {
   return (
     <Container>

@@ -1,4 +1,5 @@
 import React from "react";
+import { InputStyled, ErrorMessageContainer } from './styles';
 
 interface IInput {
   name: string;
@@ -12,8 +13,8 @@ interface IInput {
 export function Input({ register, name, errors, inputType, ...rest }: IInput) {
   return (
     <>
-      <input {...register(name)} {...rest} className={className}/>
-    <div className={styles.errorMessageContainer}>{<p>{errors[name]?.message}</p>}</div>
+      <InputStyled {...register(name)} {...rest} />
+      <ErrorMessageContainer >{errors[name]?.message}</ErrorMessageContainer>
     </>
   )
 }
