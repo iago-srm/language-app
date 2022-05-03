@@ -3,12 +3,13 @@ import Head from 'next/head'
 import Image from 'next/image'
 
 import { Container } from './home-styles'
-
+import { getPageTitle
+} from '../helpers'
 const Home: React.FC = () => {
   return (
     <Container>
       <Head>
-        <title>Homepage</title>
+        <title>{getPageTitle('Home')}</title>
       </Head>
 
       <Image src="/images/logo.jpg" width={500} height={500}/>
