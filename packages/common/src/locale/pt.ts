@@ -1,8 +1,12 @@
-import { ErrorMessages } from '..';
+import { ErrorMessages } from '@locale';
 
-export default {
+export const PortugueseErrorMessages = {
+  [ErrorMessages.INVALID_EMAIL]: 'Invalid e-mail',
+  [ErrorMessages.INVALID_NAME]: 'Invalid name',
+  [ErrorMessages.INVALID_PASSWORD]: 'Invalid password',
+  [ErrorMessages.PASSWORDS_DONT_MATCH]: 'Passwords dont match',
   [ErrorMessages.DATABASE_ERROR]:
-    'Algo deu errado para se conectar ao banco de dados.',
+  'Algo deu errado para se conectar ao banco de dados.',
   [ErrorMessages.CANNOT_ALTER_THIS_USER]:
     'Você não tem autorização para alterar este usuário.',
   [ErrorMessages.INVALID_CREDENTIALS]: 'E-mail ou senha incorretos.',
@@ -15,4 +19,4 @@ export default {
     'Token de autenticação está com formato errado',
   [ErrorMessages.MISSING_TOKEN]: 'Por favor, fornecer um token de autenticação',
   [ErrorMessages.ROUTE_NOT_FOUND]: 'Rota não encontrada',
-};
+}

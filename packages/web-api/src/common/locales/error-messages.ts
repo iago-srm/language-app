@@ -1,13 +1,7 @@
+import { ErrorMessages as CommonErrorMessages } from '@language-app/commmon';
+
 export const ErrorMessages = {
-  CANNOT_ALTER_THIS_USER: 'cannot_alter_this_user',
-  INVALID_CREDENTIALS: 'credentials_not_found',
-  PARAMETER_NOT_PROVIDED: 'parameter_not_provided',
-  INVALID_TOKEN: 'invalid_token',
-  CREDENTIALS_NOT_PROVIDED: 'credentials_not_provided',
-  DATABASE_ERROR: 'database_error',
-  USER_NOT_FOUND: 'user_not_found',
-  MISSING_TOKEN: 'missing_token',
-  MALFORMED_TOKEN: 'malformed_token',
+  ...CommonErrorMessages,
   ACTIVITY_OPTION_LENGTH: 'activity_option_length',
   ACTIVITY_INSTRUCTION_LENGTH: 'activity_instruction_length',
   ACTIVITY_TITLE_LENGTH: 'activity_title_length',
@@ -21,8 +15,6 @@ export const ErrorMessages = {
   ACTIVITY_TIME_TO_COMPLETE: 'activity_time_to_complete',
   ACTIVITY_INSTRUCTION_INVALID_OPTION_SET: 'activity_option_set',
   ROUTE_NOT_FOUND: 'route_not_found',
-  EMAIL: 'email',
-  NAME: 'name',
   CEFR: 'cefr',
   BUCKET_VALUE: 'bucket_value',
   FLASHCARD_TEXT_LENGTH: 'flashcard_text_length',

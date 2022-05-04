@@ -1,6 +1,6 @@
-export * from './error-messages.enum';
-import English from './en/error-messages';
-import Portuguese from './pt/error-messages';
+export * from './error-messages';
+import English from './en';
+import Portuguese from './pt';
 
 export const Messages = {
   en: English,

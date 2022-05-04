@@ -5,7 +5,7 @@ import {
   validateEmail,
   DomainRules,
 } from '@language-app/common';
-import { ErrorMessages } from '@common/locales';
+import { ErrorMessages } from '@locale';
 
 describe('Unit Tests for person-id entity', () => {
   const mockName = new NameGenerator().getName();

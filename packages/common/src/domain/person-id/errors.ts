@@ -1,5 +1,5 @@
-import { CustomError } from '@common/errors';
-import { ErrorMessages } from '@common/locales';
+import { ErrorMessages } from '@locale';
+import { CustomError } from '@errors';
 import { DomainRules } from '@language-app/common';
 
 export class InvalidEmailError extends CustomError {

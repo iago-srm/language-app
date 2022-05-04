@@ -1,5 +1,5 @@
 import { CustomError } from './custom-error';
-import { ErrorMessages } from '../locales';
+import { ErrorMessages } from '@locale';
 
 export class CredentialsNotProvidedError extends CustomError {
   HTTPstatusCode = 400;

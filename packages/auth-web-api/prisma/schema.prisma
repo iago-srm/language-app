@@ -16,21 +16,16 @@ enum Role {
 }
 
 model User {
-  id             String   @id @default(uuid())
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-  email          String   @unique
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  email          String  @unique
   name           String?
-  role           Role     @default(STUDENT)
+  role           Role    @default(STUDENT)
   hashedPassword String
 
-  @@index([role])
   @@map("users")
-}
-
-model OtherModel {
-  id    String @id @default(uuid())
-  field String
 }
 
 // for a postgres db running on a docker container not in the same .compose of the app, the IP is localhost
@@ -42,5 +37,3 @@ model OtherModel {
 // how do migrations fit into the development workflow?
 
 // npx prisma studio opens a database data explorer (no more pgadmin)
-
-// com a lib prisma-erd-generator, ele gera um svg do UML dos seus dados.

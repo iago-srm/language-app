@@ -1,5 +1,5 @@
 import { CustomError } from './custom-error';
-import { ErrorMessages } from '@common/locales';
+import { ErrorMessages } from '@locale';
 
 export class DatabaseError extends CustomError {
   public HTTPstatusCode = 500;

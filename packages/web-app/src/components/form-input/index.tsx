@@ -1,16 +1,13 @@
 import React from "react";
 import { InputStyled, ErrorMessageContainer } from './styles';
 
-interface IInput {
+interface IInput extends React.AllHTMLAttributes<IInput> {
   name: string;
   register?: any;
   errors?: any;
-  placeholder?: string;
-  inputType?: "input" | "textarea";
-  type?: string;
 }
 
-export function Input({ register, name, errors, inputType, ...rest }: IInput) {
+export function Input({ register, name, errors, ...rest }: IInput) {
   return (
     <>
       <InputStyled {...register(name)} {...rest} />

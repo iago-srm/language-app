@@ -49,5 +49,8 @@ export const DomainRules = {
   },
   STUDENT_OUTPUT: {
     STATUS: ['FEEDBACK_GIVEN', 'FEEDBACK_PENDING']
+  },
+  USER: {
+    ROLES: ['STUDENT', 'INSTRUCTOR', 'ADMIN']
   }
 }

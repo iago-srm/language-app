@@ -1,8 +1,13 @@
-import { ErrorMessages } from '..';
+import { ErrorMessages } from '@locale';
 
-export default {
+export const EnglishErrorMessages = {
+  [ErrorMessages.INVALID_EMAIL]: 'Invalid e-mail',
+  [ErrorMessages.INVALID_NAME]: 'Invalid name',
+  [ErrorMessages.INVALID_PASSWORD]: 'Invalid password',
+  [ErrorMessages.PASSWORDS_DONT_MATCH]: 'Passwords dont match',
+  [ErrorMessages.ROUTE_NOT_FOUND]: 'Route not found',
   [ErrorMessages.DATABASE_ERROR]:
-    'Something went wrong connecting to the database.',
+  'Something went wrong connecting to the database.',
   [ErrorMessages.CANNOT_ALTER_THIS_USER]:
     'You do not have authorization to alter this user',
   [ErrorMessages.INVALID_CREDENTIALS]: 'Wrong e-mail or password',
@@ -12,7 +17,4 @@ export default {
   [ErrorMessages.USER_NOT_FOUND]: 'User not found',
   [ErrorMessages.MALFORMED_TOKEN]: 'Authentication token has wrong format',
   [ErrorMessages.MISSING_TOKEN]: 'Please provide an authentication token',
-  [ErrorMessages.ACTIVITY_OPTION_LENGTH]:
-    'Activity option %{text} is invalid. Option length must be between %{min} and %{max} characters long.',
-  [ErrorMessages.ROUTE_NOT_FOUND]: 'Route not found',
-};
+}

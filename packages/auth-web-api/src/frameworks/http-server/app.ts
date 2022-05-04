@@ -7,7 +7,7 @@ import { json } from 'body-parser';
 import { Server as WSServer } from 'socket.io';
 // import { errorHandler } from './error-handler';
 import { startPolyglot } from './polyglot-middleware';
-import { Messages } from '@common/locales';
+import { Messages } from '@/common/locale';
 import {
     Server as AbstractServer,
     IHTTPServerConstructorParams,
@@ -28,7 +28,7 @@ export class ExpressServer extends AbstractServer {
     _io: WSServer;
 
     constructor({ db, logger, controllers, errorHandlers, middlewares }: IExpressConstructorParams) {
-        
+
         super({ db, logger });
         this._app = express();
         this.setupServer(this._app);
@@ -39,7 +39,7 @@ export class ExpressServer extends AbstractServer {
             let corsOptions;
             // console.log(allow)
             if(process.env.CORS_ALLOW === '*') {
-                callback(null, { origin: true }); 
+                callback(null, { origin: true });
                 return;
             }
             if (allowlist?.indexOf(req.header('Origin')) !== -1) {
