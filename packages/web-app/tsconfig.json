@@ -17,7 +17,10 @@
     "baseUrl": "./src/",
     "paths": {
       "@helpers": [ "helpers/index.ts" ],
-      "@components": ["components/index.ts"]
+      "@components": ["components/index.ts"],
+      "@locale": ["locale/index.ts"],
+      "@contexts": ["locale/index.ts"],
+      "@language-app/common": ["../../common/src/index.ts"]
     },
     "allowJs": true,
     "strict": false,

@@ -1,14 +1,21 @@
-import { PersonId, validateEmail, DomainRules } from '@language-app/common';
+import {
+  PersonId,
+  validateEmail,
+  DomainRules
+} from '@language-app/common';
+import { InvalidRoleError } from './errors';
 
 interface UserConstructorParams {
   name: string;
   role: string;
   email: string;
+  password: string;
+  confirmPassword: string;
 }
 export class User {
   personId: PersonId;
 
-  constructor(args: UserConstructorParams) {
+  constructor(args: Partial<UserConstructorParams>) {
     this.setPersonId(args.email, args.name);
     this.setRole(args.role);
   }
@@ -18,6 +25,6 @@ export class User {
   }
 
   setRole(role: string) {
-    if(!DomainRules.USER.ROLES.includes(role)) throw new
+    if(!DomainRules.USER.ROLES.includes(role)) throw new InvalidRoleError()
   }
 }

@@ -1,5 +1,7 @@
 import React from 'react';
 import { Languages } from '@language-app/common';
+import { LocalStorage } from '@helpers';
+import { useEffect } from 'react';
 
 type languageContext = {
   language: string,
@@ -19,9 +21,14 @@ export function LanguageProvider({children}) {
 
   const setLanguage = (lang: string) => {
     if(Languages.includes(lang)) {
+      new LocalStorage().setLanguage(lang);
       setLang(lang);
     }
   }
+
+  useEffect(() => {
+    setLang(new LocalStorage().getLanguage())
+  }, []);
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage }}>

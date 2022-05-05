@@ -2,9 +2,11 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": "./src/",
+    "outDir": "./build/",
     "paths": {
       "@locale": ["locale/index.ts"],
       "@errors": ["errors/index.ts"],
+      "@auth": ["auth/index.ts"],
     }
   },
   "exclude": ["node_modules"],

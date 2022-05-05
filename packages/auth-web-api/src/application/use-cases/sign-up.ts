@@ -9,9 +9,9 @@ import { User } from '@domain';
 
 export type InputParams = {
     email: string;
-    cpf: string;
     name: string;
     password: string;
+    confirmPassword: string;
 };
 type Return = void;
 type Dependencies = {
@@ -31,8 +31,8 @@ export const SignUpUseCaseFactory: ISignUpUseCaseFactory = ({
     encryptionService
 }) => {
     return {
-        execute: async ({ email, cpf, name, password }) => {
-            const user = new User({ email, cpf, name, password });
+        execute: async ({ email, name, password, confirmPassword }) => {
+            const user = new User({ email, name, password, confirmPassword });
 
             const userDTO = {
                 email: user.getEmail(),

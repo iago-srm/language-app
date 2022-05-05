@@ -30,11 +30,8 @@
       "@common/test-helpers": [
         "common/test-helpers/index.ts"
       ],
-      "@common/locales": [
-        "common/locales/index.ts"
-      ],
-      "@common/errors": [
-        "common/errors/index.ts"
+      "@common/locale": [
+        "common/locale/index.ts"
       ],
       "@/*": [
         "*"

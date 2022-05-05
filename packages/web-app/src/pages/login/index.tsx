@@ -4,9 +4,17 @@ import Head from 'next/head'
 import { Container } from './styles'
 import { getPageTitle } from '@helpers'
 import { Form, Input, Button } from '@components';
-import { loginSchema } from '@helpers';
+import { ValidationSchemas } from '@helpers';
+import { LanguageContext } from '@contexts';
 
-const Login: React.FC = () => {
+const LoginPage: React.FC = () => {
+
+  const { language } = React.useContext(LanguageContext);
+
+  const loginSchema = React.useMemo(() => {
+    return new ValidationSchemas(language).getLoginSchema()
+  }, [language]);
+
   const handleSubmit = (data) => {
     console.log('dados',data);
   }
@@ -25,4 +33,4 @@ const Login: React.FC = () => {
   )
 }
 
-export default Login
+export default LoginPage

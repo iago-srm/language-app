@@ -1,5 +1,5 @@
 import { InvalidEmailError, InvalidNameError } from './errors';
-import { DomainRules } from '@language-app/common';
+import { AuthRules } from '@auth';
 
 interface PersonIdConstructorParams {
   id?: string;
@@ -8,7 +8,7 @@ interface PersonIdConstructorParams {
   name: string;
 }
 
-export class PersonId {
+export class  PersonId {
   public id?: string;
   email: string;
   name: string;
@@ -27,8 +27,8 @@ export class PersonId {
 
   setName(name: string) {
     if (
-      name.length < DomainRules.PERSONID.NAME.MIN_LENGTH ||
-      name.length > DomainRules.PERSONID.NAME.MAX_LENGTH
+      name.length < AuthRules.PERSONID.NAME.MIN_LENGTH ||
+      name.length > AuthRules.PERSONID.NAME.MAX_LENGTH
     ) {
       throw new InvalidNameError();
     }

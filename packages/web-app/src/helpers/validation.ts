@@ -1,32 +1,47 @@
 import * as yup from 'yup'
+import { AuthRules } from '@language-app/common';
+import { Translations } from '@locale';
 
-enum ValidationMessages {
-  REQUIRED = 'Campo Obrigatório',
-  INVALID_EMAIL = 'E-mail inválido.',
-  INVALID_PASSWORD = 'Senha inválida. Adicionar letras maiúsculas e minúsculas e números. Pelo menos 6 caracteres.',
-  PASSWORD_DONT_MATCH = 'Confirmação de senha é diferente.',
+export class ValidationSchemas {
+
+  constructor(private language: string) {}
+
+  private getEmailValidation() {
+    return yup
+    .string()
+    .required(Translations[this.language].REQUIRED_FIELD)
+    .email(Translations[this.language].INVALID_EMAIL);
+  }
+
+  private getPasswordValidation() {
+    return yup
+      .string()
+      .required(Translations[this.language].REQUIRED_FIELD)
+      .matches(
+        AuthRules.PASSWORD_REGEX,
+        Translations[this.language].INVALID_PASSWORD
+      );
+  }
+
+  private getConfirmPasswordValidation() {
+    return yup
+    .string()
+    .oneOf([yup.ref('password'), null], Translations[this.language].PASSWORD_DONT_MATCH)
+  }
+
+  getLoginSchema() {
+    return yup.object().shape({
+      email: this.getEmailValidation(),
+      password: this.getPasswordValidation()
+    })
+  }
+
+  getSignupSchema() {
+    return yup.object().shape({
+      email: this.getEmailValidation(),
+      password: this.getPasswordValidation(),
+      confirmPassword: this.getConfirmPasswordValidation(),
+    })
+  }
 }
 
-const emailValidation = yup
-  .string()
-  .required(ValidationMessages.REQUIRED)
-  .email(ValidationMessages.INVALID_EMAIL);
-const passwordValidation = yup
-  .string()
-  .required(ValidationMessages.REQUIRED)
-  .matches(
-    /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
-    ValidationMessages.INVALID_PASSWORD
-  )
-export const loginSchema = yup.object().shape({
-  email: emailValidation,
-  password: passwordValidation
-})
-
-export const registerSchema = yup.object().shape({
-  email: emailValidation,
-  password: passwordValidation,
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref('password'), null], ValidationMessages.PASSWORD_DONT_MATCH),
-})
