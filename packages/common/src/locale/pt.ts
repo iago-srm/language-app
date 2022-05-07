@@ -1,4 +1,4 @@
-import { ErrorMessages } from '@locale';
+import { ErrorMessages } from './error-messages';
 
 export const PortugueseErrorMessages = {
   [ErrorMessages.INVALID_EMAIL]: 'Invalid e-mail',

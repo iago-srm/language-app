@@ -1,5 +1,3 @@
-export * from './en';
-export * from './pt';
 
 export const ErrorMessages = {
   INVALID_EMAIL: 'email',

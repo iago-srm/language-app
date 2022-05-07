@@ -8,4 +8,8 @@ export class LocalStorage {
   getLanguage() {
     return window.localStorage.getItem('preferred-language');
   }
+
+  getRefreshToken() {
+    return window.localStorage.getItem('auth_token');
+  }
 }

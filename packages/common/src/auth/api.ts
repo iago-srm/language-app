@@ -6,3 +6,9 @@ export type LoginAPIParams = {
 export type LoginAPIResponse = {
   token: string;
 }
+
+export type GetUserAPIResponse = {
+  id: string;
+  avatarUrl: string;
+  name: string;
+}

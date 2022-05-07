@@ -1,5 +1,5 @@
-import { ErrorMessages } from '@locale';
-import { CustomError } from '@errors';
+import { ErrorMessages } from '../../locale';
+import { CustomError } from '../../errors';
 
 export class InvalidEmailError extends CustomError {
   HTTPstatusCode = 400;

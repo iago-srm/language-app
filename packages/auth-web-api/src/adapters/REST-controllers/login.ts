@@ -1,5 +1,5 @@
 import { ILoginUseCase } from '@application/use-cases';
-import { IHTTPController, IHTTPControllerDescriptor } from '../../ports/REST-controllers';
+import { IHTTPController, IHTTPControllerDescriptor } from '../ports/REST-controllers';
 import { CredentialsNotProvidedError } from '@common/errors';
 
 export const LoginControllerFactory = ({
@@ -12,7 +12,7 @@ export const LoginControllerFactory = ({
         const password = body.password;
 
         if(!email || !password) throw new CredentialsNotProvidedError();
-        
+
         const resp = await loginUseCase.execute({
             email,
             password

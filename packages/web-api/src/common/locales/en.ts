@@ -1,4 +1,4 @@
-import { ErrorMessages } from '.';
+import { ErrorMessages } from './error-messages';
 import { EnglishErrorMessages as CommonEnglishErrorMessages} from '@language-app/common';
 
 export default {
