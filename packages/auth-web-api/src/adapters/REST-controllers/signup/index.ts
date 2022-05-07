@@ -1,6 +1,6 @@
 import { ISignUpUseCase } from '@application/use-cases';
 import { IHTTPController, IHTTPControllerDescriptor } from '../../ports/REST-controllers';
-import { ParameterNotProvidedError } from '@common/errors';
+import SerializeSignupBody from './serializer';
 
 export const SignUpControllerFactory = ({
     signUpUseCase,
@@ -8,18 +8,13 @@ export const SignUpControllerFactory = ({
     signUpUseCase: ISignUpUseCase;
 }): IHTTPControllerDescriptor<IHTTPController> => {
     const fn: IHTTPController = async (_, body) => {
-        const email = body.email;
-        const cpf = body.cpf;
-        const name = body.name;
-        const password = body.password;
-
-        if(!email || !cpf || !name || !password) throw new ParameterNotProvidedError();
+        const { email, password, name, confirmPassword } = SerializeSignupBody(body);
 
         await signUpUseCase.execute({
             email,
-            cpf,
             name,
-            password
+            password,
+            confirmPassword
         });
 
         return {

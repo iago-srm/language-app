@@ -32,8 +32,8 @@ export class CannotAlterUserError extends CustomError {
 
 export class ParameterNotProvidedError extends CustomError {
   HTTPstatusCode = 400;
-  constructor() {
-    super({ errorName: ErrorMessages.PARAMETER_NOT_PROVIDED });
+  constructor({ parameter }) {
+    super({ errorName: ErrorMessages.PARAMETER_NOT_PROVIDED, params: { parameter } });
   }
 }
 

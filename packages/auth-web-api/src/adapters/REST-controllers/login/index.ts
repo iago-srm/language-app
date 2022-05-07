@@ -1,6 +1,7 @@
 import { ILoginUseCase } from '@application/use-cases';
-import { IHTTPController, IHTTPControllerDescriptor } from '../ports/REST-controllers';
-import { CredentialsNotProvidedError } from '@common/errors';
+import { IHTTPController, IHTTPControllerDescriptor } from '../../ports/REST-controllers';
+import { CredentialsNotProvidedError } from '@language-app/common';
+import SerializeLoginBody from './serializer';
 
 export const LoginControllerFactory = ({
     loginUseCase,
@@ -8,11 +9,7 @@ export const LoginControllerFactory = ({
     loginUseCase: ILoginUseCase;
 }): IHTTPControllerDescriptor<IHTTPController> => {
     const fn: IHTTPController = async (_, body) => {
-        const email = body.email;
-        const password = body.password;
-
-        if(!email || !password) throw new CredentialsNotProvidedError();
-
+        const { email, password } = SerializeLoginBody(body);
         const resp = await loginUseCase.execute({
             email,
             password
