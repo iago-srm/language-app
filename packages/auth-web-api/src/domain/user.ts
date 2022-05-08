@@ -9,11 +9,10 @@ interface UserConstructorParams {
   name: string;
   role: string;
   email: string;
-  password: string;
-  confirmPassword: string;
 }
 export class User {
   personId: PersonId;
+  role: string;
 
   constructor(args: Partial<UserConstructorParams>) {
     this.setPersonId(args.email, args.name);
@@ -25,6 +24,7 @@ export class User {
   }
 
   setRole(role: string) {
-    if(!DomainRules.USER.ROLES.includes(role)) throw new InvalidRoleError()
+    if(!DomainRules.USER.ROLES.includes(role)) throw new InvalidRoleError();
+    this.role = role;
   }
 }

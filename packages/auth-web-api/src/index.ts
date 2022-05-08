@@ -1,6 +1,7 @@
 import "reflect-metadata";
 require("dotenv-safe").config({
   allowEmptyValues: true,
+  path: `.env.${process.env.NODE_ENV}`
 });
 import { ExpressServer } from "./frameworks/http-server/app";
 import {
@@ -11,7 +12,7 @@ import {
   UserRepository,
 } from '@adapters/repositories';
 import {
-  TypeORMDatabase,
+  // TypeORMDatabase,
   // InMemoryDatabase
 } from '@frameworks/databases';
 import {
@@ -27,14 +28,13 @@ import { BCryptEncryptionService, JWTTokenService } from '@frameworks/services';
 
 (async () => {
   try {
-    const database = new TypeORMDatabase({
-      dbConnectionName: process.env.NODE_ENV,
-      // logger: { info: console.log, error: console.error }
-    });
-    await database.connect();
+    // const database = new TypeORMDatabase({
+    //   dbConnectionName: process.env.NODE_ENV,
+    // });
+    // await database.connect();
 
     // services and repositories
-    const userRepository = new UserRepository({ db: database });
+    const userRepository = new UserRepository();
     const encryptionService = new BCryptEncryptionService();
     const tokenService = new JWTTokenService();
 
@@ -64,7 +64,7 @@ import { BCryptEncryptionService, JWTTokenService } from '@frameworks/services';
     // http server
     const expressAdapter = new ExpressControllerAdapter();
     const server = new ExpressServer({
-      db: database,
+      // db: database,
       logger: { info: console.log, error: console.error },
       controllers: [
         signUpController,

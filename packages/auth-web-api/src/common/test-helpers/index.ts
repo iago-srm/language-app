@@ -6,10 +6,7 @@ export class TestUserDTOHelper {
         email: 'valid@email.com',
         hashedPassword: 'hashed-password',
         name: 'valid',
-        cpf: '12345',
-        categories: [],
-        extracts: [],
-        lastExtractFetch: 0
+        role: 'STUDENT'
     }
 
     getUser() {

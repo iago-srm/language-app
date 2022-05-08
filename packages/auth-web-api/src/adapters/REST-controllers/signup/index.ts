@@ -8,13 +8,14 @@ export const SignUpControllerFactory = ({
     signUpUseCase: ISignUpUseCase;
 }): IHTTPControllerDescriptor<IHTTPController> => {
     const fn: IHTTPController = async (_, body) => {
-        const { email, password, name, confirmPassword } = SerializeSignupBody(body);
+        const { email, password, name, confirmPassword, role } = SerializeSignupBody(body);
 
         await signUpUseCase.execute({
             email,
             name,
             password,
-            confirmPassword
+            confirmPassword,
+            role
         });
 
         return {

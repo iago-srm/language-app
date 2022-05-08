@@ -12,6 +12,7 @@ export type InputParams = {
     name: string;
     password: string;
     confirmPassword: string;
+    role: string;
 };
 type Return = void;
 type Dependencies = {
@@ -31,19 +32,18 @@ export const SignUpUseCaseFactory: ISignUpUseCaseFactory = ({
     encryptionService
 }) => {
     return {
-        execute: async ({ email, name, password, confirmPassword }) => {
-            const user = new User({ email, name, password, confirmPassword });
+        execute: async ({ email, name, password, confirmPassword, role }) => {
+            const user = new User({ email, name, role });
+
+            if(password !== confirmPassword) throw new Error('Senhas diferentes');
 
             const userDTO = {
-                email: user.getEmail(),
-                cpf: user.getCPF(),
-                name: user.getName(),
-                role: "STUDENT",
-                hashedPassword: await encryptionService.encrypt(user.getPassword()),
-                extracts: [],
-                lastExtractFetch: 0
-            };
-            // console.log(userDTO)
+                email: user.personId.email,
+                name: user.personId.name,
+                role: user.role,
+                hashedPassword: await encryptionService.encrypt(password),
+            } as UserDTO;
+
             await userRepository.insertUser(userDTO)
         },
     };

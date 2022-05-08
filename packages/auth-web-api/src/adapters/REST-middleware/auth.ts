@@ -1,6 +1,6 @@
 import { ITokenService } from '@application/ports';
 import { IHTTPMiddleware, IHTTPControllerDescriptor } from '../ports/REST-controllers';
-import { MissingTokenError, MalformedTokenError } from '@common/errors';
+import { MissingTokenError, MalformedTokenError } from '@language-app/common';
 
 export const AuthenticationMiddlewareControllerFactory = ({
     tokenService,

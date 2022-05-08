@@ -1,11 +1,11 @@
-import { Prisma, PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
+import { Prisma } from 'prisma';
 import {
   IDatabase,
   IBaseCollection,
   // ITest
 } from "@adapters/repositories";
 // this is a workaround described in this issue: https://github.com/prisma/prisma/issues/5273
-
 
 type Dict = { [k: string]: any }
 

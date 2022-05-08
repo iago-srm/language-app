@@ -9,7 +9,7 @@ export class CredentialsNotProvidedError extends CustomError {
 }
 
 export class RouteNotFoundError extends CustomError {
-  HTTPstatusCode = 400;
+  HTTPstatusCode = 404;
   constructor() {
     super({ errorName: ErrorMessages.CREDENTIALS_NOT_PROVIDED });
   }

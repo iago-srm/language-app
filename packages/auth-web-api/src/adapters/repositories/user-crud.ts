@@ -15,12 +15,15 @@ export class UserRepository implements IUserRepository {
         return this.collection.getOneByOwnField('email', email);
     }
     insertUser(user: UserDTO) {
-        return this.collection.insertOne(user);
+      return new Promise<UserDTO>(r => r(user))
+        // return this.collection.insertOne(user);
     }
-    async updateUser(user: UserDTO) {
-        const result = await this.collection.updateOne(user);
-        if(result) return true;
-        return false;
+    async updateUser(id: string, user: UserDTO) {
+      return new Promise<UserDTO>(r => r(user))
+
+        // const result = await this.collection.updateOne(user);
+        // if(result) return true;
+        // return false;
     }
 }
 

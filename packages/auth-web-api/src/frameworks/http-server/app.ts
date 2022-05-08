@@ -1,10 +1,9 @@
 import express, { Express, RequestHandler, ErrorRequestHandler } from 'express';
 import 'express-async-errors';
-import { NotFoundError } from '@iagosrm/common';
+import { RouteNotFoundError } from '@language-app/common';
 import helmet from 'helmet';
 import cors from 'cors';
 import { json } from 'body-parser';
-import { Server as WSServer } from 'socket.io';
 // import { errorHandler } from './error-handler';
 import { startPolyglot } from './polyglot-middleware';
 import { Messages } from '@/common/locale';
@@ -13,7 +12,6 @@ import {
     IHTTPServerConstructorParams,
 } from './server';
 import { IHTTPControllerDescriptor } from '@adapters/REST-controllers';
-import { nextTick } from 'process';
 
 interface IExpressConstructorParams extends IHTTPServerConstructorParams {
     controllers: IHTTPControllerDescriptor<RequestHandler>[];
@@ -25,11 +23,10 @@ export class ExpressServer extends AbstractServer {
     _app: Express;
     baseUrn = 'api/v1';
     _logger: any;
-    _io: WSServer;
 
-    constructor({ db, logger, controllers, errorHandlers, middlewares }: IExpressConstructorParams) {
+    constructor({ logger, controllers, errorHandlers, middlewares }: IExpressConstructorParams) {
 
-        super({ db, logger });
+        super({ logger });
         this._app = express();
         this.setupServer(this._app);
 
@@ -78,7 +75,7 @@ export class ExpressServer extends AbstractServer {
         });
 
         this._app.all('*', () => {
-            throw new NotFoundError();
+            throw new RouteNotFoundError();
         });
 
         // this._app.use((error, _, __, ___) => {

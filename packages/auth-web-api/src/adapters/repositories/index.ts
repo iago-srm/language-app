@@ -1,2 +1,2 @@
 export * from './ibase-repository';
-export * from './user';
+export * from './user-prisma';

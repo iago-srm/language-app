@@ -1,7 +1,6 @@
 import http, { Server as HttpServer, RequestListener } from 'http';
 import https, { Server as HttpsServer } from 'https';
 import fs from 'fs';
-import { Server as WSServer } from 'socket.io';
 import { AddressInfo } from 'net';
 import { IDatabase } from '@adapters/repositories';
 import { ILogger } from '@common/logger';
@@ -13,7 +12,7 @@ import {
 } from '@adapters/REST-controllers';
 
 export interface IHTTPServerConstructorParams {
-    db: IDatabase;
+    // db: IDatabase;
     logger: ILogger;
 }
 
@@ -21,13 +20,12 @@ export abstract class Server {
     _server: HttpServer | HttpsServer;
     _hasHTTPS: boolean;
     _localHostSSL: any;
-    _io: WSServer;
     _db: IDatabase;
     _logger: ILogger;
 
-    constructor({ db, logger }) {
+    constructor({ logger }) {
 
-        this._db = db;
+        // this._db = db;
         this._logger = logger;
     }
 
@@ -44,8 +42,6 @@ export abstract class Server {
             this._server = http.createServer(app);
             this._logger.error('Failed to create HTTPS server');
             this._hasHTTPS = false;
-        } finally {
-            this._io = new WSServer(this._server);
         }
     }
 

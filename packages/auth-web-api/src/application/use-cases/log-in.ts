@@ -5,7 +5,7 @@ import {
     IEncryptionService,
     ITokenService,
 } from '../ports';
-import { InvalidCredentialsError } from '@common/errors';
+import { InvalidCredentialsError } from '@language-app/common';
 
 export type LoginInputParams = {
     email: string;
@@ -14,8 +14,10 @@ export type LoginInputParams = {
 
 type Return = {
     token: string;
-    email: string;
+    id: string;
     name: string;
+    email: string;
+    avatarUrl?: string;
 };
 type Dependencies = {
     userRepository: IUserRepository;
@@ -43,7 +45,7 @@ export const LoginUseCaseFactory: ILoginUseCaseFactory = ({
                 throw new InvalidCredentialsError();
             }
             const passwordValid = await encryptionService.compare(password,userDTO.hashedPassword);
-            
+
             if(!passwordValid) {
                 throw new InvalidCredentialsError();
             }
@@ -54,11 +56,11 @@ export const LoginUseCaseFactory: ILoginUseCaseFactory = ({
                 name: userDTO.name
             });
 
-            return { 
-                token, 
-                name: userDTO.name, 
+            return {
+                token,
+                name: userDTO.name,
                 email: userDTO.email,
-                id: userDTO.id 
+                id: userDTO.id
             };
         },
     };
