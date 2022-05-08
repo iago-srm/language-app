@@ -26,6 +26,7 @@ services:
     tty: true
     volumes:
       - .:/app/
+      - ./node_modules/
 
   postgres-auth:
     image: postgres
