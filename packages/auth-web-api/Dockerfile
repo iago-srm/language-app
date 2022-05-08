@@ -1,15 +1,16 @@
-FROM node:14
+FROM node:alpine
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY ../../package*.json ./
+COPY ../../tsconfig.json ./
+COPY ./packages/auth-web-api/ ./packages/auth-web-api/
+COPY ./packages/common/ ./packages/common/
 
-RUN npm install
+RUN npm i
 
-COPY . .
+# WORKDIR /app/packages/auth-web-api
 
-COPY ../common ../common
-
-RUN npm run build
+# RUN npm run build
 
 # ENTRYPOINT ["npm", "start"]
