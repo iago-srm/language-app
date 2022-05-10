@@ -54,7 +54,7 @@ export abstract class Server {
         // }
         const alternativePort = this._hasHTTPS ? '443' : '3000';
         this._server.listen(
-            parseInt(process.env.APP_PORT || alternativePort),
+            parseInt(process.env.PORT || alternativePort),
             () => {
                 const { address, port } = this._server.address() as AddressInfo;
                 this._logger.info(`App running at ${address}:${port}`);

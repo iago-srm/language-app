@@ -1,0 +1,6 @@
+node_modules
+**/__test__
+**/*.spec.*s
+packages/web-api/
+packages/web-app/
+npm-debug.log

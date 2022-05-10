@@ -1,5 +1,5 @@
 import { IEncryptionService } from "@application/ports";
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 export class BCryptEncryptionService implements IEncryptionService {
     _saltRounds = 10;

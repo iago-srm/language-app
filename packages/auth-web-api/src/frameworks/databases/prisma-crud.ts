@@ -51,10 +51,10 @@ type Delegate = {
     data: any
   }) => any,
 
-  createMany: (arg: {
-    skipDuplicates?: boolean
-    data: any
-  }) => any,
+  // createMany: (arg: {
+  //   skipDuplicates?: boolean
+  //   data: any
+  // }) => any,
 
   update: (arg: {
     select?: SelectWithId | null
