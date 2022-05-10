@@ -14,6 +14,7 @@ export const LoginControllerFactory = ({
             email,
             password
         });
+        console.log('login endpoint', {email, password})
 
         return {
             response: resp,

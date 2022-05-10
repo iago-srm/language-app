@@ -14,20 +14,21 @@ services:
   #   driver: bridge
   #   name: language-app
   auth:
-    image: iagosrm/language-app-auth
-    build:
-      context: ./
-      dockerfile: ./packages/auth-web-api/Dockerfile
+    image: language-app-auth-web-api
+    entrypoint: "npm run dev"
+    # build:
+    #   dockerfile: ./auth-web-api.Dockerfile
     ports:
       - "${AUTH_PORT}:${AUTH_PORT}"
     environment:
-      # - DATABASE_URL="postgres://${AUTH_POSTGRES_USER}:${AUTH_POSTGRES_PASSWORD}@postgres-auth:5432/${AUTH_POSTGRES_SCHEMA}"
-      - DATABASE_URL=file:./data/db
+      - DATABASE_URL=postgres://${AUTH_POSTGRES_USER}:${AUTH_POSTGRES_PASSWORD}@postgres-auth:5432/${AUTH_POSTGRES_SCHEMA}
+      # - DATABASE_URL=file:./data/db
       - PORT=${AUTH_PORT}
     tty: true
     volumes:
-      - .:/app/
-      - ./node_modules/
+      - ./packages/common:/app/packages/common
+      - ./packages/auth-web-api:/app/packages/auth-web-api
+      # - ./node_modules/
 
   postgres-auth:
     image: postgres

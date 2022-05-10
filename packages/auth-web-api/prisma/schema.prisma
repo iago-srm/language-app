@@ -1,6 +1,6 @@
 datasource db {
   url      = env("DATABASE_URL")
-  provider = "sqlite"
+  provider = "postgres"
 }
 
 // gets DATABASE_URL of the postgres format from env variables

@@ -3,18 +3,16 @@
   "version": "1.0.0",
   "description": "A proof of concept of a very complete NodeJS API",
   "scripts": {
-    "echo": "echo \"Hello from web-api-auth\" ",
     "generate-initial-migration": "npx typeorm migration:generate -n Initial",
     "gen-env": "gen-env-types .env -o src/env.d.ts -e .",
-    "build": "cross-env NODE_ENV=production tsc",
+    "build": "npx prisma generate && tsc",
     "dev": "cross-env NODE_ENV=development ts-node-dev -r tsconfig-paths/register --no-deps --poll src/index.ts",
-    "start": "node -r ts-node/register/transpile-only -r tsconfig-paths/register ./dist/index.js",
+    "start": "cross-env NODE_ENV=production node -r ts-node/register/transpile-only -r tsconfig-paths/register ./build/index.js",
     "typeorm:migration:generate": "node --require ts-node/register ./node_modules/typeorm/cli.js migration:generate -c development",
     "typeorm:migration:run": "node --require ts-node/register ./node_modules/typeorm/cli.js migration:run -c development",
     "test": "cross-env NODE_ENV=test jest --watchAll --no-cache --runInBand",
     "test:ci": "cross-env NODE_ENV=test jest --no-cache --runInBand",
-    "format:ci": "npx prettier --check .",
-    "docker:dev": "docker-compose -f docker-compose-dev.yaml up"
+    "format:ci": "npx prettier --check ."
   },
   "keywords": [],
   "author": "",
@@ -62,6 +60,7 @@
     "sqlite3": "^5.0.2",
     "ts-node": "^9.1.1",
     "tscpaths": "0.0.9",
+    "typeorm": "^0.2.31",
     "typescript": "^4.3.2",
     "uuid": "^8.3.2"
   }
