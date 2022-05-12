@@ -9,7 +9,7 @@ interface PersonIdConstructorParams {
 }
 
 export class  PersonId {
-  public id?: string;
+  id?: string;
   email: string;
   name: string;
 

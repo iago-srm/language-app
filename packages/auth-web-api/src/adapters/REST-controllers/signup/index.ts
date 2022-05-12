@@ -17,8 +17,6 @@ export const SignUpControllerFactory = ({
             confirmPassword,
             role
         });
-        console.log('signup endpoint', {email, password})
-
 
         return {
             response: '',
