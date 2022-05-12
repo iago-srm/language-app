@@ -6,7 +6,7 @@ class PersonIdTestBuilder {
 
   withInvalidShortName() {
     return new PersonId({
-      email: '',
+      email: 'bfgbsr',
       name: 'a'.repeat(AuthRules.PERSONID.NAME.MIN_LENGTH - 1),
       emailValidator: () => true
     });
@@ -14,7 +14,7 @@ class PersonIdTestBuilder {
 
   withInvalidLongName() {
     return new PersonId({
-      email: '',
+      email: 'bgfbfg',
       name: 'a'.repeat(AuthRules.PERSONID.NAME.MAX_LENGTH + 1),
       emailValidator: () => true
     });
@@ -22,7 +22,7 @@ class PersonIdTestBuilder {
 
   withInvalidEmail() {
     return new PersonId({
-      email: '',
+      email: 'bdvbfvbf',
       name: 'a'.repeat(AuthRules.PERSONID.NAME.MIN_LENGTH + 1),
       emailValidator: () => false
     });
@@ -30,7 +30,7 @@ class PersonIdTestBuilder {
 
   valid(n?: string, e?: string) {
     return new PersonId({
-      email: e || '',
+      email: e || 'agfdgfd',
       name: n || 'a'.repeat(AuthRules.PERSONID.NAME.MIN_LENGTH + 1),
       emailValidator: () => true
     });

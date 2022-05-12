@@ -10,24 +10,25 @@ import {
 } from '@language-app/common';
 
 interface UserConstructorParams {
-  name: string;
+  name?: string;
   role: string;
   email: string;
   password: string;
 }
+
 export class User {
   personId: PersonId;
   role: string;
   password: string;
 
-  constructor(args: Partial<UserConstructorParams>) {
+  constructor(args: UserConstructorParams) {
     this.setPersonId(args.email, args.name);
     this.setRole(args.role);
     this.setPassword(args.password);
   }
 
   setPersonId(email: string, name: string) {
-    this.personId = new PersonId({ email, emailValidator: validateEmail, name})
+    this.personId = new PersonId({ email, emailValidator: validateEmail, name })
   }
 
   setRole(role: string) {
@@ -36,6 +37,7 @@ export class User {
   }
 
   setPassword(password: string) {
-    if(!AuthRules.PASSWORD_REGEX.test(password)) throw new InvalidPasswordError()
+    if(!AuthRules.PASSWORD_REGEX.test(password)) throw new InvalidPasswordError();
+    this.password = password;
   }
 }

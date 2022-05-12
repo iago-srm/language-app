@@ -42,7 +42,7 @@ export const SignUpUseCaseFactory: ISignUpUseCaseFactory = ({
                 email: user.personId.email,
                 name: user.personId.name,
                 role: user.role,
-                hashedPassword: await encryptionService.encrypt(password),
+                hashedPassword: await encryptionService.encrypt(user.password),
             } as UserDTO;
 
             await userRepository.insertUser(userDTO)

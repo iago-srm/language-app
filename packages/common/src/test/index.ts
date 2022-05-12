@@ -15,3 +15,12 @@ export class NameGenerator {
     return faker.name.findName()
   }
 }
+
+export class PasswordGenerator {
+  getValidPassword() {
+    return 'afafdFDSFSD5353FDSxzsvs'
+  }
+  getInvalidPassword() {
+    return 'a'
+  }
+}
