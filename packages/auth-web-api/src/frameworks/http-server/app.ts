@@ -21,7 +21,7 @@ interface IExpressConstructorParams extends IHTTPServerConstructorParams {
 
 export class ExpressServer extends AbstractServer {
     _app: Express;
-    baseUrn = 'api/v1';
+    baseUrn = '/api/v1';
     _logger: any;
 
     constructor({ logger, controllers, errorHandlers, middlewares }: IExpressConstructorParams) {
@@ -67,7 +67,7 @@ export class ExpressServer extends AbstractServer {
                 )
             } else {
                 this._app[descriptor.method!](
-                    descriptor.path!,
+                    `${this.baseUrn}/${descriptor.path!}`,
                     descriptor.controller
                 )
             }

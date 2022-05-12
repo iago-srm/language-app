@@ -13,7 +13,7 @@ export const EnglishErrorMessages = {
   [ErrorMessages.INVALID_CREDENTIALS]: 'Wrong e-mail or password',
   [ErrorMessages.INVALID_TOKEN]: 'Expired token. Please login again',
   [ErrorMessages.PARAMETER_NOT_PROVIDED]:
-    'Some request parameter was not provided. Please refer to the documentation.',
+    '%{parameter} was not provided. Please refer to the documentation.',
   [ErrorMessages.USER_NOT_FOUND]: 'User not found',
   [ErrorMessages.MALFORMED_TOKEN]: 'Authentication token has wrong format',
   [ErrorMessages.MISSING_TOKEN]: 'Please provide an authentication token',

@@ -25,7 +25,7 @@ export const LoginControllerFactory = ({
     return {
         controller: fn,
         method: 'post',
-        path: '/login'
+        path: 'login'
     };
 };
 

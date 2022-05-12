@@ -15,11 +15,14 @@ services:
   #   name: language-app
   auth:
     image: language-app-auth-web-api
+    container_name: auth-web-api
     entrypoint: "npm run dev"
+    # entrypoint: "tail -f /dev/null"
     # build:
     #   dockerfile: ./auth-web-api.Dockerfile
     ports:
       - "${AUTH_PORT}:${AUTH_PORT}"
+      - 5555:5555
     environment:
       - DATABASE_URL=postgres://${AUTH_POSTGRES_USER}:${AUTH_POSTGRES_PASSWORD}@postgres-auth:5432/${AUTH_POSTGRES_SCHEMA}
       # - DATABASE_URL=file:./data/db
@@ -32,12 +35,13 @@ services:
 
   postgres-auth:
     image: postgres
+    container_name: auth-postgres
     ports:
       - "5432"
     environment:
       - POSTGRES_USER=${AUTH_POSTGRES_USER}
       - POSTGRES_PASSWORD=${AUTH_POSTGRES_PASSWORD}
-      - POSTGRES_SCHEMA=${AUTH_POSTGRES_SCHEMA}
+      - POSTGRES_DB=${AUTH_POSTGRES_SCHEMA}
     volumes:
       - ${HOME}/language-app-auth-postgres-data/:/var/lib/postgresql/data
     healthcheck:

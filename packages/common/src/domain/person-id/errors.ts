@@ -4,7 +4,7 @@ import { CustomError } from '../../errors';
 export class InvalidEmailError extends CustomError {
   HTTPstatusCode = 400;
   constructor() {
-    super({ errorName: ErrorMessages.INVALID_NAME });
+    super({ errorName: ErrorMessages.INVALID_EMAIL });
   }
 }
 

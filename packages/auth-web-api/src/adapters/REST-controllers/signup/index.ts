@@ -17,6 +17,8 @@ export const SignUpControllerFactory = ({
             confirmPassword,
             role
         });
+        console.log('signup endpoint', {email, password})
+
 
         return {
             response: '',
@@ -27,7 +29,7 @@ export const SignUpControllerFactory = ({
     return {
         controller: fn,
         method: 'post',
-        path: '/signup'
+        path: 'signup'
     };
 };
 

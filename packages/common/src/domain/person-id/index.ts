@@ -15,7 +15,7 @@ export class  PersonId {
 
   constructor(args: PersonIdConstructorParams) {
     this.setEmail(args.email, args.emailValidator);
-    this.setName(args.name);
+    if(args.name) this.setName(args.name);
 
     this.id = args.id;
   }

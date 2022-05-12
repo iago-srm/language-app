@@ -6,6 +6,7 @@ import {
     IEncryptionService
 } from '../ports';
 import { User } from '@domain';
+import { PasswordsDontMatchError } from '@common/errors';
 
 export type InputParams = {
     email: string;
@@ -33,9 +34,9 @@ export const SignUpUseCaseFactory: ISignUpUseCaseFactory = ({
 }) => {
     return {
         execute: async ({ email, name, password, confirmPassword, role }) => {
-            const user = new User({ email, name, role });
+            const user = new User({ email, name, role, password });
 
-            if(password !== confirmPassword) throw new Error('Senhas diferentes');
+            if(password !== confirmPassword) throw new PasswordsDontMatchError();
 
             const userDTO = {
                 email: user.personId.email,
