@@ -1,8 +1,7 @@
-import { IUserRepository, UserDTO } from "@application/ports";
-import { PrismaClient } from "@prisma/client";
+import { IUserRepository, UserDTO } from '@application/ports';
+import { PrismaClient } from '@prisma/client';
 
 export class UserRepository implements IUserRepository {
-
   prisma: PrismaClient;
 
   constructor() {
@@ -12,29 +11,29 @@ export class UserRepository implements IUserRepository {
   getUserById(id: string) {
     return this.prisma.user.findUnique({
       where: {
-        id
-      }
-    })
+        id,
+      },
+    });
   }
 
   getUserByEmail(email: string) {
     return this.prisma.user.findUnique({
       where: {
-        email
-      }
-    })
+        email,
+      },
+    });
   }
 
   async insertUser(user: UserDTO) {
     return this.prisma.user.create({
-      data: user
-    })
+      data: user,
+    });
   }
 
   updateUser(id: string, user: UserDTO) {
     return this.prisma.user.update({
       where: { id },
-      data: user
-    })
+      data: user,
+    });
   }
 }

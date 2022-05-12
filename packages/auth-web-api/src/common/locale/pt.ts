@@ -3,5 +3,5 @@ import { PortugueseErrorMessages as CommonPortugueseErrorMessages } from '@langu
 
 export const PortugueseErrorMessages = {
   ...CommonPortugueseErrorMessages,
-  [ErrorMessages.INVALID_ROLE]: 'Papel inválido'
+  [ErrorMessages.INVALID_ROLE]: 'Papel inválido',
 };

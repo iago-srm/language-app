@@ -1,28 +1,23 @@
-import "reflect-metadata";
-require("dotenv-safe").config({
+import 'reflect-metadata';
+require('dotenv-safe').config({
   allowEmptyValues: true,
-  path: `.env.${process.env.NODE_ENV}`
+  path: `.env.${process.env.NODE_ENV}`,
 });
-import { ExpressServer } from "./frameworks/http-server/app";
+import { ExpressServer } from './frameworks/http-server/app';
 import {
   SignUpUseCaseFactory,
   LoginUseCaseFactory,
 } from '@application/use-cases';
-import {
-  UserRepository,
-} from '@adapters/repositories';
-import {
-  // TypeORMDatabase,
-  // InMemoryDatabase
-} from '@frameworks/databases';
+import { UserRepository } from '@adapters/repositories';
+import // TypeORMDatabase,
+// InMemoryDatabase
+'@frameworks/databases';
 import {
   SignUpControllerFactory,
   LoginControllerFactory,
-  ErrorHandlerControllerFactory
+  ErrorHandlerControllerFactory,
 } from '@adapters/REST-controllers';
-import {
-  AuthenticationMiddlewareControllerFactory
-} from '@adapters/REST-middleware';
+import { AuthenticationMiddlewareControllerFactory } from '@adapters/REST-middleware';
 import { ExpressControllerAdapter } from '@frameworks/http';
 import { BCryptEncryptionService, JWTTokenService } from '@frameworks/services';
 
@@ -41,23 +36,23 @@ import { BCryptEncryptionService, JWTTokenService } from '@frameworks/services';
     // use cases
     const signUpUseCase = SignUpUseCaseFactory({
       userRepository,
-      encryptionService
+      encryptionService,
     });
     const loginUseCase = LoginUseCaseFactory({
       userRepository,
       encryptionService,
-      tokenService
+      tokenService,
     });
 
     // controllers
     const signUpController = SignUpControllerFactory({
-      signUpUseCase
+      signUpUseCase,
     });
     const loginController = LoginControllerFactory({
-      loginUseCase
+      loginUseCase,
     });
     const authMiddleware = AuthenticationMiddlewareControllerFactory({
-      tokenService
+      tokenService,
     });
     const errorHandler = ErrorHandlerControllerFactory();
 
@@ -66,26 +61,30 @@ import { BCryptEncryptionService, JWTTokenService } from '@frameworks/services';
     const server = new ExpressServer({
       // db: database,
       logger: { info: console.log, error: console.error },
-      controllers: [
-        signUpController,
-        loginController,
-      ].map(controller => ({
+      controllers: [signUpController, loginController].map((controller) => ({
         middleware: controller.middleware,
         method: controller.method,
-        controller: expressAdapter.adaptControllerFunction(controller.controller),
-        path: controller.path
+        controller: expressAdapter.adaptControllerFunction(
+          controller.controller
+        ),
+        path: controller.path,
       })),
       middlewares: {
-        auth: expressAdapter.adaptMiddlewareControllerFunction(authMiddleware.controller)
+        auth: expressAdapter.adaptMiddlewareControllerFunction(
+          authMiddleware.controller
+        ),
       },
       errorHandlers: [
-        {controller: expressAdapter.adaptErrorControllerFunction(errorHandler.controller)}
-      ]
-    })
+        {
+          controller: expressAdapter.adaptErrorControllerFunction(
+            errorHandler.controller
+          ),
+        },
+      ],
+    });
 
     await server.start();
-
-  } catch(e) {
-    console.error("Server instanciating failed",e);
+  } catch (e) {
+    console.error('Server instanciating failed', e);
   }
 })();

@@ -3,5 +3,5 @@ import { EnglishErrorMessages as CommonEnglishErrorMessages } from '@language-ap
 
 export const EnglishErrorMessages = {
   ...CommonEnglishErrorMessages,
-  [ErrorMessages.INVALID_ROLE]: 'Invalid role'
+  [ErrorMessages.INVALID_ROLE]: 'Invalid role',
 };

@@ -1,5 +1,5 @@
 export enum dbConnectionNames {
-  DEVELOPMENT = "development",
-  PRODUCTION = "production",
-  TEST = "test",
+  DEVELOPMENT = 'development',
+  PRODUCTION = 'production',
+  TEST = 'test',
 }
