@@ -7,19 +7,19 @@ import { ExpressServer } from './frameworks/http-server/app';
 import {
   SignUpUseCaseFactory,
   LoginUseCaseFactory,
+  GetUserUseCaseFactory
 } from '@application/use-cases';
 import { UserRepository } from '@adapters/repositories';
-import // TypeORMDatabase,
-// InMemoryDatabase
-'@frameworks/databases';
+
 import {
   SignUpControllerFactory,
   LoginControllerFactory,
+  GetUserControllerFactory,
   ErrorHandlerControllerFactory,
 } from '@adapters/REST-controllers';
 import { AuthenticationMiddlewareControllerFactory } from '@adapters/REST-middleware';
 import { ExpressControllerAdapter } from '@frameworks/http';
-import { BCryptEncryptionService, JWTTokenService } from '@frameworks/services';
+import { BCryptEncryptionService, JWTTokenService, IdGenerator } from '@frameworks/services';
 
 (async () => {
   try {
@@ -32,17 +32,24 @@ import { BCryptEncryptionService, JWTTokenService } from '@frameworks/services';
     const userRepository = new UserRepository();
     const encryptionService = new BCryptEncryptionService();
     const tokenService = new JWTTokenService();
+    const idService = new IdGenerator();
 
     // use cases
     const signUpUseCase = SignUpUseCaseFactory({
       userRepository,
       encryptionService,
+      tokenService,
+      idService
     });
     const loginUseCase = LoginUseCaseFactory({
       userRepository,
       encryptionService,
       tokenService,
     });
+    const getUserUseCase = GetUserUseCaseFactory({
+      tokenService,
+      userRepository,
+    })
 
     // controllers
     const signUpController = SignUpControllerFactory({
@@ -51,6 +58,10 @@ import { BCryptEncryptionService, JWTTokenService } from '@frameworks/services';
     const loginController = LoginControllerFactory({
       loginUseCase,
     });
+    const getUserController = GetUserControllerFactory({
+      getUserUseCase
+    });
+
     const authMiddleware = AuthenticationMiddlewareControllerFactory({
       tokenService,
     });
@@ -61,7 +72,11 @@ import { BCryptEncryptionService, JWTTokenService } from '@frameworks/services';
     const server = new ExpressServer({
       // db: database,
       logger: { info: console.log, error: console.error },
-      controllers: [signUpController, loginController].map((controller) => ({
+      controllers: [
+        signUpController,
+        loginController,
+        getUserController
+      ].map((controller) => ({
         middleware: controller.middleware,
         method: controller.method,
         controller: expressAdapter.adaptControllerFunction(

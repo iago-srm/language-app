@@ -4,6 +4,7 @@ export type IHTTPController = (
   query: any,
   headers: {
     user?: any;
+    auth: string;
   }
 ) => Promise<{ response: any; statusCode: number }>;
 

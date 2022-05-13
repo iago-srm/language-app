@@ -1,2 +1,9 @@
 export * from './sign-up';
-export * from './log-in';
+import GetUserUseCaseFactory, { IGetUserUseCase } from './get-user';
+import LoginUseCaseFactory, { ILoginUseCase } from './log-in';
+export {
+  LoginUseCaseFactory,
+  ILoginUseCase,
+  GetUserUseCaseFactory,
+  IGetUserUseCase
+}

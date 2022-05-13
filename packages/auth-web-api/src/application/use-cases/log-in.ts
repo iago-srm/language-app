@@ -5,34 +5,30 @@ import {
   IEncryptionService,
   ITokenService,
 } from '../ports';
-import { InvalidCredentialsError } from '@language-app/common';
+import {
+  InvalidCredentialsError,
+  LoginAPIResponse,
+  LoginAPIParams
+} from '@language-app/common';
 
-export type LoginInputParams = {
-  email: string;
-  password: string;
-};
+type InputParams = LoginAPIParams;
+type Return = LoginAPIResponse;
 
-type Return = {
-  token: string;
-  id: string;
-  name: string;
-  email: string;
-  avatarUrl?: string;
-};
 type Dependencies = {
   userRepository: IUserRepository;
   encryptionService: IEncryptionService;
   tokenService: ITokenService;
 };
 
-export type ILoginUseCase = IUseCase<LoginInputParams, Return>;
-export type ILoginUseCaseFactory = IUseCaseFactory<
+export type ILoginUseCase = IUseCase<InputParams, Return>;
+
+type UseCaseFactory = IUseCaseFactory<
   Dependencies,
-  LoginInputParams,
+  InputParams,
   Return
 >;
 
-export const LoginUseCaseFactory: ILoginUseCaseFactory = ({
+const Factory: UseCaseFactory = ({
   userRepository,
   encryptionService,
   tokenService,
@@ -55,16 +51,14 @@ export const LoginUseCaseFactory: ILoginUseCaseFactory = ({
 
       const token = tokenService.generate({
         id: userDTO.id || '',
-        email: userDTO.email,
-        name: userDTO.name,
+        tokenVersion: userDTO.tokenVersion
       });
 
       return {
-        token,
-        name: userDTO.name,
-        email: userDTO.email,
-        id: userDTO.id,
+        token
       };
     },
   };
 };
+
+export default Factory

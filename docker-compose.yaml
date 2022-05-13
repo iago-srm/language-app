@@ -16,16 +16,13 @@ services:
   auth:
     image: language-app-auth-web-api
     container_name: auth-web-api
-    entrypoint: "npm run dev"
-    # entrypoint: "tail -f /dev/null"
-    # build:
-    #   dockerfile: ./auth-web-api.Dockerfile
+    # entrypoint: "npm run dev"
+    entrypoint: "tail -f /dev/null"
     ports:
       - "${AUTH_PORT}:${AUTH_PORT}"
-      - 5555:5555
+      - 5555:5555 # prisma studio
     environment:
       - DATABASE_URL=postgres://${AUTH_POSTGRES_USER}:${AUTH_POSTGRES_PASSWORD}@postgres-auth:5432/${AUTH_POSTGRES_SCHEMA}
-      # - DATABASE_URL=file:./data/db
       - PORT=${AUTH_PORT}
     tty: true
     volumes:

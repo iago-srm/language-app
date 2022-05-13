@@ -4,4 +4,5 @@ export interface UserDTO {
   email: string;
   role: string;
   hashedPassword: string;
+  tokenVersion: number;
 }

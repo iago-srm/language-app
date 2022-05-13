@@ -14,7 +14,7 @@ export const SignUpControllerFactory = ({
     const { email, password, name, confirmPassword, role } =
       SerializeSignupBody(body);
 
-    await signUpUseCase.execute({
+    const response = await signUpUseCase.execute({
       email,
       name,
       password,
@@ -23,8 +23,8 @@ export const SignUpControllerFactory = ({
     });
 
     return {
-      response: '',
-      statusCode: 201,
+      response,
+      statusCode: 200,
     };
   };
 

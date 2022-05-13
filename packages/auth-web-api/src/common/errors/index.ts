@@ -1,5 +1,5 @@
-import { CustomError, ErrorMessages } from '@language-app/common';
-import { ErrorMessages as LocalErrorMessages } from '../locale/error-messages';
+import { CustomError } from '@language-app/common';
+import { ErrorMessages } from '../locale/error-messages';
 
 export class PasswordsDontMatchError extends CustomError {
   HTTPstatusCode = 400;
@@ -11,7 +11,7 @@ export class PasswordsDontMatchError extends CustomError {
 export class InvalidRoleError extends CustomError {
   HTTPstatusCode = 400;
   constructor() {
-    super({ errorName: LocalErrorMessages.INVALID_ROLE });
+    super({ errorName: ErrorMessages.INVALID_ROLE });
   }
 }
 
@@ -19,5 +19,12 @@ export class InvalidPasswordError extends CustomError {
   HTTPstatusCode = 400;
   constructor() {
     super({ errorName: ErrorMessages.INVALID_PASSWORD });
+  }
+}
+
+export class EmailAlreadySignedupError extends CustomError {
+  HTTPstatusCode = 400;
+  constructor() {
+    super({ errorName: ErrorMessages.EMAIL_IN_USE });
   }
 }

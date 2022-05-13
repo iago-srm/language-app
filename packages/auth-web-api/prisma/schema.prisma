@@ -16,7 +16,7 @@ generator client {
 // }
 
 model User {
-  id        String   @id @default(uuid())
+  id        String   @id
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -24,7 +24,7 @@ model User {
   name           String?
   role           String  @default("STUDENT")
   hashedPassword String
-
+  tokenVersion   Int
   @@map("users")
 }
 
