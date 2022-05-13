@@ -5,5 +5,5 @@ export {
   LoginUseCaseFactory,
   ILoginUseCase,
   GetUserUseCaseFactory,
-  IGetUserUseCase
-}
+  IGetUserUseCase,
+};

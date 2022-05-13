@@ -5,10 +5,13 @@ import {
   UserDTO,
   IEncryptionService,
   ITokenService,
-  IIdGenerator
+  IIdGenerator,
 } from '../ports';
 import { User } from '@domain';
-import { PasswordsDontMatchError, EmailAlreadySignedupError } from '@common/errors';
+import {
+  PasswordsDontMatchError,
+  EmailAlreadySignedupError,
+} from '@common/errors';
 
 export type InputParams = {
   email: string;
@@ -38,7 +41,7 @@ export const SignUpUseCaseFactory: ISignUpUseCaseFactory = ({
   userRepository,
   encryptionService,
   tokenService,
-  idService
+  idService,
 }) => {
   return {
     execute: async ({ email, name, password, confirmPassword, role }) => {
@@ -46,7 +49,7 @@ export const SignUpUseCaseFactory: ISignUpUseCaseFactory = ({
 
       const existingUser = await userRepository.getUserByEmail(email);
 
-      if(existingUser) throw new EmailAlreadySignedupError();
+      if (existingUser) throw new EmailAlreadySignedupError();
 
       if (password !== confirmPassword) throw new PasswordsDontMatchError();
 
@@ -56,17 +59,17 @@ export const SignUpUseCaseFactory: ISignUpUseCaseFactory = ({
         name: user.personId.name,
         role: user.role,
         hashedPassword: await encryptionService.encrypt(user.password),
-        tokenVersion: 0
+        tokenVersion: 0,
       };
 
       await userRepository.insertUser(userDTO);
 
       const token = tokenService.generate({
         id: userDTO.id,
-        tokenVersion: userDTO.tokenVersion
+        tokenVersion: userDTO.tokenVersion,
       });
 
-      return {token};
+      return { token };
     },
   };
 };

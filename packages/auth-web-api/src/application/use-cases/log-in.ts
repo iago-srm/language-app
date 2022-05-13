@@ -8,7 +8,7 @@ import {
 import {
   InvalidCredentialsError,
   LoginAPIResponse,
-  LoginAPIParams
+  LoginAPIParams,
 } from '@language-app/common';
 
 type InputParams = LoginAPIParams;
@@ -22,11 +22,7 @@ type Dependencies = {
 
 export type ILoginUseCase = IUseCase<InputParams, Return>;
 
-type UseCaseFactory = IUseCaseFactory<
-  Dependencies,
-  InputParams,
-  Return
->;
+type UseCaseFactory = IUseCaseFactory<Dependencies, InputParams, Return>;
 
 const Factory: UseCaseFactory = ({
   userRepository,
@@ -37,28 +33,25 @@ const Factory: UseCaseFactory = ({
     execute: async ({ email, password }) => {
       const userDTO = await userRepository.getUserByEmail(email);
 
-      if (!userDTO) {
-        throw new InvalidCredentialsError();
-      }
+      if (!userDTO) throw new InvalidCredentialsError();
+
       const passwordValid = await encryptionService.compare(
         password,
         userDTO.hashedPassword
       );
 
-      if (!passwordValid) {
-        throw new InvalidCredentialsError();
-      }
+      if (!passwordValid) throw new InvalidCredentialsError();
 
       const token = tokenService.generate({
         id: userDTO.id || '',
-        tokenVersion: userDTO.tokenVersion
+        tokenVersion: userDTO.tokenVersion,
       });
 
       return {
-        token
+        token,
       };
     },
   };
 };
 
-export default Factory
+export default Factory;

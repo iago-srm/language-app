@@ -7,7 +7,7 @@ import { ExpressServer } from './frameworks/http-server/app';
 import {
   SignUpUseCaseFactory,
   LoginUseCaseFactory,
-  GetUserUseCaseFactory
+  GetUserUseCaseFactory,
 } from '@application/use-cases';
 import { UserRepository } from '@adapters/repositories';
 
@@ -19,7 +19,11 @@ import {
 } from '@adapters/REST-controllers';
 import { AuthenticationMiddlewareControllerFactory } from '@adapters/REST-middleware';
 import { ExpressControllerAdapter } from '@frameworks/http';
-import { BCryptEncryptionService, JWTTokenService, IdGenerator } from '@frameworks/services';
+import {
+  BCryptEncryptionService,
+  JWTTokenService,
+  IdGenerator,
+} from '@frameworks/services';
 
 (async () => {
   try {
@@ -39,7 +43,7 @@ import { BCryptEncryptionService, JWTTokenService, IdGenerator } from '@framewor
       userRepository,
       encryptionService,
       tokenService,
-      idService
+      idService,
     });
     const loginUseCase = LoginUseCaseFactory({
       userRepository,
@@ -49,7 +53,7 @@ import { BCryptEncryptionService, JWTTokenService, IdGenerator } from '@framewor
     const getUserUseCase = GetUserUseCaseFactory({
       tokenService,
       userRepository,
-    })
+    });
 
     // controllers
     const signUpController = SignUpControllerFactory({
@@ -59,7 +63,7 @@ import { BCryptEncryptionService, JWTTokenService, IdGenerator } from '@framewor
       loginUseCase,
     });
     const getUserController = GetUserControllerFactory({
-      getUserUseCase
+      getUserUseCase,
     });
 
     const authMiddleware = AuthenticationMiddlewareControllerFactory({
@@ -72,18 +76,16 @@ import { BCryptEncryptionService, JWTTokenService, IdGenerator } from '@framewor
     const server = new ExpressServer({
       // db: database,
       logger: { info: console.log, error: console.error },
-      controllers: [
-        signUpController,
-        loginController,
-        getUserController
-      ].map((controller) => ({
-        middleware: controller.middleware,
-        method: controller.method,
-        controller: expressAdapter.adaptControllerFunction(
-          controller.controller
-        ),
-        path: controller.path,
-      })),
+      controllers: [signUpController, loginController, getUserController].map(
+        (controller) => ({
+          middleware: controller.middleware,
+          method: controller.method,
+          controller: expressAdapter.adaptControllerFunction(
+            controller.controller
+          ),
+          path: controller.path,
+        })
+      ),
       middlewares: {
         auth: expressAdapter.adaptMiddlewareControllerFunction(
           authMiddleware.controller

@@ -3,5 +3,5 @@ import { ErrorMessages as CommonErrorMessages } from '@language-app/common';
 export const ErrorMessages = {
   ...CommonErrorMessages,
   INVALID_ROLE: 'role',
-  EMAIL_IN_USE: 'email_in_use'
+  EMAIL_IN_USE: 'email_in_use',
 };

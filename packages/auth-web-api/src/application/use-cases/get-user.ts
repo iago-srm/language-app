@@ -4,7 +4,10 @@ import {
   IUserRepository,
   ITokenService,
 } from '../ports';
-import { InvalidCredentialsError, GetUserAPIResponse } from '@language-app/common';
+import {
+  InvalidCredentialsError,
+  GetUserAPIResponse,
+} from '@language-app/common';
 
 type InputParams = {
   token: string;
@@ -18,20 +21,14 @@ type Dependencies = {
 
 export type IGetUserUseCase = IUseCase<InputParams, Return>;
 
-type UseCaseFactory = IUseCaseFactory<
-  Dependencies,
-  InputParams,
-  Return
->;
+type UseCaseFactory = IUseCaseFactory<Dependencies, InputParams, Return>;
 
-const Factory: UseCaseFactory = ({
-  userRepository,
-  tokenService,
-}) => {
+const Factory: UseCaseFactory = ({ userRepository, tokenService }) => {
   return {
     execute: async ({ token }) => {
       const tokenContent = await tokenService.verify(token);
-      if(!tokenContent.id || !tokenContent.tokenVersion) throw new Error('token sem propriedades')
+      if (!tokenContent.id || !tokenContent.tokenVersion)
+        throw new Error('token sem propriedades');
 
       const userDTO = await userRepository.getUserById(tokenContent.id);
 
@@ -39,10 +36,11 @@ const Factory: UseCaseFactory = ({
         throw new InvalidCredentialsError();
       }
 
-      if(userDTO.tokenVersion !== tokenContent.tokenVersion) throw new Error('403')
+      if (userDTO.tokenVersion !== tokenContent.tokenVersion)
+        throw new Error('403');
 
       return {
-        ...userDTO
+        ...userDTO,
       };
     },
   };

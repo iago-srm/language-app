@@ -11,9 +11,8 @@ export const GetUserControllerFactory = ({
   getUserUseCase: IGetUserUseCase;
 }): IHTTPControllerDescriptor<IHTTPController> => {
   const fn: IHTTPController = async (_, __, ___, headers) => {
-
     const resp = await getUserUseCase.execute({
-      token: getAuthTokenFromHeader(headers)
+      token: getAuthTokenFromHeader(headers),
     });
 
     return {
