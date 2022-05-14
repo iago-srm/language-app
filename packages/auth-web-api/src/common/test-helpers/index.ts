@@ -7,6 +7,7 @@ export class TestUserDTOHelper {
     hashedPassword: 'hashed-password',
     name: 'valid',
     role: 'STUDENT',
+    tokenVersion: 0
   };
 
   getUser() {

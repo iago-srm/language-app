@@ -15,6 +15,7 @@ export class ExpressControllerAdapter implements IHTTPFrameworkAdapter {
         req.body,
         req.query,
         {
+          auth: req.headers.auth[0],
           user: (req as any).user,
         }
       );

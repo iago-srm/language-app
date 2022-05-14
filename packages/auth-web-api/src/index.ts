@@ -1,107 +1,134 @@
-import 'reflect-metadata';
-require('dotenv-safe').config({
-  allowEmptyValues: true,
-  path: `.env.${process.env.NODE_ENV}`,
-});
-import { ExpressServer } from './frameworks/http-server/app';
+import * as awilix from 'awilix';
 import {
-  SignUpUseCaseFactory,
-  LoginUseCaseFactory,
-  GetUserUseCaseFactory,
-} from '@application/use-cases';
-import { UserRepository } from '@adapters/repositories';
-
+  ExpressServer as FrameworkServer,
+} from '@frameworks/http';
 import {
-  SignUpControllerFactory,
   LoginControllerFactory,
   GetUserControllerFactory,
-  ErrorHandlerControllerFactory,
+  SignUpControllerFactory,
+  ErrorHandlerControllerFactory
 } from '@adapters/REST-controllers';
-import { AuthenticationMiddlewareControllerFactory } from '@adapters/REST-middleware';
-import { ExpressControllerAdapter } from '@frameworks/http';
 import {
-  BCryptEncryptionService,
+  UserRepository
+} from '@adapters/repositories';
+import {
   JWTTokenService,
   IdGenerator,
+  BCryptEncryptionService
 } from '@frameworks/services';
+import {
+  LoginUseCaseFactory,
+  SignUpUseCaseFactory,
+  GetUserUseCaseFactory,
+  LogoutUseCaseFactory,
+} from '@application/use-cases';
+import { AuthenticationMiddlewareControllerFactory } from '@adapters/REST-middleware';
+import { ExpressControllerAdapter } from '@frameworks/http';
 
-(async () => {
-  try {
-    // const database = new TypeORMDatabase({
-    //   dbConnectionName: process.env.NODE_ENV,
-    // });
-    // await database.connect();
+const container = awilix.createContainer();
 
-    // services and repositories
-    const userRepository = new UserRepository();
-    const encryptionService = new BCryptEncryptionService();
-    const tokenService = new JWTTokenService();
-    const idService = new IdGenerator();
+export enum Dependencies {
+  // controllers
+  LOGINCONTROLLER = 'loginController',
+  SIGNUPCONTROLLER = 'signupController',
+  GETUSERCONTROLLER = 'getUserController',
+  LOGOUTCONTROLLER = 'logoutController',
 
-    // use cases
-    const signUpUseCase = SignUpUseCaseFactory({
-      userRepository,
-      encryptionService,
-      tokenService,
-      idService,
-    });
-    const loginUseCase = LoginUseCaseFactory({
-      userRepository,
-      encryptionService,
-      tokenService,
-    });
-    const getUserUseCase = GetUserUseCaseFactory({
-      tokenService,
-      userRepository,
-    });
+  AUTHMIDDLEWARE = 'authMiddleware',
+  ERRORHANDLER = 'errorHandler',
 
-    // controllers
-    const signUpController = SignUpControllerFactory({
-      signUpUseCase,
-    });
-    const loginController = LoginControllerFactory({
-      loginUseCase,
-    });
-    const getUserController = GetUserControllerFactory({
-      getUserUseCase,
-    });
+  // services
+  TOKENSERVICE = 'tokenService',
+  IDSERVICE = 'idService',
+  ENCRYPTIONSERVICE = 'encryptionService',
+  LOGGER = 'logger',
 
-    const authMiddleware = AuthenticationMiddlewareControllerFactory({
-      tokenService,
-    });
-    const errorHandler = ErrorHandlerControllerFactory();
+  // use cases
+  LOGOUTUSECASE = 'logoutUseCase',
+  LOGINUSECASE = 'loginUseCase',
+  SIGNUPUSECASE = 'signUpUseCase',
+  GETUSERUSECASE = 'getUserUseCase',
 
-    // http server
-    const expressAdapter = new ExpressControllerAdapter();
-    const server = new ExpressServer({
-      // db: database,
+  // repositories
+  USERREPOSITORY = 'userRepository',
+
+  // server
+  SERVER = 'server',
+}
+
+container.register({
+  // controllers
+  [Dependencies.LOGINCONTROLLER]: awilix.asFunction(LoginControllerFactory),
+  [Dependencies.SIGNUPCONTROLLER]: awilix.asFunction(SignUpControllerFactory),
+  [Dependencies.GETUSERCONTROLLER]: awilix.asFunction(GetUserControllerFactory),
+
+  [Dependencies.AUTHMIDDLEWARE]: awilix.asFunction(AuthenticationMiddlewareControllerFactory),
+  [Dependencies.ERRORHANDLER]: awilix.asFunction(ErrorHandlerControllerFactory),
+
+  // services
+  [Dependencies.ENCRYPTIONSERVICE]: awilix.asClass(BCryptEncryptionService),
+  [Dependencies.IDSERVICE]: awilix.asClass(IdGenerator),
+  [Dependencies.TOKENSERVICE]: awilix.asClass(JWTTokenService),
+
+  // use cases
+  [Dependencies.LOGOUTUSECASE]: awilix.asFunction(LogoutUseCaseFactory),
+  [Dependencies.LOGINUSECASE]: awilix.asFunction(LoginUseCaseFactory),
+  [Dependencies.SIGNUPUSECASE]: awilix.asFunction(SignUpUseCaseFactory),
+  [Dependencies.GETUSERUSECASE]: awilix.asFunction(GetUserUseCaseFactory),
+
+  // repositories
+  [Dependencies.USERREPOSITORY]: awilix.asClass(UserRepository),
+})
+
+const expressAdapter = new ExpressControllerAdapter();
+const getControllers = (container: awilix.AwilixContainer) => {
+  const controllers = []
+  for (let registrationName in container.registrations) {
+    if(registrationName.includes("Controller")) {
+      controllers.push(container.resolve(registrationName));
+    }
+  }
+  return controllers;
+}
+
+container.register({
+  // server
+  [Dependencies.SERVER]:
+  awilix.asClass(FrameworkServer)
+  .singleton()
+  .inject((container: awilix.AwilixContainer) => {
+    return {
+      controllers: getControllers(container).map((controller) => ({
+        middleware: controller.middleware,
+        method: controller.method,
+        controller: expressAdapter.adaptControllerFunction(
+          controller.controller
+        ),
+        path: controller.path,
+      })),
       logger: { info: console.log, error: console.error },
-      controllers: [signUpController, loginController, getUserController].map(
-        (controller) => ({
-          middleware: controller.middleware,
-          method: controller.method,
-          controller: expressAdapter.adaptControllerFunction(
-            controller.controller
-          ),
-          path: controller.path,
-        })
-      ),
       middlewares: {
         auth: expressAdapter.adaptMiddlewareControllerFunction(
-          authMiddleware.controller
+          (container.registrations.authMiddleware as any).controller
         ),
       },
       errorHandlers: [
         {
           controller: expressAdapter.adaptErrorControllerFunction(
-            errorHandler.controller
+            (container.registrations.errorHandler as any).controller
           ),
         },
       ],
-    });
+    }
+  })
+});
 
-    await server.start();
-  } catch (e) {
-    console.error('Server instanciating failed', e);
+const server = container.resolve(Dependencies.SERVER);
+
+(async () => {
+  try {
+    await server.start()
+  } catch(e) {
+    console.error('Server instanciation failed', e);
   }
-})();
+})()
