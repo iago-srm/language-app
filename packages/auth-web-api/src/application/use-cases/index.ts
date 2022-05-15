@@ -6,7 +6,6 @@ export { SignUpUseCaseFactory, ISignUpUseCase } from './sign-up';
 export {
   LoginUseCaseFactory,
   ILoginUseCase,
-  GetUserUseCaseFactory,
   IGetUserUseCase,
   LogoutUseCaseFactory,
   ILogoutUseCase

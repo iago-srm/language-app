@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from 'express';
 import {
   IHTTPController,
   IHTTPErrorHandler,
-  IHTTPControllerPathDescriptor,
   IHTTPMiddleware,
 } from '@adapters/REST-controllers';
 import { IHTTPFrameworkAdapter } from './server';
@@ -15,7 +14,8 @@ export class ExpressControllerAdapter implements IHTTPFrameworkAdapter {
         req.body,
         req.query,
         {
-          auth: req.headers.auth[0],
+          // this was placed here by the auth middleware.
+          // It is then passed along to all requests that run after this middleware.
           user: (req as any).user,
         }
       );
@@ -30,7 +30,6 @@ export class ExpressControllerAdapter implements IHTTPFrameworkAdapter {
       res: Response,
       next: NextFunction
     ) {
-      // console.log(error, req.polyglot.t)
       const { response, statusCode } = await fn(
         error,
         req.polyglot.t.bind(req.polyglot)
@@ -45,8 +44,5 @@ export class ExpressControllerAdapter implements IHTTPFrameworkAdapter {
       await fn(req, req.headers);
       next();
     };
-  }
-  adaptPath() {
-    return '';
   }
 }

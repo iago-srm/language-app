@@ -56,3 +56,12 @@ export class MalformedTokenError extends CustomError {
     super({ errorName: ErrorMessages.MALFORMED_TOKEN });
   }
 }
+
+export class Forbidden extends CustomError {
+  HTTPstatusCode = 403;
+  constructor() {
+    super({ errorName: ErrorMessages.TOKEN_VERSION });
+  }
+}
+
+

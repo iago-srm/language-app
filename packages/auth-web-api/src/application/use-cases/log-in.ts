@@ -42,10 +42,12 @@ const Factory: UseCaseFactory = ({
 
       if (!passwordValid) throw new InvalidCredentialsError();
 
+      console.log('use case', {userDTO})
       const token = tokenService.generate({
         id: userDTO.id || '',
         tokenVersion: userDTO.tokenVersion,
       });
+      console.log('use case 2')
 
       return {
         token,

@@ -28,3 +28,11 @@ export class EmailAlreadySignedupError extends CustomError {
     super({ errorName: ErrorMessages.EMAIL_IN_USE });
   }
 }
+
+export class TokenGenerationError extends CustomError {
+  HTTPstatusCode = 400;
+  constructor({ error }) {
+    super({ errorName: ErrorMessages.EMAIL_IN_USE, params: { error } });
+  }
+}
+

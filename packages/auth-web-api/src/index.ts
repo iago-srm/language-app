@@ -19,7 +19,6 @@ import {
 import {
   LoginUseCaseFactory,
   SignUpUseCaseFactory,
-  GetUserUseCaseFactory,
   LogoutUseCaseFactory,
 } from '@application/use-cases';
 import { AuthenticationMiddlewareControllerFactory } from '@adapters/REST-middleware';
@@ -74,11 +73,12 @@ container.register({
   [Dependencies.LOGOUTUSECASE]: awilix.asFunction(LogoutUseCaseFactory),
   [Dependencies.LOGINUSECASE]: awilix.asFunction(LoginUseCaseFactory),
   [Dependencies.SIGNUPUSECASE]: awilix.asFunction(SignUpUseCaseFactory),
-  [Dependencies.GETUSERUSECASE]: awilix.asFunction(GetUserUseCaseFactory),
 
   // repositories
   [Dependencies.USERREPOSITORY]: awilix.asClass(UserRepository),
 })
+
+// console.log('sgup res',container.resolve(Dependencies.SIGNUPCONTROLLER).controller.toString())
 
 const expressAdapter = new ExpressControllerAdapter();
 const getControllers = (container: awilix.AwilixContainer) => {
@@ -91,6 +91,7 @@ const getControllers = (container: awilix.AwilixContainer) => {
   return controllers;
 }
 
+// console.log(container.resolve(Dependencies.ERRORHANDLER).controller.toString())
 container.register({
   // server
   [Dependencies.SERVER]:
@@ -98,27 +99,31 @@ container.register({
   .singleton()
   .inject((container: awilix.AwilixContainer) => {
     return {
-      controllers: getControllers(container).map((controller) => ({
-        middleware: controller.middleware,
-        method: controller.method,
+      controllers: getControllers(container).map(({
+        controller,
+        method,
+        middleware,
+        path
+      }) => {
+        return({
+        middleware,
+        method,
         controller: expressAdapter.adaptControllerFunction(
-          controller.controller
+          controller
         ),
-        path: controller.path,
-      })),
+        path,
+      })}),
       logger: { info: console.log, error: console.error },
       middlewares: {
         auth: expressAdapter.adaptMiddlewareControllerFunction(
-          (container.registrations.authMiddleware as any).controller
+          container.resolve(Dependencies.AUTHMIDDLEWARE).controller
         ),
       },
-      errorHandlers: [
-        {
-          controller: expressAdapter.adaptErrorControllerFunction(
-            (container.registrations.errorHandler as any).controller
-          ),
-        },
-      ],
+      errorHandler: {
+        controller: expressAdapter.adaptErrorControllerFunction(
+          container.resolve(Dependencies.ERRORHANDLER).controller
+        ),
+      },
     }
   })
 });

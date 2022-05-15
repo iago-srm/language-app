@@ -13,5 +13,6 @@ export const ErrorMessages = {
   USER_NOT_FOUND: 'user_not_found',
   MISSING_TOKEN: 'missing_token',
   MALFORMED_TOKEN: 'malformed_token',
-  ROUTE_NOT_FOUND: 'route_not_found'
+  ROUTE_NOT_FOUND: 'route_not_found',
+  TOKEN_VERSION: 'token_version'
 }

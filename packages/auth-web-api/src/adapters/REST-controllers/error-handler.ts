@@ -5,7 +5,7 @@ import {
 import { CustomError } from '@language-app/common';
 
 export const ErrorHandlerControllerFactory =
-  (): IHTTPControllerDescriptor<IHTTPErrorHandler> => {
+  ({}): IHTTPControllerDescriptor<IHTTPErrorHandler> => {
     const fn: IHTTPErrorHandler = async (error, translator) => {
       if (error instanceof CustomError) {
         return {
@@ -23,6 +23,5 @@ export const ErrorHandlerControllerFactory =
 
     return {
       controller: fn,
-      path: 'error-handler',
     };
   };

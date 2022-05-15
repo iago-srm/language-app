@@ -15,7 +15,7 @@ import { IHTTPControllerDescriptor } from '@adapters/REST-controllers';
 
 interface IExpressConstructorParams extends IHTTPServerConstructorParams {
   controllers: IHTTPControllerDescriptor<RequestHandler>[];
-  errorHandlers: IHTTPControllerDescriptor<ErrorRequestHandler>[];
+  errorHandler: IHTTPControllerDescriptor<ErrorRequestHandler>;
   middlewares: { [key: string]: RequestHandler };
 }
 
@@ -27,7 +27,7 @@ export class ExpressServer extends AbstractServer {
   constructor({
     logger,
     controllers,
-    errorHandlers,
+    errorHandler,
     middlewares,
   }: IExpressConstructorParams) {
     super({ logger });
@@ -38,7 +38,6 @@ export class ExpressServer extends AbstractServer {
     const allowlist = process.env.CORS_ALLOW?.split(' ');
     const corsOptionsDelegate = function (req, callback) {
       let corsOptions;
-      // console.log(allow)
       if (process.env.CORS_ALLOW === '*') {
         callback(null, { origin: true });
         return;
@@ -60,18 +59,18 @@ export class ExpressServer extends AbstractServer {
     this._app.use(helmet());
     this._app.disable('x-powered-by');
 
-    // this._app.use(middlewares["auth"]);
+    const getPath = (path: string) => `${this.baseUrn}/${path}`;
 
     controllers.forEach((descriptor) => {
       if (descriptor.middleware) {
         this._app[descriptor.method!](
-          descriptor.path!,
+          getPath(descriptor.path!),
           middlewares[descriptor.middleware],
           descriptor.controller
         );
       } else {
         this._app[descriptor.method!](
-          `${this.baseUrn}/${descriptor.path!}`,
+          getPath(descriptor.path!),
           descriptor.controller
         );
       }
@@ -81,11 +80,7 @@ export class ExpressServer extends AbstractServer {
       throw new RouteNotFoundError();
     });
 
-    // this._app.use((error, _, __, ___) => {
-    //     console.log('test error',error)
-    // })
-    errorHandlers.map((errorHandler) => {
-      this._app.use(errorHandler.controller);
-    });
+    this._app.use(errorHandler.controller);
+
   }
 }

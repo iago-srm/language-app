@@ -1,19 +1,11 @@
-import { IGetUserUseCase } from '@application/use-cases';
 import {
   IHTTPController,
   IHTTPControllerDescriptor,
 } from '../../ports/REST-controllers';
-import { getAuthTokenFromHeader } from './serializer';
 
-export const GetUserControllerFactory = ({
-  getUserUseCase,
-}: {
-  getUserUseCase: IGetUserUseCase;
-}): IHTTPControllerDescriptor<IHTTPController> => {
-  const fn: IHTTPController = async (_, __, ___, headers) => {
-    const resp = await getUserUseCase.execute({
-      token: getAuthTokenFromHeader(headers),
-    });
+export const GetUserControllerFactory = (): IHTTPControllerDescriptor<IHTTPController> => {
+  const fn: IHTTPController = async (req) => {
+    const resp = req.user;
 
     return {
       response: resp,
@@ -25,5 +17,6 @@ export const GetUserControllerFactory = ({
     controller: fn,
     method: 'get',
     path: 'user',
+    // middleware: 'auth'
   };
 };

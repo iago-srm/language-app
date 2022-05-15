@@ -5,4 +5,5 @@ export const EnglishErrorMessages = {
   ...CommonEnglishErrorMessages,
   [ErrorMessages.INVALID_ROLE]: 'Invalid role',
   [ErrorMessages.EMAIL_IN_USE]: 'There is already an account with that e-mail',
+  [ErrorMessages.TOKEN_GENERATION]: 'There was an error generating the token: %{error}'
 };

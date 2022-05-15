@@ -70,5 +70,5 @@ export interface IHTTPFrameworkAdapter {
   adaptMiddlewareControllerFunction(
     fn: IHTTPMiddleware
   ): (...args) => Promise<void>;
-  adaptPath(pathDescriptor: IHTTPControllerPathDescriptor): string;
+  // adaptPath(pathDescriptor: IHTTPControllerPathDescriptor): string;
 }

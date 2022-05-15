@@ -24,6 +24,7 @@ services:
     environment:
       - DATABASE_URL=postgres://${AUTH_POSTGRES_USER}:${AUTH_POSTGRES_PASSWORD}@postgres-auth:5432/${AUTH_POSTGRES_SCHEMA}
       - PORT=${AUTH_PORT}
+      - TOKEN_SECRET=${TOKEN_SECRET}
     tty: true
     volumes:
       - ./packages/common:/app/packages/common
