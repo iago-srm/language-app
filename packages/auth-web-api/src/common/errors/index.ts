@@ -32,7 +32,7 @@ export class EmailAlreadySignedupError extends CustomError {
 export class TokenGenerationError extends CustomError {
   HTTPstatusCode = 400;
   constructor({ error }) {
-    super({ errorName: ErrorMessages.EMAIL_IN_USE, params: { error } });
+    super({ errorName: ErrorMessages.TOKEN_GENERATION, params: { error } });
   }
 }
 

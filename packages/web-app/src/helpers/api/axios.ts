@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useUser, LocalStorage } from '@helpers';
 
-export const BASE_AUTH_URL = 'localhost:3000';
+export const BASE_AUTH_URL = 'localhost:3007/api/v1';
 
 const axiosAuthAPI = axios.create({ baseURL: BASE_AUTH_URL });
 const refreshTokenLocalStorage = new LocalStorage().getRefreshToken();

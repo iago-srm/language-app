@@ -24,25 +24,29 @@ export const AuthenticationMiddlewareControllerFactory = ({
 }: Dependencies): IHTTPControllerDescriptor<IHTTPMiddleware> => {
   const fn: IHTTPMiddleware = async (req, headers) => {
 
-    console.log('middleware',headers)
     if (!headers.authorization) throw new MissingTokenError();
 
     const [header, token] = headers.authorization.split(' ');
     if (header !== 'Bearer') throw new MalformedTokenError();
 
-    const { id, tokenVersion } = await tokenService.verify(token);
+    const tokenPayload = await tokenService.verify(token);
 
-    if(!id || !tokenVersion) throw new MalformedTokenError();
+    if(!Object.keys(tokenPayload).includes('id') ||
+      !Object.keys(tokenPayload).includes('tokenVersion'))
+        throw new MalformedTokenError();
 
-    const userDTO = await userRepository.getUserById(id);
+    const userDTO = await userRepository.getUserById(tokenPayload.id);
 
-    if (!userDTO) {
-      throw new InvalidCredentialsError();
-    }
+    if (!userDTO) throw new InvalidCredentialsError();
 
-    if (userDTO.tokenVersion !== tokenVersion) throw new Forbidden();
+    if (userDTO.tokenVersion !== tokenPayload.tokenVersion) throw new Forbidden();
 
-    req.user = userDTO;
+    req.user = {
+      id: userDTO.id,
+      email: userDTO.email,
+      name: userDTO.name,
+      role: userDTO.role
+    };
   };
 
   return {
