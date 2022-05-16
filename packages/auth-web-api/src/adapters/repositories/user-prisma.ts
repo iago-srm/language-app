@@ -30,7 +30,7 @@ export class UserRepository implements IUserRepository {
     });
   }
 
-  updateUser(id: string, user: UserDTO) {
+  updateUser(id: string, user: Partial<UserDTO>) {
     return this.prisma.user.update({
       where: { id },
       data: user,
