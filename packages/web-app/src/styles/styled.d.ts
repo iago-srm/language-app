@@ -2,9 +2,7 @@
 
 import 'styled-components'
 
-import { getTheme } from './theme'
-
-export type Theme = ReturnType<getTheme>
+import { getTheme, Theme } from './theme'
 
 declare module 'styled-components' {
   export interface DefaultTheme extends Theme {}

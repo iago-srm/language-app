@@ -7,10 +7,10 @@ import { getPageTitle } from '@utils'
 import { LanguageContext } from '@contexts';
 
 const Home: React.FC = () => {
-  const { setLanguage } = useContext(LanguageContext);
+  const { setLocale } = useContext(LanguageContext);
 
   useEffect(() => {
-    setLanguage('fr-FR');
+    setLocale('fr-FR');
   }, []);
   return (
     <Container>

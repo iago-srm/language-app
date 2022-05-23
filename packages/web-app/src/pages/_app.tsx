@@ -1,18 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { SWRConfig } from 'swr'
 import { AppProps } from 'next/app'
 import { ThemeProvider } from 'styled-components'
+import Link from 'next/link';
 
 import { LocalStorage } from '@utils';
 import { AuthProvider, LanguageProvider } from '@contexts';
-import { GlobalStyle, getTheme } from '@styles';
+import { GlobalStyle, getTheme, validateMode, Modes } from '@styles';
 import { Navbar, NavButton } from '@components';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
 
+  const [theme, setTheme] = useState<Modes>('dark');
+
   useEffect(() => {
-    const refreshTokenLocalStorage = new LocalStorage().getRefreshToken();
+    const localStorage = new LocalStorage();
+    const refreshTokenLocalStorage = localStorage.getRefreshToken();
+    const colorTheme = localStorage.getTheme();
+    if(validateMode(colorTheme)) setTheme(colorTheme as Modes);
     axios.defaults.headers.common['authorization'] = refreshTokenLocalStorage;
   }, []);
 
@@ -29,14 +35,22 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
       }
     }>
       <LanguageProvider>
-        <ThemeProvider theme={getTheme('dark')}>
+        <ThemeProvider theme={getTheme(theme)}>
           <AuthProvider>
             <Navbar>
               <Navbar.LeftButtons>
-                <NavButton>Home</NavButton>
+                <NavButton>
+                  <Link href='/'>
+                    Home
+                  </Link>
+                </NavButton>
               </Navbar.LeftButtons>
               <Navbar.RightButtons>
-                <NavButton>Entrar</NavButton>
+                <NavButton>
+                <Link href='/login'>
+                    Entrar
+                  </Link>
+                </NavButton>
               </Navbar.RightButtons>
             </Navbar>
             <Component {...pageProps} />

@@ -1,22 +1,37 @@
 
-type modes = 'dark' | 'light';
+export type Modes = 'dark' | 'light';
+export type Theme = {
+  padding: string,
+  colors: {
+    background: string;
+    highlightedText: string;
+    text: string;
+    primary: string;
+    secondary: string;
+  }
+}
 
 const theme = {
   padding: '5px'
 }
 
-export const getTheme = (mode: modes) => {
+export const validateMode = (mode: string) => mode === 'dark' || mode === 'light';
+export const getTheme: (mode: Modes) => Theme = (mode: Modes) => {
 
   const colors = {
     dark: {
-      background: '#121214',
+      background: 'grey',
+      highlightedText: 'black',
       text: '#e1e1e6',
-      primary: '#eeeeee'
+      primary: 'black',
+      secondary: 'red'
     },
     light: {
       background: '#e1e1e1',
-      text: '#121214',
-      primary: '#8257e6'
+      highlightedText: 'black',
+      text: 'white',
+      primary: '#8257e6',
+      secondary: 'red'
     }
   }
 

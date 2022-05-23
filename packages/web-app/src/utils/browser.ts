@@ -12,4 +12,8 @@ export class LocalStorage {
   getRefreshToken() {
     return localStorage.getItem('auth_token');
   }
+
+  getTheme() {
+    return localStorage.getItem('color_theme');
+  }
 }
