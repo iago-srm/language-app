@@ -1,22 +1,34 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Head from 'next/head'
 
 import { Container } from './styles'
-import { getPageTitle } from '@helpers'
-import { Form, Input, Button } from '@components';
-import { ValidationSchemas } from '@helpers';
-import { LanguageContext } from '@contexts';
+import { ValidationSchemas, getPageTitle } from '@utils';
+import { LanguageContext, AuthContext } from '@contexts';
+import {
+  Form,
+  Input,
+  Button
+} from '@components';
 
 const LoginPage: React.FC = () => {
 
   const { language } = React.useContext(LanguageContext);
+  const { login, loginError, loginLoading } = React.useContext(AuthContext);
 
   const loginSchema = React.useMemo(() => {
     return new ValidationSchemas(language).getLoginSchema()
   }, [language]);
 
-  const handleSubmit = (data) => {
-    console.log('dados',data);
+  useEffect(() => {
+    if(loginError) alert(loginError.message);
+  }, [loginError]);
+
+  const handleSubmit = async (data) => {
+    const resp = await login({
+      email: data.email,
+      password: data.password
+    });
+    console.log(resp)
   }
 
   return (
@@ -27,7 +39,7 @@ const LoginPage: React.FC = () => {
       <Form onSubmit={handleSubmit} schema={loginSchema}>
         <Input name='email' placeholder="E-mail" />
         <Input name='password' placeholder="Senha" type="password" />
-        <Button loading={false}>Save</Button>
+        <Button loading={loginLoading}>Save</Button>
       </Form>
     </Container>
   )

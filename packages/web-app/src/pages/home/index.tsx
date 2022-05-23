@@ -1,11 +1,17 @@
-import React from 'react'
+import React, { useEffect, useContext } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 
 import { Container } from './styles'
-import { getPageTitle } from '@helpers'
+import { getPageTitle } from '@utils'
+import { LanguageContext } from '@contexts';
 
 const Home: React.FC = () => {
+  const { setLanguage } = useContext(LanguageContext);
+
+  useEffect(() => {
+    setLanguage('fr-FR');
+  }, []);
   return (
     <Container>
       <Head>

@@ -44,14 +44,14 @@ export class UserNotFoundError extends CustomError {
 }
 
 export class MissingTokenError extends CustomError {
-  HTTPstatusCode = 400;
+  HTTPstatusCode = 403;
   constructor() {
     super({ errorName: ErrorMessages.MISSING_TOKEN });
   }
 }
 
 export class MalformedTokenError extends CustomError {
-  HTTPstatusCode = 400;
+  HTTPstatusCode = 403;
   constructor() {
     super({ errorName: ErrorMessages.MALFORMED_TOKEN });
   }

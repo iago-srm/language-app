@@ -1,4 +1,4 @@
-import { Portuguese, English } from '.';
+import { Portuguese, English, French } from '.';
 
 export const Translations = {
   en: {
@@ -6,5 +6,8 @@ export const Translations = {
   },
   pt: {
     ...Portuguese
+  },
+  fr: {
+    ...French
   }
 }

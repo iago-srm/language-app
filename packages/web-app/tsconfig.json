@@ -16,10 +16,12 @@
     "jsx": "preserve",
     "baseUrl": "./src/",
     "paths": {
-      "@helpers": [ "helpers/index.ts" ],
+      "@utils": [ "utils/index.ts" ],
+      "@api": [ "api/index.ts" ],
       "@components": ["components/index.ts"],
       "@locale": ["locale/index.ts"],
-      "@contexts": ["contexts/index.ts"]
+      "@contexts": ["contexts/index.ts"],
+      "@styles": ["styles/index.ts"]
     },
     "allowJs": true,
     "strict": false,

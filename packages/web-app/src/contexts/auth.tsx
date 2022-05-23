@@ -1,38 +1,51 @@
-import React, { useEffect } from "react";
-import Router from 'next/router'
-import { useUser, LocalStorage } from '@helpers';
+import React, { useEffect, useContext } from "react";
 import {
-  LoginAPIParams,
-  LoginAPIResponse,
   GetUserAPIResponse
 } from '@language-app/common';
 
-// axios.defaults.withCredentials = true;
-
-// type LoginData = {
-//   email: string;
-//   password: string;
-// }
-
-// interface IRefreshTokenResponse { accessToken: string }
+import { LocalStorage } from "@utils";
+import { useLoginAPI, LoginApi, useUser } from '@api';
+import { LanguageContext } from '@contexts';
 
 type AuthContextType = {
   isAuthenticated: boolean;
-  user?: GetUserAPIResponse;
-  login?: (data: LoginAPIParams) => Promise<void>;
+  user: GetUserAPIResponse;
+  login: LoginApi;
+  loginLoading: boolean;
+  loginError: any
 }
 
 export const AuthContext = React.createContext<AuthContextType>({
   isAuthenticated: false,
+  user: undefined,
+  login: () => new Promise(r => r({
+    token: ""
+  })),
+  loginLoading: false,
+  loginError: ""
 })
 
 export function AuthProvider({ children }) {
 
+  const [token, setToken] = React.useState(null);
+  // const { language } = useContext(LanguageContext);
+
+  useEffect(() => {
+    const tokenLS = new LocalStorage().getRefreshToken();
+    setToken(tokenLS);
+  }, []);
+
+  const {
+    apiCall: login,
+    loading: loginLoading,
+    error: loginError
+   } = useLoginAPI();
+
   const {
     user,
-    loading: userLoading,
-    error: userError
-  } = useUser<GetUserAPIResponse>();
+    loadingUser,
+    errorUser
+   } = useUser(token);
 
   const isAuthenticated = !!user;
 
@@ -40,6 +53,9 @@ export function AuthProvider({ children }) {
     <AuthContext.Provider value={{
       user,
       isAuthenticated,
+      login,
+      loginLoading,
+      loginError
     }}>
       {children}
     </AuthContext.Provider>
