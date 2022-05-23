@@ -6,7 +6,8 @@ import { ThemeProvider } from 'styled-components'
 
 import { LocalStorage } from '@utils';
 import { AuthProvider, LanguageProvider } from '@contexts';
-import { GlobalStyle, getTheme } from '@styles'
+import { GlobalStyle, getTheme } from '@styles';
+import { Navbar, NavButton } from '@components';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
 
@@ -30,6 +31,14 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
       <LanguageProvider>
         <ThemeProvider theme={getTheme('dark')}>
           <AuthProvider>
+            <Navbar>
+              <Navbar.LeftButtons>
+                <NavButton>Home</NavButton>
+              </Navbar.LeftButtons>
+              <Navbar.RightButtons>
+                <NavButton>Entrar</NavButton>
+              </Navbar.RightButtons>
+            </Navbar>
             <Component {...pageProps} />
           </AuthProvider>
           <GlobalStyle />
