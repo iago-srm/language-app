@@ -17,7 +17,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   useEffect(() => {
     const localStorage = new LocalStorage();
     const refreshTokenLocalStorage = localStorage.getRefreshToken();
-    const colorTheme = localStorage.getTheme();
+    const colorTheme = localStorage.getTheme(theme);
     if(validateMode(colorTheme)) setTheme(colorTheme as Modes);
     axios.defaults.headers.common['authorization'] = refreshTokenLocalStorage;
   }, []);

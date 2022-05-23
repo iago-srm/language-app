@@ -13,7 +13,11 @@ export class LocalStorage {
     return localStorage.getItem('auth_token');
   }
 
-  getTheme() {
-    return localStorage.getItem('color_theme');
+  getTheme(defaultTheme) {
+    const storedTheme = localStorage.getItem('color_theme');
+    if(!storedTheme) {
+      localStorage.setItem('color_theme', defaultTheme);
+    }
+    return storedTheme || defaultTheme;
   }
 }
