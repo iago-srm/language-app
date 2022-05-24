@@ -19,7 +19,7 @@ export const ButtonStyled = styled.div`
     padding: 3vh;
     &:hover {
       color: ${p => p.theme.colors.highlightedText};
-      background-color: ${p => p.theme.colors.background};
+      background-color: ${p => p.theme.colors.highlight};
       cursor: pointer;
     }
     height: 8vh;

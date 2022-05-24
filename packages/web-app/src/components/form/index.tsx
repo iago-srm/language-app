@@ -2,6 +2,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 
+import { FormStyled } from './styles';
+
 interface IForm {
   defaultValues?: {
     [key: string]: string;
@@ -19,7 +21,7 @@ export function Form({ defaultValues, children, onSubmit, schema }: IForm) {
     });
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <FormStyled onSubmit={handleSubmit(onSubmit)}>
       {React.Children.map(children, child => {
         return child.props.name
           ? React.createElement(child.type, {
@@ -32,6 +34,6 @@ export function Form({ defaultValues, children, onSubmit, schema }: IForm) {
             })
           : child;
        })}
-    </form>
+    </FormStyled>
   );
 }

@@ -1,13 +1,17 @@
 import React, { useEffect } from 'react'
 import Head from 'next/head'
 
-import { Container } from './styles'
+import { Container as LoginContainer } from './styles'
 import { ValidationSchemas, getPageTitle } from '@utils';
 import { LanguageContext, AuthContext } from '@contexts';
 import {
   Form,
   Input,
-  Button
+  Button,
+  Frame,
+  Container,
+  Row,
+  Col
 } from '@components';
 
 const LoginPage: React.FC = () => {
@@ -33,16 +37,24 @@ const LoginPage: React.FC = () => {
   }
 
   return (
-    <Container>
+    <LoginContainer>
       <Head>
         <title>{getPageTitle('Entrar')}</title>
       </Head>
-      <Form onSubmit={handleSubmit} schema={loginSchema}>
-        <Input name='email' placeholder="E-mail" />
-        <Input name='password' placeholder="Senha" type="password" />
-        <Button loading={loginLoading}>Save</Button>
-      </Form>
-    </Container>
+      <Container fluid="sm">
+        <Row>
+          <Col lg={{ span: 6, offset: 3 }}>
+            <Frame>
+              <Form onSubmit={handleSubmit} schema={loginSchema}>
+                <Input name='email' placeholder="E-mail" />
+                <Input name='password' placeholder="Senha" type="password" />
+                <Button loading={loginLoading}>Save</Button>
+              </Form>
+            </Frame>
+          </Col>
+        </Row>
+      </Container>
+    </LoginContainer>
   )
 }
 

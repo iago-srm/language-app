@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 import { AuthRules } from '@language-app/common';
-import { Translations } from '@locale';
+import { Labels, Translations } from '@locale';
 
 export class ValidationSchemas {
 
@@ -9,24 +9,24 @@ export class ValidationSchemas {
   private getEmailValidation() {
     return yup
     .string()
-    .required(Translations[this.language].REQUIRED_FIELD)
-    .email(Translations[this.language].INVALID_EMAIL);
+    .required(Translations[this.language][Labels.REQUIRED_FIELD])
+    .email(Translations[this.language][Labels.INVALID_EMAIL]);
   }
 
   private getPasswordValidation() {
     return yup
       .string()
-      .required(Translations[this.language].REQUIRED_FIELD)
+      .required(Translations[this.language][Labels.REQUIRED_FIELD])
       .matches(
         AuthRules.PASSWORD_REGEX,
-        Translations[this.language].INVALID_PASSWORD
+        Translations[this.language][Labels.INVALID_PASSWORD]
       );
   }
 
   private getConfirmPasswordValidation() {
     return yup
     .string()
-    .oneOf([yup.ref('password'), null], Translations[this.language].PASSWORD_DONT_MATCH)
+    .oneOf([yup.ref('password'), null], Translations[this.language][Labels.PASSWORDS_DONT_MATCH])
   }
 
   getLoginSchema() {

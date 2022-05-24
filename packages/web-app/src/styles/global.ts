@@ -8,8 +8,13 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
+    box-sizing: border-box;
     font: 400 16px Roboto, sans-serif;
-    background-color: ${props => props.theme.colors.background};
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.25),
+      rgba(0, 0, 0, 0.25)
+    ) ${props => props.theme.colors.background};
   }
 
   a {

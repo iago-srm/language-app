@@ -4,7 +4,7 @@ import { SWRConfig } from 'swr'
 import { AppProps } from 'next/app'
 import { ThemeProvider } from 'styled-components'
 import Link from 'next/link';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { LocalStorage } from '@utils';
 import { AuthProvider, LanguageProvider } from '@contexts';
 import { GlobalStyle, getTheme, validateMode, Modes } from '@styles';
