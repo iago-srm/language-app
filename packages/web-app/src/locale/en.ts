@@ -5,4 +5,11 @@ export const English = {
   [Labels.INVALID_EMAIL]: 'invalid e-mail',
   [Labels.INVALID_PASSWORD]: 'invalid password',
   [Labels.PASSWORDS_DONT_MATCH]: 'Password confirmation doesn\'t match',
+
+  [Labels.HOME]: 'Home',
+  [Labels.LOGIN]: 'Login',
+  [Labels.SIGNUP]: 'Signup',
+
+  [Labels.EMAIL]: 'E-mail',
+  [Labels.PASSWORD]: 'Password'
 }

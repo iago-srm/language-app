@@ -1,41 +1,49 @@
-import Link from "next/link";
-import { Container, ButtonStyled, ButtonContainer } from './styles';
-import React from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router'
+import { useContext } from 'react';
+import styled from 'styled-components';
 
-const getChildrenOnDisplayName = (children, displayName) => {
-  return React.Children.map(children, (child) => child.type.displayName === displayName ? child : null)
-}
-export const Navbar: React.FunctionComponent<{}> & { RightButtons: any, LeftButtons: any } = ({children}) => {
+import { LanguageContext } from '@contexts';
+import { Translations, Labels } from '@locale';
 
-  const buttonsOnRight = getChildrenOnDisplayName(children, 'RightButtons');
-  const buttonsOnLeft = getChildrenOnDisplayName(children, 'LeftButtons');
+import {
+  Navbar as NavbarAtomic,
+  NavButton as NavButtonAtomic
+} from './atomic';
+
+const LanguageSelectStyled = styled.select`
+  height: 1.5rem;
+  margin: 0 15px;
+`;
+
+const NavButton = ({path, text}) => {
+  const router = useRouter();
 
   return (
-    <Container>
-      <ButtonContainer>
-        {buttonsOnLeft}
-      </ButtonContainer>
-      <ButtonContainer>
-        {buttonsOnRight}
-      </ButtonContainer>
-      {/* <div>Teste</div> */}
-    </Container>
+    <NavButtonAtomic highlighted={router.pathname === path}>
+      <Link href={path} >
+          {text}
+        </Link>
+    </NavButtonAtomic>
   )
 }
 
-const RightButtons = ({children}) => children;
-RightButtons.displayName = 'RightButtons';
-Navbar.RightButtons = RightButtons;
+export const Navbar = () => {
+  const { language, setLocale } = useContext(LanguageContext);
 
-const LeftButtons = ({children}) => children;
-LeftButtons.displayName = 'LeftButtons';
-Navbar.LeftButtons = LeftButtons;
-
-export const NavButton = ({children, highlighted}) => {
-  console.log({highlighted})
   return (
-    <ButtonStyled highlighted={highlighted}>
-      {children}
-    </ButtonStyled>
+    <NavbarAtomic>
+      <NavbarAtomic.LeftButtons>
+        <NavButton path='/' text={Translations[language][Labels.HOME]}/>
+      </NavbarAtomic.LeftButtons>
+      <NavbarAtomic.RightButtons>
+        <LanguageSelectStyled onChange={e => setLocale(e.target.value)}>
+          <option value='fr-FR'>Français</option>
+          <option value='pt-BR'>Português</option>
+          <option value='en-US'>English</option>
+        </LanguageSelectStyled>
+        <NavButton path='/login' text={Translations[language][Labels.LOGIN]}/>
+      </NavbarAtomic.RightButtons>
+    </NavbarAtomic>
   )
 }

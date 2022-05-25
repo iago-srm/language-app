@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { Languages } from '@language-app/common';
+import { Locales } from '@language-app/common';
 
 import { LocalStorage } from '@utils';
 import { setAxiosLanguage } from '@api';
@@ -23,10 +23,10 @@ export function LanguageProvider({children}) {
   const [language, setLang] = React.useState(initialState.language);
 
   const setLocale = (locale: string) => {
-    const lang = locale.split('-')[0];
-    if(Languages.includes(lang)) {
-      new LocalStorage().setLocale(lang);
-      setLang(lang);
+    console.log(locale);
+    if(Locales.includes(locale)) {
+      new LocalStorage().setLocale(locale);
+      setLang(locale.split('-')[0]);
     }
   }
 

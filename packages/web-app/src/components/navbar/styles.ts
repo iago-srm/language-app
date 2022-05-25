@@ -10,6 +10,10 @@ export const Container = styled.nav`
 `;
 
 export const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const ButtonStyled = styled.div<{highlighted: boolean}>`

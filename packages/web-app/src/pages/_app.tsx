@@ -2,20 +2,25 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { SWRConfig } from 'swr'
 import { AppProps } from 'next/app';
-import { useRouter } from 'next/router'
 import { ThemeProvider } from 'styled-components'
-import Link from 'next/link';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { LocalStorage } from '@utils';
 import { AuthProvider, LanguageProvider } from '@contexts';
-import { GlobalStyle, getTheme, validateMode, Modes } from '@styles';
-import { Navbar, NavButton } from '@components';
+import {
+  GlobalStyle,
+  getTheme,
+  validateMode,
+  Modes
+} from '@styles';
+import {
+  Navbar
+} from '@components';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
 
   const [theme, setTheme] = useState<Modes>('dark');
-  const router = useRouter();
-  console.log(router);
+
   useEffect(() => {
     const localStorage = new LocalStorage();
     const refreshTokenLocalStorage = localStorage.getRefreshToken();
@@ -39,22 +44,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
       <LanguageProvider>
         <ThemeProvider theme={getTheme(theme)}>
           <AuthProvider>
-            <Navbar>
-              <Navbar.LeftButtons>
-                <NavButton highlighted={router.pathname === '/'}>
-                  <Link href='/'>
-                    Home
-                  </Link>
-                </NavButton>
-              </Navbar.LeftButtons>
-              <Navbar.RightButtons>
-                <NavButton highlighted={router.pathname === '/login'}>
-                  <Link href='/login' >
-                      Entrar
-                    </Link>
-                </NavButton>
-              </Navbar.RightButtons>
-            </Navbar>
+            <Navbar />
             <Component {...pageProps} />
           </AuthProvider>
           <GlobalStyle />

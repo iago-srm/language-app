@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import Head from 'next/head'
 
+import { Translations, Labels } from '@locale';
 import { Container as LoginContainer } from './styles'
 import { ValidationSchemas, getPageTitle } from '@utils';
 import { LanguageContext, AuthContext } from '@contexts';
@@ -39,15 +40,15 @@ const LoginPage: React.FC = () => {
   return (
     <LoginContainer>
       <Head>
-        <title>{getPageTitle('Entrar')}</title>
+        <title>{getPageTitle(Translations[language][Labels.LOGIN])}</title>
       </Head>
       <Container fluid="sm">
         <Row>
           <Col lg={{ span: 6, offset: 3 }}>
             <Frame>
               <Form onSubmit={handleSubmit} schema={loginSchema}>
-                <Input name='email' placeholder="E-mail" />
-                <Input name='password' placeholder="Senha" type="password" />
+                <Input name='email' placeholder={Translations[language][Labels.EMAIL]} />
+                <Input name='password' placeholder={Translations[language][Labels.PASSWORD]} type="password" />
                 <Button loading={loginLoading}>Save</Button>
               </Form>
             </Frame>
