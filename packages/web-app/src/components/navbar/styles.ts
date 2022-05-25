@@ -12,9 +12,15 @@ export const Container = styled.nav`
 export const ButtonContainer = styled.div`
 `;
 
-export const ButtonStyled = styled.div`
+export const ButtonStyled = styled.div<{highlighted: boolean}>`
   a {
     color: ${p => p.theme.colors.text};
+    ${p => p.highlighted ?
+    `font-weight: 900;
+    border: 1px solid white;
+    ` :
+    null}
+
     display: inline-block;
     padding: 3vh;
     &:hover {

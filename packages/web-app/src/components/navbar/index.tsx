@@ -31,9 +31,10 @@ const LeftButtons = ({children}) => children;
 LeftButtons.displayName = 'LeftButtons';
 Navbar.LeftButtons = LeftButtons;
 
-export const NavButton = ({children}) => {
+export const NavButton = ({children, highlighted}) => {
+  console.log({highlighted})
   return (
-    <ButtonStyled>
+    <ButtonStyled highlighted={highlighted}>
       {children}
     </ButtonStyled>
   )

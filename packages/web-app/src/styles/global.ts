@@ -8,6 +8,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
+    color: ${props => props.theme.colors.text};
     box-sizing: border-box;
     font: 400 16px Roboto, sans-serif;
     background: linear-gradient(

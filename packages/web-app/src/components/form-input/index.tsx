@@ -10,7 +10,7 @@ interface IInput extends React.AllHTMLAttributes<IInput> {
 export function Input({ register, name, errors, ...rest }: IInput) {
   return (
     <>
-      <InputStyled {...register(name)} {...rest} />
+      <InputStyled {...register(name)} {...rest} error={errors[name]}/>
       <ErrorMessageContainer >{errors[name]?.message}</ErrorMessageContainer>
     </>
   )

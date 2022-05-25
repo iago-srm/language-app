@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { SWRConfig } from 'swr'
-import { AppProps } from 'next/app'
+import { AppProps } from 'next/app';
+import { useRouter } from 'next/router'
 import { ThemeProvider } from 'styled-components'
 import Link from 'next/link';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -13,7 +14,8 @@ import { Navbar, NavButton } from '@components';
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
 
   const [theme, setTheme] = useState<Modes>('dark');
-
+  const router = useRouter();
+  console.log(router);
   useEffect(() => {
     const localStorage = new LocalStorage();
     const refreshTokenLocalStorage = localStorage.getRefreshToken();
@@ -39,17 +41,17 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
           <AuthProvider>
             <Navbar>
               <Navbar.LeftButtons>
-                <NavButton>
+                <NavButton highlighted={router.pathname === '/'}>
                   <Link href='/'>
                     Home
                   </Link>
                 </NavButton>
               </Navbar.LeftButtons>
               <Navbar.RightButtons>
-                <NavButton>
-                <Link href='/login'>
-                    Entrar
-                  </Link>
+                <NavButton highlighted={router.pathname === '/login'}>
+                  <Link href='/login' >
+                      Entrar
+                    </Link>
                 </NavButton>
               </Navbar.RightButtons>
             </Navbar>
