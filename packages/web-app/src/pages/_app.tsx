@@ -6,7 +6,11 @@ import { ThemeProvider } from 'styled-components'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { LocalStorage } from '@utils';
-import { AuthProvider, LanguageProvider } from '@contexts';
+import {
+  AuthProvider,
+  LanguageProvider,
+  ColorModeContext
+} from '@contexts';
 import {
   GlobalStyle,
   getTheme,
@@ -17,15 +21,20 @@ import {
   Navbar
 } from '@components';
 
+const localStorage = new LocalStorage();
+
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
 
-  const [theme, setTheme] = useState<Modes>('dark');
+  const [theme, setThemeState] = useState<Modes>('dark');
+
+  const setTheme = (args?: string) => {
+    const colorTheme = args || localStorage.getTheme(theme);
+    if(validateMode(colorTheme)) setThemeState(colorTheme as Modes);
+  }
 
   useEffect(() => {
-    const localStorage = new LocalStorage();
     const refreshTokenLocalStorage = localStorage.getRefreshToken();
-    const colorTheme = localStorage.getTheme(theme);
-    if(validateMode(colorTheme)) setTheme(colorTheme as Modes);
+    setTheme();
     axios.defaults.headers.common['authorization'] = refreshTokenLocalStorage;
   }, []);
 
@@ -43,10 +52,12 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     }>
       <LanguageProvider>
         <ThemeProvider theme={getTheme(theme)}>
-          <AuthProvider>
-            <Navbar />
-            <Component {...pageProps} />
-          </AuthProvider>
+          <ColorModeContext.Provider value={{ theme, setTheme }}>
+            <AuthProvider>
+              <Navbar />
+              <Component {...pageProps} />
+            </AuthProvider>
+          </ColorModeContext.Provider>
           <GlobalStyle />
         </ThemeProvider>
       </LanguageProvider>
