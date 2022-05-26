@@ -6,3 +6,9 @@ export const CenteringColumn = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+export const PageContainer = styled.div`
+  height: 70vh;
+  display: flex;
+  align-items: center;
+`

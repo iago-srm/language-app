@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Head from 'next/head'
 
 import { Translations, Labels } from '@locale';
-import { Container as LoginContainer } from './styles'
+import { Container as PageContainer } from './styles'
 import { ValidationSchemas, getPageTitle } from '@utils';
 import { LanguageContext, AuthContext } from '@contexts';
 import {
@@ -38,9 +38,9 @@ const LoginPage: React.FC = () => {
   }
 
   return (
-    <LoginContainer>
+    <PageContainer>
       <Head>
-        <title>{getPageTitle(Translations[language][Labels.LOGIN])}</title>
+        <title>{getPageTitle(Translations[language][Labels.SIGNUP])}</title>
       </Head>
       <Container fluid="sm">
         <Row>
@@ -49,15 +49,14 @@ const LoginPage: React.FC = () => {
               <Form onSubmit={handleSubmit} schema={loginSchema}>
                 <Input name='email' placeholder={Translations[language][Labels.EMAIL]} />
                 <Input name='password' placeholder={Translations[language][Labels.PASSWORD]} type="password" />
-                <Button loading={loginLoading}>{Translations[language][Labels.LOGIN]}</Button>
+                <Input name='password' placeholder={Translations[language][Labels.CONFIRM_PASSWORD]} type="password" />
+                <Button loading={loginLoading}>{Translations[language][Labels.SIGNUP]}</Button>
               </Form>
-              <hr/>
-              <div className="g-signin2" data-onsuccess="onSignIn">{Translations[language][Labels.LOGIN]}</div>
             </Frame>
           </Col>
         </Row>
       </Container>
-    </LoginContainer>
+    </PageContainer>
   )
 }
 

@@ -1,3 +1,3 @@
 export * from './auth';
-export * from './color-mode';
+export * from './color-mode-theme/context';
 export * from './locale';

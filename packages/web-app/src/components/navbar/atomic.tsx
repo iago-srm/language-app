@@ -32,7 +32,6 @@ LeftButtons.displayName = 'LeftButtons';
 Navbar.LeftButtons = LeftButtons;
 
 export const NavButton = ({children, highlighted}) => {
-  console.log({highlighted})
   return (
     <ButtonStyled highlighted={highlighted}>
       {children}

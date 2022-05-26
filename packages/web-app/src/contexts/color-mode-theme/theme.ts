@@ -1,21 +1,10 @@
+import {
+  Modes,
+  Theme
+} from './types';
 
-export type Modes = 'dark' | 'light';
-export type Theme = {
-  colors: {
-    background: string;
-    highlightedText: string;
-    highlight: string;
-    text: string;
-    primary: string;
-    secondary: string;
-    error: string;
-  },
-}
+const theme = {};
 
-const theme = {
-}
-
-export const validateMode = (mode: string) => mode === 'dark' || mode === 'light';
 export const getTheme: (mode: Modes) => Theme = (mode: Modes) => {
 
   const colors = {

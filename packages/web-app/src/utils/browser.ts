@@ -20,4 +20,8 @@ export class LocalStorage {
     }
     return storedTheme || defaultTheme;
   }
+
+  setTheme(theme: string) {
+    localStorage.setItem('color_theme', theme);
+  }
 }
