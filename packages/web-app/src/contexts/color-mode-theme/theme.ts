@@ -21,7 +21,7 @@ export const getTheme: (mode: Modes) => Theme = (mode: Modes) => {
       background: '#e1e1e1',
       highlightedText: 'black',
       highlight: '#',
-      text: 'white',
+      text: 'black',
       primary: '#8257e6',
       secondary: '#aa1212',
       error: '#ff6767'

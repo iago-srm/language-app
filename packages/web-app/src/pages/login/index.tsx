@@ -47,8 +47,8 @@ const LoginPage: React.FC = () => {
           <Col lg={{ span: 6, offset: 3 }}>
             <Frame>
               <Form onSubmit={handleSubmit} schema={loginSchema}>
-                <Input name='email' placeholder={Translations[language][Labels.EMAIL]} />
-                <Input name='password' placeholder={Translations[language][Labels.PASSWORD]} type="password" />
+                <Input name='email' label={Translations[language][Labels.EMAIL]} />
+                <Input name='password' label={Translations[language][Labels.PASSWORD]} type="password" />
                 <Button loading={loginLoading}>{Translations[language][Labels.LOGIN]}</Button>
               </Form>
               <hr/>

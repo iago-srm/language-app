@@ -1,5 +1,9 @@
 import React from "react";
-import { InputStyled, ErrorMessageContainer } from './styles';
+import {
+  InputStyled,
+  ErrorMessageContainer,
+  InputLabelStyled
+} from './styles';
 
 interface IInput extends React.AllHTMLAttributes<IInput> {
   name: string;
@@ -7,11 +11,17 @@ interface IInput extends React.AllHTMLAttributes<IInput> {
   errors?: any;
 }
 
-export function Input({ register, name, errors, ...rest }: IInput) {
+export function Input({ register, name, errors, label, ...rest }: IInput) {
   return (
-    <>
-      <InputStyled {...register(name)} {...rest} error={errors[name]}/>
+    <InputLabelStyled>
+      {label}
+      <InputStyled
+        {...register(name)}
+        {...rest}
+        placeholder={label}
+        error={errors[name]}
+      />
       <ErrorMessageContainer >{errors[name]?.message}</ErrorMessageContainer>
-    </>
+    </InputLabelStyled>
   )
 }
