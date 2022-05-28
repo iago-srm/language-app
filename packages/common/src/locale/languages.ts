@@ -1,1 +1,1 @@
-export const Locales = ['pt-BR', 'en-US', 'fr-FR']
+export const Languages = ['pt', 'en', 'fr']

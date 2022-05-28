@@ -8,7 +8,7 @@ export type LoginAPIResponse = {
 }
 
 export type GetUserAPIResponse = {
-  avatarUrl?: string;
-  name: string;
-  email: string;
+  image?: string;
+  name?: string;
+  email?: string;
 }

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { SWRConfig } from 'swr'
 import { AppProps } from 'next/app';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { SessionProvider } from "next-auth/react";
 
 import { LocalStorage } from '@utils';
 import {
@@ -19,7 +20,9 @@ import {
 
 const localStorage = new LocalStorage();
 
-const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
+const App: React.FC<AppProps> = ({
+  Component,
+  pageProps: { session, ...pageProps} }) => {
 
   useEffect(() => {
     axios.defaults.headers.common['authorization'] = localStorage.getRefreshToken();
@@ -39,10 +42,12 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     }>
       <LanguageProvider>
         <ThemeProvider>
-          <AuthProvider>
-            <Navbar />
-            <Component {...pageProps} />
-          </AuthProvider>
+          <SessionProvider session={session}>
+            <AuthProvider>
+              <Navbar />
+              <Component {...pageProps} />
+            </AuthProvider>
+          </SessionProvider>
         <GlobalStyle />
         </ThemeProvider>
       </LanguageProvider>
@@ -50,4 +55,4 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   )
 }
 
-export default MyApp
+export default App

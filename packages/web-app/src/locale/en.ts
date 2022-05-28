@@ -9,7 +9,10 @@ export const English = {
   [Labels.HOME]: 'Home',
   [Labels.LOGIN]: 'Login',
   [Labels.SIGNUP]: 'Signup',
+  [Labels.LOGOUT]: 'Logout',
 
   [Labels.EMAIL]: 'E-mail',
-  [Labels.PASSWORD]: 'Password'
+  [Labels.PASSWORD]: 'Password',
+  [Labels.CONFIRM_PASSWORD]: 'Confirm Password',
+
 }

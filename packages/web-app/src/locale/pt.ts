@@ -9,7 +9,10 @@ export const Portuguese = {
   [Labels.HOME]: 'Home',
   [Labels.LOGIN]: 'Entrar',
   [Labels.SIGNUP]: 'Cadastrar',
+  [Labels.LOGOUT]: 'Sair',
 
   [Labels.EMAIL]: 'E-mail',
-  [Labels.PASSWORD]: 'Senha'
+  [Labels.PASSWORD]: 'Senha',
+  [Labels.CONFIRM_PASSWORD]: 'Confirmar Senha',
+
 }

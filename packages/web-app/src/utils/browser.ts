@@ -1,12 +1,12 @@
 export const getPageTitle = (pageTitle: string) => `language app - ${pageTitle}`;
 
 export class LocalStorage {
-  setLocale(lang: string) {
-    window.localStorage.setItem('locale',lang);
+  setLanguage(lang: string) {
+    window.localStorage.setItem('language',lang);
   }
 
-  getLocale() {
-    return window.localStorage.getItem('locale');
+  getLanguage() {
+    return window.localStorage.getItem('language');
   }
 
   getRefreshToken() {

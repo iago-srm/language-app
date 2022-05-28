@@ -7,8 +7,9 @@ export const Labels = {
   HOME: 'home',
   LOGIN: 'login',
   SIGNUP: 'signup',
+  LOGOUT: 'logout',
 
   EMAIL: 'email',
   PASSWORD: 'password',
-  CONFIRM_PASSWORD: 'password'
+  CONFIRM_PASSWORD: 'confirm_password',
 }

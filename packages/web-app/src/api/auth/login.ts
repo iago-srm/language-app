@@ -13,4 +13,12 @@ const loginUseCase = ({email, password}) => {
   });
 }
 
+export const signupUseCase = ({email, password, confirmPassword}) => {
+  return authAxiosPostFetcher('/signup', {
+    email,
+    password,
+    confirmPassword
+  });
+}
+
 export const useLoginAPI = useApiCallFactory<LoginAPIParams, LoginAPIResponse>(loginUseCase);

@@ -4,7 +4,7 @@ import Head from 'next/head'
 import { Translations, Labels } from '@locale';
 import { Container as LoginContainer } from './styles'
 import { ValidationSchemas, getPageTitle } from '@utils';
-import { LanguageContext, AuthContext } from '@contexts';
+import { useLanguage, useAuth } from '@contexts';
 import {
   Form,
   Input,
@@ -17,9 +17,9 @@ import {
 
 const LoginPage: React.FC = () => {
 
-  const { language } = React.useContext(LanguageContext);
+  const { language } = useLanguage();
 
-  const { login, loginError, loginLoading } = React.useContext(AuthContext);
+  const { login, loginError, loginLoading } = useAuth();
 
   const loginSchema = React.useMemo(() => {
     return new ValidationSchemas(language).getLoginSchema()

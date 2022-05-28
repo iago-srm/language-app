@@ -1,39 +1,48 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import {
   GetUserAPIResponse
 } from '@language-app/common';
+import { useSession, signOut, signIn } from "next-auth/react";
 
 import { LocalStorage } from "@utils";
 import { useLoginAPI, LoginApi, useUser } from '@api';
-import { LanguageContext } from '@contexts';
 
 type AuthContextType = {
   isAuthenticated: boolean;
   user: GetUserAPIResponse;
   login: LoginApi;
+  logout: () => Promise<void>;
   loginLoading: boolean;
   loginError: any
 }
 
-export const AuthContext = React.createContext<AuthContextType>({
+const AuthContext = React.createContext<AuthContextType>({
   isAuthenticated: false,
   user: undefined,
   login: () => new Promise(r => r({
     token: ""
   })),
   loginLoading: false,
-  loginError: ""
+  loginError: "",
+  logout: () => new Promise(r => r())
 })
 
 export function AuthProvider({ children }) {
 
+  const { data: session } = useSession();
+
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState<GetUserAPIResponse>();
   const [token, setToken] = React.useState(null);
-  // const { language } = useContext(LanguageContext);
 
   useEffect(() => {
     const tokenLS = new LocalStorage().getRefreshToken();
     setToken(tokenLS);
   }, []);
+
+  // if (status === 'loading') {
+  //   return <div>Loading...</div>
+  // }
 
   const {
     apiCall: login,
@@ -41,13 +50,19 @@ export function AuthProvider({ children }) {
     error: loginError
    } = useLoginAPI();
 
-  const {
-    user,
-    loadingUser,
-    errorUser
-   } = useUser(token);
+  // const {
+  //   user,
+  //   loadingUser,
+  //   errorUser
+  //  } = useUser(token);
 
-  const isAuthenticated = !!user;
+  useEffect(() => {
+    if(session) setUser(session.user);
+  }, [session]);
+
+  useEffect(() => {
+    setIsAuthenticated(!!user);
+  }, [user]);
 
   return (
     <AuthContext.Provider value={{
@@ -55,9 +70,12 @@ export function AuthProvider({ children }) {
       isAuthenticated,
       login,
       loginLoading,
-      loginError
+      loginError,
+      logout: signOut
     }}>
       {children}
     </AuthContext.Provider>
   )
 }
+
+export const useAuth = () => useContext(AuthContext);

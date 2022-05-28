@@ -9,7 +9,9 @@ export const French = {
   [Labels.HOME]: 'Accueil',
   [Labels.LOGIN]: 'Rentrer',
   [Labels.SIGNUP]: 'Enregistrer',
+  [Labels.LOGOUT]: 'Quitter',
 
   [Labels.EMAIL]: 'E-mail',
-  [Labels.PASSWORD]: 'Mot de passe'
+  [Labels.PASSWORD]: 'Mot de passe',
+  [Labels.CONFIRM_PASSWORD]: 'Confirmer le mot de passe',
 }

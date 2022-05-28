@@ -1,13 +1,13 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 
 import { Container } from './styles'
 import { getPageTitle } from '@utils'
-import { LanguageContext } from '@contexts';
+import { useLanguage } from '@contexts';
 
 const Home: React.FC = () => {
-  const { setLocale } = useContext(LanguageContext);
+  const { setLocale } = useLanguage();
 
   useEffect(() => {
     setLocale('fr-FR');

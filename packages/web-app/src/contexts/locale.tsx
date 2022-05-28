@@ -1,46 +1,52 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 
-import { Locales } from '@language-app/common';
+import { Languages } from '@language-app/common';
 
 import { LocalStorage } from '@utils';
 import { setAxiosLanguage } from '@api';
 
-
 type languageContext = {
   language: string,
-  setLocale: (lang: string) => void;
+  setLanguage: (lang: string) => void;
 }
 
 const initialState = {
   language: 'pt',
-  setLocale: () => {}
+  setLanguage: () => {}
 }
 
-export const LanguageContext = React.createContext<languageContext>(initialState)
+const localStorage = new LocalStorage();
+
+const LanguageContext = React.createContext<languageContext>(initialState)
 
 export function LanguageProvider({children}) {
 
-  const [language, setLang] = React.useState(initialState.language);
+  const [language, setLang] = React.useState<string>(initialState.language);
 
-  const setLocale = (locale: string) => {
-    console.log(locale);
-    if(Locales.includes(locale)) {
-      new LocalStorage().setLocale(locale);
-      setLang(locale.split('-')[0]);
+  const setLanguage = (language: string) => {
+    if(Languages.includes(language)) {
+      setLang(language);
+      localStorage.setLanguage(language);
+      setAxiosLanguage(language);
     }
   }
 
   useEffect(() => {
-    setLang(new LocalStorage().getLocale().split('-')[0])
+    const storedLanguage = localStorage.getLanguage();
+    if(storedLanguage) {
+      console.log({storedLanguage})
+      setLang(storedLanguage);
+    }
+
   }, []);
 
-  useEffect(() => {
-    setAxiosLanguage(language);
-  }, [language]);
-
   return (
-    <LanguageContext.Provider value={{ language, setLocale }}>
+    <LanguageContext.Provider value={{ language, setLanguage }}>
       {children}
     </LanguageContext.Provider>
   )
+}
+
+export const useLanguage = () => {
+  return useContext(LanguageContext);
 }

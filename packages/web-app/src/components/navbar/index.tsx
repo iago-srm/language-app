@@ -1,16 +1,18 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router'
-import { useContext } from 'react';
 import styled from 'styled-components';
 import DarkModeToggle from "react-dark-mode-toggle";
 
-import { LanguageContext, ColorModeContext } from '@contexts';
+import { useLanguage, useColorTheme, useAuth } from '@contexts';
 import { Translations, Labels } from '@locale';
 
 import {
   Navbar as NavbarAtomic,
   NavButton as NavButtonAtomic
 } from './atomic';
+import {
+  HoverPanel
+} from './hover-panel';
 
 const LanguageSelectStyled = styled.select`
   height: 1.5rem;
@@ -31,8 +33,9 @@ const NavButton = ({path, text}) => {
 }
 
 export const Navbar = () => {
-  const { theme, setTheme } = useContext(ColorModeContext);
-  const { language, setLocale } = useContext(LanguageContext);
+  const { theme, setTheme } = useColorTheme();
+  const { language, setLanguage } = useLanguage();
+  const { user, isAuthenticated, logout } = useAuth();
 
   return (
     <NavbarAtomic>
@@ -45,12 +48,23 @@ export const Navbar = () => {
           checked={theme === 'dark'}
           size={80}
         />
-        <LanguageSelectStyled onChange={e => setLocale(e.target.value)}>
-          <option value='fr-FR'>Français</option>
-          <option value='pt-BR'>Português</option>
-          <option value='en-US'>English</option>
+        <LanguageSelectStyled onChange={e => setLanguage(e.target.value)} value={language}>
+          <option value='fr' >Français</option>
+          <option value='pt' >Português</option>
+          <option value='en' >English</option>
         </LanguageSelectStyled>
-        <NavButton path='/login' text={Translations[language][Labels.LOGIN]}/>
+        {isAuthenticated
+          ?
+          <>
+            <HoverPanel user={user} onLogout={logout}/>
+            {/* <NavButton path={'/logout'} text={Translations[language][Labels.LOGOUT]} /> */}
+          </>
+          :
+          <>
+            <NavButton path='/login' text={Translations[language][Labels.LOGIN]}/>
+            <NavButton path='/signup' text={Translations[language][Labels.SIGNUP]}/>
+          </>
+        }
       </NavbarAtomic.RightButtons>
     </NavbarAtomic>
   )

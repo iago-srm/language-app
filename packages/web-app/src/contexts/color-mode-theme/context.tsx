@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components'
 import {
   validateMode,
@@ -8,7 +8,7 @@ import {
 import { getTheme } from './theme';
 import { LocalStorage } from '@utils';
 
-export const ColorModeContext = React.createContext<ColorModeContextType>({
+const ColorModeContext = React.createContext<ColorModeContextType>({
   theme: 'dark',
   setTheme: () => {}
 });
@@ -41,5 +41,6 @@ export const ThemeProvider = ({ children }) => {
       </ColorModeContext.Provider>
     </StyledThemeProvider>
   )
-
 }
+
+export const useColorTheme = () => useContext(ColorModeContext);
