@@ -3,10 +3,9 @@ import {
   IHTTPController,
   IHTTPControllerDescriptor,
 } from '../../ports/REST-controllers';
-import { CredentialsNotProvidedError } from '@language-app/common';
 import SerializeLoginBody from './serializer';
 
-export const LoginControllerFactory = ({
+export const SignInControllerFactory = ({
   loginUseCase,
 }: {
   loginUseCase: ILoginUseCase;

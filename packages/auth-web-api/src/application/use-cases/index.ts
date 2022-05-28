@@ -1,10 +1,10 @@
 export * from './sign-up';
-import LoginUseCaseFactory, { ILoginUseCase } from './log-in';
-import LogoutUseCaseFactory, { ILogoutUseCase } from './log-out';
+import SignInUseCase, { ISignInUseCase } from './sign-in';
+import SignOutUseCase, { ISignOutUseCase } from './sign-out';
 export { SignUpUseCaseFactory, ISignUpUseCase } from './sign-up';
 export {
-  LoginUseCaseFactory,
-  ILoginUseCase,
-  LogoutUseCaseFactory,
-  ILogoutUseCase
+  SignInUseCase,
+  ISignInUseCase,
+  SignOutUseCase,
+  ISignOutUseCase
 };
