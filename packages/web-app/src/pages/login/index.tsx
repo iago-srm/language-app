@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import Head from 'next/head'
-import { signIn } from "next-auth/react";
 import GoogleButton from 'react-google-button';
 
 import { Translations, Labels } from '@locale';
@@ -21,7 +20,12 @@ const LoginPage: React.FC = () => {
 
   const { language } = useLanguage();
   const { theme } = useColorTheme();
-  const { login, loginError, loginLoading } = useAuth();
+  const {
+    googleSignIn,
+    credentialsSignIn,
+    loginError,
+    loginLoading
+  } = useAuth();
 
   const loginSchema = React.useMemo(() => {
     return new ValidationSchemas(language).getLoginSchema()
@@ -32,16 +36,14 @@ const LoginPage: React.FC = () => {
   }, [loginError]);
 
   const handleSubmit = async (data) => {
-    const resp = await login({
-      email: data.email,
-      password: data.password
-    });
+    const resp = await credentialsSignIn(data);
+    // const resp = await login({
+    //   email: data.email,
+    //   password: data.password
+    // });
     console.log(resp)
   }
 
-  const googleSignIn = () => {
-    signIn("google", { callbackUrl: '/'});
-  };
   return (
     <LoginContainer>
       <Head>

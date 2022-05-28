@@ -7,24 +7,23 @@ import { useSession, signOut, signIn } from "next-auth/react";
 import { LocalStorage } from "@utils";
 import { useLoginAPI, LoginApi, useUser } from '@api';
 
-type AuthContextType = {
-  isAuthenticated: boolean;
-  user: GetUserAPIResponse;
-  login: LoginApi;
-  logout: () => Promise<void>;
-  loginLoading: boolean;
-  loginError: any
-}
+// type AuthContextType = {
+//   isAuthenticated: boolean;
+//   user: GetUserAPIResponse;
+//   login: LoginApi;
+//   logout: () => Promise<void>;
+//   loginLoading: boolean;
+//   loginError: any
+// }
 
-const AuthContext = React.createContext<AuthContextType>({
+const AuthContext = React.createContext({
   isAuthenticated: false,
   user: undefined,
-  login: () => new Promise(r => r({
-    token: ""
-  })),
+  googleSignIn: () => new Promise<any>(r => r({})),
+  credentialsSignIn: (args) => new Promise<any>(r => r({})),
   loginLoading: false,
-  loginError: "",
-  logout: () => new Promise(r => r())
+  loginError: { message: ""},
+  logout: () => new Promise<void>(r => r())
 })
 
 export function AuthProvider({ children }) {
@@ -68,7 +67,8 @@ export function AuthProvider({ children }) {
     <AuthContext.Provider value={{
       user,
       isAuthenticated,
-      login,
+      googleSignIn: () => signIn("google", { callbackUrl: '/'}),
+      credentialsSignIn: ({ email, password }) => signIn("google", { callbackUrl: '/', email, password}),
       loginLoading,
       loginError,
       logout: () => signOut({ callbackUrl: '/'})

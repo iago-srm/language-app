@@ -1,7 +1,7 @@
 import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { signupUseCase } from '@api';
+import { loginUseCase } from '@api';
 
 export default NextAuth({
   providers: [
@@ -9,21 +9,18 @@ export default NextAuth({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET
     }),
-    // CredentialsProvider({
-    //   async authorize(credentials, req) {
-    //     console.log({credentials, req});
-    //     // await signupUseCase({})
-    //     if (user) {
-    //       // Any object returned will be saved in `user` property of the JWT
-    //       return user
-    //     } else {
-    //       // If you return null then an error will be displayed advising the user to check their details.
-    //       return null
-
-    //       // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
-    //     }
-    //   }
-    // })
+    CredentialsProvider({
+      name: 'credentials',
+      async authorize(credentials, req) {
+        console.log({credentials, req});
+        const resp = await loginUseCase({...credentials});
+        console.log('login credentials response',{resp})
+        return {
+          name: 'test',
+          image: 'test'
+        }
+      }
+    })
   ],
   callbacks: {
     async session({ session, token, user }) {
