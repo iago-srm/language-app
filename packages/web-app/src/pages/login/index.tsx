@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react'
 import Head from 'next/head'
+import { signIn } from "next-auth/react";
+import GoogleButton from 'react-google-button';
 
 import { Translations, Labels } from '@locale';
 import { Container as LoginContainer } from './styles'
 import { ValidationSchemas, getPageTitle } from '@utils';
-import { useLanguage, useAuth } from '@contexts';
+import { useLanguage, useAuth, useColorTheme } from '@contexts';
 import {
   Form,
   Input,
@@ -18,7 +20,7 @@ import {
 const LoginPage: React.FC = () => {
 
   const { language } = useLanguage();
-
+  const { theme } = useColorTheme();
   const { login, loginError, loginLoading } = useAuth();
 
   const loginSchema = React.useMemo(() => {
@@ -37,6 +39,9 @@ const LoginPage: React.FC = () => {
     console.log(resp)
   }
 
+  const googleSignIn = () => {
+    signIn("google", { callbackUrl: '/'});
+  };
   return (
     <LoginContainer>
       <Head>
@@ -52,7 +57,7 @@ const LoginPage: React.FC = () => {
                 <Button loading={loginLoading}>{Translations[language][Labels.LOGIN]}</Button>
               </Form>
               <hr/>
-              <div className="g-signin2" data-onsuccess="onSignIn">{Translations[language][Labels.LOGIN]}</div>
+              <GoogleButton type={theme} onClick={googleSignIn}>Entrar com Google</GoogleButton>
             </Frame>
           </Col>
         </Row>

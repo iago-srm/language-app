@@ -20,7 +20,7 @@ export const getTheme: (mode: Modes) => Theme = (mode: Modes) => {
     light: {
       background: '#e1e1e1',
       highlightedText: 'black',
-      highlight: '#',
+      highlight: '#a479f8',
       text: 'black',
       primary: '#8257e6',
       secondary: '#aa1212',

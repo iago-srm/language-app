@@ -38,7 +38,10 @@ export default NextAuth({
     async jwt({ token, user, account, profile, isNewUser }) {
       // console.log('jwt',{ token, user, account, profile, isNewUser })
       return token
-    }
+    },
+    // async redirect(redirectParams) {
+
+    // }
   },
   session: {
     jwt: true,

@@ -71,7 +71,7 @@ export function AuthProvider({ children }) {
       login,
       loginLoading,
       loginError,
-      logout: signOut
+      logout: () => signOut({ callbackUrl: '/'})
     }}>
       {children}
     </AuthContext.Provider>

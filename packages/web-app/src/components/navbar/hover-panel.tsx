@@ -20,9 +20,11 @@ const PanelNameContainer = styled.div`
   padding: 15px;
 `;
 
+const DropdownMenuContainer = styled.div`
+  border: 1px solid ${p => p.theme.colors.text};
+`;
+
 const NavImg = ({src}) => <img referrerPolicy="no-referrer" src={src} alt={'Imagem do Usuário'}/>
-
-
 
 export const HoverPanel = ({ user, onLogout }) => {
 
@@ -37,18 +39,20 @@ export const HoverPanel = ({ user, onLogout }) => {
       </Dropdown.Toggle>
 
       <Dropdown.Menu variant={theme}>
-        <PanelImageContainer>
-          <NavImg src={user.image}/>
-        </PanelImageContainer>
-        <PanelNameContainer>Olá, {user.name}</PanelNameContainer>
-        <Dropdown.Item as={'button'}>
-          <NextLink href={'/profile'}>
-            Perfil
-          </NextLink>
-        </Dropdown.Item>
-        <Dropdown.Item onClick={onLogout}>
-          Sair
-        </Dropdown.Item>
+        <DropdownMenuContainer>
+          <PanelImageContainer>
+            <NavImg src={user.image}/>
+          </PanelImageContainer>
+          <PanelNameContainer>Olá, {user.name}</PanelNameContainer>
+          <Dropdown.Item as={'button'}>
+            <NextLink href={'/profile'}>
+              Perfil
+            </NextLink>
+          </Dropdown.Item>
+          <Dropdown.Item onClick={onLogout}>
+            Sair
+          </Dropdown.Item>
+        </DropdownMenuContainer>
       </Dropdown.Menu>
     </Dropdown>
   )

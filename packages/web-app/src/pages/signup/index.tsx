@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import Head from 'next/head'
-import { useSession, signOut, signIn } from "next-auth/react";
 import { Translations, Labels } from '@locale';
 import { Container as PageContainer } from './styles'
 import { ValidationSchemas, getPageTitle } from '@utils';
@@ -36,9 +35,7 @@ const Page: React.FC = () => {
     console.log(resp)
   }
 
-  const googleSignin = () => {
-    signIn();
-  };
+
 
   return (
     <PageContainer>
@@ -55,7 +52,6 @@ const Page: React.FC = () => {
                 <Input name='confirmPassword' label={Translations[language][Labels.CONFIRM_PASSWORD]} type="password" />
                 <Button loading={loginLoading}>{Translations[language][Labels.SIGNUP]}</Button>
               </Form>
-              <button onClick={googleSignin}>Google Signin</button>
             </Frame>
           </Col>
         </Row>
