@@ -33,11 +33,7 @@ export function LanguageProvider({children}) {
 
   useEffect(() => {
     const storedLanguage = localStorage.getLanguage();
-    if(storedLanguage) {
-      console.log({storedLanguage})
-      setLang(storedLanguage);
-    }
-
+    if(storedLanguage) setLang(storedLanguage);
   }, []);
 
   return (

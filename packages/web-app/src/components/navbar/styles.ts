@@ -33,7 +33,9 @@ export const ButtonStyled = styled.div<{highlighted: boolean}>`
       background-color: ${p => p.theme.colors.highlight};
       cursor: pointer;
     }
-    height: 8vh;
+    height: 100%;
   }
+  height: 100%;
+
 
 `;

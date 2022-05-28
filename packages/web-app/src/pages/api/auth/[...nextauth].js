@@ -27,13 +27,17 @@ export default NextAuth({
   ],
   callbacks: {
     async session({ session, token, user }) {
-      console.log({session, token, user})
-      session.user = token?.token?.token?.token?.user;
+      // console.log('session',{session, token, user})
+      // session.user = token?.token?.token?.token?.user;
       return session;
     },
-    async signin({ user, account, profile, email, credentials }) {
-      console.log({ user, account, profile, email, credentials })
+    async signIn(signInParams) {
+      console.log({ signInParams })
       return true;
+    },
+    async jwt({ token, user, account, profile, isNewUser }) {
+      // console.log('jwt',{ token, user, account, profile, isNewUser })
+      return token
     }
   },
   session: {
