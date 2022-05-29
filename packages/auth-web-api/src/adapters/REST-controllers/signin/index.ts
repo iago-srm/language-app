@@ -1,4 +1,4 @@
-import { ILoginUseCase } from '@application/use-cases';
+import { ISignInUseCase } from '@application/use-cases';
 import {
   IHTTPController,
   IHTTPControllerDescriptor,
@@ -6,13 +6,13 @@ import {
 import SerializeLoginBody from './serializer';
 
 export const SignInControllerFactory = ({
-  loginUseCase,
+  signInUseCase,
 }: {
-  loginUseCase: ILoginUseCase;
+  signInUseCase: ISignInUseCase;
 }): IHTTPControllerDescriptor<IHTTPController> => {
   const fn: IHTTPController = async (_, body) => {
     const { email, password } = SerializeLoginBody(body);
-    const resp = await loginUseCase.execute({
+    const resp = await signInUseCase.execute({
       email,
       password,
     });

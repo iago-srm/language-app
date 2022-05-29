@@ -3,7 +3,7 @@ import {
   IHTTPController,
   IHTTPControllerDescriptor,
 } from '../../ports/REST-controllers';
-import SerializeSignupBody from './serializer';
+import {serializer} from './serializer';
 
 export const SignUpControllerFactory = ({
   signUpUseCase,
@@ -12,7 +12,7 @@ export const SignUpControllerFactory = ({
 }): IHTTPControllerDescriptor<IHTTPController> => {
   const fn: IHTTPController = async (_, body) => {
     const { email, password, name, confirmPassword, role } =
-      SerializeSignupBody(body);
+      serializer(body);
 
     const response = await signUpUseCase.execute({
       email,

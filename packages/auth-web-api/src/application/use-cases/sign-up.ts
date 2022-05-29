@@ -1,6 +1,5 @@
 import {
   IUseCase,
-  IUseCaseFactory,
   IUserRepository,
   UserDTO,
   IEncryptionService,
@@ -23,53 +22,42 @@ export type InputParams = {
 type Return = {
   token: String;
 };
-type Dependencies = {
-  userRepository: IUserRepository;
-  encryptionService: IEncryptionService;
-  tokenService: ITokenService;
-  idService: IIdGenerator;
-};
 
 export type ISignUpUseCase = IUseCase<InputParams, Return>;
-export type ISignUpUseCaseFactory = IUseCaseFactory<
-  Dependencies,
-  InputParams,
-  Return
->;
 
-export const SignUpUseCaseFactory: ISignUpUseCaseFactory = ({
-  userRepository,
-  encryptionService,
-  tokenService,
-  idService,
-}) => {
-  return {
-    execute: async ({ email, name, password, confirmPassword, role }) => {
-      const user = new User({ email, name, role, password });
+export class SignUpUseCase implements ISignUpUseCase {
+  constructor (
+    private userRepository: IUserRepository,
+    private encryptionService: IEncryptionService,
+    private tokenService: ITokenService,
+    private idService: IIdGenerator,
+  ){}
+  async execute({ email, name, password, confirmPassword, role }) {
+    const user = new User({ email, name, role, password });
 
-      const existingUser = await userRepository.getUserByEmail(email);
+    const existingUser = await this.userRepository.getUserByEmail(email);
 
-      if (existingUser) throw new EmailAlreadySignedupError();
+    if (existingUser) throw new EmailAlreadySignedupError();
 
-      if (password !== confirmPassword) throw new PasswordsDontMatchError();
+    if (password !== confirmPassword) throw new PasswordsDontMatchError();
 
-      const userDTO: UserDTO = {
-        id: idService.getId(),
-        email: user.personId.email,
-        name: user.personId.name,
-        role: user.role,
-        hashedPassword: await encryptionService.encrypt(user.password),
-        tokenVersion: 0,
-      };
+    const userDTO: UserDTO = {
+      id: this.idService.getId(),
+      email: user.personId.email,
+      name: user.personId.name,
+      role: user.role,
+      hashedPassword: await this.encryptionService.encrypt(user.password),
+      tokenVersion: 0,
+    };
 
-      await userRepository.insertUser(userDTO);
+    await this.userRepository.insertUser(userDTO);
 
-      const token = tokenService.generate({
-        id: userDTO.id,
-        tokenVersion: userDTO.tokenVersion,
-      });
+    const token = this.tokenService.generate({
+      id: userDTO.id,
+      tokenVersion: userDTO.tokenVersion,
+    });
 
-      return { token };
-    },
-  };
-};
+    return { token };
+  }
+
+}

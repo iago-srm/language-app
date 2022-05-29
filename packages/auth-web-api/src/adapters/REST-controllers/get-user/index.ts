@@ -5,7 +5,6 @@ import {
 
 export const GetUserControllerFactory = (): IHTTPControllerDescriptor<IHTTPController> => {
   const fn: IHTTPController = async (_,__,___, { user }) => {
-    console.log('user endpoint')
     return {
       response: user,
       statusCode: 200,

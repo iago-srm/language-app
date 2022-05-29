@@ -1,17 +1,17 @@
-import { ILogoutUseCase } from '@application/use-cases';
+import { ISignOutUseCase } from '@application/use-cases';
 import {
   IHTTPController,
   IHTTPControllerDescriptor,
 } from '../../ports/REST-controllers';
 
-export const LogoutControllerFactory = ({
-  logoutUseCase,
+export const SignOutControllerFactory = ({
+  signOutUseCase,
 }: {
-  logoutUseCase: ILogoutUseCase;
+  signOutUseCase: ISignOutUseCase;
 }): IHTTPControllerDescriptor<IHTTPController> => {
   const fn: IHTTPController = async (_, __, ___, { user }) => {
     const { id, tokenVersion } = user;
-    const resp = await logoutUseCase.execute({
+    const resp = await signOutUseCase.execute({
       id,
       tokenVersion,
     });

@@ -3,7 +3,7 @@ import {
   ExpressServer as FrameworkServer,
 } from '@frameworks/http';
 import {
-  LoginControllerFactory,
+  SignInControllerFactory,
   GetUserControllerFactory,
   SignUpControllerFactory,
   ErrorHandlerControllerFactory
@@ -17,9 +17,9 @@ import {
   BCryptEncryptionService
 } from '@frameworks/services';
 import {
-  LoginUseCaseFactory,
-  SignUpUseCaseFactory,
-  LogoutUseCaseFactory,
+  SignInUseCase,
+  SignUpUseCase,
+  SignOutUseCase,
 } from '@application/use-cases';
 import { AuthenticationMiddlewareControllerFactory } from '@adapters/REST-middleware';
 import { ExpressControllerAdapter } from '@frameworks/http';
@@ -28,10 +28,10 @@ const container = awilix.createContainer();
 
 export enum Dependencies {
   // controllers
-  LOGINCONTROLLER = 'loginController',
+  LOGINCONTROLLER = 'signInController',
   SIGNUPCONTROLLER = 'signupController',
   GETUSERCONTROLLER = 'getUserController',
-  LOGOUTCONTROLLER = 'logoutController',
+  LOGOUTCONTROLLER = 'signOutController',
 
   AUTHMIDDLEWARE = 'authMiddleware',
   ERRORHANDLER = 'errorHandler',
@@ -43,8 +43,8 @@ export enum Dependencies {
   LOGGER = 'logger',
 
   // use cases
-  LOGOUTUSECASE = 'logoutUseCase',
-  LOGINUSECASE = 'loginUseCase',
+  LOGOUTUSECASE = 'signOutUseCase',
+  LOGINUSECASE = 'signInUseCase',
   SIGNUPUSECASE = 'signUpUseCase',
   GETUSERUSECASE = 'getUserUseCase',
 
@@ -57,7 +57,7 @@ export enum Dependencies {
 
 container.register({
   // controllers
-  [Dependencies.LOGINCONTROLLER]: awilix.asFunction(LoginControllerFactory),
+  [Dependencies.LOGINCONTROLLER]: awilix.asFunction(SignInControllerFactory),
   [Dependencies.SIGNUPCONTROLLER]: awilix.asFunction(SignUpControllerFactory),
   [Dependencies.GETUSERCONTROLLER]: awilix.asFunction(GetUserControllerFactory),
 
@@ -70,9 +70,9 @@ container.register({
   [Dependencies.TOKENSERVICE]: awilix.asClass(JWTTokenService),
 
   // use cases
-  [Dependencies.LOGOUTUSECASE]: awilix.asFunction(LogoutUseCaseFactory),
-  [Dependencies.LOGINUSECASE]: awilix.asFunction(LoginUseCaseFactory),
-  [Dependencies.SIGNUPUSECASE]: awilix.asFunction(SignUpUseCaseFactory),
+  [Dependencies.LOGOUTUSECASE]: awilix.asClass(SignOutUseCase),
+  [Dependencies.LOGINUSECASE]: awilix.asClass(SignInUseCase),
+  [Dependencies.SIGNUPUSECASE]: awilix.asClass(SignUpUseCase),
 
   // repositories
   [Dependencies.USERREPOSITORY]: awilix.asClass(UserRepository),

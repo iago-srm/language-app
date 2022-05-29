@@ -6,7 +6,7 @@ import {
 } from './test-mocks';
 import { TestUserDTOHelper } from '@common/test-helpers';
 
-describe('SignIn in use case unit tests', () => {
+describe.skip('SignIn in use case unit tests', () => {
 
   it('Should call depending services appropriately', async () => {
     const user = new TestUserDTOHelper().getUser();
