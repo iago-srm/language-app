@@ -4,12 +4,12 @@ import {
   mockTokenService,
   mockUserRepository
 } from './test-mocks';
-import { TestUserDTOHelper } from '@common/test-helpers';
+import { UserDTOHelperBuilder } from '@/common/test-helpers/user-dto';
 
 describe.skip('SignIn in use case unit tests', () => {
 
   it('Should call depending services appropriately', async () => {
-    const user = new TestUserDTOHelper().getUser();
+    const user = new UserDTOHelperBuilder().getResult();
     const mockEncryptionService = new MockEncryptionService(
       jest.fn().mockResolvedValue(true)
     );
