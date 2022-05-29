@@ -1,71 +1,63 @@
-import Link from 'next/link';
 import { useRouter } from 'next/router'
+import Link from "next/link";
+import Image from 'next/image'
 import styled from 'styled-components';
-import DarkModeToggle from "react-dark-mode-toggle";
 
 import { useLanguage, useColorTheme, useAuth } from '@contexts';
 import { Translations, Labels } from '@locale';
 
 import {
   Navbar as NavbarAtomic,
-  NavButton as NavButtonAtomic
-} from './atomic';
+} from './atomic/navbar';
 import {
   HoverPanel
 } from './hover-panel';
+import { LanguageSelect } from './language-select';
+import { ThemeToggle } from './theme-toggle';
 
-const LanguageSelectStyled = styled.select`
-  height: 1.5rem;
-  width: 100px;
-  margin: 0 15px;
+const LogoImageContainer = styled.div`
+  margin: 10px;
+  cursor: pointer;
 `;
-
-const NavButton = ({path, text}) => {
-  const router = useRouter();
-
-  return (
-    <NavButtonAtomic highlighted={router.pathname === path}>
-      <Link href={path} >
-          {text}
-        </Link>
-    </NavButtonAtomic>
-  )
-}
 
 export const Navbar = () => {
   const { theme, setTheme } = useColorTheme();
   const { language, setLanguage } = useLanguage();
   const { user, isAuthenticated, logout } = useAuth();
+  const router = useRouter();
 
   return (
-    <NavbarAtomic>
-      <NavbarAtomic.LeftButtons>
-        <NavButton path='/' text={Translations[language][Labels.HOME]}/>
-      </NavbarAtomic.LeftButtons>
-      <NavbarAtomic.RightButtons>
-        <DarkModeToggle
-          onChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-          checked={theme === 'dark'}
-          size={80}
-        />
-        <LanguageSelectStyled onChange={e => setLanguage(e.target.value)} value={language}>
-          <option value='fr' >Français</option>
-          <option value='pt' >Português</option>
-          <option value='en' >English</option>
-        </LanguageSelectStyled>
-        {isAuthenticated
-          ?
-          <>
-            <HoverPanel user={user} onLogout={logout}/>
-            {/* <NavButton path={'/logout'} text={Translations[language][Labels.LOGOUT]} /> */}
-          </>
-          :
-          <>
-            <NavButton path='/login' text={Translations[language][Labels.LOGIN]}/>
-            <NavButton path='/signup' text={Translations[language][Labels.SIGNUP]}/>
-          </>
-        }
-      </NavbarAtomic.RightButtons>
-    </NavbarAtomic>
+    <>
+      <NavbarAtomic currentPath={router.pathname}>
+        <NavbarAtomic.LeftButtons>
+          <Link href={'/'}>
+            <LogoImageContainer ><Image src='/images/logo.png' width={50} height={50}/></LogoImageContainer>
+          </Link>
+          <ThemeToggle theme={theme} setTheme={setTheme}/>
+          <LanguageSelect onChange={(e) => setLanguage(e.target.value)} language={language}/>
+        </NavbarAtomic.LeftButtons>
+        <NavbarAtomic.RightButtons>
+          {isAuthenticated
+            ?
+            <>
+              <HoverPanel user={user} onLogout={logout}/>
+            </>
+            :
+            <>
+              <NavbarAtomic.Button path='/login' >
+                <Link href={'/login'}>
+                  {Translations[language][Labels.LOGIN]}
+                </Link>
+              </NavbarAtomic.Button>
+              <NavbarAtomic.Button path='/signup'>
+                <Link href={'/signup'}>
+                  {Translations[language][Labels.SIGNUP]}
+                </Link>
+              </NavbarAtomic.Button>
+            </>
+          }
+        </NavbarAtomic.RightButtons>
+      </NavbarAtomic>
+    </>
   )
 }

@@ -5,16 +5,18 @@ import Image from 'next/image'
 import { Container } from './styles'
 import { getPageTitle } from '@utils'
 import { useLanguage } from '@contexts';
+import { Translations, Labels } from '@locale';
 
 const Home: React.FC = () => {
+  const { language } = useLanguage();
 
   return (
     <Container>
       <Head>
-        <title>{getPageTitle('Home')}</title>
+        <title>{getPageTitle(Translations[language][Labels.HOME])}</title>
       </Head>
 
-      <Image src="/images/logo.jpg" width={500} height={500}/>
+      {/* <Image src="/images/logo.jpg" width={500} height={500}/> */}
       <h1>Language App</h1>
     </Container>
   )

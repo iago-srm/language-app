@@ -1,10 +1,11 @@
 import styled from 'styled-components';
-import { CenteringColumn } from '@styles';
+import { FlexCentered } from '@styles';
 
-const FrameStyled = styled(CenteringColumn)`
+const FrameStyled = styled(FlexCentered)`
   padding: 30px;
   border-radius: 20px;
   background-color: ${p => p.theme.colors.background};
+  flex-direction: column;
 `;
 
 export const Frame = ({children}) => {
