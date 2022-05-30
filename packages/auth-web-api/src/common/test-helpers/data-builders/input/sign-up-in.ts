@@ -1,12 +1,12 @@
 import { EmailGenerator, PasswordGenerator } from '@language-app/common';
+import { AbstractBuilder } from '../abstract-builder';
 
 const emailGenerator = new EmailGenerator();
 const passwordGenerator = new PasswordGenerator();
 
-export class SignUpInputBuilder {
-  private data;
+export class SignUpInputBuilder extends AbstractBuilder{
   constructor() {
-    this.reset();
+    super();
   }
   reset() {
     this.data = {
@@ -15,9 +15,6 @@ export class SignUpInputBuilder {
       confirmPassword: passwordGenerator.getValidPassword(),
       role: 'fsdfsd'
     };
-  }
-  getResult() {
-    return this.data
   }
   withoutPassword() {
     delete this.data.password;
@@ -33,6 +30,10 @@ export class SignUpInputBuilder {
   }
   withoutConfirmPassword() {
     delete this.data.confirmPassword;
+    return this;
+  }
+  withEmail(email: string) {
+    this.data.email = email;
     return this;
   }
 }

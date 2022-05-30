@@ -1,14 +1,14 @@
-import { UserDTO } from '@application/ports';
 import { EmailGenerator, PasswordGenerator } from '@language-app/common';
+import { AbstractBuilder } from './abstract-builder';
 
 const emailGenerator = new EmailGenerator();
 const passwordGenerator = new PasswordGenerator();
 
-export class UserDTOHelperBuilder {
-  private data: UserDTO;
+export class UserDTOHelperBuilder extends AbstractBuilder{
   constructor() {
-    this.reset();
+    super();
   }
+
   reset() {
     this.data = {
       id: '1',
@@ -18,10 +18,6 @@ export class UserDTOHelperBuilder {
       role: 'STUDENT',
       tokenVersion: 0
     };
-  }
-
-  getResult() {
-    return this.data;
   }
 
   withInvalidEmail() {

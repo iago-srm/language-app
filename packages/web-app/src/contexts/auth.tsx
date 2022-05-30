@@ -68,7 +68,7 @@ export function AuthProvider({ children }) {
       user,
       isAuthenticated,
       googleSignIn: () => signIn("google", { callbackUrl: '/'}),
-      credentialsSignIn: ({ email, password }) => signIn("google", { callbackUrl: '/', email, password}),
+      credentialsSignIn: ({ email, password }) => signIn("credentials", { redirect: false, email, password}),
       loginLoading,
       loginError,
       logout: () => signOut({ callbackUrl: '/'})
