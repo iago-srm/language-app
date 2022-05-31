@@ -54,10 +54,19 @@ describe('SignIn in use case unit tests', () => {
     const testData = new TestDataFacade({
       mockEncryptionService: {
         compare: jest.fn().mockResolvedValue(false)
+      },
+      mockUserRepository: {
+        getUserByEmail: jest.fn().mockResolvedValue({})
       }
     });
+    const input = testData.inputBuilder.getResult();
+    const user = new UserDTOHelperBuilder().getResult();
 
-    await expect(testData.sut.signIn.execute(testData.inputBuilder.getResult())).rejects.toThrow();
+    await expect(testData.sut.signIn.execute(input)).rejects.toThrow();
+    expect(testData.mockEncryptionService.compare).toHaveBeenCalledWith(
+      input.password,
+      user.hashedPassword
+    );
 
     try {
       await testData.sut.signIn.execute(testData.inputBuilder.getResult());
