@@ -4,6 +4,7 @@ import axios, { AxiosInstance } from 'axios';
 export const BASE_AUTH_URL = `${process.env.NEXT_PUBLIC_AUTH_URL}/api/v1`;
 
 const axiosErrorHandler = e => {
+  console.log({e})
   throw {status: e.response.status, message: e.response.data.message}
 };
 

@@ -25,7 +25,7 @@ type Return = {
 
 export type ISignUpUseCase = IUseCase<InputParams, Return>;
 
-export class SignUpUseCase implements ISignUpUseCase {
+class UseCase implements ISignUpUseCase {
   constructor (
     private userRepository: IUserRepository,
     private encryptionService: IEncryptionService,
@@ -61,3 +61,5 @@ export class SignUpUseCase implements ISignUpUseCase {
   }
 
 }
+
+export default UseCase;

@@ -70,9 +70,9 @@ container.register({
   [Dependencies.TOKENSERVICE]: awilix.asClass(JWTTokenService),
 
   // use cases
-  [Dependencies.LOGOUTUSECASE]: awilix.asClass(SignOutUseCase),
-  [Dependencies.LOGINUSECASE]: awilix.asClass(SignInUseCase),
-  [Dependencies.SIGNUPUSECASE]: awilix.asClass(SignUpUseCase),
+  [Dependencies.LOGOUTUSECASE]: awilix.asClass(SignOutUseCase).classic(),
+  [Dependencies.LOGINUSECASE]: awilix.asClass(SignInUseCase).classic(),
+  [Dependencies.SIGNUPUSECASE]: awilix.asClass(SignUpUseCase).classic(),
 
   // repositories
   [Dependencies.USERREPOSITORY]: awilix.asClass(UserRepository),

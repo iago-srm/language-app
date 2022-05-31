@@ -6,7 +6,7 @@ import {
 
 export type LoginApi = (args: LoginAPIParams) => Promise<LoginAPIResponse>
 
-const loginUseCase = ({email, password}) => {
+export const loginUseCase = ({email, password}) => {
   return authAxiosPostFetcher('/login', {
     email,
     password

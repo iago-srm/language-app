@@ -11,10 +11,18 @@ export default NextAuth({
     }),
     CredentialsProvider({
       name: 'credentials',
+      credentials: {
+        email: { label: "Username", type: "text", placeholder: "jsmith" },
+        password: {  label: "Password", type: "password" }
+      },
       async authorize(credentials, req) {
-        console.log({credentials, req});
-        const resp = await loginUseCase({...credentials});
-        console.log('login credentials response',{resp})
+        // console.log({credentials, req});
+        try {
+          const resp = await loginUseCase({...credentials});
+          console.log('login credentials response',{resp})
+        } catch(e) {
+          console.log(e);
+        }
         return {
           name: 'test',
           image: 'test'
@@ -40,9 +48,9 @@ export default NextAuth({
 
     // }
   },
-  session: {
-    jwt: true,
-    maxAge: 24 * 60 * 60, // 24 hours
-  },
+  // session: {
+  //   jwt: true,
+  //   maxAge: 24 * 60 * 60, // 24 hours
+  // },
 
 })

@@ -14,13 +14,15 @@ const getPreferredLocale = (proposals) => {
   }
   return defaultLocale;
 }
+
 export const startPolyglot = (messages) => {
   return (req, _, next) => {
-    const proposals = req.headers['accept-language'].split(',');
-    const locale = getPreferredLocale(proposals);
+    // console.log({req})
+    const proposals = req.headers['accept-language'] ? req.headers['accept-language'].split(',') : null;
+    const locale = proposals ? getPreferredLocale(proposals) : 'en-US';
     req.polyglot = new Polyglot();
     // does not work:
-    req.headers['content-language'] = locale;
+    // req.headers['content-language'] = locale;
     for (let lang in messages) {
       if (locale.split('-')[0] === lang) {
         req.polyglot.extend(messages[lang]);
