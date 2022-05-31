@@ -1,10 +1,10 @@
 import { EmailGenerator, PasswordGenerator } from '@language-app/common';
-import { AbstractBuilder } from '../abstract-builder';
+import { AbstractBuilder } from './abstract-builder';
 
 const emailGenerator = new EmailGenerator();
 const passwordGenerator = new PasswordGenerator();
 
-export class SignUpInputBuilder extends AbstractBuilder{
+export class SignInUpInputBuilder extends AbstractBuilder{
   constructor() {
     super();
   }

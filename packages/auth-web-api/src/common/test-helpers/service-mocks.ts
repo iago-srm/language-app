@@ -2,6 +2,7 @@ import {
   IUserRepository,
   IEncryptionService,
   ITokenService,
+  IIdGenerator
 } from '@application/ports';
 
 export class MockEncryptionService implements IEncryptionService {
@@ -46,3 +47,12 @@ export class MockUserRepository implements IUserRepository {
     this.updateUser = updateUser;
   }
 };
+
+export class MockIdGenerator implements MockIdGenerator {
+  public getId;
+  constructor ({
+    getId = jest.fn(),
+  }) {
+    this.getId = getId;
+  }
+}

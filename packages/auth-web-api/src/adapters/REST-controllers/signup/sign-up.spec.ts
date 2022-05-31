@@ -1,7 +1,7 @@
 import { SignUpControllerFactory } from './index';
-import { SignUpInputBuilder } from '@/common/test-helpers';
+import { SignInUpInputBuilder } from '@/common/test-helpers';
 
-const sutDataBuilder = new SignUpInputBuilder();
+const sutDataBuilder = new SignInUpInputBuilder();
 
 describe("SignIn Controller Adapter", () => {
   const { controller: sut } = SignUpControllerFactory({

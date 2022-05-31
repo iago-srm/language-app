@@ -1,55 +1,69 @@
-import SignInUseCase from './sign-in';
 import {
-  MockEncryptionService,
-  MockTokenService,
-  MockUserRepository,
-  SignUpInputBuilder
+  TestDataFacade
 } from '@common/test-helpers';
-import { UserDTOHelperBuilder } from '@/common/test-helpers/data-builders/user-dto';
+import { UserDTOHelperBuilder } from '@common/test-helpers';
+import { ErrorMessages } from '@language-app/common';
 
 describe('SignIn in use case unit tests', () => {
 
-  it('White-box test', async () => {
-    const inputBuilder = new SignUpInputBuilder();
+  it('White-box testing', async () => {
+
     const user = new UserDTOHelperBuilder().getResult();
-    const mockEncryptionService = new MockEncryptionService({
-      compare: jest.fn().mockResolvedValue(true)
+
+    const testData = new TestDataFacade({
+      mockEncryptionService: {
+        compare: jest.fn().mockResolvedValue(true)
+      },
+      mockUserRepository: {
+        getUserByEmail: jest.fn().mockResolvedValue(user)
+      }
     });
-    const mockUserRepository = new MockUserRepository({
-      getUserByEmail: jest.fn().mockResolvedValue(user),
-    });
-    const mockTokenService = new MockTokenService({});
 
-    const sut = new SignInUseCase(
-      mockUserRepository,
-      mockEncryptionService,
-      mockTokenService
-    );
+    await testData.sut.signIn.execute(testData.inputBuilder.getResult());
 
-    await sut.execute(inputBuilder.getResult());
-
-    expect(mockEncryptionService.compare).toHaveBeenCalledWith(
-      inputBuilder.getResult().password,
+    expect(testData.mockEncryptionService.compare).toHaveBeenCalledWith(
+      testData.inputBuilder.getResult().password,
       user.hashedPassword
     );
-    expect(mockUserRepository.getUserByEmail).toHaveBeenCalledWith(
-      inputBuilder.getResult().email
+    expect(testData.mockUserRepository.getUserByEmail).toHaveBeenCalledWith(
+      testData.inputBuilder.getResult().email
     );
-    expect(mockTokenService.generate).toHaveBeenCalledWith({
+    expect(testData.mockTokenService.generate).toHaveBeenCalledWith({
       id: user.id,
       tokenVersion: user.tokenVersion
     })
   });
 
-  it("Should throw if user with that e-mail is not found", () => {
+  it("Should throw if user with that e-mail is not found", async () => {
+    const testData = new TestDataFacade({
+      mockUserRepository: {
+        getUserByEmail: jest.fn().mockResolvedValue(null)
+      }
+    });
 
+    await expect(testData.sut.signIn.execute(testData.inputBuilder.getResult())).rejects.toThrow();
+
+    try {
+      await testData.sut.signIn.execute(testData.inputBuilder.getResult());
+    } catch(e) {
+      expect(e).toMatchObject({ errorName: ErrorMessages.INVALID_CREDENTIALS })
+    }
   });
 
-  it("Should throw if password passed is different from database", () => {
+  it("Should throw if password passed is different from database", async () => {
+    const testData = new TestDataFacade({
+      mockEncryptionService: {
+        compare: jest.fn().mockResolvedValue(false)
+      }
+    });
 
+    await expect(testData.sut.signIn.execute(testData.inputBuilder.getResult())).rejects.toThrow();
+
+    try {
+      await testData.sut.signIn.execute(testData.inputBuilder.getResult());
+    } catch(e) {
+      expect(e).toMatchObject({ errorName: ErrorMessages.INVALID_CREDENTIALS })
+    }
   });
 
-  it("Should return a token with id and tokenVersion inside", () => {
-
-  })
 });
