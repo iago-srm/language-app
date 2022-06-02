@@ -5,4 +5,5 @@ export interface UserDTO {
   role: string;
   hashedPassword: string;
   tokenVersion: number;
+  image?: string;
 }

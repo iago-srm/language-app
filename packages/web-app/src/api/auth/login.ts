@@ -1,4 +1,4 @@
-import { authAxiosPostFetcher, useApiCallFactory } from "../utils";
+import { getAuthAxiosGetFetcher, getAuthAxiosPostFetcher, useApiCallFactory } from "../utils";
 import {
   LoginAPIParams,
   LoginAPIResponse,
@@ -7,18 +7,22 @@ import {
 export type LoginApi = (args: LoginAPIParams) => Promise<LoginAPIResponse>
 
 export const loginUseCase = ({email, password}) => {
-  return authAxiosPostFetcher('/login', {
+  return getAuthAxiosPostFetcher()('/login', {
     email,
     password
   });
 }
 
-export const signupUseCase = ({email, password, confirmPassword}) => {
-  return authAxiosPostFetcher('/signup', {
+export const signupUseCase = ({name, email, password, confirmPassword, role }) => {
+  return getAuthAxiosPostFetcher()('/signup', {
+    name,
     email,
     password,
-    confirmPassword
+    confirmPassword,
+    role
   });
 }
+
+export const getUserUseCase = () => getAuthAxiosGetFetcher()('/user')
 
 export const useLoginAPI = useApiCallFactory<LoginAPIParams, LoginAPIResponse>(loginUseCase);

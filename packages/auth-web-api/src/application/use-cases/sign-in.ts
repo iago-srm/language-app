@@ -42,6 +42,10 @@ class UseCase implements ISignInUseCase {
 
     return {
       token,
+      id: userDTO.id,
+      email: userDTO.email,
+      name: userDTO.name,
+      image: userDTO.image
     };
 
   };

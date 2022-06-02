@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -11,10 +11,14 @@ interface IForm {
   children: any;
   onSubmit: (args: any) => any;
   schema: any;
+  error?: any;
 }
-export function Form({ defaultValues, children, onSubmit, schema }: IForm) {
+export function Form({ defaultValues, children, onSubmit, schema, error }: IForm) {
+  useEffect(() => {
+    if(error) reset();
+  }, [error]);
   const defaults = defaultValues || {};
-  const { register, formState: {errors}, handleSubmit } =
+  const { register, formState: {errors}, handleSubmit, reset } =
     useForm({
       defaultValues: defaults,
       resolver: yupResolver(schema)

@@ -57,7 +57,13 @@ class UseCase implements ISignUpUseCase {
       tokenVersion: userDTO.tokenVersion,
     });
 
-    return { token };
+    return {
+      token,
+      id: userDTO.id,
+      email: userDTO.email,
+      name: userDTO.name,
+      image: userDTO.image
+    };
   }
 
 }

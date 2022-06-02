@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { Translations, Labels } from '@locale';
-import { Container as PageContainer } from './styles'
+import { Container as PageContainer, ErrorContainer } from './styles'
 import { ValidationSchemas, getPageTitle } from '@utils';
 import { useLanguage, useAuth } from '@contexts';
 import {
   Form,
   Input,
+  Select,
   Button,
   Frame,
   Container,
@@ -17,25 +18,24 @@ import {
 const Page: React.FC = () => {
 
   const { language } = useLanguage();
-  const { login, loginError, loginLoading } = useAuth();
+  const { credentialsSignIn } = useAuth();
+  const [error, setError] = useState();
 
   const schema = React.useMemo(() => {
     return new ValidationSchemas(language).getSignupSchema()
   }, [language]);
 
-  useEffect(() => {
-    if(loginError) alert(loginError.message);
-  }, [loginError]);
-
   const handleSubmit = async (data) => {
-    const resp = await login({
+    const { error } = await credentialsSignIn({
       email: data.email,
-      password: data.password
+      password: data.password,
+      confirmPassword: data.confirmPassword,
+      role: data.role
     });
-    console.log(resp)
+    if(error) {
+      setError(error)
+    }
   }
-
-
 
   return (
     <PageContainer>
@@ -46,11 +46,16 @@ const Page: React.FC = () => {
         <Row>
           <Col lg={{ span: 6, offset: 3 }}>
             <Frame>
-              <Form onSubmit={handleSubmit} schema={schema}>
+              <ErrorContainer>{error}</ErrorContainer>
+              <Form onSubmit={handleSubmit} schema={schema} error={error}>
                 <Input name='email' label={Translations[language][Labels.EMAIL]} />
                 <Input name='password' label={Translations[language][Labels.PASSWORD]} type="password" />
                 <Input name='confirmPassword' label={Translations[language][Labels.CONFIRM_PASSWORD]} type="password" />
-                <Button loading={loginLoading}>{Translations[language][Labels.SIGNUP]}</Button>
+                <Select label="Eu sou" name="role">
+                  <option value='INSTRUCTOR'>Instrutor</option>
+                  <option value='STUDENT'>Estudante</option>
+                </Select>
+                <Button loading={false}>{Translations[language][Labels.SIGNUP]}</Button>
               </Form>
             </Frame>
           </Col>

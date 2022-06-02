@@ -21,8 +21,8 @@ const AuthContext = React.createContext({
   user: undefined,
   googleSignIn: () => new Promise<any>(r => r({})),
   credentialsSignIn: (args) => new Promise<any>(r => r({})),
-  loginLoading: false,
-  loginError: { message: ""},
+  // loginLoading: false,
+  // loginError: { message: ""},
   logout: () => new Promise<void>(r => r())
 })
 
@@ -30,6 +30,7 @@ export function AuthProvider({ children }) {
 
   const { data: session } = useSession();
 
+  // console.log({session})
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<GetUserAPIResponse>();
   const [token, setToken] = React.useState(null);
@@ -43,11 +44,11 @@ export function AuthProvider({ children }) {
   //   return <div>Loading...</div>
   // }
 
-  const {
-    apiCall: login,
-    loading: loginLoading,
-    error: loginError
-   } = useLoginAPI();
+  // const {
+  //   apiCall: login,
+  //   loading: loginLoading,
+  //   error: loginError
+  //  } = useLoginAPI();
 
   // const {
   //   user,
@@ -55,7 +56,10 @@ export function AuthProvider({ children }) {
   //   errorUser
   //  } = useUser(token);
 
-  useEffect(() => {
+  const credentialsSignIn = (args) =>
+   signIn("credentials", { callbackUrl: '/dashboard', ...args })
+
+   useEffect(() => {
     if(session) setUser(session.user);
   }, [session]);
 
@@ -67,10 +71,10 @@ export function AuthProvider({ children }) {
     <AuthContext.Provider value={{
       user,
       isAuthenticated,
-      googleSignIn: () => signIn("google", { callbackUrl: '/'}),
-      credentialsSignIn: ({ email, password }) => signIn("credentials", { redirect: false, email, password}),
-      loginLoading,
-      loginError,
+      googleSignIn: () => signIn("google", { callbackUrl: '/dashboard'}),
+      credentialsSignIn,
+      // loginLoading,
+      // loginError,
       logout: () => signOut({ callbackUrl: '/'})
     }}>
       {children}

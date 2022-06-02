@@ -17,7 +17,7 @@ const getPreferredLocale = (proposals) => {
 
 export const startPolyglot = (messages) => {
   return (req, _, next) => {
-    // console.log({req})
+    console.log({req: req.headers})
     const proposals = req.headers['accept-language'] ? req.headers['accept-language'].split(',') : null;
     const locale = proposals ? getPreferredLocale(proposals) : 'en-US';
     req.polyglot = new Polyglot();
