@@ -6,12 +6,12 @@ import {
 } from '../ports';
 import {
   InvalidCredentialsError,
-  LoginAPIResponse,
-  LoginAPIParams,
+  ILoginAPIResponse,
+  ILoginAPIParams,
 } from '@language-app/common';
 
-type InputParams = LoginAPIParams;
-type Return = LoginAPIResponse;
+type InputParams = ILoginAPIParams;
+type Return = ILoginAPIResponse;
 
 export type ISignInUseCase = IUseCase<InputParams, Return>;
 

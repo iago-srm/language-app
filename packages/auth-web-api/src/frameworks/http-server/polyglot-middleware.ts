@@ -3,7 +3,7 @@ import Polyglot from 'node-polyglot';
 const availableLocales = ['en-US', 'pt-BR'];
 const defaultLocale = 'en-US';
 
-const getPreferredLocale = (proposals) => {
+const getPreferredLanguage = (proposals) => {
   const langAndQuality = proposals.map(p => {
     const [lang, quality] = p.split(';')
     return { lang, quality: quality || 1 }
@@ -17,9 +17,9 @@ const getPreferredLocale = (proposals) => {
 
 export const startPolyglot = (messages) => {
   return (req, _, next) => {
-    console.log({req: req.headers})
+    // console.log({req: req.headers})
     const proposals = req.headers['accept-language'] ? req.headers['accept-language'].split(',') : null;
-    const locale = proposals ? getPreferredLocale(proposals) : 'en-US';
+    const locale = proposals ? getPreferredLanguage(proposals) : 'en-US';
     req.polyglot = new Polyglot();
     // does not work:
     // req.headers['content-language'] = locale;

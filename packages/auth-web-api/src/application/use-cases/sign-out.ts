@@ -18,6 +18,7 @@ class UseCase implements ISignOutUseCase {
   constructor(
     private userRepository: IUserRepository
   ){}
+
   async execute ({ id, tokenVersion }) {
     const userDTO = await this.userRepository.getUserById(id);
 

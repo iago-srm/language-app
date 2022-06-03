@@ -51,16 +51,17 @@ describe('SignIn in use case unit tests', () => {
   });
 
   it("Should throw if password passed is different from database", async () => {
+    const user = new UserDTOHelperBuilder().getResult();
+
     const testData = new TestDataFacade({
       mockEncryptionService: {
         compare: jest.fn().mockResolvedValue(false)
       },
       mockUserRepository: {
-        getUserByEmail: jest.fn().mockResolvedValue({})
+        getUserByEmail: jest.fn().mockResolvedValue(user)
       }
     });
     const input = testData.inputBuilder.getResult();
-    const user = new UserDTOHelperBuilder().getResult();
 
     await expect(testData.sut.signIn.execute(input)).rejects.toThrow();
     expect(testData.mockEncryptionService.compare).toHaveBeenCalledWith(

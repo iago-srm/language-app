@@ -11,7 +11,7 @@ import {
   ITokenService,
   IIdGenerator,
 } from '@application/ports';
-import { SignInUseCase, SignUpUseCase } from '@application/use-cases';
+import { SignInUseCase, SignOutUseCase, SignUpUseCase } from '@application/use-cases';
 
 interface ConstructorParams {
   mockEncryptionService?: Partial<MockEncryptionService>,
@@ -28,7 +28,8 @@ export class TestDataFacade {
   public mockIdGenerator: IIdGenerator;
   public sut: {
     signIn: SignInUseCase,
-    signUp: SignUpUseCase
+    signUp: SignUpUseCase,
+    signOut: SignOutUseCase
   }
   constructor({
     mockEncryptionService,
@@ -65,6 +66,9 @@ export class TestDataFacade {
         this.mockEncryptionService,
         this.mockTokenService,
         this.mockIdGenerator
+      ),
+      signOut: new SignOutUseCase(
+        this.mockUserRepository
       )
     }
 

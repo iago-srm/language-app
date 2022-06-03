@@ -23,4 +23,8 @@ export class UserDTOHelperBuilder extends AbstractBuilder{
   withInvalidEmail() {
     this.data.email = emailGenerator.getInvalidEmails[0];
   }
+
+  withTokenVersion(tokenVersion: number) {
+    this.data.tokenVersion = tokenVersion;
+  }
 }
