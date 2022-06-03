@@ -32,20 +32,23 @@ export const AuthenticationMiddlewareControllerFactory = ({
     const tokenPayload = await tokenService.verify(token);
 
     if(!Object.keys(tokenPayload).includes('id') ||
-      !Object.keys(tokenPayload).includes('tokenVersion'))
-        throw new MalformedTokenError();
+      !Object.keys(tokenPayload).includes('tokenVersion') ||
+        isNaN(Number(tokenPayload.tokenVersion)))
+          throw new MalformedTokenError();
 
     const userDTO = await userRepository.getUserById(tokenPayload.id);
 
-    if (!userDTO) throw new InvalidCredentialsError();
+    if (!userDTO) throw new MalformedTokenError();
 
     if (userDTO.tokenVersion !== tokenPayload.tokenVersion) throw new Forbidden();
 
     req.user = {
       id: userDTO.id,
+      tokenVersion: userDTO.tokenVersion,
       email: userDTO.email,
       name: userDTO.name,
-      role: userDTO.role
+      role: userDTO.role,
+      image: userDTO.image
     };
   };
 

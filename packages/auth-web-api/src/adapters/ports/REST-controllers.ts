@@ -3,7 +3,14 @@ export type IHTTPController = (
   body: any,
   query: any,
   headers: {
-    user?: { id: string; tokenVersion: number; };
+    user?: {
+      id: string;
+      tokenVersion: number;
+      email: string;
+      name: string;
+      role: string;
+      image: string;
+    };
   }
 ) => Promise<{ response: any; statusCode: number }>;
 

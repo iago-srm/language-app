@@ -6,12 +6,12 @@ import {
 } from '../ports';
 import {
   InvalidCredentialsError,
-  ILoginAPIResponse,
-  ILoginAPIParams,
+  ISignInAPIResponse,
+  ISignInAPIParams,
 } from '@language-app/common';
 
-type InputParams = ILoginAPIParams;
-type Return = ILoginAPIResponse;
+type InputParams = ISignInAPIParams;
+type Return = ISignInAPIResponse;
 
 export type ISignInUseCase = IUseCase<InputParams, Return>;
 
@@ -42,12 +42,14 @@ class UseCase implements ISignInUseCase {
 
     return {
       token,
-      id: userDTO.id,
-      email: userDTO.email,
-      name: userDTO.name,
-      image: userDTO.image
+      user: {
+        id: userDTO.id,
+        email: userDTO.email,
+        name: userDTO.name,
+        image: userDTO.image,
+        role: userDTO.role
+      }
     };
-
   };
 };
 

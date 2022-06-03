@@ -11,16 +11,14 @@ import {
   PasswordsDontMatchError,
   EmailAlreadySignedupError,
 } from '@common/errors';
+import {
+  ISignUpAPIParams, IUser
+} from '@language-app/common';
 
-export type InputParams = {
-  email: string;
-  name: string;
-  password: string;
-  confirmPassword: string;
-  role: string;
-};
+type InputParams = ISignUpAPIParams;
 type Return = {
   token: String;
+  user: IUser;
 };
 
 export type ISignUpUseCase = IUseCase<InputParams, Return>;
@@ -59,10 +57,13 @@ class UseCase implements ISignUpUseCase {
 
     return {
       token,
-      id: userDTO.id,
-      email: userDTO.email,
-      name: userDTO.name,
-      image: userDTO.image
+      user: {
+        id: userDTO.id,
+        email: userDTO.email,
+        name: userDTO.name,
+        image: userDTO.image,
+        role: userDTO.role
+      }
     };
   }
 

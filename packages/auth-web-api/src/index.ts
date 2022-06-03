@@ -4,6 +4,7 @@ import {
 } from '@frameworks/http';
 import {
   SignInControllerFactory,
+  SignOutControllerFactory,
   GetUserControllerFactory,
   SignUpControllerFactory,
   ErrorHandlerControllerFactory
@@ -58,6 +59,7 @@ export enum Dependencies {
 container.register({
   // controllers
   [Dependencies.LOGINCONTROLLER]: awilix.asFunction(SignInControllerFactory),
+  [Dependencies.LOGOUTCONTROLLER]: awilix.asFunction(SignOutControllerFactory),
   [Dependencies.SIGNUPCONTROLLER]: awilix.asFunction(SignUpControllerFactory),
   [Dependencies.GETUSERCONTROLLER]: awilix.asFunction(GetUserControllerFactory),
 

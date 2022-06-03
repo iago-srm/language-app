@@ -25,6 +25,7 @@ export const SignOutControllerFactory = ({
   return {
     controller: fn,
     method: 'post',
-    path: 'logout',
+    path: 'signout',
+    middleware: 'auth'
   };
 };

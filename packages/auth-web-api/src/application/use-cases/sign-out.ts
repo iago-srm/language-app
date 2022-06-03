@@ -3,12 +3,10 @@ import {
   IUserRepository
 } from '../ports';
 import {
+  ITokenContent
 } from '@language-app/common';
 
-type InputParams = {
-  id: string;
-  tokenVersion: number;
-};
+type InputParams = ITokenContent;
 type Return = {};
 
 export type ISignOutUseCase = IUseCase<InputParams, Return>;

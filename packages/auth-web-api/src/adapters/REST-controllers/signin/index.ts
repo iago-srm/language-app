@@ -26,6 +26,6 @@ export const SignInControllerFactory = ({
   return {
     controller: fn,
     method: 'post',
-    path: 'login',
+    path: 'signin',
   };
 };
