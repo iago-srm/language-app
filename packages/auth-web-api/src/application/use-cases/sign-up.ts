@@ -12,14 +12,12 @@ import {
   EmailAlreadySignedupError,
 } from '@common/errors';
 import {
-  ISignUpAPIParams, IUser
+  ISignUpAPIParams,
+  ISignUpAPIResponse
 } from '@language-app/common';
 
 type InputParams = ISignUpAPIParams;
-type Return = {
-  token: String;
-  user: IUser;
-};
+type Return = ISignUpAPIResponse;
 
 export type ISignUpUseCase = IUseCase<InputParams, Return>;
 
