@@ -1,11 +1,11 @@
 import React, { useEffect, useContext, useState } from "react";
 import {
-  GetUserAPIResponse
+  IGetUserAPIResponse
 } from '@language-app/common';
-import { useSession, signOut, signIn } from "next-auth/react";
-
+import { useSession, signOut as nextAuthSignOut, signIn } from "next-auth/react";
+import { useApi } from './api';
 import { LocalStorage } from "@utils";
-import { useLoginAPI, LoginApi, useUser } from '@api';
+// import { LoginApi, useUser } from '@api';
 
 // type AuthContextType = {
 //   isAuthenticated: boolean;
@@ -23,43 +23,42 @@ const AuthContext = React.createContext({
   credentialsSignIn: (args) => new Promise<any>(r => r({})),
   // loginLoading: false,
   // loginError: { message: ""},
-  logout: () => new Promise<void>(r => r())
+  signOut: () => new Promise<void>(r => r())
 })
+
+const localStorage = new LocalStorage();
 
 export function AuthProvider({ children }) {
 
   const { data: session } = useSession();
-
-  // console.log({session})
+  const {
+    signInUseCase,
+    signUpUseCase,
+    getUserUseCase,
+    signOutUseCase,
+    setToken
+  } = useApi();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState<GetUserAPIResponse>();
-  const [token, setToken] = React.useState(null);
+  const [user, setUser] = useState<Partial<IGetUserAPIResponse>>();
+
+  const credentialsSignIn = React.useCallback(async ({ email, password }) => {
+    const {
+      user
+    } = await signInUseCase({email, password});
+    console.log({user})
+    setUser(user);
+    // setToken(token);
+  }, [signInUseCase]);
+
+
+  const signOut = () => {
+    if(session) nextAuthSignOut({ callbackUrl: '/'});
+    else return signOutUseCase()
+  }
+
+  console.log({session, user})
 
   useEffect(() => {
-    const tokenLS = new LocalStorage().getRefreshToken();
-    setToken(tokenLS);
-  }, []);
-
-  // if (status === 'loading') {
-  //   return <div>Loading...</div>
-  // }
-
-  // const {
-  //   apiCall: login,
-  //   loading: loginLoading,
-  //   error: loginError
-  //  } = useLoginAPI();
-
-  // const {
-  //   user,
-  //   loadingUser,
-  //   errorUser
-  //  } = useUser(token);
-
-  const credentialsSignIn = (args) =>
-   signIn("credentials", { callbackUrl: '/dashboard', ...args })
-
-   useEffect(() => {
     if(session) setUser(session.user);
   }, [session]);
 
@@ -75,7 +74,7 @@ export function AuthProvider({ children }) {
       credentialsSignIn,
       // loginLoading,
       // loginError,
-      logout: () => signOut({ callbackUrl: '/'})
+      signOut
     }}>
       {children}
     </AuthContext.Provider>

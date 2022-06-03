@@ -3,23 +3,15 @@ import React, { useEffect, useContext } from 'react';
 import { Languages } from '@language-app/common';
 
 import { LocalStorage } from '@utils';
-import { setAxiosLanguage } from '@api';
-// import axiosFetchers from '../api/utils/axios';
-
-
-type languageContext = {
-  language: string,
-  setLanguage: (lang: string) => void;
-}
 
 const initialState = {
   language: 'pt',
-  setLanguage: () => {}
+  setLanguage: (language: string) => {}
 }
 
 const localStorage = new LocalStorage();
 
-const LanguageContext = React.createContext<languageContext>(initialState)
+const LanguageContext = React.createContext(initialState)
 
 export function LanguageProvider({children}) {
 
@@ -29,7 +21,6 @@ export function LanguageProvider({children}) {
     if(Languages.includes(language)) {
       setLang(language);
       localStorage.setLanguage(language);
-      setAxiosLanguage(language);
     }
   }
 

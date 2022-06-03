@@ -24,4 +24,8 @@ export class LocalStorage {
   setTheme(theme: string) {
     localStorage.setItem('color_theme', theme);
   }
+
+  setRefreshToken(token: string) {
+    localStorage.setItem('auth_token', token);
+  }
 }

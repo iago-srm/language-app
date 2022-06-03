@@ -9,7 +9,8 @@ import { LocalStorage } from '@utils';
 import {
   AuthProvider,
   LanguageProvider,
-  ThemeProvider
+  ThemeProvider,
+  ApiProvider
 } from '@contexts';
 import {
   GlobalStyle,
@@ -41,15 +42,17 @@ const App: React.FC<AppProps> = ({
       }
     }>
       <LanguageProvider>
-        <ThemeProvider>
-          <SessionProvider session={session}>
-            <AuthProvider>
-              <Navbar />
-              <Component {...pageProps} />
-            </AuthProvider>
-          </SessionProvider>
-        <GlobalStyle />
-        </ThemeProvider>
+        <ApiProvider>
+          <ThemeProvider>
+            <SessionProvider session={session}>
+              <AuthProvider>
+                <Navbar />
+                <Component {...pageProps} />
+              </AuthProvider>
+            </SessionProvider>
+          <GlobalStyle />
+          </ThemeProvider>
+        </ApiProvider>
       </LanguageProvider>
     </SWRConfig>
   )

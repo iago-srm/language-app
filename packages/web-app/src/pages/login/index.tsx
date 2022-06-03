@@ -5,7 +5,7 @@ import GoogleButton from 'react-google-button';
 import { Translations, Labels } from '@locale';
 import { Container as LoginContainer, ErrorContainer } from './styles'
 import { ValidationSchemas, getPageTitle } from '@utils';
-import { useLanguage, useAuth, useColorTheme } from '@contexts';
+import { useLanguage, useAuth, useColorTheme, useApi } from '@contexts';
 import {
   Form,
   Input,
@@ -27,6 +27,7 @@ const LoginPage: React.FC = () => {
     // loginLoading
   } = useAuth();
   const [error, setError] = useState();
+  // const { signInUseCase } = useApi();
 
   const loginSchema = React.useMemo(() => {
     return new ValidationSchemas(language).getLoginSchema()
@@ -37,7 +38,9 @@ const LoginPage: React.FC = () => {
   // }, [loginError]);
 
   const handleSubmit = async (data) => {
-    const { error } = await credentialsSignIn(data);
+    // const { error } = await credentialsSignIn(data);
+    const resp = await credentialsSignIn(data)
+    console.log({resp})
     // const resp = await login({
     //   email: data.email,
     //   password: data.password

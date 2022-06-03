@@ -1,12 +1,7 @@
-import axios, { AxiosInstance } from 'axios';
 
 // console.log(process.env)
-export const BASE_AUTH_URL = `${process.env.NEXT_PUBLIC_AUTH_URL}/api/v1`;
 
-const axiosErrorHandler = e => {
-  // console.log({e: e.response.data})
-  throw {status: e.response.status, message: e.response.data.message}
-};
+
 
 // class AxiosFetchers {
 //   public authAxiosGetFetcher;
@@ -37,17 +32,8 @@ const axiosErrorHandler = e => {
 
 // export default new AxiosFetchers();
 
-const auth = axios.create({
-  baseURL: BASE_AUTH_URL,
-  headers: {
-    'accept-language': `cu;q=1`
-  }
-});
 
-let authAxiosGetFetcher = (url: string) =>
-  auth.get(url).then(res => res.data).catch(axiosErrorHandler);
-let authAxiosPostFetcher = (url: string, body: any) =>
-  auth.post(url, body).then(res => res.data).catch(axiosErrorHandler);
+
 
 export const getAuthAxiosGetFetcher = () => authAxiosGetFetcher;
 export const getAuthAxiosPostFetcher = () => {

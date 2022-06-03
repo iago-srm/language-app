@@ -3,11 +3,11 @@ import {
   authAxiosGetFetcher,
 } from "../utils";
 import {
-  GetUserAPIResponse
+  IGetUserAPIResponse
 } from '@language-app/common';
 
 export function useUser(token: string) {
-  const { data, loading, error } = useApiCallSWR<GetUserAPIResponse>(['/user', token], authAxiosGetFetcher)
+  const { data, loading, error } = useApiCallSWR<IGetUserAPIResponse>(['/user', token], authAxiosGetFetcher)
 
   return {
     user: data,
