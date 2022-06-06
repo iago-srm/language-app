@@ -9,6 +9,7 @@ import { useLanguage, useAuth, useColorTheme, useApi } from '@contexts';
 import {
   Form,
   Input,
+  PasswordInput,
   Button,
   Frame,
   Container,
@@ -56,7 +57,7 @@ const LoginPage: React.FC = () => {
               <ErrorContainer>{error}</ErrorContainer>
               <Form onSubmit={handleSubmit} schema={loginSchema}>
                 <Input name='email' label={Translations[language][Labels.EMAIL]} />
-                <Input name='password' label={Translations[language][Labels.PASSWORD]} type="password" />
+                <PasswordInput name='password' label={Translations[language][Labels.PASSWORD]} type="password" />
                 <Button loading={signInLoading}>{Translations[language][Labels.LOGIN]}</Button>
               </Form>
               <hr/>

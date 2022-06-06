@@ -7,10 +7,11 @@ export const English = {
   [Labels.PASSWORDS_DONT_MATCH]: 'Password confirmation doesn\'t match',
 
   [Labels.HOME]: 'Home',
-  [Labels.LOGIN]: 'Login',
-  [Labels.SIGNUP]: 'Signup',
-  [Labels.LOGOUT]: 'Logout',
+  [Labels.LOGIN]: 'Sign In',
+  [Labels.SIGNUP]: 'Sign Up',
+  [Labels.LOGOUT]: 'Sign Out',
 
+  [Labels.NAME]: 'Name',
   [Labels.EMAIL]: 'E-mail',
   [Labels.PASSWORD]: 'Password',
   [Labels.CONFIRM_PASSWORD]: 'Confirm Password',

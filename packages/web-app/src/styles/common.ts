@@ -7,7 +7,7 @@ export const FlexCentered = styled.div`
 `;
 
 export const PageContainer = styled.div`
-  height: 70vh;
+  min-height: 70vh;
   display: flex;
   align-items: center;
 `

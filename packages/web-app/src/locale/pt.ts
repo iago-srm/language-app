@@ -11,6 +11,7 @@ export const Portuguese = {
   [Labels.SIGNUP]: 'Cadastrar',
   [Labels.LOGOUT]: 'Sair',
 
+  [Labels.NAME]: 'Nome',
   [Labels.EMAIL]: 'E-mail',
   [Labels.PASSWORD]: 'Senha',
   [Labels.CONFIRM_PASSWORD]: 'Confirmar Senha',

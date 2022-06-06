@@ -9,6 +9,7 @@ export const Labels = {
   SIGNUP: 'signup',
   LOGOUT: 'logout',
 
+  NAME: 'name',
   EMAIL: 'email',
   PASSWORD: 'password',
   CONFIRM_PASSWORD: 'confirm_password',

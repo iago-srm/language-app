@@ -11,6 +11,7 @@ export const French = {
   [Labels.SIGNUP]: 'Enregistrer',
   [Labels.LOGOUT]: 'Quitter',
 
+  [Labels.NAME]: 'Nom',
   [Labels.EMAIL]: 'E-mail',
   [Labels.PASSWORD]: 'Mot de passe',
   [Labels.CONFIRM_PASSWORD]: 'Confirmer le mot de passe',

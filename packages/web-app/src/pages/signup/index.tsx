@@ -7,6 +7,7 @@ import { useLanguage, useAuth } from '@contexts';
 import {
   Form,
   Input,
+  PasswordInput,
   Select,
   Button,
   Frame,
@@ -18,19 +19,26 @@ import {
 const Page: React.FC = () => {
 
   const { language } = useLanguage();
-  const { credentialsSignIn } = useAuth();
+  const { credentialsSignUp } = useAuth();
   const [error, setError] = useState();
 
   const schema = React.useMemo(() => {
     return new ValidationSchemas(language).getSignupSchema()
   }, [language]);
 
-  const handleSubmit = async (data) => {
-    const { error } = await credentialsSignIn({
-      email: data.email,
-      password: data.password,
-      confirmPassword: data.confirmPassword,
-      role: data.role
+  const handleSubmit = async ({
+    name,
+    email,
+    password,
+    confirmPassword,
+    role
+  }) => {
+    const { error } = await credentialsSignUp({
+      name,
+      email,
+      password,
+      confirmPassword,
+      role
     });
     if(error) {
       setError(error)
@@ -48,9 +56,10 @@ const Page: React.FC = () => {
             <Frame>
               <ErrorContainer>{error}</ErrorContainer>
               <Form onSubmit={handleSubmit} schema={schema} error={error}>
+                <Input name='name' label={Translations[language][Labels.NAME]} />
                 <Input name='email' label={Translations[language][Labels.EMAIL]} />
-                <Input name='password' label={Translations[language][Labels.PASSWORD]} type="password" />
-                <Input name='confirmPassword' label={Translations[language][Labels.CONFIRM_PASSWORD]} type="password" />
+                <PasswordInput name='password' label={Translations[language][Labels.PASSWORD]} type="password" />
+                <PasswordInput name='confirmPassword' label={Translations[language][Labels.CONFIRM_PASSWORD]} type="password" />
                 <Select label="Eu sou" name="role">
                   <option value='INSTRUCTOR'>Instrutor</option>
                   <option value='STUDENT'>Estudante</option>
