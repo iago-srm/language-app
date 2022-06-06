@@ -1,8 +1,9 @@
 import styled from 'styled-components';
+import {
+  SelectStyled
+} from '@components';
 
-const LanguageSelectStyled = styled.select`
-  height: 1.5rem;
-  width: 100px;
+const LanguageSelectStyled = styled(SelectStyled)`
   margin: 0 15px;
 `;
 

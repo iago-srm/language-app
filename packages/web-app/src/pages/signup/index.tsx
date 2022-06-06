@@ -50,7 +50,7 @@ const Page: React.FC = () => {
       <Head>
         <title>{getPageTitle(Translations[language][Labels.SIGNUP])}</title>
       </Head>
-      <Container fluid="sm">
+      <Container fluid="sm" >
         <Row>
           <Col lg={{ span: 6, offset: 3 }}>
             <Frame>

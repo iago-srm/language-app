@@ -23,7 +23,7 @@ export const ErrorMessageContainer = styled.p`
 
 export const SelectStyled = styled.select`
   margin: 10px;
-  padding: 10px;
+  padding: 4px;
   border-radius: ${({theme}) => theme.inputBorderRadius};
 `;
 

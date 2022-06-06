@@ -3,7 +3,7 @@ import Head from 'next/head'
 import GoogleButton from 'react-google-button';
 
 import { Translations, Labels } from '@locale';
-import { Container as LoginContainer, ErrorContainer } from './styles'
+import { Container as PageContainer, ErrorContainer } from './styles'
 import { ValidationSchemas, getPageTitle } from '@utils';
 import { useLanguage, useAuth, useColorTheme, useApi } from '@contexts';
 import {
@@ -46,11 +46,11 @@ const LoginPage: React.FC = () => {
   }
 
   return (
-    <LoginContainer>
+    <PageContainer>
       <Head>
         <title>{getPageTitle(Translations[language][Labels.LOGIN])}</title>
       </Head>
-      <Container fluid="sm">
+      <Container fluid="sm" style={{marginTop: '20px'}}>
         <Row>
           <Col lg={{ span: 6, offset: 3 }}>
             <Frame>
@@ -66,7 +66,7 @@ const LoginPage: React.FC = () => {
           </Col>
         </Row>
       </Container>
-    </LoginContainer>
+    </PageContainer>
   )
 }
 
