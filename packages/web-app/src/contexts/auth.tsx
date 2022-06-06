@@ -1,79 +1,102 @@
 import React, { useEffect, useContext, useState } from "react";
+import useSWR, { useSWRConfig } from 'swr';
+
 import {
+  ISignInAPIParams,
+  ISignUpAPIParams,
   IGetUserAPIResponse
 } from '@language-app/common';
 import { useSession, signOut as nextAuthSignOut, signIn } from "next-auth/react";
 import { useApi } from './api';
 import { LocalStorage } from "@utils";
-// import { LoginApi, useUser } from '@api';
+import { useApiCallSWR } from "@api";
 
-// type AuthContextType = {
-//   isAuthenticated: boolean;
-//   user: GetUserAPIResponse;
-//   login: LoginApi;
-//   logout: () => Promise<void>;
-//   loginLoading: boolean;
-//   loginError: any
-// }
+interface IAuthContext {
+  isAuthenticated?: boolean;
+  user?: any;
+  isUserLoading?: boolean;
+  googleSignIn?: () => Promise<any>;
+  credentialsSignIn?: (args: ISignInAPIParams) => Promise<any>;
+  credentialsSignUp?: (args: ISignUpAPIParams) => Promise<any>;
+  signOut?: () => void;
+}
 
-const AuthContext = React.createContext({
-  isAuthenticated: false,
-  user: undefined,
-  googleSignIn: () => new Promise<any>(r => r({})),
-  credentialsSignIn: (args) => new Promise<any>(r => r({})),
-  // loginLoading: false,
-  // loginError: { message: ""},
-  signOut: () => new Promise<void>(r => r())
-})
+const AuthContext = React.createContext<IAuthContext>({})
 
 const localStorage = new LocalStorage();
 
 export function AuthProvider({ children }) {
 
-  const { data: session } = useSession();
+  const { data: session, status: socialUserStatus } = useSession();
   const {
-    signInUseCase,
-    signUpUseCase,
-    getUserUseCase,
-    signOutUseCase,
-    setToken
+    authGetFetcher,
+    authPostFetcher,
+    setHeader
   } = useApi();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState<Partial<IGetUserAPIResponse>>();
+  const [socialSignInUser, setSocialSignInUser] = useState<Partial<IGetUserAPIResponse>>();
+  const { mutate } = useSWRConfig();
+
+  const credentialsSignUp = React.useCallback(({name, email, password, confirmPassword, role }) =>
+    authPostFetcher('signup', {
+      name,
+      email,
+      password,
+      confirmPassword,
+      role
+    }), [authPostFetcher]);
 
   const credentialsSignIn = React.useCallback(async ({ email, password }) => {
     const {
-      user
-    } = await signInUseCase({email, password});
-    console.log({user})
-    setUser(user);
-    // setToken(token);
-  }, [signInUseCase]);
+      token
+    } = await authPostFetcher('signin', {
+      email,
+      password
+    });
+    setHeader('authorization', `Bearer ${token}`);
+    mutate('user');
+  }, [authPostFetcher]);
 
-
-  const signOut = () => {
+  const signOut = React.useCallback(async () => {
     if(session) nextAuthSignOut({ callbackUrl: '/'});
-    else return signOutUseCase()
-  }
+    else {
+      await authPostFetcher('signout', {});
+      setHeader('authorization',"");
+      localStorage.setRefreshToken("");
+      mutate('user');
+    }
+  }, [session, authPostFetcher]);
 
-  console.log({session, user})
+  const {
+    data: credentialsUser,
+    loading: credentialsUserLoading
+  } = useApiCallSWR<IGetUserAPIResponse>('user',authGetFetcher);
+  console.log({credentialsUser});
 
   useEffect(() => {
-    if(session) setUser(session.user);
+    if(session) setSocialSignInUser(session.user);
   }, [session]);
 
   useEffect(() => {
-    setIsAuthenticated(!!user);
-  }, [user]);
+    setIsAuthenticated(!!socialSignInUser || !!credentialsUser);
+  }, [socialSignInUser, credentialsUser]);
+
+  useEffect(() => {
+    const tokenLS = localStorage.getRefreshToken();
+    if(tokenLS) {
+      setHeader('authorization',`Bearer ${tokenLS}`);
+      mutate('user');
+    }
+  }, []);
 
   return (
     <AuthContext.Provider value={{
-      user,
+      user: socialSignInUser || credentialsUser,
       isAuthenticated,
+      isUserLoading: socialUserStatus === 'loading' || credentialsUserLoading,
       googleSignIn: () => signIn("google", { callbackUrl: '/dashboard'}),
       credentialsSignIn,
-      // loginLoading,
-      // loginError,
+      credentialsSignUp,
       signOut
     }}>
       {children}

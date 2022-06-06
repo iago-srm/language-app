@@ -15,6 +15,7 @@ import {
   Row,
   Col
 } from '@components';
+import { useApiCallCustom } from "@api";
 
 const LoginPage: React.FC = () => {
 
@@ -23,32 +24,24 @@ const LoginPage: React.FC = () => {
   const {
     googleSignIn,
     credentialsSignIn,
-    // loginError,
-    // loginLoading
   } = useAuth();
   const [error, setError] = useState();
-  // const { signInUseCase } = useApi();
+  const {
+    apiCall: signIn,
+    loading: signInLoading,
+    error: signInError
+  } = useApiCallCustom(credentialsSignIn);
 
   const loginSchema = React.useMemo(() => {
     return new ValidationSchemas(language).getLoginSchema()
   }, [language]);
 
-  // useEffect(() => {
-  //   if(rror) alert(loginError);
-  // }, [loginError]);
+  useEffect(() => {
+    if(signInError) alert(signInError);
+  }, [signInError]);
 
   const handleSubmit = async (data) => {
-    // const { error } = await credentialsSignIn(data);
-    const resp = await credentialsSignIn(data)
-    console.log({resp})
-    // const resp = await login({
-    //   email: data.email,
-    //   password: data.password
-    // });
-    //console.log(resp)
-    if(error) {
-      setError(error)
-    }
+    await signIn(data);
   }
 
   return (
@@ -64,7 +57,7 @@ const LoginPage: React.FC = () => {
               <Form onSubmit={handleSubmit} schema={loginSchema}>
                 <Input name='email' label={Translations[language][Labels.EMAIL]} />
                 <Input name='password' label={Translations[language][Labels.PASSWORD]} type="password" />
-                <Button loading={false}>{Translations[language][Labels.LOGIN]}</Button>
+                <Button loading={signInLoading}>{Translations[language][Labels.LOGIN]}</Button>
               </Form>
               <hr/>
               <GoogleButton type={theme} onClick={googleSignIn}>Entrar com Google</GoogleButton>

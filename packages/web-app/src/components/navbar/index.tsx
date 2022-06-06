@@ -23,7 +23,7 @@ const LogoImageContainer = styled.div`
 export const Navbar = () => {
   const { theme, setTheme } = useColorTheme();
   const { language, setLanguage } = useLanguage();
-  const { user, isAuthenticated, logout } = useAuth();
+  const { user, isAuthenticated, isUserLoading, signOut } = useAuth();
   const router = useRouter();
 
   return (
@@ -40,9 +40,10 @@ export const Navbar = () => {
           {isAuthenticated
             ?
             <>
-              <HoverPanel user={user} onLogout={logout}/>
+              <HoverPanel user={user} onSignOut={signOut}/>
             </>
             :
+            !isUserLoading &&
             <>
               <NavbarAtomic.Button path='/login' >
                 <Link href={'/login'}>

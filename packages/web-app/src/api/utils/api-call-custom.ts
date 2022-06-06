@@ -1,12 +1,11 @@
 import React from 'react'
 import { ServerError } from './types'
 
-export const useApiCallFactory = <Params = any, Resp = any>(
+export const useApiCall = <Params = any, Resp = any>(
   usecase: (p: Params) => Promise<Resp>
-) => () => {
+) => {
   const [error, setError] = React.useState<ServerError>()
   const [loading, setLoading] = React.useState(false)
-  // const [response, setResponse] = React.useState<any>();
 
   const apiCall = React.useCallback(
     async (args?: Params) => {
@@ -17,7 +16,7 @@ export const useApiCallFactory = <Params = any, Resp = any>(
         setLoading(false)
         return resp;
       } catch (e) {
-        console.log(e)
+        console.log('apiCallCustom error',e)
         setLoading(false)
         setError(e);
       }

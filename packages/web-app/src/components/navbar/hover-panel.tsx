@@ -4,6 +4,8 @@ import NextLink from 'next/link';
 import styled from 'styled-components';
 import { useColorTheme } from '@contexts';
 
+const genericAvatar = 'https://www.interstatedevelopment.com/wp-content/uploads/2019/04/generic-avatar-1.jpg';
+
 const NavImageContainer = styled.div`
   img {
     height: 50px;
@@ -11,7 +13,9 @@ const NavImageContainer = styled.div`
 `;
 
 const PanelImageContainer = styled.div`
-  width: 200px;
+  img {
+    height: 200px;
+  }
   text-align: center;
   padding: 20px;
 `;
@@ -26,30 +30,35 @@ const DropdownMenuContainer = styled.div`
 
 const NavImg = ({src}) => <img referrerPolicy="no-referrer" src={src} alt={'Imagem do Usuário'}/>
 
-export const HoverPanel = ({ user, onLogout }) => {
+export const HoverPanel: React.FC<{
+  user?: any;
+  onSignOut: () => void;
+}> = ({ user, onSignOut }) => {
 
   const { theme } = useColorTheme();
+
+  const image = user?.image || genericAvatar;
 
   return (
     <Dropdown >
       <Dropdown.Toggle style={{ backgroundColor: 'inherit', border: 'none' }}>
         <NavImageContainer>
-          <NavImg src={user.image}/>
+          <NavImg src={image}/>
         </NavImageContainer>
       </Dropdown.Toggle>
 
       <Dropdown.Menu variant={theme}>
         <DropdownMenuContainer>
           <PanelImageContainer>
-            <NavImg src={user.image}/>
+            <NavImg src={image}/>
           </PanelImageContainer>
-          <PanelNameContainer>Olá, {user.name}</PanelNameContainer>
+          <PanelNameContainer>Olá, {user?.name}</PanelNameContainer>
           <Dropdown.Item as={'button'}>
             <NextLink href={'/profile'}>
               Perfil
             </NextLink>
           </Dropdown.Item>
-          <Dropdown.Item onClick={onLogout}>
+          <Dropdown.Item onClick={onSignOut}>
             Sair
           </Dropdown.Item>
         </DropdownMenuContainer>
