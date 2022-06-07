@@ -26,6 +26,10 @@ export const Navbar = () => {
   const { user, isAuthenticated, isUserLoading, signOut } = useAuth();
   const router = useRouter();
 
+  const handleSignOut = () => {
+    signOut();
+    router.push('/')
+  }
   return (
     <>
       <NavbarAtomic currentPath={router.pathname}>
@@ -40,7 +44,7 @@ export const Navbar = () => {
           {isAuthenticated
             ?
             <>
-              <HoverPanel user={user} onSignOut={signOut}/>
+              <HoverPanel user={user} onSignOut={handleSignOut}/>
             </>
             :
             !isUserLoading &&

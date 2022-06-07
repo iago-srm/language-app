@@ -1,5 +1,6 @@
 import React, { useEffect, useContext, useState } from "react";
-import useSWR, { useSWRConfig } from 'swr';
+import { useSWRConfig } from 'swr';
+import { setCookie, parseCookies } from 'nookies';
 
 import {
   ISignInAPIParams,
@@ -37,6 +38,14 @@ export function AuthProvider({ children }) {
   const [socialSignInUser, setSocialSignInUser] = useState<Partial<IGetUserAPIResponse>>();
   const { mutate } = useSWRConfig();
 
+  const handleAuthToken = (token: string) => {
+    setHeader('authorization', `Bearer ${token}`);
+    localStorage.setRefreshToken(token);
+    setCookie(undefined, 'language-app.token', token, {
+      maxAge: 60 * 60 * 1, // 1 hour
+    })
+  }
+
   const credentialsSignUp = React.useCallback(({name, email, password, confirmPassword, role }) =>
     authPostFetcher('signup', {
       name,
@@ -53,15 +62,19 @@ export function AuthProvider({ children }) {
       email,
       password
     });
-    setHeader('authorization', `Bearer ${token}`);
+    handleAuthToken(token);
     mutate('user');
   }, [authPostFetcher]);
 
+  const googleSignIn = React.useCallback(() => {
+    return signIn("google", { callbackUrl: '/dashboard' });
+  }, [])
+
   const signOut = React.useCallback(async () => {
-    if(session) nextAuthSignOut({ callbackUrl: '/'});
+    if(session) nextAuthSignOut({ redirect: false });
     else {
       await authPostFetcher('signout', {});
-      setHeader('authorization',"");
+      handleAuthToken("");
       localStorage.setRefreshToken("");
       mutate('user');
     }
@@ -71,10 +84,10 @@ export function AuthProvider({ children }) {
     data: credentialsUser,
     loading: credentialsUserLoading
   } = useApiCallSWR<IGetUserAPIResponse>('user',authGetFetcher);
-  console.log({credentialsUser});
 
   useEffect(() => {
     if(session) setSocialSignInUser(session.user);
+    else setSocialSignInUser(null);
   }, [session]);
 
   useEffect(() => {
@@ -82,9 +95,9 @@ export function AuthProvider({ children }) {
   }, [socialSignInUser, credentialsUser]);
 
   useEffect(() => {
-    const tokenLS = localStorage.getRefreshToken();
-    if(tokenLS) {
-      setHeader('authorization',`Bearer ${tokenLS}`);
+    const token = localStorage.getRefreshToken();
+    if(token) {
+      handleAuthToken(token);
       mutate('user');
     }
   }, []);
@@ -94,7 +107,7 @@ export function AuthProvider({ children }) {
       user: socialSignInUser || credentialsUser,
       isAuthenticated,
       isUserLoading: socialUserStatus === 'loading' || credentialsUserLoading,
-      googleSignIn: () => signIn("google", { callbackUrl: '/dashboard'}),
+      googleSignIn,
       credentialsSignIn,
       credentialsSignUp,
       signOut

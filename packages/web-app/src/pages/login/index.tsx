@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import Head from 'next/head'
+import Head from 'next/head';
+import { useRouter } from 'next/router';
 import GoogleButton from 'react-google-button';
 
 import { Translations, Labels } from '@locale';
@@ -20,6 +21,7 @@ import { useApiCallCustom } from "@api";
 
 const LoginPage: React.FC = () => {
 
+  const router = useRouter();
   const { language } = useLanguage();
   const { theme } = useColorTheme();
   const {
@@ -43,8 +45,12 @@ const LoginPage: React.FC = () => {
 
   const handleSubmit = async (data) => {
     await signIn(data);
+    router.push('/dashboard');
   }
 
+  const handleGoogleSignIn = async () => {
+    await googleSignIn();
+  }
   return (
     <PageContainer>
       <Head>
@@ -61,7 +67,7 @@ const LoginPage: React.FC = () => {
                 <Button loading={signInLoading}>{Translations[language][Labels.LOGIN]}</Button>
               </Form>
               <hr/>
-              <GoogleButton type={theme} onClick={googleSignIn}>Entrar com Google</GoogleButton>
+              <GoogleButton type={theme} onClick={handleGoogleSignIn}>Entrar com Google</GoogleButton>
             </Frame>
           </Col>
         </Row>
