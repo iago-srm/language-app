@@ -42,13 +42,13 @@ class UseCase implements ISignInUseCase {
 
     return {
       token,
-      user: {
-        id: userDTO.id,
-        email: userDTO.email,
-        name: userDTO.name,
-        image: userDTO.image,
-        role: userDTO.role
-      }
+      // user: {
+      //   id: userDTO.id,
+      //   email: userDTO.email,
+      //   name: userDTO.name,
+      //   image: userDTO.image,
+      //   role: userDTO.role
+      // }
     };
   };
 };

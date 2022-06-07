@@ -2,6 +2,7 @@ import {
   IHTTPController,
   IHTTPControllerDescriptor,
 } from '../../ports/REST-controllers';
+import { GetUserHTTPDefinition } from '@language-app/common';
 
 export const GetUserControllerFactory = (): IHTTPControllerDescriptor<IHTTPController> => {
   const fn: IHTTPController = async (_,__,___, { user }) => {
@@ -19,8 +20,8 @@ export const GetUserControllerFactory = (): IHTTPControllerDescriptor<IHTTPContr
 
   return {
     controller: fn,
-    method: 'get',
-    path: 'user',
+    method: GetUserHTTPDefinition.method,
+    path: GetUserHTTPDefinition.path,
     middleware: 'auth'
   };
 };

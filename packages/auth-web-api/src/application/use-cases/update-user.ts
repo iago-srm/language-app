@@ -3,32 +3,23 @@ import {
   IUserRepository,
   UserDTO,
   IEncryptionService,
-  ITokenService,
-  IIdGenerator,
-  IEmailService,
 } from '../ports';
 import { User } from '@domain';
 import {
-  PasswordsDontMatchError,
-  EmailAlreadySignedupError,
 } from '@common/errors';
 import {
-  ISignUpAPIParams,
-  ISignUpAPIResponse
+  IUpdateUserParams,
 } from '@language-app/common';
 
-type InputParams = ISignUpAPIParams;
-type Return = ISignUpAPIResponse;
+type InputParams = IUpdateUserParams;
+type Return = void;
 
-export type ISignUpUseCase = IUseCase<InputParams, Return>;
+export type IUpdateUserUseCase = IUseCase<InputParams, Return>;
 
-class UseCase implements ISignUpUseCase {
+class UseCase implements IUpdateUserUseCase {
   constructor (
     private userRepository: IUserRepository,
     private encryptionService: IEncryptionService,
-    private tokenService: ITokenService,
-    private idService: IIdGenerator,
-    private emailService: IEmailService
   ){}
   async execute({ email, password, name, confirmPassword }) {
     const user = new User({ email, name, password });

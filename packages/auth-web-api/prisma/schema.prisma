@@ -23,8 +23,10 @@ model User {
   email          String  @unique
   name           String?
   role           String  @default("STUDENT")
-  hashedPassword String
+  hashedPassword String?
   tokenVersion   Int
+  image String?
+  provider String?
   @@map("users")
 }
 

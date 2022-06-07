@@ -1,21 +1,20 @@
 import { ISignUpUseCase } from '@application/use-cases';
-import { SignUpHTTPDefinition } from '@language-app/common';
+import { UpdateUserHTTPDefinition } from '@language-app/common';
 import {
   IHTTPController,
   IHTTPControllerDescriptor,
 } from '../../ports/REST-controllers';
 import {serializer} from './serializer';
 
-export const SignUpControllerFactory = ({
+export const UpdateUserControllerFactory = ({
   signUpUseCase,
 }: {
   signUpUseCase: ISignUpUseCase;
 }): IHTTPControllerDescriptor<IHTTPController> => {
   const fn: IHTTPController = async (_, body) => {
-    const { email, password, name, confirmPassword } =
+    const { password, name, confirmPassword } =
       serializer(body);
     const response = await signUpUseCase.execute({
-      email,
       name,
       password,
       confirmPassword,
@@ -29,7 +28,7 @@ export const SignUpControllerFactory = ({
 
   return {
     controller: fn,
-    method: SignUpHTTPDefinition.method,
-    path: SignUpHTTPDefinition.path,
+    method: UpdateUserHTTPDefinition.method,
+    path: UpdateUserHTTPDefinition.path,
   };
 };

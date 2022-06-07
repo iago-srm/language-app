@@ -1,4 +1,5 @@
 import { ISignOutUseCase } from '@application/use-cases';
+import { SignOutHTTPDefinition } from '@language-app/common';
 import {
   IHTTPController,
   IHTTPControllerDescriptor,
@@ -24,8 +25,8 @@ export const SignOutControllerFactory = ({
 
   return {
     controller: fn,
-    method: 'post',
-    path: 'signout',
+    method: SignOutHTTPDefinition.method,
+    path: SignOutHTTPDefinition.path,
     middleware: 'auth'
   };
 };

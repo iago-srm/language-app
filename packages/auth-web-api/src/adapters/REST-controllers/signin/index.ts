@@ -1,4 +1,5 @@
 import { ISignInUseCase } from '@application/use-cases';
+import { SignInHTTPDefinition } from '@language-app/common';
 import {
   IHTTPController,
   IHTTPControllerDescriptor,
@@ -25,7 +26,7 @@ export const SignInControllerFactory = ({
 
   return {
     controller: fn,
-    method: 'post',
-    path: 'signin',
+    method: SignInHTTPDefinition.method,
+    path: SignInHTTPDefinition.path,
   };
 };

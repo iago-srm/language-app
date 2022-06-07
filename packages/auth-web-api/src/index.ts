@@ -15,7 +15,8 @@ import {
 import {
   JWTTokenService,
   IdGenerator,
-  BCryptEncryptionService
+  BCryptEncryptionService,
+  SendgridEmailService
 } from '@frameworks/services';
 import {
   SignInUseCase,
@@ -41,6 +42,7 @@ export enum Dependencies {
   TOKENSERVICE = 'tokenService',
   IDSERVICE = 'idService',
   ENCRYPTIONSERVICE = 'encryptionService',
+  EMAILSERVICE = 'emailService',
   LOGGER = 'logger',
 
   // use cases
@@ -70,6 +72,7 @@ container.register({
   [Dependencies.ENCRYPTIONSERVICE]: awilix.asClass(BCryptEncryptionService),
   [Dependencies.IDSERVICE]: awilix.asClass(IdGenerator),
   [Dependencies.TOKENSERVICE]: awilix.asClass(JWTTokenService),
+  [Dependencies.EMAILSERVICE]: awilix.asClass(SendgridEmailService),
 
   // use cases
   [Dependencies.LOGOUTUSECASE]: awilix.asClass(SignOutUseCase).classic(),

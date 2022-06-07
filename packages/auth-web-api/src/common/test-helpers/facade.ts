@@ -3,6 +3,7 @@ import {
   MockTokenService,
   MockUserRepository,
   MockIdGenerator,
+  MockEmailService,
   SignInUpInputBuilder
 } from '@common/test-helpers';
 import {
@@ -10,6 +11,7 @@ import {
   IEncryptionService,
   ITokenService,
   IIdGenerator,
+  IEmailService,
 } from '@application/ports';
 import { SignInUseCase, SignOutUseCase, SignUpUseCase } from '@application/use-cases';
 
@@ -17,15 +19,19 @@ interface ConstructorParams {
   mockEncryptionService?: Partial<MockEncryptionService>,
   mockUserRepository?: Partial<MockUserRepository>,
   mockTokenService?: Partial<MockTokenService>,
-  mockIdGenerator?: Partial<MockIdGenerator>
+  mockEmailService?: Partial<MockEmailService>;
+  mockIdGenerator?: Partial<MockIdGenerator>,
 }
 
 export class TestDataFacade {
+
   public inputBuilder: SignInUpInputBuilder;
   public mockEncryptionService: IEncryptionService;
   public mockTokenService: ITokenService;
   public mockUserRepository: IUserRepository;
   public mockIdGenerator: IIdGenerator;
+  public mockEmailService: IEmailService;
+
   public sut: {
     signIn: SignInUseCase,
     signUp: SignUpUseCase,
@@ -35,7 +41,8 @@ export class TestDataFacade {
     mockEncryptionService,
     mockUserRepository ,
     mockTokenService,
-    mockIdGenerator
+    mockIdGenerator,
+    mockEmailService
   }: ConstructorParams) {
     this.mockEncryptionService = new MockEncryptionService({
       compare: mockEncryptionService?.compare,
@@ -53,8 +60,13 @@ export class TestDataFacade {
     });
     this.mockIdGenerator = new MockIdGenerator({
       getId: mockIdGenerator?.getId
-    })
+    });
+    this.mockEmailService = new MockEmailService({
+      sendEmail: mockEmailService?.sendEmail
+    });
+
     this.inputBuilder = new SignInUpInputBuilder();
+
     this.sut = {
       signIn: new SignInUseCase(
         this.mockUserRepository,
@@ -65,7 +77,8 @@ export class TestDataFacade {
         this.mockUserRepository,
         this.mockEncryptionService,
         this.mockTokenService,
-        this.mockIdGenerator
+        this.mockIdGenerator,
+        this.mockEmailService
       ),
       signOut: new SignOutUseCase(
         this.mockUserRepository
