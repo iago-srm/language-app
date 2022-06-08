@@ -1,13 +1,21 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useSWRConfig } from 'swr';
 import { setCookie, parseCookies } from 'nookies';
+import { getToken } from "next-auth/jwt";
 
 import {
   ISignInAPIParams,
   ISignUpAPIParams,
-  IGetUserAPIResponse
+  IGetUserAPIResponse,
+  SignInHTTPDefinition,
+  SignOutHTTPDefinition,
+  SignUpHTTPDefinition
 } from '@language-app/common';
-import { useSession, signOut as nextAuthSignOut, signIn } from "next-auth/react";
+import {
+  useSession,
+  signOut as nextAuthSignOut,
+  signIn,
+} from "next-auth/react";
 import { useApi } from './api';
 import { LocalStorage } from "@utils";
 import { useApiCallSWR } from "@api";
@@ -32,33 +40,34 @@ export function AuthProvider({ children }) {
   const {
     authGetFetcher,
     authPostFetcher,
+    authPatchFetcher,
     setHeader
   } = useApi();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [socialSignInUser, setSocialSignInUser] = useState<Partial<IGetUserAPIResponse>>();
   const { mutate } = useSWRConfig();
 
   const handleAuthToken = (token: string) => {
     setHeader('authorization', `Bearer ${token}`);
     localStorage.setRefreshToken(token);
-    setCookie(undefined, 'language-app.token', token, {
-      maxAge: 60 * 60 * 1, // 1 hour
-    })
   }
 
-  const credentialsSignUp = React.useCallback(({name, email, password, confirmPassword, role }) =>
-    authPostFetcher('signup', {
-      name,
-      email,
-      password,
-      confirmPassword,
-      role
-    }), [authPostFetcher]);
+  const credentialsSignUp = React.useCallback(async ({name, email, password, confirmPassword, role }) => {
+    try {
+      await authPostFetcher(SignUpHTTPDefinition.path, {
+        name,
+        email,
+        password,
+        confirmPassword,
+      });
+    } catch (e) {
+      return {error: e.message};
+    }
+  }, [authPostFetcher]);
 
   const credentialsSignIn = React.useCallback(async ({ email, password }) => {
     const {
       token
-    } = await authPostFetcher('signin', {
+    } = await authPostFetcher(SignInHTTPDefinition.path, {
       email,
       password
     });
@@ -66,33 +75,17 @@ export function AuthProvider({ children }) {
     mutate('user');
   }, [authPostFetcher]);
 
-  const googleSignIn = React.useCallback(() => {
-    return signIn("google", { callbackUrl: '/dashboard' });
+  const googleSignIn = React.useCallback(async () => {
+    await signIn("google", { callbackUrl: '/dashboard' });
   }, [])
 
   const signOut = React.useCallback(async () => {
     if(session) nextAuthSignOut({ redirect: false });
-    else {
-      await authPostFetcher('signout', {});
-      handleAuthToken("");
-      localStorage.setRefreshToken("");
-      mutate('user');
-    }
+    await authPatchFetcher(SignOutHTTPDefinition.path, {});
+    handleAuthToken("");
+    localStorage.setRefreshToken("");
+    mutate('user');
   }, [session, authPostFetcher]);
-
-  const {
-    data: credentialsUser,
-    loading: credentialsUserLoading
-  } = useApiCallSWR<IGetUserAPIResponse>('user',authGetFetcher);
-
-  useEffect(() => {
-    if(session) setSocialSignInUser(session.user);
-    else setSocialSignInUser(null);
-  }, [session]);
-
-  useEffect(() => {
-    setIsAuthenticated(!!socialSignInUser || !!credentialsUser);
-  }, [socialSignInUser, credentialsUser]);
 
   useEffect(() => {
     const token = localStorage.getRefreshToken();
@@ -102,11 +95,33 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
+  const {
+    data: user,
+    loading: userLoading
+  } = useApiCallSWR<IGetUserAPIResponse>('user',authGetFetcher);
+
+  useEffect(() => {
+    const token = localStorage.getRefreshToken();
+    if(session) {
+      // does not work?
+      mutate('user');
+    }
+    if(session && !token) {
+      handleAuthToken((session.token as { auth_token: string}).auth_token);
+    }
+  }, [session]);
+
+  useEffect(() => {
+    setIsAuthenticated(!!user);
+  }, [user]);
+
+
+
   return (
     <AuthContext.Provider value={{
-      user: socialSignInUser || credentialsUser,
+      user,
       isAuthenticated,
-      isUserLoading: socialUserStatus === 'loading' || credentialsUserLoading,
+      isUserLoading: userLoading,
       googleSignIn,
       credentialsSignIn,
       credentialsSignUp,

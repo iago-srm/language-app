@@ -24,6 +24,7 @@ export const Navbar = () => {
   const { theme, setTheme } = useColorTheme();
   const { language, setLanguage } = useLanguage();
   const { user, isAuthenticated, isUserLoading, signOut } = useAuth();
+  // console.log({user, isAuthenticated, isUserLoading})
   const router = useRouter();
 
   const handleSignOut = () => {
@@ -47,7 +48,7 @@ export const Navbar = () => {
               <HoverPanel user={user} onSignOut={handleSignOut}/>
             </>
             :
-            !isUserLoading &&
+            !isUserLoading && !user &&
             <>
               <NavbarAtomic.Button path='/login' >
                 <Link href={'/login'}>

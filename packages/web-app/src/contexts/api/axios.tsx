@@ -11,6 +11,7 @@ const axiosErrorHandler = e => {
 interface IApiContext {
   authGetFetcher?: (url: string) => Promise<any>;
   authPostFetcher?: (url: string, body: any) => Promise<any>;
+  authPatchFetcher?: (url: string, body: any) => Promise<any>;
   setHeader?: (header: string, value: any) => void;
 }
 
@@ -20,6 +21,8 @@ const authGetFetcher = (url: string) =>
   axios.get(`${BASE_AUTH_URL}/${url}`).then(res => res.data).catch(axiosErrorHandler);
 const authPostFetcher = (url: string, body: any) =>
   axios.post(`${BASE_AUTH_URL}/${url}`, body).then(res => res.data).catch(axiosErrorHandler);
+const authPatchFetcher = (url: string, body: any) =>
+  axios.patch(`${BASE_AUTH_URL}/${url}`, body).then(res => res.data).catch(axiosErrorHandler);
 
 export function AxiosApiProvider({ children }) {
 
@@ -37,6 +40,7 @@ export function AxiosApiProvider({ children }) {
     <ApiContext.Provider value={{
       authGetFetcher,
       authPostFetcher,
+      authPatchFetcher,
       setHeader
     }}>
       {children}

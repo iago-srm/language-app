@@ -31,18 +31,18 @@ const Page: React.FC = () => {
     email,
     password,
     confirmPassword,
-    role
   }) => {
     const { error } = await credentialsSignUp({
       name,
       email,
       password,
       confirmPassword,
-      role
     });
     if(error) {
       setError(error)
     }
+    else alert('aguarde um e-mail de confirmação')
+
   }
 
   return (
@@ -60,10 +60,10 @@ const Page: React.FC = () => {
                 <Input name='email' label={Translations[language][Labels.EMAIL]} />
                 <PasswordInput name='password' label={Translations[language][Labels.PASSWORD]} type="password" />
                 <PasswordInput name='confirmPassword' label={Translations[language][Labels.CONFIRM_PASSWORD]} type="password" />
-                <Select label="Eu sou" name="role">
+                {/* <Select label="Eu sou" name="role">
                   <option value='INSTRUCTOR'>Instrutor</option>
                   <option value='STUDENT'>Estudante</option>
-                </Select>
+                </Select> */}
                 <Button loading={false}>{Translations[language][Labels.SIGNUP]}</Button>
               </Form>
             </Frame>

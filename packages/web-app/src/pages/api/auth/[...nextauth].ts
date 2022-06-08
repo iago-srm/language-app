@@ -1,28 +1,38 @@
-import NextAuth, { SessionOptions } from "next-auth"
+import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { PrismaClient } from '@prisma/client';
+import axios from 'axios';
+import { SignInHTTPDefinition } from "@language-app/common";
+
+const prisma = new PrismaClient();
 
 export default NextAuth({
+  adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
-  callbacks: {
-    async signIn({ user: { id, name, image }, account: { provider }, credentials, email }) {
-      console.log({credentials, email})
-
-
-      return true;
-    },
-    // async session({ session, user, token }) {
-    //   console.log({ session, user, token });
-    //   return session
-    // },
-    // async jwt({ token, user, account, profile, isNewUser }) {
-    //   console.log({isNewUser});
-    //   return token;
-    // }
+  session: {
+    strategy: 'jwt'
   },
+  callbacks: {
 
+    async jwt({ user, token }) {
+      if(user) {
+        const resp =
+          await axios[SignInHTTPDefinition.method]
+          (`${process.env.NEXT_PUBLIC_AUTH_URL}/api/v1/${SignInHTTPDefinition.path}`,
+          { id: user.id });
+        token.auth_token = resp.data.token;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      session.token = token;
+      return session;
+    }
+  },
 })

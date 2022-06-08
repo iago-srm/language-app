@@ -27,7 +27,7 @@ export function PasswordInput({ register, name, errors, label, ...rest }: IInput
         error={errors[name]}
       />
       <InputIconContainerStyled onClick={() => setPasswordVisible(c => !c)}>
-        <i>{passwordVisible ? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye} />}</i>
+        <i>{passwordVisible ? <FontAwesomeIcon icon={faEye} /> : <FontAwesomeIcon icon={faEyeSlash} />}</i>
       </InputIconContainerStyled>
       <ErrorMessageContainer >{errors[name]?.message}</ErrorMessageContainer>
     </InputLabelStyled>

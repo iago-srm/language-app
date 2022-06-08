@@ -25,6 +25,7 @@ services:
       - DATABASE_URL=postgres://${AUTH_POSTGRES_USER}:${AUTH_POSTGRES_PASSWORD}@postgres-auth:5432/${AUTH_POSTGRES_SCHEMA}
       - PORT=${AUTH_PORT}
       - TOKEN_SECRET=${TOKEN_SECRET}
+      - SENDGRID_API_KEY=${SENDGRID_API_KEY}
     tty: true
     volumes:
       - ./packages/common:/app/packages/common
@@ -35,7 +36,7 @@ services:
     image: postgres
     container_name: auth-postgres
     ports:
-      - "5432"
+      - "5432:5432"
     environment:
       - POSTGRES_USER=${AUTH_POSTGRES_USER}
       - POSTGRES_PASSWORD=${AUTH_POSTGRES_PASSWORD}

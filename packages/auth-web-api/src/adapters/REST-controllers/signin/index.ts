@@ -12,10 +12,11 @@ export const SignInControllerFactory = ({
   signInUseCase: ISignInUseCase;
 }): IHTTPControllerDescriptor<IHTTPController> => {
   const fn: IHTTPController = async (_, body) => {
-    const { email, password } = SerializeLoginBody(body);
+    const { email, password, id } = SerializeLoginBody(body);
     const resp = await signInUseCase.execute({
       email,
       password,
+      id
     });
 
     return {

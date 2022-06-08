@@ -1,8 +1,9 @@
 import { IUser } from './types';
 
 export interface ISignInAPIParams {
-  email: string,
-  password: string
+  id?: string;
+  email?: string,
+  password?: string
 }
 
 export interface ISignInAPIResponse {

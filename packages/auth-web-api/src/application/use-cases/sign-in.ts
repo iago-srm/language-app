@@ -3,8 +3,10 @@ import {
   IUserRepository,
   IEncryptionService,
   ITokenService,
+  UserDTO
 } from '../ports';
 import {
+  CredentialsNotProvidedError,
   InvalidCredentialsError,
   ISignInAPIResponse,
   ISignInAPIParams,
@@ -23,17 +25,26 @@ class UseCase implements ISignInUseCase {
     private tokenService: ITokenService,
   ) {}
 
-  async execute({ email, password }) {
-    const userDTO = await this.userRepository.getUserByEmail(email);
+  async execute({ id, email, password }) {
+    let userDTO: UserDTO;
 
-    if (!userDTO) throw new InvalidCredentialsError();
+    if(id) {
+      userDTO = await this.userRepository.getUserById(id);
+      if (!userDTO) throw new InvalidCredentialsError();
+    }
+    else if (email && password) {
+      userDTO = await this.userRepository.getUserByEmail(email);
+      if (!userDTO) throw new InvalidCredentialsError();
 
-    const passwordValid = await this.encryptionService.compare(
-      password,
-      userDTO.hashedPassword
-    );
-
-    if (!passwordValid) throw new InvalidCredentialsError();
+      const passwordValid = await this.encryptionService.compare(
+        password,
+        userDTO.hashedPassword
+      );
+      if (!passwordValid) throw new InvalidCredentialsError();
+    }
+    else {
+      throw new CredentialsNotProvidedError();
+    }
 
     const token = this.tokenService.generate({
       id: userDTO.id || '',
