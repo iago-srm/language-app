@@ -7,22 +7,29 @@ export const BASE_AUTH_URL = `${process.env.NEXT_PUBLIC_AUTH_URL}/api/v1`;
 const axiosErrorHandler = e => {
   throw {status: e.response.status, message: e.response.data.message}
 };
+const axiosSuccessHandler = res => res.data;
+
+const urlBuilder = (baseUrl: string, path: string) => `${baseUrl}/${path}`;
 
 interface IApiContext {
-  authGetFetcher?: (url: string) => Promise<any>;
-  authPostFetcher?: (url: string, body: any) => Promise<any>;
-  authPatchFetcher?: (url: string, body: any) => Promise<any>;
+  authFetchers?: { [key: string]: (url: string, body?: string) => Promise<any> };
   setHeader?: (header: string, value: any) => void;
 }
 
 const ApiContext = React.createContext<IApiContext>({})
 
-const authGetFetcher = (url: string) =>
-  axios.get(`${BASE_AUTH_URL}/${url}`).then(res => res.data).catch(axiosErrorHandler);
-const authPostFetcher = (url: string, body: any) =>
-  axios.post(`${BASE_AUTH_URL}/${url}`, body).then(res => res.data).catch(axiosErrorHandler);
-const authPatchFetcher = (url: string, body: any) =>
-  axios.patch(`${BASE_AUTH_URL}/${url}`, body).then(res => res.data).catch(axiosErrorHandler);
+const authFetchers = {
+  get: (url: string) =>
+    axios.get(urlBuilder(BASE_AUTH_URL,url))
+    .then(axiosSuccessHandler).catch(axiosErrorHandler),
+  post: (url: string, body: any) =>
+    axios.post(urlBuilder(BASE_AUTH_URL,url), body)
+    .then(axiosSuccessHandler).catch(axiosErrorHandler),
+  patch: (url: string, body: any) =>
+    axios.patch(urlBuilder(BASE_AUTH_URL,url), body)
+    .then(axiosSuccessHandler).catch(axiosErrorHandler)
+}
+
 
 export function AxiosApiProvider({ children }) {
 
@@ -38,9 +45,7 @@ export function AxiosApiProvider({ children }) {
 
   return (
     <ApiContext.Provider value={{
-      authGetFetcher,
-      authPostFetcher,
-      authPatchFetcher,
+      authFetchers,
       setHeader
     }}>
       {children}
