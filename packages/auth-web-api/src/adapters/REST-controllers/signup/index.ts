@@ -14,7 +14,7 @@ export const SignUpControllerFactory = ({
   const fn: IHTTPController = async (_, body) => {
     const { email, password, name, confirmPassword } =
       serializer(body);
-    const response = await signUpUseCase.execute({
+    await signUpUseCase.execute({
       email,
       name,
       password,
@@ -22,7 +22,7 @@ export const SignUpControllerFactory = ({
     });
 
     return {
-      response,
+      response: "",
       statusCode: 200,
     };
   };

@@ -7,6 +7,7 @@ import {
   SignOutControllerFactory,
   GetUserControllerFactory,
   SignUpControllerFactory,
+  UpdateUserControllerFactory,
   ErrorHandlerControllerFactory
 } from '@adapters/REST-controllers';
 import {
@@ -22,6 +23,7 @@ import {
   SignInUseCase,
   SignUpUseCase,
   SignOutUseCase,
+  ValidateAccountUseCase
 } from '@application/use-cases';
 import { AuthenticationMiddlewareControllerFactory } from '@adapters/REST-middleware';
 import { ExpressControllerAdapter } from '@frameworks/http';
@@ -34,6 +36,7 @@ export enum Dependencies {
   SIGNUPCONTROLLER = 'signupController',
   GETUSERCONTROLLER = 'getUserController',
   LOGOUTCONTROLLER = 'signOutController',
+  UPDATEUSERCONTROLLER = 'updateUserController',
 
   AUTHMIDDLEWARE = 'authMiddleware',
   ERRORHANDLER = 'errorHandler',
@@ -50,6 +53,7 @@ export enum Dependencies {
   LOGINUSECASE = 'signInUseCase',
   SIGNUPUSECASE = 'signUpUseCase',
   GETUSERUSECASE = 'getUserUseCase',
+  VALIDATEACCOUNTUSECASE = 'validateAccountUseCase',
 
   // repositories
   USERREPOSITORY = 'userRepository',
@@ -64,6 +68,7 @@ container.register({
   [Dependencies.LOGOUTCONTROLLER]: awilix.asFunction(SignOutControllerFactory),
   [Dependencies.SIGNUPCONTROLLER]: awilix.asFunction(SignUpControllerFactory),
   [Dependencies.GETUSERCONTROLLER]: awilix.asFunction(GetUserControllerFactory),
+  [Dependencies.UPDATEUSERCONTROLLER]: awilix.asFunction(UpdateUserControllerFactory),
 
   [Dependencies.AUTHMIDDLEWARE]: awilix.asFunction(AuthenticationMiddlewareControllerFactory),
   [Dependencies.ERRORHANDLER]: awilix.asFunction(ErrorHandlerControllerFactory),
@@ -78,6 +83,7 @@ container.register({
   [Dependencies.LOGOUTUSECASE]: awilix.asClass(SignOutUseCase).classic(),
   [Dependencies.LOGINUSECASE]: awilix.asClass(SignInUseCase).classic(),
   [Dependencies.SIGNUPUSECASE]: awilix.asClass(SignUpUseCase).classic(),
+  [Dependencies.VALIDATEACCOUNTUSECASE]: awilix.asClass(ValidateAccountUseCase).classic(),
 
   // repositories
   [Dependencies.USERREPOSITORY]: awilix.asClass(UserRepository),

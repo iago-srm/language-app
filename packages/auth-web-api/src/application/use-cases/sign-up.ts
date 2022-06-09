@@ -18,7 +18,7 @@ import {
 } from '@language-app/common';
 
 type InputParams = ISignUpAPIParams;
-type Return = ISignUpAPIResponse;
+type Return = void;
 
 export type ISignUpUseCase = IUseCase<InputParams, Return>;
 
@@ -39,40 +39,32 @@ class UseCase implements ISignUpUseCase {
 
     if (password !== confirmPassword) throw new PasswordsDontMatchError();
 
+    const verificationToken = this.idService.getId();
+    const userId = this.idService.getId();
+
     const userDTO: UserDTO = {
-      id: this.idService.getId(),
+      id: userId,
       email: user.personId.email,
       name: user.personId.name,
+      emailVerified: false,
       hashedPassword: await this.encryptionService.encrypt(user.password),
-      tokenVersion: 0
+      tokenVersion: 0,
+      verificationToken
     };
 
     await this.userRepository.insertUser(userDTO);
 
-    // await this.emailService.sendEmail(
-    //   email,
-    //   'Confirme sua conta',
-    //   {
-    //     text: 'Texto testte',
-    //     html: '<p><strong>HTML teste</strong></p>'
-    //   }
-    // );
+    const confirmationLink = `http://localhost:3000/activate-account?verificationToken=${verificationToken}&userId=${userId}`;
 
-    const token = this.tokenService.generate({
-      id: userDTO.id,
-      tokenVersion: userDTO.tokenVersion,
-    });
-
-    return {
-      token,
-      // user: {
-      //   id: userDTO.id,
-      //   email: userDTO.email,
-      //   name: userDTO.name,
-      //   image: userDTO.image,
-      //   role: userDTO.role
-      // }
-    };
+    await this.emailService.sendEmail(
+      email,
+      'Confirme sua conta em language-app',
+      {
+        html: `
+        <p>Clique no link para confirmar sua conta: ${confirmationLink}</p>
+        `
+      }
+    );
   }
 
 }

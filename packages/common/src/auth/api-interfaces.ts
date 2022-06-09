@@ -38,6 +38,9 @@ export interface IProviderSignInResponse {
 export interface IUpdateUserParams {
   name?: string;
   role?: string;
-  password?: string;
-  confirmPassword?: string;
+}
+
+export interface IValidateAccountParams {
+  verificationToken: string;
+  userId: string;
 }

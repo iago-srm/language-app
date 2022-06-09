@@ -2,19 +2,18 @@ import { ParameterNotProvidedError } from '@language-app/common';
 
 export const serializer = (body: any) => {
 
-  const password = body.password;
-  const confirmPassword = body.confirmPassword;
+  const verificationToken = body.verificationToken;
+  const userId = body.userId;
   const name = body.name;
-  const role = body.role;
+  const role = body.name;
 
-  if (!password) throw new ParameterNotProvidedError({ parameter: 'password' });
-  if (!confirmPassword)
-    throw new ParameterNotProvidedError({ parameter: 'confirmPassword' });
+  // if (!verificationToken) throw new ParameterNotProvidedError({ parameter: 'verificationToken' });
+  // if (!userId) throw new ParameterNotProvidedError({ parameter: 'userId' });
 
   return {
-    password,
-    confirmPassword,
+    verificationToken,
+    userId,
     name,
-    role,
+    role
   };
 };

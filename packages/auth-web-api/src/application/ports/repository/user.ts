@@ -6,5 +6,6 @@ export interface UserDTO {
   hashedPassword?: string;
   tokenVersion: number;
   image?: string;
-  provider?: string;
+  verificationToken?: string;
+  emailVerified: boolean;
 }

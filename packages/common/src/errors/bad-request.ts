@@ -64,4 +64,9 @@ export class Forbidden extends CustomError {
   }
 }
 
-
+export class UserNotVerifiedError extends CustomError {
+  HTTPstatusCode = 400;
+  constructor() {
+    super({ errorName: ErrorMessages.UNVERIFIED_USER });
+  }
+}

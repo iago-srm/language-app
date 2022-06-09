@@ -1,4 +1,6 @@
-import { ISignUpUseCase } from '@application/use-cases';
+import {
+  IValidateAccountUseCase
+} from '@application/use-cases';
 import { UpdateUserHTTPDefinition } from '@language-app/common';
 import {
   IHTTPController,
@@ -7,21 +9,30 @@ import {
 import {serializer} from './serializer';
 
 export const UpdateUserControllerFactory = ({
-  signUpUseCase,
+  validateAccountUseCase,
+  // updateUserUseCase
 }: {
-  signUpUseCase: ISignUpUseCase;
+  validateAccountUseCase: IValidateAccountUseCase;
 }): IHTTPControllerDescriptor<IHTTPController> => {
   const fn: IHTTPController = async (_, body) => {
-    const { password, name, confirmPassword } =
-      serializer(body);
-    const response = await signUpUseCase.execute({
+    const {
       name,
-      password,
-      confirmPassword,
-    });
+      role,
+      verificationToken,
+      userId
+    } = serializer(body);
+
+    if(verificationToken && userId) {
+      await validateAccountUseCase.execute({
+        verificationToken,
+        userId
+      })
+    } else if (name || role) {
+      // await
+    }
 
     return {
-      response,
+      response: "",
       statusCode: 200,
     };
   };

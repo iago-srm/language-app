@@ -8,6 +8,7 @@ import {
 import {
   CredentialsNotProvidedError,
   InvalidCredentialsError,
+  UserNotVerifiedError,
   ISignInAPIResponse,
   ISignInAPIParams,
 } from '@language-app/common';
@@ -28,13 +29,18 @@ class UseCase implements ISignInUseCase {
   async execute({ id, email, password }) {
     let userDTO: UserDTO;
 
+    const validateUser = (user: UserDTO) => {
+      if(!user) throw new InvalidCredentialsError();
+      if(!user.emailVerified) throw new UserNotVerifiedError();
+    }
+
     if(id) {
       userDTO = await this.userRepository.getUserById(id);
-      if (!userDTO) throw new InvalidCredentialsError();
+      validateUser(userDTO);
     }
     else if (email && password) {
       userDTO = await this.userRepository.getUserByEmail(email);
-      if (!userDTO) throw new InvalidCredentialsError();
+      validateUser(userDTO);
 
       const passwordValid = await this.encryptionService.compare(
         password,

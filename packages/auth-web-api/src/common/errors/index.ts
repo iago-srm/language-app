@@ -36,3 +36,16 @@ export class TokenGenerationError extends CustomError {
   }
 }
 
+export class UserNotFoundError extends CustomError {
+  HTTPstatusCode = 404;
+  constructor() {
+    super({ errorName: ErrorMessages.USER_NOT_FOUND });
+  }
+}
+
+export class InvalidValidationTokenError extends CustomError {
+  HTTPstatusCode = 400;
+  constructor() {
+    super({ errorName: ErrorMessages.VALIDATION_TOKEN });
+  }
+}
