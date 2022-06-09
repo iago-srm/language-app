@@ -5,3 +5,4 @@ export * from './error-loading-data';
 export * from './navbar';
 export * from './layout';
 export * from './frame';
+export * from './alert';

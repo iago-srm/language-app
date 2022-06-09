@@ -5,7 +5,7 @@ import React, {
   useState
 } from 'react';
 import MediaQuery, { useMediaQuery } from 'react-responsive';
-
+import { getChildrenOnDisplayName } from 'components/utils';
 import {
   Container,
   BarButtonContainer,
@@ -35,8 +35,6 @@ interface NavbarSubComponents {
 interface NavbarProps {
   currentPath: string;
 }
-
-const getChildrenOnDisplayName = (children, displayName) => React.Children.map(children, (child) => child.type.displayName === displayName ? child : null);
 
 export const Navbar: React.FunctionComponent<NavbarProps> & NavbarSubComponents = ({
   children,

@@ -13,7 +13,8 @@ import {
   Frame,
   Container,
   Row,
-  Col
+  Col,
+  ErrorAlert
 } from '@components';
 
 const Page: React.FC = () => {
@@ -54,7 +55,11 @@ const Page: React.FC = () => {
         <Row>
           <Col lg={{ span: 6, offset: 3 }}>
             <Frame>
-              <ErrorContainer>{error}</ErrorContainer>
+              {/* <ErrorContainer>{error}</ErrorContainer> */}
+              {error && <ErrorAlert onClose={() => setError(undefined)}>
+                <ErrorAlert.Heading>Houve um erro</ErrorAlert.Heading>
+                <ErrorAlert.Content>{error}</ErrorAlert.Content>
+              </ErrorAlert>}
               <Form onSubmit={handleSubmit} schema={schema} error={error}>
                 <Input name='name' label={Translations[language][Labels.NAME]} />
                 <Input name='email' label={Translations[language][Labels.EMAIL]} />
