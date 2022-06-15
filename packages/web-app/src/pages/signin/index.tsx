@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import GoogleButton from 'react-google-button';
+import { useSWRConfig } from 'swr';
 
 import { Translations, Labels } from '@locale';
 import { Container as PageContainer } from './styles'
@@ -23,6 +24,7 @@ import {
 const LoginPage: React.FC = () => {
 
   const router = useRouter();
+  const { mutate } = useSWRConfig();
   const { language } = useLanguage();
   const { theme } = useColorTheme();
   const {
@@ -49,7 +51,10 @@ const LoginPage: React.FC = () => {
     if(error) {
       setError(error.message)
     }
-    if(!error) router.push('/dashboard');
+    if(!error) {
+      mutate('user');
+      router.push('/dashboard');
+    }
   }
 
   const handleGoogleSignIn = async () => {

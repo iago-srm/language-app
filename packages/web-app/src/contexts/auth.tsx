@@ -13,6 +13,7 @@ import {
   SignOut,
 } from '@services/api';
 import { LocalStorage } from "@services/browser";
+import { setCookie, parseCookies } from 'nookies'
 
 interface IAuthContext {
   isAuthenticated?: boolean;
@@ -27,6 +28,9 @@ interface IAuthContext {
 export const handleAuthToken = (token: string) => {
   setCommonHeaders('authorization', `Bearer ${token}`);
   localStorage.setRefreshToken(token);
+  setCookie(undefined, 'language-app.token', token, {
+    maxAge: 60 * 60 * 1, // 1 hour
+  })
 }
 
 const AuthContext = React.createContext<IAuthContext>({})
@@ -36,7 +40,6 @@ const localStorage = new LocalStorage();
 export function AuthProvider({ children }) {
 
   const { data: session, status: socialUserStatus } = useSession();
-  console.log({session, socialUserStatus})
   const {
     signUp: credentialsSignUp,
     signIn: credentialsSignIn,
@@ -48,14 +51,15 @@ export function AuthProvider({ children }) {
   const { mutate } = useSWRConfig();
 
   const googleSignIn = React.useCallback(async () => {
-    await nextAuthSignIn("google", { callbackUrl: '/dashboard' });
+    await nextAuthSignIn("google", { callbackUrl: '/' });
+    mutate('user');
+
   }, [])
 
   const signOut = React.useCallback(async () => {
     if(session) nextAuthSignOut({ redirect: false });
     await credentialsSignOut.apiCall();
     handleAuthToken("");
-    localStorage.setRefreshToken("");
     mutate('user');
   }, [session]);
 
@@ -72,18 +76,13 @@ export function AuthProvider({ children }) {
     loading: userLoading,
     error: userError
   } = useUser();
-  console.log({user,userLoading,userError});
 
-
-  // useEffect(() => {
-  //   const token = localStorage.getRefreshToken();
-  //   if(session) {
-  //     console.log(session);
-  //   }
-  //   if(session && !token) {
-  //     handleAuthToken((session.token as { auth_token: string}).auth_token);
-  //   }
-  // }, [session]);
+  useEffect(() => {
+    if(session) {
+      handleAuthToken((session.token as { auth_token: string}).auth_token);
+      mutate('user');
+    }
+  }, [session]);
 
   useEffect(() => {
     setIsAuthenticated(!!user);

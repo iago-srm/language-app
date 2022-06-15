@@ -28,7 +28,6 @@ export default NextAuth({
             await axios[SignInHTTPDefinition.method]
             (`${process.env.NEXT_PUBLIC_AUTH_URL}/api/v1/${SignInHTTPDefinition.path}`,
             { id: user.id });
-          console.log({resp});
           token.auth_token = resp.data.token;
         } catch(e) {
           console.log(e.response.data)

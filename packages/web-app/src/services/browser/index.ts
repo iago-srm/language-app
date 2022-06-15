@@ -10,7 +10,7 @@ export class LocalStorage {
   }
 
   getRefreshToken() {
-    return localStorage.getItem('auth_token');
+    return localStorage.getItem('language-app.token');
   }
 
   getTheme(defaultTheme) {
@@ -26,6 +26,6 @@ export class LocalStorage {
   }
 
   setRefreshToken(token: string) {
-    localStorage.setItem('auth_token', token);
+    localStorage.setItem('language-app.token', token);
   }
 }
