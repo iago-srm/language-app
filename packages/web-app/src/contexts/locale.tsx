@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from 'react';
 
 import { Languages } from '@language-app/common';
 
-import { LocalStorage } from '@utils';
+import { LocalStorage } from '@services/browser';
 
 const initialState = {
   language: 'pt',

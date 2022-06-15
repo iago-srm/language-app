@@ -5,7 +5,7 @@ import { parseCookies } from 'nookies';
 import jwt from 'jsonwebtoken';
 
 import { Container } from './styles'
-import { getPageTitle } from '@utils'
+import { getPageTitle } from '@services/browser';
 import { useLanguage } from '@contexts';
 import { Translations, Labels } from '@locale';
 import { GetServerSideProps } from 'next'

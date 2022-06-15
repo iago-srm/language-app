@@ -1,5 +1,5 @@
-import { ServerError } from './types';
-import useSWR, { useSWRConfig } from 'swr';
+import { ServerError } from '@language-app/common';
+import useSWR from 'swr';
 
 export type IUseApiCallResponse<R> = {
   data: R;
@@ -7,7 +7,7 @@ export type IUseApiCallResponse<R> = {
   error: ServerError;
 }
 
-export const useApiCall = <R>(key: any, fetcher: (url: string) => Promise<any>) => {
+export const useApiCallSWR = <R>(key: any, fetcher: (url: string) => Promise<any>) => {
   const { data, error } = useSWR(key, fetcher);
 
   return {

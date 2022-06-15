@@ -6,7 +6,7 @@ import {
   ColorModeContext as ColorModeContextType
 } from './types';
 import { getTheme } from './theme';
-import { LocalStorage } from '@utils';
+import { LocalStorage } from '@services/browser';
 
 const ColorModeContext = React.createContext<ColorModeContextType>({
   theme: 'dark',

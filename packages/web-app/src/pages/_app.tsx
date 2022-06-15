@@ -5,12 +5,11 @@ import { AppProps } from 'next/app';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { SessionProvider } from "next-auth/react";
 
-import { LocalStorage } from '@utils';
+import { LocalStorage } from '@services/browser';
 import {
   AuthProvider,
   LanguageProvider,
   ThemeProvider,
-  ApiProvider
 } from '@contexts';
 import {
   GlobalStyle,
@@ -18,8 +17,6 @@ import {
 import {
   Navbar
 } from '@components';
-
-const localStorage = new LocalStorage();
 
 const App: React.FC<AppProps> = ({
   Component,
@@ -38,7 +35,6 @@ const App: React.FC<AppProps> = ({
       }
     }>
       <LanguageProvider>
-        <ApiProvider>
           <ThemeProvider>
             <SessionProvider session={session}>
               <AuthProvider>
@@ -48,7 +44,6 @@ const App: React.FC<AppProps> = ({
             </SessionProvider>
           <GlobalStyle />
           </ThemeProvider>
-        </ApiProvider>
       </LanguageProvider>
     </SWRConfig>
   )

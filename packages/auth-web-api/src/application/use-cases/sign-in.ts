@@ -29,18 +29,14 @@ class UseCase implements ISignInUseCase {
   async execute({ id, email, password }) {
     let userDTO: UserDTO;
 
-    const validateUser = (user: UserDTO) => {
-      if(!user) throw new InvalidCredentialsError();
-      if(!user.emailVerified) throw new UserNotVerifiedError();
-    }
-
     if(id) {
       userDTO = await this.userRepository.getUserById(id);
-      validateUser(userDTO);
+      if(!userDTO) throw new InvalidCredentialsError();
     }
     else if (email && password) {
       userDTO = await this.userRepository.getUserByEmail(email);
-      validateUser(userDTO);
+      if(!userDTO) throw new InvalidCredentialsError();
+      if(!userDTO.emailVerified) throw new UserNotVerifiedError();
 
       const passwordValid = await this.encryptionService.compare(
         password,

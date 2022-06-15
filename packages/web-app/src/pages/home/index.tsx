@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 
 import { Container } from './styles'
-import { getPageTitle } from '@utils'
+import { getPageTitle } from '@services/browser';
 import { useLanguage } from '@contexts';
 import { Translations, Labels } from '@locale';
 

@@ -17,11 +17,11 @@
     "baseUrl": "./src/",
     "paths": {
       "@utils": [ "utils/index.ts" ],
-      "@api": [ "api/index.ts" ],
       "@components": ["components/index.ts"],
       "@locale": ["locale/index.ts"],
       "@contexts": ["contexts/index.ts"],
-      "@styles": ["styles/index.ts"]
+      "@styles": ["styles/index.ts"],
+      "@services/*": ["services/*/index.ts"]
     },
     "allowJs": true,
     "strict": false,

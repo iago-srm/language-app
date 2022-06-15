@@ -21,6 +21,10 @@ export interface ISignUpAPIResponse {
   token: string;
 }
 
+export interface ISignOutAPIParams {}
+export interface ISignOutAPIResponse {}
+
+export interface IGetUserAPIParams {}
 export interface IGetUserAPIResponse extends IUser {};
 
 export interface IProviderSignInParams {

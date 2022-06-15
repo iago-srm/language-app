@@ -1,27 +1,31 @@
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { Translations, Labels } from '@locale';
-import { Container as PageContainer, ErrorContainer } from './styles'
-import { ValidationSchemas, getPageTitle } from '@utils';
+import { Container as PageContainer } from './styles'
+import { getPageTitle } from '@services/browser';
+import { ValidationSchemas } from '@services/validations';
 import { useLanguage, useAuth } from '@contexts';
 import {
   Form,
   Input,
   PasswordInput,
-  Select,
   Button,
   Frame,
   Container,
   Row,
   Col,
-  ErrorAlert
+  Alert
 } from '@components';
 
 const Page: React.FC = () => {
 
   const { language } = useLanguage();
-  const { credentialsSignUp } = useAuth();
-  const [error, setError] = useState();
+  const { credentialsSignUp: {
+    apiCall: credentialsSignUp,
+    loading: signUpLoading
+  } } = useAuth();
+  const [error, setError] = useState("");
+  const [response, setResponse] = useState("");
 
   const schema = React.useMemo(() => {
     return new ValidationSchemas(language).getSignupSchema()
@@ -40,9 +44,11 @@ const Page: React.FC = () => {
       confirmPassword,
     });
     if(error) {
-      setError(error)
+      setError(error.message)
     }
-    else alert('aguarde um e-mail de confirmação')
+    else {
+      setResponse("Aguarde um e-mail de confirmação");
+    }
 
   }
 
@@ -55,11 +61,14 @@ const Page: React.FC = () => {
         <Row>
           <Col lg={{ span: 6, offset: 3 }}>
             <Frame>
-              {/* <ErrorContainer>{error}</ErrorContainer> */}
-              {error && <ErrorAlert onClose={() => setError(undefined)}>
-                <ErrorAlert.Heading>Houve um erro</ErrorAlert.Heading>
-                <ErrorAlert.Content>{error}</ErrorAlert.Content>
-              </ErrorAlert>}
+              {error && <Alert onClose={() => setError(undefined)} variant='danger'>
+                <Alert.Heading>Houve um erro</Alert.Heading>
+                <Alert.Content>{error}</Alert.Content>
+              </Alert>}
+              {response && <Alert onClose={() => setResponse(undefined)} variant='success'>
+                <Alert.Heading>Tudo certo!</Alert.Heading>
+                <Alert.Content>{response}</Alert.Content>
+              </Alert>}
               <Form onSubmit={handleSubmit} schema={schema} error={error}>
                 <Input name='name' label={Translations[language][Labels.NAME]} />
                 <Input name='email' label={Translations[language][Labels.EMAIL]} />
@@ -69,7 +78,7 @@ const Page: React.FC = () => {
                   <option value='INSTRUCTOR'>Instrutor</option>
                   <option value='STUDENT'>Estudante</option>
                 </Select> */}
-                <Button loading={false}>{Translations[language][Labels.SIGNUP]}</Button>
+                <Button loading={signUpLoading}>{Translations[language][Labels.SIGNUP]}</Button>
               </Form>
             </Frame>
           </Col>

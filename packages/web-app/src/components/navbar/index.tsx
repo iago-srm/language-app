@@ -50,8 +50,8 @@ export const Navbar = () => {
             :
             !isUserLoading && !user &&
             <>
-              <NavbarAtomic.Button path='/login' >
-                <Link href={'/login'}>
+              <NavbarAtomic.Button path='/signin' >
+                <Link href={'/signin'}>
                   {Translations[language][Labels.LOGIN]}
                 </Link>
               </NavbarAtomic.Button>

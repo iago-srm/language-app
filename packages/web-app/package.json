@@ -4,9 +4,12 @@
   "private": true,
   "scripts": {
     "echo": "echo \"Hello from web-app\" ",
-    "dev": "next dev",
+    "dev": "npx prisma generate && next dev",
     "build": "next build",
     "start": "next start"
+  },
+  "prisma": {
+    "schema": "../common/src/auth/prisma/schema.prisma"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
