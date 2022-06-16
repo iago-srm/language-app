@@ -50,7 +50,7 @@ export const useApiBuilder = () => {
     ((args) => signInFetcher[SignInHTTPDefinition.method](SignInHTTPDefinition.path, args));
   const signOut = useApiCall<void,void>
     ((args) => authFetcher[SignOutHTTPDefinition.method](SignOutHTTPDefinition.path, args));
-  const useUser = () => useApiCallSWR<IGetUserAPIResponse>(GetUserHTTPDefinition.path,authFetcher[GetUserHTTPDefinition.method].bind(authFetcher));
+  const useUser = (canFetch: boolean) => useApiCallSWR<IGetUserAPIResponse>(canFetch && GetUserHTTPDefinition.path,authFetcher[GetUserHTTPDefinition.method].bind(authFetcher)/*, { fallbackData: {} }*/);
 
   return {
     signUp,

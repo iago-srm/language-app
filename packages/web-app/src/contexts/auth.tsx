@@ -16,18 +16,19 @@ import { LocalStorage } from "@services/browser";
 import { setCookie, parseCookies } from 'nookies'
 
 interface IAuthContext {
-  isAuthenticated?: boolean;
+  isAuthenticated?: number;
   user?: any;
   isUserLoading?: boolean;
   googleSignIn?: () => Promise<any>;
-  credentialsSignIn?: SignIn;
+  credentialsSignIn?: { signIn: ({email, password}) => Promise<{error?: string}>, loading: boolean };
   credentialsSignUp?: SignUp;
   signOut?: () => void;
 }
 
 export const handleAuthToken = (token: string) => {
   setCommonHeaders('authorization', `Bearer ${token}`);
-  localStorage.setRefreshToken(token);
+  if(token) localStorage.setRefreshToken(token);
+  else localStorage.deleteRefreshToken();
   setCookie(undefined, 'language-app.token', token, {
     maxAge: 60 * 60 * 1, // 1 hour
   })
@@ -39,53 +40,80 @@ const localStorage = new LocalStorage();
 
 export function AuthProvider({ children }) {
 
-  const { data: session, status: socialUserStatus } = useSession();
+  const { data: session } = useSession();
   const {
     signUp: credentialsSignUp,
-    signIn: credentialsSignIn,
+    signIn,
     signOut: credentialsSignOut,
     useUser
   } = useApiBuilder();
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(0);
   const { mutate } = useSWRConfig();
+  const [tokenHeaderSet, setTokenHeaderSet] = React.useState(false);
 
   const googleSignIn = React.useCallback(async () => {
     await nextAuthSignIn("google", { callbackUrl: '/' });
-    mutate('user');
-
+    setTokenHeaderSet(true);
   }, [])
 
+  const credentialsSignIn = async ({ email, password }) => {
+    const { error } = await signIn.apiCall({ email, password });
+    if(!error) {
+      setTokenHeaderSet(true);
+      return {
+        error: undefined
+      };
+      // router.push('/dashboard');
+    }
+    return {
+      error: error.message,
+    }
+  }
   const signOut = React.useCallback(async () => {
     if(session) nextAuthSignOut({ redirect: false });
     await credentialsSignOut.apiCall();
     handleAuthToken("");
-    mutate('user');
+    setTokenHeaderSet(false);
+    setIsAuthenticated(-1);
+  }, [session]);
+
+  useEffect(() => {
+    if(session) {
+      handleAuthToken((session.token as { auth_token: string}).auth_token);
+      setTokenHeaderSet(true)
+    }
   }, [session]);
 
   useEffect(() => {
     const token = localStorage.getRefreshToken();
     if(token) {
+      setTokenHeaderSet(true);
       handleAuthToken(token);
-      mutate('user');
+    } else {
+      setIsAuthenticated(-1);
     }
   }, []);
+
+  useEffect(() => {
+    mutate('user');
+  }, [tokenHeaderSet]);
 
   const {
     data: user,
     loading: userLoading,
     error: userError
-  } = useUser();
+  } = useUser(tokenHeaderSet);
 
   useEffect(() => {
-    if(session) {
-      handleAuthToken((session.token as { auth_token: string}).auth_token);
-      mutate('user');
+    const token = localStorage.getRefreshToken();
+    if(userError && token) {
+      console.log({userError,token});
     }
-  }, [session]);
+  },[userError]);
 
   useEffect(() => {
-    setIsAuthenticated(!!user);
+    if(user) setIsAuthenticated(1);
   }, [user]);
 
   return (
@@ -94,7 +122,10 @@ export function AuthProvider({ children }) {
       isAuthenticated,
       isUserLoading: userLoading,
       googleSignIn,
-      credentialsSignIn,
+      credentialsSignIn: {
+        signIn: credentialsSignIn,
+        loading: signIn.loading
+      },
       credentialsSignUp,
       signOut
     }}>

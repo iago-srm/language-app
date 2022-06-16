@@ -28,4 +28,8 @@ export class LocalStorage {
   setRefreshToken(token: string) {
     localStorage.setItem('language-app.token', token);
   }
+
+  deleteRefreshToken() {
+    localStorage.removeItem('language-app.token');
+  }
 }

@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import GoogleButton from 'react-google-button';
-import { useSWRConfig } from 'swr';
 
 import { Translations, Labels } from '@locale';
 import { Container as PageContainer } from './styles'
@@ -24,15 +23,11 @@ import {
 const LoginPage: React.FC = () => {
 
   const router = useRouter();
-  const { mutate } = useSWRConfig();
   const { language } = useLanguage();
   const { theme } = useColorTheme();
   const {
     googleSignIn,
-    credentialsSignIn: {
-      apiCall: credentialsSignIn,
-      loading
-    },
+    credentialsSignIn,
   } = useAuth();
   const [error, setError] = useState("");
 
@@ -44,17 +39,14 @@ const LoginPage: React.FC = () => {
     email,
     password,
   }) => {
-    const { error } = await credentialsSignIn({
+    const { error } = await credentialsSignIn.signIn({
       email,
       password,
     });
     if(error) {
-      setError(error.message)
+      setError(error)
     }
-    if(!error) {
-      mutate('user');
-      router.push('/dashboard');
-    }
+    else router.push('/dashboard');
   }
 
   const handleGoogleSignIn = async () => {
@@ -77,7 +69,7 @@ const LoginPage: React.FC = () => {
               <Form onSubmit={handleSubmit} schema={loginSchema}>
                 <Input name='email' label={Translations[language][Labels.EMAIL]} />
                 <PasswordInput name='password' label={Translations[language][Labels.PASSWORD]} type="password" />
-                <Button loading={loading}>{Translations[language][Labels.LOGIN]}</Button>
+                <Button loading={credentialsSignIn.loading}>{Translations[language][Labels.LOGIN]}</Button>
               </Form>
               <hr/>
               <GoogleButton type={theme} onClick={handleGoogleSignIn}>Entrar com Google</GoogleButton>
