@@ -13,7 +13,13 @@ import {
   IIdGenerator,
   IEmailService,
 } from '@application/ports';
-import { SignInUseCase, SignOutUseCase, SignUpUseCase } from '@application/use-cases';
+import {
+  SignInUseCase,
+  SignOutUseCase,
+  SignUpUseCase,
+  UpdateUserUseCase,
+  ValidateAccountUseCase
+} from '@application/use-cases';
 
 interface ConstructorParams {
   mockEncryptionService?: Partial<MockEncryptionService>,
@@ -35,8 +41,11 @@ export class TestDataFacade {
   public sut: {
     signIn: SignInUseCase,
     signUp: SignUpUseCase,
-    signOut: SignOutUseCase
+    signOut: SignOutUseCase,
+    updateUser: UpdateUserUseCase,
+    validateAccount: ValidateAccountUseCase
   }
+
   constructor({
     mockEncryptionService,
     mockUserRepository ,
@@ -81,6 +90,12 @@ export class TestDataFacade {
         this.mockEmailService
       ),
       signOut: new SignOutUseCase(
+        this.mockUserRepository
+      ),
+      updateUser: new UpdateUserUseCase(
+        this.mockUserRepository
+      ),
+      validateAccount: new ValidateAccountUseCase(
         this.mockUserRepository
       )
     }

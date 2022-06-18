@@ -3,7 +3,7 @@ import { SignInUpInputBuilder } from '@/common/test-helpers';
 
 const sutDataBuilder = new SignInUpInputBuilder();
 
-describe("SignIn Controller Adapter", () => {
+describe("SignUp Controller Adapter", () => {
   const { controller: sut } = SignUpControllerFactory({
     signUpUseCase: { execute: jest.fn() }
   });

@@ -10,10 +10,10 @@ describe('SignOut use case unit tests', () => {
 
     const input = {
       id: '',
-      tokenVersion: 0
+      tokenVersion
     }
 
-    const user = new UserDTOHelperBuilder().getResult();
+    const user = new UserDTOHelperBuilder().withTokenVersion(tokenVersion).getResult();
 
     const testData = new TestDataFacade({
       mockUserRepository: {

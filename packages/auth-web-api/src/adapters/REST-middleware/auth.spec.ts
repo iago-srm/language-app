@@ -17,7 +17,7 @@ class AuthMiddlewareDataBuilder extends AbstractBuilder {
 
 const sutDataBuilder = new AuthMiddlewareDataBuilder();
 
-describe("Auth Middleware Controller", () => {
+describe.skip("Auth Middleware Controller", () => {
   const { controller: sut } = AuthenticationMiddlewareControllerFactory({
     userRepository: {
       getUserByEmail: jest.fn(),

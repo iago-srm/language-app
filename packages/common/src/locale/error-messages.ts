@@ -3,6 +3,7 @@ export const ErrorMessages = {
   INVALID_EMAIL: 'email',
   INVALID_NAME: 'name',
   INVALID_PASSWORD: 'invalid_password',
+  INVALID_ROLE: 'invalid_role',
   PASSWORDS_DONT_MATCH: 'passwords_dont_match',
   CANNOT_ALTER_THIS_USER: 'cannot_alter_this_user',
   INVALID_CREDENTIALS: 'credentials_not_found',
