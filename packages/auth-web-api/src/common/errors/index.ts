@@ -49,3 +49,4 @@ export class InvalidValidationTokenError extends CustomError {
     super({ errorName: ErrorMessages.VALIDATION_TOKEN });
   }
 }
+

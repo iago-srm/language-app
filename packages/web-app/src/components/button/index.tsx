@@ -4,9 +4,10 @@ import { ButtonStyled } from './styles';
 interface IButtonProps{
   loading: boolean;
   buttonStyles?: any;
+  onClick?: () => any;
 }
 
-export const Button: React.FC<IButtonProps> = ({loading, children}) => {
+export const Button: React.FC<IButtonProps> = ({loading, children, onClick}) => {
   return (
     <div style={{display: 'flex', justifyContent: 'center'}}>
       {loading ?
@@ -14,7 +15,7 @@ export const Button: React.FC<IButtonProps> = ({loading, children}) => {
           <span className="sr-only">Loading...</span>
         </div>
       :
-      <ButtonStyled type="submit">{children}</ButtonStyled>
+      <ButtonStyled onClick={onClick} type="submit">{children}</ButtonStyled>
       }
     </div>
   )

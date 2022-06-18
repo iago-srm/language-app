@@ -27,22 +27,12 @@ export interface ISignOutAPIResponse {}
 export interface IGetUserAPIParams {}
 export interface IGetUserAPIResponse extends IUser {};
 
-export interface IProviderSignInParams {
-  image: string;
-  provider: string;
-  id: string;
-  email: string,
-  name: string,
-}
-
-export interface IProviderSignInResponse {
-  token: string;
-}
-
 export interface IUpdateUserParams {
   name?: string;
-  role?: string;
+  role?: 'STUDENT' | 'INSTRUCTOR';
+  password?: string;
 }
+export interface IUpdateUserResponse {}
 
 export interface IValidateAccountParams {
   verificationToken: string;

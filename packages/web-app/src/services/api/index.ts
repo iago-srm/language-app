@@ -14,7 +14,10 @@ import {
   SignInHTTPDefinition,
   SignOutHTTPDefinition,
   IGetUserAPIResponse,
-  GetUserHTTPDefinition
+  GetUserHTTPDefinition,
+  IUpdateUserParams,
+  IUpdateUserResponse,
+  UpdateUserHTTPDefinition
 } from '@language-app/common';
 import { useLanguage, handleAuthToken } from '@contexts';
 import { useEffect } from 'react';
@@ -50,13 +53,16 @@ export const useApiBuilder = () => {
     ((args) => signInFetcher[SignInHTTPDefinition.method](SignInHTTPDefinition.path, args));
   const signOut = useApiCall<void,void>
     ((args) => authFetcher[SignOutHTTPDefinition.method](SignOutHTTPDefinition.path, args));
+  const updateUser = useApiCall<IUpdateUserParams,IUpdateUserResponse>
+    ((args) => authFetcher[UpdateUserHTTPDefinition.method](UpdateUserHTTPDefinition.path, args));
   const useUser = (canFetch: boolean) => useApiCallSWR<IGetUserAPIResponse>(canFetch && GetUserHTTPDefinition.path,authFetcher[GetUserHTTPDefinition.method].bind(authFetcher)/*, { fallbackData: {} }*/);
 
   return {
     signUp,
     signIn,
     signOut,
-    useUser
+    useUser,
+    updateUser
   }
 }
 

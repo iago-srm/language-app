@@ -17,7 +17,7 @@ import {
   Container,
   Row,
   Col,
-  Alert
+  ErrorAlert
 } from '@components';
 
 const LoginPage: React.FC = () => {
@@ -62,10 +62,7 @@ const LoginPage: React.FC = () => {
         <Row>
           <Col lg={{ span: 6, offset: 3 }}>
             <Frame>
-              {error && <Alert onClose={() => setError(undefined)} variant='danger'>
-                <Alert.Heading>Houve um erro</Alert.Heading>
-                <Alert.Content>{error}</Alert.Content>
-              </Alert>}
+              <ErrorAlert error={error} setError={setError}/>
               <Form onSubmit={handleSubmit} schema={loginSchema}>
                 <Input name='email' label={Translations[language][Labels.EMAIL]} />
                 <PasswordInput name='password' label={Translations[language][Labels.PASSWORD]} type="password" />

@@ -15,7 +15,7 @@ export class AxiosFetcher {
   }
 
   private _errorHandler(e) {
-    throw {status: e.response.status, message: e.response.data.message}
+    throw {status: e.response.status, message: e.response.data ? e.response.data.message : e.message}
   };
 
   get(url: string) {

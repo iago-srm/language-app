@@ -57,12 +57,12 @@ export const LoadingErrorData = ({ loading, error, data, children }) => {
   );
 };
 
-const Error: React.FC = ({children}) => (children);
+const Error = ({children}) => children;
 LoadingErrorData.Error = Error;
 
-const Loading: React.FC = ({children}) => (children);
+const Loading = ({children}) => children;
 LoadingErrorData.Loading = Loading;
 
-const NoData: React.FC = ({children}) => (children);
+const NoData = ({children}) => children;
 LoadingErrorData.NoData = NoData;
 

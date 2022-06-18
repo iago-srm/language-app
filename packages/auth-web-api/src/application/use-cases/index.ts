@@ -2,7 +2,7 @@ export * from './sign-up';
 import SignInUseCase, { ISignInUseCase } from './sign-in';
 import SignOutUseCase, { ISignOutUseCase } from './sign-out';
 import SignUpUseCase, { ISignUpUseCase } from './sign-up';
-import ProviderSignInUseCase, { IProviderSignInUseCase } from './provider-sign-in';
+import UpdateUserUseCase, { IUpdateUserUseCase } from './update-user';
 import ValidateAccountUseCase, { IValidateAccountUseCase } from './validate-account';
 export {
   SignInUseCase,
@@ -11,8 +11,8 @@ export {
   ISignOutUseCase,
   SignUpUseCase,
   ISignUpUseCase,
-  ProviderSignInUseCase,
-  IProviderSignInUseCase,
+  UpdateUserUseCase,
+  IUpdateUserUseCase,
   ValidateAccountUseCase,
   IValidateAccountUseCase
 };

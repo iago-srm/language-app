@@ -23,7 +23,8 @@ import {
   SignInUseCase,
   SignUpUseCase,
   SignOutUseCase,
-  ValidateAccountUseCase
+  ValidateAccountUseCase,
+  UpdateUserUseCase
 } from '@application/use-cases';
 import { AuthenticationMiddlewareControllerFactory } from '@adapters/REST-middleware';
 import { ExpressControllerAdapter } from '@frameworks/http';
@@ -54,6 +55,7 @@ export enum Dependencies {
   SIGNUPUSECASE = 'signUpUseCase',
   GETUSERUSECASE = 'getUserUseCase',
   VALIDATEACCOUNTUSECASE = 'validateAccountUseCase',
+  UPDATEUSERUSECASE = 'updateUserUseCase',
 
   // repositories
   USERREPOSITORY = 'userRepository',
@@ -84,6 +86,7 @@ container.register({
   [Dependencies.LOGINUSECASE]: awilix.asClass(SignInUseCase).classic(),
   [Dependencies.SIGNUPUSECASE]: awilix.asClass(SignUpUseCase).classic(),
   [Dependencies.VALIDATEACCOUNTUSECASE]: awilix.asClass(ValidateAccountUseCase).classic(),
+  [Dependencies.UPDATEUSERUSECASE]: awilix.asClass(UpdateUserUseCase).classic(),
 
   // repositories
   [Dependencies.USERREPOSITORY]: awilix.asClass(UserRepository),

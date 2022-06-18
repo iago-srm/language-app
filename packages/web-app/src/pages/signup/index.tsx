@@ -14,7 +14,8 @@ import {
   Container,
   Row,
   Col,
-  Alert
+  SuccessAlert,
+  ErrorAlert
 } from '@components';
 
 const Page: React.FC = () => {
@@ -61,14 +62,8 @@ const Page: React.FC = () => {
         <Row>
           <Col lg={{ span: 6, offset: 3 }}>
             <Frame>
-              {error && <Alert onClose={() => setError(undefined)} variant='danger'>
-                <Alert.Heading>Houve um erro</Alert.Heading>
-                <Alert.Content>{error}</Alert.Content>
-              </Alert>}
-              {response && <Alert onClose={() => setResponse(undefined)} variant='success'>
-                <Alert.Heading>Tudo certo!</Alert.Heading>
-                <Alert.Content>{response}</Alert.Content>
-              </Alert>}
+              <ErrorAlert error={error} setError={setError}/>
+              <SuccessAlert response={response} setResponse={setResponse}/>
               <Form onSubmit={handleSubmit} schema={schema} error={error}>
                 <Input name='name' label={Translations[language][Labels.NAME]} />
                 <Input name='email' label={Translations[language][Labels.EMAIL]} />

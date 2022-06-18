@@ -3,15 +3,29 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { parseCookies } from 'nookies';
 import jwt from 'jsonwebtoken';
+import { useRouter } from 'next/router';
 
 import { Container } from './styles'
 import { getPageTitle } from '@services/browser';
-import { useLanguage } from '@contexts';
+import { useLanguage, useAuth } from '@contexts';
 import { Translations, Labels } from '@locale';
 import { GetServerSideProps } from 'next'
+import {
+  LoadingErrorData
+} from '@components';
 
 const Dashboard: React.FC = () => {
   const { language } = useLanguage();
+  const { user, isUserLoading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if(user) {
+      !user?.role && router.push('/dashboard/set-role')
+      user?.role === 'INSTRUCTOR' && router.push('/dashboard/instructor')
+      user?.role === 'STUDENT' && router.push('/dashboard/student')
+    }
+  }, [user]);
 
   return (
     <Container>
@@ -19,8 +33,9 @@ const Dashboard: React.FC = () => {
         <title>{getPageTitle(Translations[language][Labels.HOME])}</title>
       </Head>
 
-      {/* <Image src="/images/logo.jpg" width={500} height={500}/> */}
-      <h1>Dashboard</h1>
+      <LoadingErrorData loading={isUserLoading} error={false} data={true}>
+
+      </LoadingErrorData>
     </Container>
   )
 }

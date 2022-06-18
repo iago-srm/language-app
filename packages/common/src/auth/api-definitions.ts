@@ -28,9 +28,4 @@ export const GetUserHTTPDefinition: HTTPDefinition = {
   method: 'get'
 }
 
-export const ProviderSignInHTTPDefinition: HTTPDefinition = {
-  path: 'provider-user',
-  method: 'post'
-}
-
 

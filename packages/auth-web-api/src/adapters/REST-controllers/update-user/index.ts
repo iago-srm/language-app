@@ -1,5 +1,6 @@
 import {
-  IValidateAccountUseCase
+  IValidateAccountUseCase,
+  IUpdateUserUseCase
 } from '@application/use-cases';
 import { UpdateUserHTTPDefinition } from '@language-app/common';
 import {
@@ -10,25 +11,28 @@ import {serializer} from './serializer';
 
 export const UpdateUserControllerFactory = ({
   validateAccountUseCase,
-  // updateUserUseCase
+  updateUserUseCase
 }: {
   validateAccountUseCase: IValidateAccountUseCase;
+  updateUserUseCase: IUpdateUserUseCase;
 }): IHTTPControllerDescriptor<IHTTPController> => {
-  const fn: IHTTPController = async (_, body) => {
+  const fn: IHTTPController = async (_, body, ___, { user }) => {
     const {
       name,
       role,
       verificationToken,
-      userId
     } = serializer(body);
 
-    if(verificationToken && userId) {
+    if(verificationToken) {
       await validateAccountUseCase.execute({
         verificationToken,
-        userId
+        userId: user.id
       })
     } else if (name || role) {
-      // await
+      await updateUserUseCase.execute({
+        role,
+        userId: user.id
+      })
     }
 
     return {
@@ -41,5 +45,6 @@ export const UpdateUserControllerFactory = ({
     controller: fn,
     method: UpdateUserHTTPDefinition.method,
     path: UpdateUserHTTPDefinition.path,
+    middleware: 'auth'
   };
 };
