@@ -2,7 +2,6 @@ import {
   TestDataFacade
 } from '@common/test-helpers';
 import { UserDTOHelperBuilder } from '@common/test-helpers';
-import { ErrorMessages } from '@language-app/common';
 
 describe('SignOut use case unit tests', () => {
 

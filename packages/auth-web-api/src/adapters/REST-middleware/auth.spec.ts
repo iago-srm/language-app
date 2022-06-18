@@ -1,5 +1,6 @@
 import { AuthenticationMiddlewareControllerFactory } from './index';
 import { AbstractBuilder } from '@/common/test-helpers';
+import { ErrorMessages } from '@common/locale';
 
 class AuthMiddlewareDataBuilder extends AbstractBuilder {
 

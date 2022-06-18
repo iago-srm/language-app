@@ -14,7 +14,7 @@ describe("SignUp Controller Adapter", () => {
 
   it("Should throw an error if e-mail is not provided", async () => {
     const input = sutDataBuilder.withoutEmail().getResult()
-    await expect(sut({}, input, {}, {})).rejects.toThrow();
+    expect(sut({}, input, {}, {})).rejects.toThrow();
     try {
       await sut({}, input, {}, {});
     } catch(e) {
@@ -24,7 +24,7 @@ describe("SignUp Controller Adapter", () => {
 
   it("Should throw an error if password is not provided", async () => {
     const input = sutDataBuilder.withoutPassword().getResult()
-    await expect(sut({}, input, {}, {})).rejects.toThrow();
+    expect(sut({}, input, {}, {})).rejects.toThrow();
     try {
       await sut({}, input, {}, {});
     } catch(e) {
@@ -34,7 +34,7 @@ describe("SignUp Controller Adapter", () => {
 
   it("Should throw an error if confirmPassword is not provided", async() => {
     const input = sutDataBuilder.withoutConfirmPassword().getResult()
-    await expect(sut({}, input, {}, {})).rejects.toThrow();
+    expect(sut({}, input, {}, {})).rejects.toThrow();
     try {
       await sut({}, input, {}, {});
     } catch(e) {
@@ -42,8 +42,8 @@ describe("SignUp Controller Adapter", () => {
     }
   });
 
-  it("Should not throw an error if role is not provided", async () => {
+  it("Should not throw an error if role is not provided", () => {
     const input = sutDataBuilder.withoutRole().getResult()
-    await expect(sut({}, input, {}, {})).resolves.toMatchObject({});
+    expect(sut({}, input, {}, {})).resolves.toMatchObject({});
   });
 })

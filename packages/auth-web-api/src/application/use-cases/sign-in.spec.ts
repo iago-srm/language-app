@@ -2,7 +2,7 @@ import {
   TestDataFacade
 } from '@common/test-helpers';
 import { UserDTOHelperBuilder } from '@common/test-helpers';
-import { ErrorMessages } from '@language-app/common';
+import { ErrorMessages } from '@common/locale';
 
 describe('SignIn in use case unit tests', () => {
 
