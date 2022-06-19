@@ -1,6 +1,7 @@
 import {
   IUseCase,
   IUserRepository,
+  IVerificationTokenRepository,
   UserDTO,
   IEncryptionService,
   ITokenService,
@@ -28,7 +29,8 @@ class UseCase implements ISignUpUseCase {
     private encryptionService: IEncryptionService,
     private tokenService: ITokenService,
     private idService: IIdGenerator,
-    private emailService: IEmailService
+    private emailService: IEmailService,
+    private verificationTokenRepository: IVerificationTokenRepository
   ){}
   async execute({ email, password, name, confirmPassword }) {
     const user = new User({ email, name, password });
@@ -39,7 +41,7 @@ class UseCase implements ISignUpUseCase {
 
     if (password !== confirmPassword) throw new PasswordsDontMatchError();
 
-    const verificationToken = this.idService.getId();
+    const token = this.idService.getId();
     const userId = this.idService.getId();
 
     const userDTO: UserDTO = {
@@ -49,12 +51,15 @@ class UseCase implements ISignUpUseCase {
       emailVerified: false,
       hashedPassword: await this.encryptionService.encrypt(user.password),
       tokenVersion: 0,
-      verificationToken
     };
 
     await this.userRepository.insertUser(userDTO);
+    await this.verificationTokenRepository.insertToken({
+      token,
+      userId
+    })
 
-    const confirmationLink = `http://localhost:3000/activate-account?verificationToken=${verificationToken}&userId=${userId}`;
+    const confirmationLink = `http://localhost:3000/verify-account?verificationToken=${token}&userId=${userId}`;
 
     await this.emailService.sendEmail(
       email,

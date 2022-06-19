@@ -3,7 +3,7 @@ import SignInUseCase, { ISignInUseCase } from './sign-in';
 import SignOutUseCase, { ISignOutUseCase } from './sign-out';
 import SignUpUseCase, { ISignUpUseCase } from './sign-up';
 import UpdateUserUseCase, { IUpdateUserUseCase } from './update-user';
-import ValidateAccountUseCase, { IValidateAccountUseCase } from './validate-account';
+import VerifyAccountUseCase, { IVerifyAccountUseCase } from './verify-account';
 export {
   SignInUseCase,
   ISignInUseCase,
@@ -13,6 +13,6 @@ export {
   ISignUpUseCase,
   UpdateUserUseCase,
   IUpdateUserUseCase,
-  ValidateAccountUseCase,
-  IValidateAccountUseCase
+  VerifyAccountUseCase,
+  IVerifyAccountUseCase
 };

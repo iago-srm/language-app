@@ -1,10 +1,12 @@
 import {
   IUseCase,
   IUserRepository,
+  IVerificationTokenRepository
 } from '../ports';
 import {
   UserNotFoundError,
-  InvalidValidationTokenError
+  InvalidValidationTokenError,
+  InvalidRoleError
 } from '@common/errors';
 import {
   IValidateAccountParams,
@@ -13,19 +15,22 @@ import {
 type InputParams = IValidateAccountParams;
 type Return = void;
 
-export type IValidateAccountUseCase = IUseCase<InputParams, Return>;
+export type IVerifyAccountUseCase = IUseCase<InputParams, Return>;
 
-class UseCase implements IValidateAccountUseCase {
+class UseCase implements IVerifyAccountUseCase {
   constructor (
     private userRepository: IUserRepository,
+    private verificationTokenRepository: IVerificationTokenRepository
   ){}
   async execute({ verificationToken, userId }) {
 
     const user = await this.userRepository.getUserById(userId);
+    const token = await this.verificationTokenRepository.getTokenByUserId(userId);
 
     if (!user) throw new UserNotFoundError();
+    if (!token) throw new InvalidValidationTokenError();
 
-    if(user.verificationToken !== verificationToken)
+    if(token.token !== verificationToken)
       throw new InvalidValidationTokenError();
 
     await this.userRepository.updateUser(userId, { emailVerified: true });

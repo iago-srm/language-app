@@ -40,7 +40,7 @@ model User {
   email         String?   @unique
   emailVerified Boolean? @default(false)
   hashedPassword String?
-  verificationToken String?
+  verificationToken VerificationToken?
   image         String?
   role String?
   tokenVersion Int @default(0)
@@ -49,9 +49,12 @@ model User {
 }
 
 model VerificationToken {
-  identifier String
+  id String @id @default(cuid())
   token      String   @unique
-  expires    DateTime
+  userId       String
+  createdAt DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id])
 
-  @@unique([identifier, token])
+
+  @@unique([id, token])
 }

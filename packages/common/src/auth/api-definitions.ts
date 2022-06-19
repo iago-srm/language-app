@@ -28,4 +28,9 @@ export const GetUserHTTPDefinition: HTTPDefinition = {
   method: 'get'
 }
 
+export const VerifyAccountHTTPDefinition: HTTPDefinition = {
+  path: 'verification-token/:token',
+  method: 'patch'
+}
+
 

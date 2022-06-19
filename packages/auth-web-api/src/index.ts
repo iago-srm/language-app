@@ -8,10 +8,12 @@ import {
   GetUserControllerFactory,
   SignUpControllerFactory,
   UpdateUserControllerFactory,
+  VerifyAccountControllerFactory,
   ErrorHandlerControllerFactory
 } from '@adapters/REST-controllers';
 import {
-  UserRepository
+  UserRepository,
+  VerificationTokenRepository
 } from '@adapters/repositories';
 import {
   JWTTokenService,
@@ -23,7 +25,7 @@ import {
   SignInUseCase,
   SignUpUseCase,
   SignOutUseCase,
-  ValidateAccountUseCase,
+  VerifyAccountUseCase,
   UpdateUserUseCase
 } from '@application/use-cases';
 import { AuthenticationMiddlewareControllerFactory } from '@adapters/REST-middleware';
@@ -38,6 +40,7 @@ export enum Dependencies {
   GETUSERCONTROLLER = 'getUserController',
   LOGOUTCONTROLLER = 'signOutController',
   UPDATEUSERCONTROLLER = 'updateUserController',
+  VERIFYACCOUNTCONTROLLER = 'verifyAccountController',
 
   AUTHMIDDLEWARE = 'authMiddleware',
   ERRORHANDLER = 'errorHandler',
@@ -54,11 +57,12 @@ export enum Dependencies {
   LOGINUSECASE = 'signInUseCase',
   SIGNUPUSECASE = 'signUpUseCase',
   GETUSERUSECASE = 'getUserUseCase',
-  VALIDATEACCOUNTUSECASE = 'validateAccountUseCase',
+  VERIFYACCOUNTUSECASE = 'verifyAccountUseCase',
   UPDATEUSERUSECASE = 'updateUserUseCase',
 
   // repositories
   USERREPOSITORY = 'userRepository',
+  VERIFICATIONTOKENREPOSITORY = 'verificationTokenRepository',
 
   // server
   SERVER = 'server',
@@ -71,6 +75,7 @@ container.register({
   [Dependencies.SIGNUPCONTROLLER]: awilix.asFunction(SignUpControllerFactory),
   [Dependencies.GETUSERCONTROLLER]: awilix.asFunction(GetUserControllerFactory),
   [Dependencies.UPDATEUSERCONTROLLER]: awilix.asFunction(UpdateUserControllerFactory),
+  [Dependencies.VERIFYACCOUNTCONTROLLER]: awilix.asFunction(VerifyAccountControllerFactory),
 
   [Dependencies.AUTHMIDDLEWARE]: awilix.asFunction(AuthenticationMiddlewareControllerFactory),
   [Dependencies.ERRORHANDLER]: awilix.asFunction(ErrorHandlerControllerFactory),
@@ -85,11 +90,12 @@ container.register({
   [Dependencies.LOGOUTUSECASE]: awilix.asClass(SignOutUseCase).classic(),
   [Dependencies.LOGINUSECASE]: awilix.asClass(SignInUseCase).classic(),
   [Dependencies.SIGNUPUSECASE]: awilix.asClass(SignUpUseCase).classic(),
-  [Dependencies.VALIDATEACCOUNTUSECASE]: awilix.asClass(ValidateAccountUseCase).classic(),
+  [Dependencies.VERIFYACCOUNTUSECASE]: awilix.asClass(VerifyAccountUseCase).classic(),
   [Dependencies.UPDATEUSERUSECASE]: awilix.asClass(UpdateUserUseCase).classic(),
 
   // repositories
   [Dependencies.USERREPOSITORY]: awilix.asClass(UserRepository),
+  [Dependencies.VERIFICATIONTOKENREPOSITORY]: awilix.asClass(VerificationTokenRepository),
 })
 
 // console.log('sgup res',container.resolve(Dependencies.SIGNUPCONTROLLER).controller.toString())

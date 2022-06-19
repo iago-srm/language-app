@@ -42,7 +42,6 @@ export default class MyDocument extends Document {
       <Html lang="pt">
         <Head>
           <meta charSet="utf-8" />
-          <title>TCC - Language App</title>
           {/* <meta name="google-signin-client_id" content="959999733718-3qpfg5qjtsmi8e3bjmd246sor50n03pr.apps.googleusercontent.com"></meta>
           <script src="https://apis.google.com/js/platform.js" async defer></script> */}
           <link href="https://uspdigital.usp.br/comumwebdev/imagens/favicon.ico" rel="shortcut icon" type="image/x-icon" />
