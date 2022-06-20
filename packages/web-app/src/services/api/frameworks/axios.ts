@@ -26,8 +26,8 @@ export class AxiosFetcher {
     return this._instance.post(url, body).then(this._successHandler).catch(this._errorHandler);
   }
 
-  patch(url: string, body: any) {
-    return this._instance.patch(url, body).then(this._successHandler).catch(this._errorHandler);
+  patch(url: string, body: any, query: any) {
+    return this._instance.patch(url, body, { params: {...query} }).then(this._successHandler).catch(this._errorHandler);
   }
 
   setHeader(header: string, value: string) {

@@ -62,8 +62,8 @@ const Page: React.FC = () => {
         <Row>
           <Col lg={{ span: 6, offset: 3 }}>
             <Frame>
-              <ErrorAlert error={error} setError={setError}/>
-              <SuccessAlert response={response} setResponse={setResponse}/>
+              <ErrorAlert error={error} onClose={() => setError(undefined)}/>
+              <SuccessAlert response={response} onClose={() => setResponse(undefined)}/>
               <Form onSubmit={handleSubmit} schema={schema} error={error}>
                 <Input name='name' label={Translations[language][Labels.NAME]} />
                 <Input name='email' label={Translations[language][Labels.EMAIL]} />

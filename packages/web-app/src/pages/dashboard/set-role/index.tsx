@@ -41,7 +41,7 @@ const SetRole: React.FC = () => {
       </Head>
 
       <h1>Complete o seu cadastro</h1>
-      <ErrorAlert error={error} setError={setError}/>
+      <ErrorAlert error={error} onClose={() => setError(undefined)}/>
       <p>{selectedRole === 'STUDENT' ? studentDescription : instructorDescription}</p>
       <Container fluid="sm">
         <Row className="justify-content-lg-center">

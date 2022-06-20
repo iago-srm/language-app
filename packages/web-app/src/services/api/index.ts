@@ -17,7 +17,9 @@ import {
   GetUserHTTPDefinition,
   IUpdateUserParams,
   IUpdateUserResponse,
-  UpdateUserHTTPDefinition
+  UpdateUserHTTPDefinition,
+  IVerifyAccountParams,
+  VerifyAccountHTTPDefinition
 } from '@language-app/common';
 import { useLanguage, handleAuthToken } from '@contexts';
 import { useEffect } from 'react';
@@ -55,6 +57,8 @@ export const useApiBuilder = () => {
     ((args) => authFetcher[SignOutHTTPDefinition.method](SignOutHTTPDefinition.path, args));
   const updateUser = useApiCall<IUpdateUserParams,IUpdateUserResponse>
     ((args) => authFetcher[UpdateUserHTTPDefinition.method](UpdateUserHTTPDefinition.path, args));
+  const verifyAccount = useApiCall<IVerifyAccountParams, void>
+    (({token, userId}) => authFetcher[VerifyAccountHTTPDefinition.method](`${VerifyAccountHTTPDefinition.path.split('/')[0]}/${token}`, { verified: true }, { userId }))
   const useUser = (canFetch: boolean) => useApiCallSWR<IGetUserAPIResponse>(canFetch && GetUserHTTPDefinition.path,authFetcher[GetUserHTTPDefinition.method].bind(authFetcher)/*, { fallbackData: {} }*/);
 
   return {
@@ -62,7 +66,8 @@ export const useApiBuilder = () => {
     signIn,
     signOut,
     useUser,
-    updateUser
+    updateUser,
+    verifyAccount
   }
 }
 

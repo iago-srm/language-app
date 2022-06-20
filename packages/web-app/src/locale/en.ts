@@ -5,11 +5,16 @@ export const English = {
   [Labels.INVALID_EMAIL]: 'invalid e-mail',
   [Labels.INVALID_PASSWORD]: 'invalid password',
   [Labels.PASSWORDS_DONT_MATCH]: 'Password confirmation doesn\'t match',
+  [Labels.ERROR]: 'Error',
+  [Labels.SUCCESS]: 'Success',
 
   [Labels.HOME]: 'Home',
-  [Labels.LOGIN]: 'Sign In',
+  [Labels.SIGNIN]: 'Sign In',
   [Labels.SIGNUP]: 'Sign Up',
   [Labels.LOGOUT]: 'Sign Out',
+  [Labels.VERIFYACCOUNT]: 'Verify Account',
+  [Labels.PROFILE]: 'Profile',
+
 
   [Labels.NAME]: 'Name',
   [Labels.EMAIL]: 'E-mail',

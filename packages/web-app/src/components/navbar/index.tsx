@@ -53,7 +53,7 @@ export const Navbar = () => {
             <>
               <NavbarAtomic.Button path='/signin' >
                 <Link href={'/signin'}>
-                  {Translations[language][Labels.LOGIN]}
+                  {Translations[language][Labels.SIGNIN]}
                 </Link>
               </NavbarAtomic.Button>
               <NavbarAtomic.Button path='/signup'>

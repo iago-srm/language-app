@@ -56,17 +56,17 @@ const LoginPage: React.FC = () => {
   return (
     <PageContainer>
       <Head>
-        <title>{getPageTitle(Translations[language][Labels.LOGIN])}</title>
+        <title>{getPageTitle(Translations[language][Labels.SIGNIN])}</title>
       </Head>
       <Container fluid="sm" style={{marginTop: '20px'}}>
         <Row>
           <Col lg={{ span: 6, offset: 3 }}>
             <Frame>
-              <ErrorAlert error={error} setError={setError}/>
+              <ErrorAlert error={error} onClose={() => setError(undefined)}/>
               <Form onSubmit={handleSubmit} schema={loginSchema}>
                 <Input name='email' label={Translations[language][Labels.EMAIL]} />
                 <PasswordInput name='password' label={Translations[language][Labels.PASSWORD]} type="password" />
-                <Button loading={credentialsSignIn.loading}>{Translations[language][Labels.LOGIN]}</Button>
+                <Button loading={credentialsSignIn.loading}>{Translations[language][Labels.SIGNIN]}</Button>
               </Form>
               <hr/>
               <GoogleButton type={theme} onClick={handleGoogleSignIn}>Entrar com Google</GoogleButton>

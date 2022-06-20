@@ -34,7 +34,7 @@ export interface IUpdateUserParams {
 }
 export interface IUpdateUserResponse {}
 
-export interface IValidateAccountParams {
-  verificationToken: string;
+export interface IVerifyAccountParams {
+  token: string;
   userId: string;
 }

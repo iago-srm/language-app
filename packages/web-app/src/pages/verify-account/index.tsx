@@ -16,22 +16,44 @@ import {
 } from '@components';
 import { useApiBuilder } from 'services/api';
 
-const VerifyAccount: React.FC = (props) => {
+interface IVerifyAccountProps {
+  verificationToken: string;
+  userId: string;
+}
+const VerifyAccount: React.FC<IVerifyAccountProps> = ({ verificationToken, userId }) => {
 
-  console.log(props)
   const { language } = useLanguage();
-  const { updateUser } = useApiBuilder();
+  const { verifyAccount } = useApiBuilder();
   const [error, setError] = useState<string>();
+  const [success, setSuccess] = useState<boolean>(false);
 
+  console.log(verifyAccount.loading)
   useEffect(() => {
+    const fetch = async () => {
+      console.log({verificationToken, userId})
+      const { error } = await verifyAccount.apiCall({
+        token: verificationToken,
+        userId
+      });
+      if(error) setError(error.message);
+      else setSuccess(true);
+    };
+    fetch();
   }, []);
 
   return (
     <PageContainer>
       <Head>
-        <title>{getPageTitle(Translations[language][Labels.HOME])}</title>
+        <title>{getPageTitle(Translations[language][Labels.VERIFYACCOUNT])}</title>
       </Head>
-
+      <Container fluid="sm" >
+        <Row>
+          <Col lg={{ span: 6, offset: 3 }}>
+            <SuccessAlert response={success && "Conta verificada com sucesso!"} onClose={() => setSuccess(false)}/>
+            <ErrorAlert error={error} onClose={() => setError(undefined)}/>
+          </Col>
+        </Row>
+      </Container>
     </PageContainer>
   )
 }
@@ -39,10 +61,7 @@ const VerifyAccount: React.FC = (props) => {
 export default VerifyAccount
 
 export async function getServerSideProps(ctx) {
-  console.log(ctx.query)
   return {
-    props: {
-      cu: 7
-    }
+    props: {...ctx.query}
   }
 }

@@ -3,11 +3,15 @@ export const Labels = {
   INVALID_EMAIL: 'invalid_email',
   INVALID_PASSWORD: 'invalid_password',
   PASSWORDS_DONT_MATCH: 'passwords_dont_match',
+  ERROR: 'error',
+  SUCCESS: 'success',
 
   HOME: 'home',
-  LOGIN: 'login',
+  SIGNIN: 'signin',
   SIGNUP: 'signup',
   LOGOUT: 'logout',
+  VERIFYACCOUNT: 'verify_account',
+  PROFILE: 'profile',
 
   NAME: 'name',
   EMAIL: 'email',
