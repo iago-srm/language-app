@@ -17,14 +17,16 @@ const defaultNoData = (
 
 export const LoadingErrorData = ({ loading, error, data, children }) => {
 
-  const parseChildren = () => {
+  const parseChildren = (children) => {
+
     const c = {
       noData: [],
       error: [],
       loading: [],
       other: []
     };
-    React.Children.map(children, (child) => {
+
+    React.Children.map(children || [], (child) => {
       switch(child.type.name) {
         case "NoData":
           c.noData.push(child);
@@ -40,19 +42,24 @@ export const LoadingErrorData = ({ loading, error, data, children }) => {
           break;
       }
     });
+
     if(!c.error.length) c.error.push(defaultError);
     if(!c.loading.length) c.loading.push(defaultLoading);
     if(!c.noData.length) c.loading.push(defaultNoData);
+
     return c;
   }
-  const childrenParsed = React.useRef(parseChildren());
+
+  const childrenParsed = React.useMemo(() => {
+    return parseChildren(children)
+  }, [children]);
 
   return (
     <>
-      {loading && !data && !error && <LoadingErrorData.Loading>{childrenParsed.current.loading}</LoadingErrorData.Loading>}
-      {!data && !loading && error && <LoadingErrorData.Error>{childrenParsed.current.error}</LoadingErrorData.Error>}
-      {!loading && !error && !data && <LoadingErrorData.NoData>{childrenParsed.current.noData}</LoadingErrorData.NoData>}
-      {!loading && data && childrenParsed.current.other}
+      {loading && !data && !error && <LoadingErrorData.Loading>{childrenParsed.loading}</LoadingErrorData.Loading>}
+      {!data && !loading && error && <LoadingErrorData.Error>{childrenParsed.error}</LoadingErrorData.Error>}
+      {!loading && !error && !data && <LoadingErrorData.NoData>{childrenParsed.noData}</LoadingErrorData.NoData>}
+      {!loading && data && children && childrenParsed.other}
     </>
   );
 };

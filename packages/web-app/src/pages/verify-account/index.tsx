@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import Head from 'next/head'
+import Head from 'next/head';
+import Link from "next/link";
 import { useRouter } from 'next/router';
 
 import { Container as PageContainer } from './styles'
@@ -12,7 +13,8 @@ import {
   Row,
   Col,
   ErrorAlert,
-  SuccessAlert
+  SuccessAlert,
+  AlertLink
 } from '@components';
 import { useApiBuilder } from 'services/api';
 
@@ -49,8 +51,8 @@ const VerifyAccount: React.FC<IVerifyAccountProps> = ({ verificationToken, userI
       <Container fluid="sm" >
         <Row>
           <Col lg={{ span: 6, offset: 3 }}>
-            <SuccessAlert response={success && "Conta verificada com sucesso!"} onClose={() => setSuccess(false)}/>
-            <ErrorAlert error={error} onClose={() => setError(undefined)}/>
+            <SuccessAlert dismissible={false} response={success && <p>Conta verificada com sucesso! <AlertLink href='/signin'>Entrar</AlertLink></p>}/>
+            <ErrorAlert dismissible={false} error={error}/>
           </Col>
         </Row>
       </Container>

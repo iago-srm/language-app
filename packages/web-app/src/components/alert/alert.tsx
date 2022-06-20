@@ -3,9 +3,10 @@ import { getChildrenOnDisplayName } from 'components/utils';
 
 type Variant = 'success' | 'danger';
 
-interface AlertProps {
-  variant: Variant;
-  onClose: () => any;
+export interface AlertProps {
+  variant?: Variant;
+  onClose?: () => any;
+  dismissible?: boolean;
 }
 
 interface SubComponents {
@@ -16,14 +17,15 @@ interface SubComponents {
 export const Alert: React.FC<AlertProps> & SubComponents = ({
   onClose,
   children,
-  variant
+  variant,
+  dismissible
 }) => {
 
   const heading = getChildrenOnDisplayName(children, 'Heading');
   const content = getChildrenOnDisplayName(children, 'Content');
 
   return (
-    <BootstrapAlert variant={variant} onClose={onClose} dismissible>
+    <BootstrapAlert dismissible={dismissible} variant={variant} onClose={onClose}>
       <BootstrapAlert.Heading>{heading}</BootstrapAlert.Heading>
       <p>
         {content}
@@ -39,3 +41,5 @@ Alert.Heading = Heading;
 const Content = ({children}) => children;
 Content.displayName = 'Content';
 Alert.Content = Content;
+
+export const AlertLink = ({ children, ...rest }) => <BootstrapAlert.Link {...rest}>{children}</BootstrapAlert.Link>

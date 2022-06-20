@@ -19,6 +19,7 @@ interface IAuthContext {
   isAuthenticated?: number;
   user?: any;
   isUserLoading?: boolean;
+  userError?: any;
   googleSignIn?: () => Promise<any>;
   credentialsSignIn?: { signIn: ({email, password}) => Promise<{error?: string}>, loading: boolean };
   credentialsSignUp?: SignUp;
@@ -121,6 +122,7 @@ export function AuthProvider({ children }) {
       user,
       isAuthenticated,
       isUserLoading: userLoading,
+      userError,
       googleSignIn,
       credentialsSignIn: {
         signIn: credentialsSignIn,

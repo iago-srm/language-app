@@ -48,6 +48,7 @@ class UseCase implements ISignUpUseCase {
       id: userId,
       email: user.personId.email,
       name: user.personId.name,
+      image: `${process.env.PROFILE_IMAGE_BUCKET}/${process.env.GENERIC_PROFILE_IMAGE}`,
       emailVerified: false,
       hashedPassword: await this.encryptionService.encrypt(user.password),
       tokenVersion: 0,

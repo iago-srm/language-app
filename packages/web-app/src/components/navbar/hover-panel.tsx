@@ -4,7 +4,7 @@ import NextLink from 'next/link';
 import styled from 'styled-components';
 import { useColorTheme } from '@contexts';
 
-const genericAvatar = 'https://www.interstatedevelopment.com/wp-content/uploads/2019/04/generic-avatar-1.jpg';
+// const genericAvatar = 'https://www.interstatedevelopment.com/wp-content/uploads/2019/04/generic-avatar-1.jpg';
 
 const NavImageContainer = styled.div`
   img {
@@ -37,7 +37,7 @@ export const HoverPanel: React.FC<{
 
   const { theme } = useColorTheme();
 
-  const image = user?.image || genericAvatar;
+  const image = user?.image;
 
   return (
     <Dropdown >

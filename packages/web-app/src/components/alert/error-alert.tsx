@@ -1,11 +1,15 @@
 import { Translations, Labels } from '@locale';
 import { useLanguage, useColorTheme } from '@contexts';
-import { Alert } from './alert';
+import { Alert, AlertProps } from './alert';
 
-export const ErrorAlert = ({error, onClose}) => {
+interface ErrorAlertProps extends AlertProps {
+  error: any;
+}
+
+export const ErrorAlert: React.FC<ErrorAlertProps> = ({ error, onClose, ...rest }) => {
   const { language } = useLanguage();
 
-  return error ? <Alert onClose={onClose} variant='danger'>
+  return error ? <Alert {...rest} onClose={onClose} variant='danger'>
     <Alert.Heading>{Translations[language][Labels.ERROR]}</Alert.Heading>
     <Alert.Content>{error}</Alert.Content>
   </Alert> : null;

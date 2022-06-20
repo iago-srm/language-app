@@ -26,6 +26,8 @@ services:
       - PORT=${AUTH_PORT}
       - TOKEN_SECRET=${TOKEN_SECRET}
       - SENDGRID_API_KEY=${SENDGRID_API_KEY}
+      - PROFILE_IMAGE_BUCKET=${PROFILE_IMAGE_BUCKET}
+      - GENERIC_PROFILE_IMAGE=${GENERIC_PROFILE_IMAGE}
     tty: true
     volumes:
       - ./packages/common:/app/packages/common
