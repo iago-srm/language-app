@@ -17,8 +17,7 @@ const defaultNoData = (
 
 export const LoadingErrorData = ({ loading, error, data, children }) => {
 
-  const parseChildren = (children) => {
-
+  const parseChildren = () => {
     const c = {
       noData: [],
       error: [],
@@ -26,40 +25,36 @@ export const LoadingErrorData = ({ loading, error, data, children }) => {
       other: []
     };
 
-    React.Children.map(children || [], (child) => {
-      switch(child.type.name) {
+    React.Children.map(children, (Child, i) => {
+      if(Child) switch(Child.type.name) {
         case "NoData":
-          c.noData.push(child);
+          c.noData.push(Child);
           break;
         case "Error":
-          c.error.push(child);
+          c.error.push(Child);
           break;
         case "Loading":
-          c.loading.push(child);
+          c.loading.push(Child);
           break;
        default:
-          c.other.push(child);
+          c.other.push(Child);
           break;
       }
     });
 
     if(!c.error.length) c.error.push(defaultError);
     if(!c.loading.length) c.loading.push(defaultLoading);
-    if(!c.noData.length) c.loading.push(defaultNoData);
+    if(!c.noData.length) c.noData.push(defaultNoData);
 
     return c;
   }
 
-  const childrenParsed = React.useMemo(() => {
-    return parseChildren(children)
-  }, [children]);
-
   return (
     <>
-      {loading && !data && !error && <LoadingErrorData.Loading>{childrenParsed.loading}</LoadingErrorData.Loading>}
-      {!data && !loading && error && <LoadingErrorData.Error>{childrenParsed.error}</LoadingErrorData.Error>}
-      {!loading && !error && !data && <LoadingErrorData.NoData>{childrenParsed.noData}</LoadingErrorData.NoData>}
-      {!loading && data && children && childrenParsed.other}
+      {loading && !data && !error && <LoadingErrorData.Loading>{parseChildren().loading}</LoadingErrorData.Loading>}
+      {!data && !loading && error && <LoadingErrorData.Error>{parseChildren().error}</LoadingErrorData.Error>}
+      {!loading && !error && !data && <LoadingErrorData.NoData>{parseChildren().noData}</LoadingErrorData.NoData>}
+      {!loading && data && children && parseChildren().other}
     </>
   );
 };

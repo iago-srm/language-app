@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+
 export const FlexCentered = styled.div`
   display: flex;
   justify-content: center;
@@ -11,3 +12,5 @@ export const PageContainer = styled.div`
   display: flex;
   align-items: center;
 `
+
+

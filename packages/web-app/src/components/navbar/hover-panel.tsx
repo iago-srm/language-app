@@ -37,20 +37,18 @@ export const HoverPanel: React.FC<{
 
   const { theme } = useColorTheme();
 
-  const image = user?.image;
-
   return (
     <Dropdown >
       <Dropdown.Toggle style={{ backgroundColor: 'inherit', border: 'none' }}>
         <NavImageContainer>
-          <NavImg src={image}/>
+          <NavImg src={user?.image}/>
         </NavImageContainer>
       </Dropdown.Toggle>
 
       <Dropdown.Menu variant={theme}>
         <DropdownMenuContainer>
           <PanelImageContainer>
-            <NavImg src={image}/>
+            <NavImg src={user?.image}/>
           </PanelImageContainer>
           <PanelNameContainer>Olá, {user?.name}</PanelNameContainer>
           <Dropdown.Item as={'button'}>

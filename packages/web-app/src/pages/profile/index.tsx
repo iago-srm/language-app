@@ -30,11 +30,11 @@ const Profile: React.FC = () => {
       </Head>
       <LoadingErrorData data={user} loading={isUserLoading} error={userError}>
         {user &&
-        <div>
-          <p>Olá, {user.name}</p>
-          <img src={user.image} />
-          Eu sou {user.role}
-        </div>
+          <div>
+            <p>Olá, {user.name}</p>
+            <img src={user.image} />
+            Eu sou {user.role}
+          </div>
         }
 
       </LoadingErrorData>

@@ -19,6 +19,7 @@ import {
   Col,
   ErrorAlert
 } from '@components';
+import { ResponsiveCenteredPageContent } from '@styles';
 
 const LoginPage: React.FC = () => {
 
@@ -58,9 +59,10 @@ const LoginPage: React.FC = () => {
       <Head>
         <title>{getPageTitle(Translations[language][Labels.SIGNIN])}</title>
       </Head>
-      <Container fluid="sm" style={{marginTop: '20px'}}>
+      {/* <Container fluid="sm" style={{marginTop: '20px'}}>
         <Row>
-          <Col lg={{ span: 6, offset: 3 }}>
+          <Col lg={{ span: 6, offset: 3 }}> */}
+          <ResponsiveCenteredPageContent>
             <Frame>
               <ErrorAlert error={error} onClose={() => setError(undefined)}/>
               <Form onSubmit={handleSubmit} schema={loginSchema}>
@@ -71,9 +73,10 @@ const LoginPage: React.FC = () => {
               <hr/>
               <GoogleButton type={theme} onClick={handleGoogleSignIn}>Entrar com Google</GoogleButton>
             </Frame>
-          </Col>
+          </ResponsiveCenteredPageContent>
+          {/* </Col>
         </Row>
-      </Container>
+      </Container> */}
     </PageContainer>
   )
 }

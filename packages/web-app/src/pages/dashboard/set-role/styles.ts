@@ -8,8 +8,8 @@ export const Container = styled.div`
   align-items: center;
   flex-direction: column;
 
+  padding-top: 150px;
   // h1 {
-  //   font-size: 54px;
   //   margin-top: 40px;
   // }
 
