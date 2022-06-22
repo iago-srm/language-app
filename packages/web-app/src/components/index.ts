@@ -6,3 +6,5 @@ export * from './navbar';
 export * from './layout';
 export * from './frame';
 export * from './alert';
+export * from './modal';
+export * from './profile-image-modal';

@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router';
 
-import { Container as PageContainer } from './styles';
+import {
+  Container as PageContainer,
+  PStyled
+} from './styles';
+import { ProfileImg } from './profile-img';
 import { getPageTitle } from '@services/browser';
-// import { useApiBuilder } from '@services/api';
 import { useLanguage, useAuth } from '@contexts';
 import { Translations, Labels } from '@locale';
 import {
@@ -14,12 +17,15 @@ import {
   Col,
   ErrorAlert,
   SuccessAlert,
-  LoadingErrorData
+  LoadingErrorData,
+  ProfileImageModal
 } from '@components';
+import { ResponsiveCenteredPageContent } from '@styles';
 
 const Profile: React.FC = () => {
 
   const router = useRouter();
+  const [modalVisible, setModalVisible] = useState(false);
   const { user, isUserLoading, userError } = useAuth();
   const { language } = useLanguage();
 
@@ -28,17 +34,20 @@ const Profile: React.FC = () => {
       <Head>
         <title>{getPageTitle(Translations[language][Labels.PROFILE])}</title>
       </Head>
-      <LoadingErrorData data={user} loading={isUserLoading} error={userError}>
-        {user &&
-          <div>
-            <p>Olá, {user.name}</p>
-            <img src={user.image} />
-            Eu sou {user.role}
-          </div>
-        }
-
-      </LoadingErrorData>
-
+      <ResponsiveCenteredPageContent>
+        <LoadingErrorData data={user} loading={isUserLoading} error={userError}>
+          {user &&
+            <div>
+              <PStyled>Olá, {user.name}</PStyled>
+              <ProfileImg src={user.image} onClick={() => setModalVisible(true)}/>
+              {modalVisible &&
+                <ProfileImageModal onClose={() => setModalVisible(false)} user={user}/>
+              }
+              <PStyled>Eu sou {user.role}</PStyled>
+            </div>
+          }
+        </LoadingErrorData>
+      </ResponsiveCenteredPageContent>
     </PageContainer>
   )
 }

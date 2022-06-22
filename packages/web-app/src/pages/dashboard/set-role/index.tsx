@@ -46,7 +46,7 @@ const SetRole: React.FC = () => {
         <title>{getPageTitle(Translations[language][Labels.HOME])}</title>
       </Head>
       <Container fluid="sm">
-        <LoadingErrorData loading={isUserLoading || (!isUserLoading && !user)} data={user} error={userError}>
+        <LoadingErrorData loading={isUserLoading} data={user} error={userError}>
         {!user?.role &&
         <><ErrorAlert dismissible={true} error={error} onClose={() => setError(undefined)}/>
         <h1>Complete o seu cadastro</h1>

@@ -121,7 +121,7 @@ export function AuthProvider({ children }) {
     <AuthContext.Provider value={{
       user,
       isAuthenticated,
-      isUserLoading: userLoading,
+      isUserLoading: userLoading || (!userLoading && !user && !userError),
       userError,
       googleSignIn,
       credentialsSignIn: {
