@@ -20,6 +20,7 @@ interface IAuthContext {
   user?: any;
   isUserLoading?: boolean;
   userError?: any;
+  refreshUser?: () => void;
   googleSignIn?: () => Promise<any>;
   credentialsSignIn?: { signIn: ({email, password}) => Promise<{error?: string}>, loading: boolean };
   credentialsSignUp?: SignUp;
@@ -53,6 +54,11 @@ export function AuthProvider({ children }) {
   const { mutate } = useSWRConfig();
   const [tokenHeaderSet, setTokenHeaderSet] = React.useState(false);
 
+  const refreshUser = () => {
+    mutate('user');
+    // user.image = `${Date.now()}-${user.image}`;
+    // user.getImage =
+  }
   const googleSignIn = React.useCallback(async () => {
     await nextAuthSignIn("google", { callbackUrl: '/' });
     setTokenHeaderSet(true);
@@ -97,7 +103,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    mutate('user');
+    refreshUser();
   }, [tokenHeaderSet]);
 
   const {
@@ -123,6 +129,7 @@ export function AuthProvider({ children }) {
       isAuthenticated,
       isUserLoading: userLoading || (!userLoading && !user && !userError),
       userError,
+      refreshUser,
       googleSignIn,
       credentialsSignIn: {
         signIn: credentialsSignIn,

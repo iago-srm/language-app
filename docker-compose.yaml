@@ -27,7 +27,9 @@ services:
       - TOKEN_SECRET=${TOKEN_SECRET}
       - SENDGRID_API_KEY=${SENDGRID_API_KEY}
       - PROFILE_IMAGE_BUCKET=${PROFILE_IMAGE_BUCKET}
-      - GENERIC_PROFILE_IMAGE=${GENERIC_PROFILE_IMAGE}
+      - WEB_APP_URL=${WEB_APP_URL}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
     tty: true
     volumes:
       - ./packages/common:/app/packages/common

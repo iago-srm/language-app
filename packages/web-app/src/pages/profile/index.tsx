@@ -28,6 +28,12 @@ const Profile: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const { user, isUserLoading, userError } = useAuth();
   const { language } = useLanguage();
+  const [image,setImage] = useState();
+
+  // useEffect(() => {
+  //   console.log('profilePage',{user})
+  //   if(user) setImage(user.image)
+  // },[user]);
 
   return (
     <PageContainer>

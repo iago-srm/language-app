@@ -27,6 +27,6 @@ export const SignOutControllerFactory = ({
     controller: fn,
     method: SignOutHTTPDefinition.method,
     path: SignOutHTTPDefinition.path,
-    middleware: 'auth'
+    middlewares: ['auth']
   };
 };

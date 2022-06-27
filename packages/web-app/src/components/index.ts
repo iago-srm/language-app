@@ -8,3 +8,4 @@ export * from './frame';
 export * from './alert';
 export * from './modal';
 export * from './profile-image-modal';
+export * from './toast';

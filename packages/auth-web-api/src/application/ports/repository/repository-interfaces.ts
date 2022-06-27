@@ -11,3 +11,8 @@ export interface IVerificationTokenRepository {
   getTokenByUserId: (id: string) => Promise<VerificationTokenDTO | null>;
   insertToken: (token: VerificationTokenDTO) => Promise<VerificationTokenDTO>;
 }
+
+export interface IProfileImageRepository {
+  uploadProfileImage: (file: any, userId: string) => Promise<boolean>;
+  getProfileImageUrl: (userId?: string) => string;
+}

@@ -2,7 +2,8 @@ export type IHTTPController = (
   params: any,
   body: any,
   query: any,
-  headers: {
+  other: {
+    [key: string]: any,
     user?: {
       id: string;
       tokenVersion: number;
@@ -32,7 +33,7 @@ export interface IHTTPControllerDescriptor<
   Controller
   // Path = IHTTPControllerPathDescriptor
 > {
-  middleware?: string;
+  middlewares?: string[];
   method?: IHTTPMethod;
   path?: string;
   controller: Controller;

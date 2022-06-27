@@ -38,3 +38,4 @@ export interface IVerifyAccountParams {
   token: string;
   userId: string;
 }
+

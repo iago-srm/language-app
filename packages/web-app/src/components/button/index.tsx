@@ -4,7 +4,7 @@ import { ButtonStyled } from './styles';
 interface IButtonProps{
   loading: boolean;
   buttonStyles?: any;
-  onClick?: () => any;
+  onClick?: (args: any) => any;
 }
 
 export const Button: React.FC<IButtonProps> = ({loading, children, onClick}) => {

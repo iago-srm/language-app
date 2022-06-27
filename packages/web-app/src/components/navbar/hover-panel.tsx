@@ -26,6 +26,14 @@ const PanelNameContainer = styled.div`
 
 const DropdownMenuContainer = styled.div`
   border: 1px solid ${p => p.theme.colors.text};
+  button {
+    padding: 0;
+  }
+  button a {
+    padding: 0.25rem 1rem;
+    display: inline-block;
+    width: 100%;
+  }
 `;
 
 const NavImg = ({src}) => <img referrerPolicy="no-referrer" src={src} alt={'Imagem do Usuário'}/>

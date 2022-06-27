@@ -3,7 +3,7 @@ import {
   IHTTPController,
   IHTTPErrorHandler,
   IHTTPMiddleware,
-} from '@adapters/REST-controllers';
+} from '@adapters/ports';
 import { IHTTPFrameworkAdapter } from './server';
 
 export class ExpressControllerAdapter implements IHTTPFrameworkAdapter {
@@ -14,9 +14,11 @@ export class ExpressControllerAdapter implements IHTTPFrameworkAdapter {
         req.body,
         req.query,
         {
-          // this was placed here by the auth middleware.
+          // this is placed here by the auth middleware.
           // It is then passed along to all requests that run after this middleware.
           user: (req as any).user,
+          req,
+          file: req.file
         }
       );
       res.status(statusCode).json(response);

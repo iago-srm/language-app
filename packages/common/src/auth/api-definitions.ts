@@ -33,4 +33,8 @@ export const VerifyAccountHTTPDefinition: HTTPDefinition = {
   method: 'patch'
 }
 
+export const UpdateProfileImageHTTPDefinition: HTTPDefinition = {
+  path: 'user/profile-image',
+  method: 'post'
+}
 

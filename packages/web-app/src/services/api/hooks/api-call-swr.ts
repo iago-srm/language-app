@@ -9,6 +9,7 @@ export type IUseApiCallResponse<R> = {
 
 export const useApiCallSWR = <R>(key: any, fetcher: (url: string) => Promise<any>, options?: any) => {
   const { data, error } = useSWR(key, fetcher, options);
+  // console.log('mutate');
   return {
     data: !error && data as R,
     loading: !error && !data && key,

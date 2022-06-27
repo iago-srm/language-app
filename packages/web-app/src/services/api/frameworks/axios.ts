@@ -1,6 +1,12 @@
 import axios, { AxiosInstance } from 'axios';
 
-export class AxiosFetcher {
+export interface Fetcher {
+  get: (url: string) => Promise<any>;
+  patch: (url: string, body: any, query: any) => any;
+}
+
+// export class Fetch implements Fetcher
+export class AxiosFetcher implements Fetcher {
 
   private _instance: AxiosInstance;
 

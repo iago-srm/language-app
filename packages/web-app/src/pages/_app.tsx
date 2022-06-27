@@ -3,6 +3,7 @@ import axios from 'axios';
 import { SWRConfig } from 'swr'
 import { AppProps } from 'next/app';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-toastify/dist/ReactToastify.css';
 import { SessionProvider } from "next-auth/react";
 
 import { LocalStorage } from '@services/browser';

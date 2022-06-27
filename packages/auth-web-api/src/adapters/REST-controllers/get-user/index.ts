@@ -22,6 +22,6 @@ export const GetUserControllerFactory = (): IHTTPControllerDescriptor<IHTTPContr
     controller: fn,
     method: GetUserHTTPDefinition.method,
     path: GetUserHTTPDefinition.path,
-    middleware: 'auth'
+    middlewares: ['auth']
   };
 };

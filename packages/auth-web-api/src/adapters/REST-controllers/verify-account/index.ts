@@ -6,17 +6,25 @@ import {
   IHTTPController,
   IHTTPControllerDescriptor,
 } from '../../ports/REST-controllers';
-import {serializer} from './serializer';
+import {
+  serializeBody,
+  serializeParams,
+  serializeQuery
+} from './serializer';
 
 export const VerifyAccountControllerFactory = ({
   verifyAccountUseCase,
 }: {
   verifyAccountUseCase: IVerifyAccountUseCase;
 }): IHTTPControllerDescriptor<IHTTPController> => {
-  const fn: IHTTPController = async ({ token }, { verified }, { userId }) => {
+  const fn: IHTTPController = async (params, body, query) => {
+
+    const { token } = serializeParams(params);
+    const { verified } = serializeBody(body);
+    const { userId } = serializeQuery(query);
 
     if(verified) await verifyAccountUseCase.execute({
-      verificationToken: token,
+      token,
       userId
     });
 

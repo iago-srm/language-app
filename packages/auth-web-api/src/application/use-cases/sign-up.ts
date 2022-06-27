@@ -7,6 +7,7 @@ import {
   ITokenService,
   IIdGenerator,
   IEmailService,
+  IProfileImageRepository,
 } from '../ports';
 import { User } from '@domain';
 import {
@@ -30,7 +31,8 @@ class UseCase implements ISignUpUseCase {
     private tokenService: ITokenService,
     private idService: IIdGenerator,
     private emailService: IEmailService,
-    private verificationTokenRepository: IVerificationTokenRepository
+    private verificationTokenRepository: IVerificationTokenRepository,
+    private profileImageRepository: IProfileImageRepository
   ){}
   async execute({ email, password, name, confirmPassword }) {
     const user = new User({ email, name, password });
@@ -48,7 +50,7 @@ class UseCase implements ISignUpUseCase {
       id: userId,
       email: user.personId.email,
       name: user.personId.name,
-      image: `${process.env.PROFILE_IMAGE_BUCKET}/${process.env.GENERIC_PROFILE_IMAGE}`,
+      image: this.profileImageRepository.getProfileImageUrl(),
       emailVerified: false,
       hashedPassword: await this.encryptionService.encrypt(user.password),
       tokenVersion: 0,
@@ -60,7 +62,7 @@ class UseCase implements ISignUpUseCase {
       userId
     })
 
-    const confirmationLink = `http://localhost:3000/verify-account?verificationToken=${token}&userId=${userId}`;
+    const confirmationLink = `${process.env.WEB_APP_URL}/verify-account?verificationToken=${token}&userId=${userId}`;
 
     await this.emailService.sendEmail(
       email,

@@ -2,6 +2,7 @@ import {
   MockEncryptionService,
   MockTokenService,
   MockUserRepository,
+  MockVerificationTokenRepository,
   MockIdGenerator,
   MockEmailService,
   SignInUpInputBuilder
@@ -18,7 +19,7 @@ import {
   SignOutUseCase,
   SignUpUseCase,
   UpdateUserUseCase,
-  ValidateAccountUseCase
+  VerifyAccountUseCase
 } from '@application/use-cases';
 
 interface ConstructorParams {
@@ -35,6 +36,7 @@ export class TestDataFacade {
   public mockEncryptionService: IEncryptionService;
   public mockTokenService: ITokenService;
   public mockUserRepository: IUserRepository;
+  public mockVerificationTokenRepository: MockVerificationTokenRepository;
   public mockIdGenerator: IIdGenerator;
   public mockEmailService: IEmailService;
 
@@ -43,7 +45,7 @@ export class TestDataFacade {
     signUp: SignUpUseCase,
     signOut: SignOutUseCase,
     updateUser: UpdateUserUseCase,
-    validateAccount: ValidateAccountUseCase
+    validateAccount: VerifyAccountUseCase
   }
 
   constructor({
@@ -87,7 +89,8 @@ export class TestDataFacade {
         this.mockEncryptionService,
         this.mockTokenService,
         this.mockIdGenerator,
-        this.mockEmailService
+        this.mockEmailService,
+        this.mockVerificationTokenRepository
       ),
       signOut: new SignOutUseCase(
         this.mockUserRepository
@@ -95,8 +98,9 @@ export class TestDataFacade {
       updateUser: new UpdateUserUseCase(
         this.mockUserRepository
       ),
-      validateAccount: new ValidateAccountUseCase(
-        this.mockUserRepository
+      validateAccount: new VerifyAccountUseCase(
+        this.mockUserRepository,
+        this.mockVerificationTokenRepository
       )
     }
 

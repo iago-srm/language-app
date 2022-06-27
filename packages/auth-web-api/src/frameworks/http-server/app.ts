@@ -11,7 +11,7 @@ import {
   Server as AbstractServer,
   IHTTPServerConstructorParams,
 } from './server';
-import { IHTTPControllerDescriptor } from '@adapters/REST-controllers';
+import { IHTTPControllerDescriptor } from '@adapters/ports';
 
 interface IExpressConstructorParams extends IHTTPServerConstructorParams {
   controllers: IHTTPControllerDescriptor<RequestHandler>[];
@@ -62,10 +62,10 @@ export class ExpressServer extends AbstractServer {
     const getPath = (path: string) => `${this.baseUrn}/${path}`;
 
     controllers.forEach((descriptor) => {
-      if (descriptor.middleware) {
+      if (descriptor.middlewares) {
         this._app[descriptor.method!](
           getPath(descriptor.path!),
-          middlewares[descriptor.middleware],
+          ...descriptor.middlewares.map(middleware => middlewares[middleware]),
           descriptor.controller
         );
       } else {

@@ -9,7 +9,7 @@ import {
   IHTTPErrorHandler,
   IHTTPControllerPathDescriptor,
   IHTTPMiddleware,
-} from '@adapters/REST-controllers';
+} from '@adapters/ports';
 
 export interface IHTTPServerConstructorParams {
   // db: IDatabase;

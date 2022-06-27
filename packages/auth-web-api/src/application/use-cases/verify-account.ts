@@ -9,10 +9,10 @@ import {
   InvalidRoleError
 } from '@common/errors';
 import {
-  IValidateAccountParams,
+  IVerifyAccountParams,
 } from '@language-app/common';
 
-type InputParams = IValidateAccountParams;
+type InputParams = IVerifyAccountParams;
 type Return = void;
 
 export type IVerifyAccountUseCase = IUseCase<InputParams, Return>;
@@ -22,7 +22,7 @@ class UseCase implements IVerifyAccountUseCase {
     private userRepository: IUserRepository,
     private verificationTokenRepository: IVerificationTokenRepository
   ){}
-  async execute({ verificationToken, userId }) {
+  async execute({ token: verificationToken, userId }) {
 
     const user = await this.userRepository.getUserById(userId);
     const token = await this.verificationTokenRepository.getTokenByUserId(userId);

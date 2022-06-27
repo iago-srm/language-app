@@ -1,7 +1,12 @@
 import * as awilix from 'awilix';
 import {
-  ExpressServer as FrameworkServer,
-} from '@frameworks/http';
+  SignInUseCase,
+  SignUpUseCase,
+  SignOutUseCase,
+  VerifyAccountUseCase,
+  UpdateUserUseCase,
+  UpdateProfileImageUseCase
+} from '@application/use-cases';
 import {
   SignInControllerFactory,
   SignOutControllerFactory,
@@ -9,27 +14,29 @@ import {
   SignUpControllerFactory,
   UpdateUserControllerFactory,
   VerifyAccountControllerFactory,
+  UpdateProfileImageControllerFactory,
   ErrorHandlerControllerFactory
 } from '@adapters/REST-controllers';
 import {
+  AuthenticationMiddlewareControllerFactory
+} from '@adapters/REST-middleware';
+import {
   UserRepository,
-  VerificationTokenRepository
+  VerificationTokenRepository,
+  ProfileImageRepository
 } from '@adapters/repositories';
 import {
   JWTTokenService,
   IdGenerator,
   BCryptEncryptionService,
-  SendgridEmailService
+  SendgridEmailService,
+  putFileInReq,
+  S3Service
 } from '@frameworks/services';
 import {
-  SignInUseCase,
-  SignUpUseCase,
-  SignOutUseCase,
-  VerifyAccountUseCase,
-  UpdateUserUseCase
-} from '@application/use-cases';
-import { AuthenticationMiddlewareControllerFactory } from '@adapters/REST-middleware';
-import { ExpressControllerAdapter } from '@frameworks/http';
+  ExpressControllerAdapter,
+  ExpressServer as FrameworkServer,
+} from '@frameworks/http';
 
 const container = awilix.createContainer();
 
@@ -41,6 +48,7 @@ export enum Dependencies {
   LOGOUTCONTROLLER = 'signOutController',
   UPDATEUSERCONTROLLER = 'updateUserController',
   VERIFYACCOUNTCONTROLLER = 'verifyAccountController',
+  UPDATEPROFILEIMAGECONTROLLER = 'updateProfileImageController',
 
   AUTHMIDDLEWARE = 'authMiddleware',
   ERRORHANDLER = 'errorHandler',
@@ -51,6 +59,8 @@ export enum Dependencies {
   ENCRYPTIONSERVICE = 'encryptionService',
   EMAILSERVICE = 'emailService',
   LOGGER = 'logger',
+  FILEMIDDLEWARE = 'fileMiddleware',
+  STORAGESERVICE = 'storageService',
 
   // use cases
   LOGOUTUSECASE = 'signOutUseCase',
@@ -59,10 +69,12 @@ export enum Dependencies {
   GETUSERUSECASE = 'getUserUseCase',
   VERIFYACCOUNTUSECASE = 'verifyAccountUseCase',
   UPDATEUSERUSECASE = 'updateUserUseCase',
+  UPDATEPROFILEIMAGEUSECASE = 'updateProfileImageUseCase',
 
   // repositories
   USERREPOSITORY = 'userRepository',
   VERIFICATIONTOKENREPOSITORY = 'verificationTokenRepository',
+  PROFILEIMAGEREPOSITORY = 'profileImageRepository',
 
   // server
   SERVER = 'server',
@@ -76,6 +88,7 @@ container.register({
   [Dependencies.GETUSERCONTROLLER]: awilix.asFunction(GetUserControllerFactory),
   [Dependencies.UPDATEUSERCONTROLLER]: awilix.asFunction(UpdateUserControllerFactory),
   [Dependencies.VERIFYACCOUNTCONTROLLER]: awilix.asFunction(VerifyAccountControllerFactory),
+  [Dependencies.UPDATEPROFILEIMAGECONTROLLER]: awilix.asFunction(UpdateProfileImageControllerFactory),
 
   [Dependencies.AUTHMIDDLEWARE]: awilix.asFunction(AuthenticationMiddlewareControllerFactory),
   [Dependencies.ERRORHANDLER]: awilix.asFunction(ErrorHandlerControllerFactory),
@@ -85,6 +98,8 @@ container.register({
   [Dependencies.IDSERVICE]: awilix.asClass(IdGenerator),
   [Dependencies.TOKENSERVICE]: awilix.asClass(JWTTokenService),
   [Dependencies.EMAILSERVICE]: awilix.asClass(SendgridEmailService),
+  [Dependencies.FILEMIDDLEWARE]: awilix.asValue(putFileInReq),
+  [Dependencies.STORAGESERVICE]: awilix.asClass(S3Service),
 
   // use cases
   [Dependencies.LOGOUTUSECASE]: awilix.asClass(SignOutUseCase).classic(),
@@ -92,10 +107,12 @@ container.register({
   [Dependencies.SIGNUPUSECASE]: awilix.asClass(SignUpUseCase).classic(),
   [Dependencies.VERIFYACCOUNTUSECASE]: awilix.asClass(VerifyAccountUseCase).classic(),
   [Dependencies.UPDATEUSERUSECASE]: awilix.asClass(UpdateUserUseCase).classic(),
+  [Dependencies.UPDATEPROFILEIMAGEUSECASE]: awilix.asClass(UpdateProfileImageUseCase).classic(),
 
   // repositories
   [Dependencies.USERREPOSITORY]: awilix.asClass(UserRepository),
   [Dependencies.VERIFICATIONTOKENREPOSITORY]: awilix.asClass(VerificationTokenRepository),
+  [Dependencies.PROFILEIMAGEREPOSITORY]: awilix.asClass(ProfileImageRepository).classic(),
 })
 
 // console.log('sgup res',container.resolve(Dependencies.SIGNUPCONTROLLER).controller.toString())
@@ -122,11 +139,11 @@ container.register({
       controllers: getControllers(container).map(({
         controller,
         method,
-        middleware,
+        middlewares,
         path
       }) => {
         return({
-        middleware,
+        middlewares,
         method,
         controller: expressAdapter.adaptControllerFunction(
           controller
@@ -138,6 +155,7 @@ container.register({
         auth: expressAdapter.adaptMiddlewareControllerFunction(
           container.resolve(Dependencies.AUTHMIDDLEWARE).controller
         ),
+        file: container.resolve(Dependencies.FILEMIDDLEWARE)
       },
       errorHandler: {
         controller: expressAdapter.adaptErrorControllerFunction(

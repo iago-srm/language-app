@@ -1,10 +1,26 @@
-export const serializer = (body: any) => {
+export const serializeBody = (body: any) => {
 
-  const verificationToken = body.verificationToken;
-  const userId = body.userId;
+  const verified = body.verified;
 
   return {
-    verificationToken,
-    userId,
+    verified
+  };
+};
+
+export const serializeParams = (params: any) => {
+
+  const token = params.token;
+
+  return {
+    token
+  };
+};
+
+export const serializeQuery = (query: any) => {
+
+  const userId = query.userId;
+
+  return {
+    userId
   };
 };

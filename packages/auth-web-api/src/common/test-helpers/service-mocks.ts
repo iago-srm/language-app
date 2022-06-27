@@ -1,5 +1,6 @@
 import {
   IUserRepository,
+  IVerificationTokenRepository,
   IEncryptionService,
   ITokenService,
   IIdGenerator,
@@ -48,6 +49,19 @@ export class MockUserRepository implements IUserRepository {
     this.updateUser = updateUser;
   }
 };
+
+export class MockVerificationTokenRepository implements IVerificationTokenRepository {
+  public getTokenByUserId;
+  public insertToken;
+
+  constructor({
+    getTokenByUserId = jest.fn(),
+    insertToken = jest.fn()
+  }) {
+    this.getTokenByUserId = getTokenByUserId;
+    this.insertToken = insertToken;
+  }
+}
 
 export class MockIdGenerator implements IIdGenerator {
   public getId;

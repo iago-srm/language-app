@@ -28,23 +28,23 @@ export const LoadingErrorData = ({ loading, error, data, children }) => {
     React.Children.map(children, (Child, i) => {
       if(Child) switch(Child.type.name) {
         case "NoData":
-          c.noData.push(Child);
+          c.noData.push(<React.Fragment key={i}>{Child}</React.Fragment>);
           break;
         case "Error":
-          c.error.push(Child);
+          c.error.push(<React.Fragment key={i}>{Child}</React.Fragment>);
           break;
         case "Loading":
-          c.loading.push(Child);
+          c.loading.push(<React.Fragment key={i}>{Child}</React.Fragment>);
           break;
        default:
-          c.other.push(Child);
+          c.other.push(<React.Fragment key={i}>{Child}</React.Fragment>);
           break;
       }
     });
 
-    if(!c.error.length) c.error.push(defaultError);
-    if(!c.loading.length) c.loading.push(defaultLoading);
-    if(!c.noData.length) c.noData.push(defaultNoData);
+    if(!c.error.length) c.error.push(<React.Fragment key={1}>{defaultError}</React.Fragment>);
+    if(!c.loading.length) c.loading.push(<React.Fragment key={1}>{defaultLoading}</React.Fragment>);
+    if(!c.noData.length) c.noData.push(<React.Fragment key={1}>{defaultNoData}</React.Fragment>);
 
     return c;
   }

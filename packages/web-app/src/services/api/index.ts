@@ -19,7 +19,8 @@ import {
   IUpdateUserResponse,
   UpdateUserHTTPDefinition,
   IVerifyAccountParams,
-  VerifyAccountHTTPDefinition
+  VerifyAccountHTTPDefinition,
+  UpdateProfileImageHTTPDefinition
 } from '@language-app/common';
 import { useLanguage, handleAuthToken } from '@contexts';
 import { useEffect } from 'react';
@@ -58,8 +59,10 @@ export const useApiBuilder = () => {
   const updateUser = useApiCall<IUpdateUserParams,IUpdateUserResponse>
     ((args) => authFetcher[UpdateUserHTTPDefinition.method](UpdateUserHTTPDefinition.path, args));
   const verifyAccount = useApiCall<IVerifyAccountParams, void>
-    (({token, userId}) => authFetcher[VerifyAccountHTTPDefinition.method](`${VerifyAccountHTTPDefinition.path.split('/')[0]}/${token}`, { verified: true }, { userId }))
-  const useUser = (canFetch: boolean) => useApiCallSWR<IGetUserAPIResponse>(canFetch && GetUserHTTPDefinition.path,authFetcher[GetUserHTTPDefinition.method].bind(authFetcher)/*, { fallbackData: {} }*/);
+    (({token, userId}) => authFetcher[VerifyAccountHTTPDefinition.method](`${VerifyAccountHTTPDefinition.path.split('/')[0]}/${token}`, { verified: true }, { userId }));
+  const uploadProfileImage = useApiCall<any, any>
+    ((args) => authFetcher[UpdateProfileImageHTTPDefinition.method](UpdateProfileImageHTTPDefinition.path, args));
+  const useUser = (canFetch: boolean) => useApiCallSWR<IGetUserAPIResponse>(canFetch && GetUserHTTPDefinition.path,authFetcher[GetUserHTTPDefinition.method].bind(authFetcher));
 
   return {
     signUp,
@@ -67,7 +70,8 @@ export const useApiBuilder = () => {
     signOut,
     useUser,
     updateUser,
-    verifyAccount
+    verifyAccount,
+    uploadProfileImage
   }
 }
 

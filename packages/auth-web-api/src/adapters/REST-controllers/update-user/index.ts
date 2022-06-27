@@ -19,10 +19,10 @@ export const UpdateUserControllerFactory = ({
       role,
     } = serializer(body);
 
-      await updateUserUseCase.execute({
-        role,
-        userId: user.id
-      })
+    await updateUserUseCase.execute({
+      role,
+      userId: user.id
+    })
 
     return {
       response: "",
@@ -34,6 +34,6 @@ export const UpdateUserControllerFactory = ({
     controller: fn,
     method: UpdateUserHTTPDefinition.method,
     path: UpdateUserHTTPDefinition.path,
-    middleware: 'auth'
+    middlewares: ['auth']
   };
 };

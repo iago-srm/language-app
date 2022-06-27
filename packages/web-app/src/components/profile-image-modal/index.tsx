@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { Modal, Button } from '@components';
+import { Modal, Button, Toast, successToast, errorToast } from '@components';
 import styled from 'styled-components';
-import { ResponsiveCenteredPageContent } from '@styles';
+import { useApiBuilder } from '@services/api';
+import { useAuth } from '@contexts';
 
 const ModalContentStyled = styled.div`
   img {
     display: block;
-    // margin: 0 auto;
     max-width: 400px;
     max-height: 400px;
   }
@@ -16,29 +16,32 @@ const ModalContentStyled = styled.div`
     align-items: center;
     width: 400px;
     height: 400px;
-    border: 1px solid white;
   }
 
-  input {
-
-  }
 `;
 
 export const ProfileImageModal = ({ onClose, user }) => {
 
   const [selectedFile, setSelectedFile] = useState();
+  const { uploadProfileImage } = useApiBuilder();
+  const { refreshUser } = useAuth();
 
   const onFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
   }
 
-  const onFileUpload = () => {
+  const onFileUpload = async () => {
     const formData = new FormData();
     formData.append(
-      user.id,
+      'profile-image',
       selectedFile,
     );
-    console.log(selectedFile);
+    const response = await uploadProfileImage.apiCall(formData);
+    if(response.error) errorToast(response.error.message);
+    else {
+      refreshUser();
+      successToast('Imagem trocada com sucesso');
+    }
   }
 
   return (
@@ -48,11 +51,13 @@ export const ProfileImageModal = ({ onClose, user }) => {
         <div className='img-container'>
           <img src={(selectedFile && URL.createObjectURL(selectedFile)) || user.image}/>
         </div>
-        <input type="file" onChange={onFileChange} accept="image/png, image/jpeg"/>
-        <Button onClick={onFileUpload} loading={false}>
+        <input type="file" onChange={onFileChange} accept="image/png, image/jpeg" name='profile-image'/>
+        <hr/>
+        <Button onClick={onFileUpload} loading={uploadProfileImage.loading}>
           Salvar
         </Button>
       </ModalContentStyled>
+      <Toast/>
     </Modal>
   )
 }
