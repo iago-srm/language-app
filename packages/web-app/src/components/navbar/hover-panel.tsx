@@ -36,7 +36,9 @@ const DropdownMenuContainer = styled.div`
   }
 `;
 
-const NavImg = ({src}) => <img referrerPolicy="no-referrer" src={src} alt={'Imagem do Usuário'}/>
+const NavImg = ({src}) => {
+  return <img referrerPolicy="no-referrer" src={src} alt={'Imagem do Usuário'}/>
+}
 
 export const HoverPanel: React.FC<{
   user?: any;

@@ -14,6 +14,7 @@ import {
 } from '@services/api';
 import { LocalStorage } from "@services/browser";
 import { setCookie, parseCookies } from 'nookies'
+import { IGetUserAPIResponse } from "@language-app/common";
 
 interface IAuthContext {
   isAuthenticated?: number;
@@ -25,6 +26,7 @@ interface IAuthContext {
   credentialsSignIn?: { signIn: ({email, password}) => Promise<{error?: string}>, loading: boolean };
   credentialsSignUp?: SignUp;
   signOut?: () => void;
+  updateUser?: () => void;
 }
 
 export const handleAuthToken = (token: string) => {
@@ -56,9 +58,8 @@ export function AuthProvider({ children }) {
 
   const refreshUser = () => {
     mutate('user');
-    // user.image = `${Date.now()}-${user.image}`;
-    // user.getImage =
   }
+
   const googleSignIn = React.useCallback(async () => {
     await nextAuthSignIn("google", { callbackUrl: '/' });
     setTokenHeaderSet(true);
@@ -106,11 +107,20 @@ export function AuthProvider({ children }) {
     refreshUser();
   }, [tokenHeaderSet]);
 
+  // const updateUser = () => {
+  //   setUser({...user});
+  // }
+
   const {
     data: user,
     loading: userLoading,
     error: userError
   } = useUser(tokenHeaderSet);
+
+  // const [user, setUser] = useState<IGetUserAPIResponse>();
+  // useEffect(() => {
+  //   setUser(data);
+  // }, [data]);
 
   useEffect(() => {
     const token = localStorage.getRefreshToken();
@@ -119,9 +129,9 @@ export function AuthProvider({ children }) {
     }
   },[userError]);
 
-  useEffect(() => {
-    if(user) setIsAuthenticated(1);
-  }, [user]);
+  // useEffect(() => {
+  //   if(user) setIsAuthenticated(1);
+  // }, [user]);
 
   return (
     <AuthContext.Provider value={{
@@ -136,7 +146,8 @@ export function AuthProvider({ children }) {
         loading: signIn.loading
       },
       credentialsSignUp,
-      signOut
+      signOut,
+      // updateUser
     }}>
       {children}
     </AuthContext.Provider>

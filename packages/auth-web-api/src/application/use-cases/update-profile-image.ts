@@ -28,10 +28,10 @@ class UseCase implements IUpdateProfileImageUseCase {
 
     if (!user) throw new UserNotFoundError();
 
-    await this.profileImageRepository.uploadProfileImage(file, userId);
+    const imageUrl = await this.profileImageRepository.uploadProfileImage(file, userId);
 
     await this.userRepository.updateUser(userId, {
-      image: this.profileImageRepository.getProfileImageUrl(userId)
+      image: imageUrl
     });
   }
 

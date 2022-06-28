@@ -40,7 +40,7 @@ export const ProfileImageModal = ({ onClose, user }) => {
     if(response.error) errorToast(response.error.message);
     else {
       refreshUser();
-      successToast('Imagem trocada com sucesso');
+      successToast('Imagem alterada com sucesso');
     }
   }
 
@@ -51,6 +51,7 @@ export const ProfileImageModal = ({ onClose, user }) => {
         <div className='img-container'>
           <img src={(selectedFile && URL.createObjectURL(selectedFile)) || user.image}/>
         </div>
+        <br/>
         <input type="file" onChange={onFileChange} accept="image/png, image/jpeg" name='profile-image'/>
         <hr/>
         <Button onClick={onFileUpload} loading={uploadProfileImage.loading}>

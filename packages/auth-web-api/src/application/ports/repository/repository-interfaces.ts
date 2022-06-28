@@ -13,6 +13,6 @@ export interface IVerificationTokenRepository {
 }
 
 export interface IProfileImageRepository {
-  uploadProfileImage: (file: any, userId: string) => Promise<boolean>;
-  getProfileImageUrl: (userId?: string) => string;
+  uploadProfileImage: (file: any, userId: string) => Promise<string>;
+  // getProfileImageUrl: (userId?: string) => string;
 }

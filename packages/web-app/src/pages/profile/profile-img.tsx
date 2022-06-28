@@ -8,8 +8,9 @@ const ProfileImgStyled = styled.div`
   margin: 0 auto;
 
   img {
-    width: 100%;
+    max-width: 500px;
     border-radius: 10px;
+    max-height: 400px;
   }
 
   div {
