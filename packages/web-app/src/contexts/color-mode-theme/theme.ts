@@ -12,7 +12,7 @@ export const getTheme: (mode: Modes) => Theme = (mode: Modes) => {
   const colors = {
     dark: {
       background: '#535353',
-      highlightedText: 'black',
+      highlightedText: 'white',
       highlight: '#a9a9a9',
       text: '#efefef',
       primary: '#111111',

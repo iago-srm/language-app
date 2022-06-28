@@ -20,4 +20,6 @@ export const Portuguese = {
   [Labels.PASSWORD]: 'Senha',
   [Labels.CONFIRM_PASSWORD]: 'Confirmar Senha',
 
+  [Labels.SEND]: 'Salvar'
+
 }

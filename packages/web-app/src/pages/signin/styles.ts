@@ -2,9 +2,11 @@ import styled from 'styled-components';
 import { PageContainer } from '@styles';
 
 export const Container = styled(PageContainer)`
-  // padding-top: 10px;
+  a {
+    text-decoration: underline;
+    color: ${({theme}) => theme.colors.highlightedText};
+    display: inline-block;
+    margin-bottom: 10px;
+  }
 `
 
-export const ErrorContainer = styled.p`
-  color: red;
-`;

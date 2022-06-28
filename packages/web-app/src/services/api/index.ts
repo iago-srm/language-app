@@ -20,7 +20,13 @@ import {
   UpdateUserHTTPDefinition,
   IVerifyAccountParams,
   VerifyAccountHTTPDefinition,
-  UpdateProfileImageHTTPDefinition
+  UpdateProfileImageHTTPDefinition,
+  IForgotPasswordParams,
+  IForgotPasswordResponse,
+  ForgotPasswordHTTPDefinition,
+  IVerifyForgotPasswordParams,
+  IVerifyForgotPasswordResponse,
+  VerifyForgotPasswordHTTPDefinition
 } from '@language-app/common';
 import { useLanguage, handleAuthToken } from '@contexts';
 import { useEffect } from 'react';
@@ -52,17 +58,29 @@ export const useApiBuilder = () => {
 
   const signUp = useApiCall<ISignUpAPIParams,ISignUpAPIResponse>
     ((args) => authFetcher[SignUpHTTPDefinition.method](SignUpHTTPDefinition.path, args));
+
   const signIn = useApiCall<ISignInAPIParams,ISignInAPIResponse>
     ((args) => signInFetcher[SignInHTTPDefinition.method](SignInHTTPDefinition.path, args));
+
   const signOut = useApiCall<void,void>
     ((args) => authFetcher[SignOutHTTPDefinition.method](SignOutHTTPDefinition.path, args));
+
   const updateUser = useApiCall<IUpdateUserParams,IUpdateUserResponse>
     ((args) => authFetcher[UpdateUserHTTPDefinition.method](UpdateUserHTTPDefinition.path, args));
+
   const verifyAccount = useApiCall<IVerifyAccountParams, void>
     (({token, userId}) => authFetcher[VerifyAccountHTTPDefinition.method](`${VerifyAccountHTTPDefinition.path.split('/')[0]}/${token}`, { verified: true }, { userId }));
+
   const uploadProfileImage = useApiCall<any, any>
     ((args) => authFetcher[UpdateProfileImageHTTPDefinition.method](UpdateProfileImageHTTPDefinition.path, args));
+
   const useUser = (canFetch: boolean) => useApiCallSWR<IGetUserAPIResponse>(canFetch && GetUserHTTPDefinition.path,authFetcher[GetUserHTTPDefinition.method].bind(authFetcher));
+
+  const forgotPassword = useApiCall<IForgotPasswordParams, IForgotPasswordResponse>
+    (({ email }) => authFetcher[ForgotPasswordHTTPDefinition.method](ForgotPasswordHTTPDefinition.path, { email }))
+
+  const verifyForgotPasswordToken = useApiCall<IVerifyForgotPasswordParams,IVerifyForgotPasswordResponse>
+    (({ token }) => authFetcher[VerifyForgotPasswordHTTPDefinition.method](`${VerifyForgotPasswordHTTPDefinition.path.split('/')[0]}/${token}`));
 
   return {
     signUp,
@@ -71,7 +89,9 @@ export const useApiBuilder = () => {
     useUser,
     updateUser,
     verifyAccount,
-    uploadProfileImage
+    uploadProfileImage,
+    forgotPassword,
+    verifyForgotPasswordToken
   }
 }
 

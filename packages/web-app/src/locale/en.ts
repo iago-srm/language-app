@@ -21,4 +21,5 @@ export const English = {
   [Labels.PASSWORD]: 'Password',
   [Labels.CONFIRM_PASSWORD]: 'Confirm Password',
 
+  [Labels.SEND]: 'Send'
 }

@@ -20,4 +20,6 @@ export const French = {
   [Labels.EMAIL]: 'E-mail',
   [Labels.PASSWORD]: 'Mot de passe',
   [Labels.CONFIRM_PASSWORD]: 'Confirmer le mot de passe',
+
+  [Labels.SEND]: 'Sauver'
 }

@@ -41,6 +41,7 @@ model User {
   emailVerified Boolean? @default(false)
   hashedPassword String?
   verificationToken VerificationToken?
+  forgotPasswordToken ForgotPasswordToken?
   image         String?
   role String?
   tokenVersion Int @default(0)
@@ -55,6 +56,15 @@ model VerificationToken {
   createdAt DateTime @default(now())
   user         User     @relation(fields: [userId], references: [id])
 
+  @@unique([id, token])
+}
+
+model ForgotPasswordToken {
+  id String @id @default(cuid())
+  token      String   @unique
+  userId       String
+  createdAt DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id])
 
   @@unique([id, token])
 }

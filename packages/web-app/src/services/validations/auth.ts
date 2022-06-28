@@ -43,5 +43,18 @@ export class ValidationSchemas {
       confirmPassword: this.getConfirmPasswordValidation(),
     })
   }
+
+  getForgotPasswordSchema() {
+    return yup.object().shape({
+      email: this.getEmailValidation(),
+    })
+  }
+
+  getResetPasswordSchema() {
+    return yup.object().shape({
+      password: this.getPasswordValidation(),
+      confirmPassword: this.getConfirmPasswordValidation(),
+    })
+  }
 }
 

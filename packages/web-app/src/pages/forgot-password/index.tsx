@@ -1,58 +1,46 @@
 import React, { useState } from 'react'
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
-import GoogleButton from 'react-google-button';
 
 import { Translations, Labels } from '@locale';
 import { Container as PageContainer } from './styles'
 import { getPageTitle } from '@services/browser';
 import { ValidationSchemas } from '@services/validations';
-import { useLanguage, useAuth, useColorTheme } from '@contexts';
+import { useApiBuilder } from '@services/api';
+import { useLanguage, useColorTheme } from '@contexts';
 import {
   Form,
   Input,
-  PasswordInput,
   Button,
   Frame,
-  Container,
-  Row,
-  Col,
-  ErrorAlert
+  ErrorAlert,
+  SuccessAlert
 } from '@components';
 import { ResponsiveCenteredPageContent } from '@styles';
 
-const LoginPage: React.FC = () => {
+const Page: React.FC = () => {
 
   const router = useRouter();
   const { language } = useLanguage();
   const { theme } = useColorTheme();
-  const {
-    googleSignIn,
-    credentialsSignIn,
-  } = useAuth();
+  const { forgotPassword } = useApiBuilder();
   const [error, setError] = useState("");
+  const [response, setResponse] = useState("");
 
-  const loginSchema = React.useMemo(() => {
-    return new ValidationSchemas(language).getLoginSchema()
+  const schema = React.useMemo(() => {
+    return new ValidationSchemas(language).getForgotPasswordSchema()
   }, [language]);
 
   const handleSubmit = async ({
     email,
-    password,
   }) => {
-    const { error } = await credentialsSignIn.signIn({
+    const { response, error } = await forgotPassword.apiCall({
       email,
-      password,
     });
     if(error) {
-      setError(error)
+      setError(error.message)
     }
-    else router.push('/dashboard');
-  }
-
-  const handleGoogleSignIn = async () => {
-    await googleSignIn();
+    else setResponse(response.email);
   }
 
   return (
@@ -63,20 +51,15 @@ const LoginPage: React.FC = () => {
       <ResponsiveCenteredPageContent>
         <Frame>
           <ErrorAlert error={error} onClose={() => setError(undefined)}/>
-          <Form onSubmit={handleSubmit} schema={loginSchema}>
+          <SuccessAlert response={response && `Um email será enviado para ${response}`} dismissible={false}/>
+          <Form onSubmit={handleSubmit} schema={schema}>
             <Input name='email' label={Translations[language][Labels.EMAIL]} />
-            <PasswordInput name='password' label={Translations[language][Labels.PASSWORD]} type="password" />
-            <Link href={'/forgot-password'}>
-              Esqueceu a Senha?
-            </Link>
-            <Button loading={credentialsSignIn.loading}>{Translations[language][Labels.SIGNIN]}</Button>
+            <Button loading={forgotPassword.loading}>{Translations[language][Labels.SEND]}</Button>
           </Form>
-          <hr/>
-          <GoogleButton type={theme} onClick={handleGoogleSignIn}>Entrar com Google</GoogleButton>
         </Frame>
       </ResponsiveCenteredPageContent>
     </PageContainer>
   )
 }
 
-export default LoginPage
+export default Page

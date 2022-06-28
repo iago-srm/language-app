@@ -32,7 +32,6 @@ const VerifyAccount: React.FC<IVerifyAccountProps> = ({ verificationToken, userI
   console.log(verifyAccount.loading)
   useEffect(() => {
     const fetch = async () => {
-      console.log({verificationToken, userId})
       const { error } = await verifyAccount.apiCall({
         token: verificationToken,
         userId

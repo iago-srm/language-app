@@ -31,6 +31,7 @@ export interface IUpdateUserParams {
   name?: string;
   role?: 'STUDENT' | 'INSTRUCTOR';
   password?: string;
+  confirmPassword?: string;
 }
 export interface IUpdateUserResponse {}
 
@@ -38,4 +39,17 @@ export interface IVerifyAccountParams {
   token: string;
   userId: string;
 }
+
+export interface IForgotPasswordParams {
+  email: string;
+}
+export interface IForgotPasswordResponse {
+  email: string;
+}
+
+export interface IVerifyForgotPasswordParams {
+  token: string;
+}
+export interface IVerifyForgotPasswordResponse {}
+
 

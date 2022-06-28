@@ -1,4 +1,5 @@
 export const Labels = {
+  // errors
   REQUIRED_FIELD: 'required_field',
   INVALID_EMAIL: 'invalid_email',
   INVALID_PASSWORD: 'invalid_password',
@@ -6,6 +7,7 @@ export const Labels = {
   ERROR: 'error',
   SUCCESS: 'success',
 
+  // pages
   HOME: 'home',
   SIGNIN: 'signin',
   SIGNUP: 'signup',
@@ -13,8 +15,11 @@ export const Labels = {
   VERIFYACCOUNT: 'verify_account',
   PROFILE: 'profile',
 
+  // form fields
   NAME: 'name',
   EMAIL: 'email',
   PASSWORD: 'password',
   CONFIRM_PASSWORD: 'confirm_password',
+
+  SEND: 'send'
 }
