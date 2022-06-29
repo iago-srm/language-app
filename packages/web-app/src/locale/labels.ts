@@ -14,6 +14,8 @@ export const Labels = {
   LOGOUT: 'logout',
   VERIFYACCOUNT: 'verify_account',
   PROFILE: 'profile',
+  FORGOT_PASSWORD: 'forgot_password',
+  RESET_PASSWORD: 'reset_password',
 
   // form fields
   NAME: 'name',
@@ -21,5 +23,7 @@ export const Labels = {
   PASSWORD: 'password',
   CONFIRM_PASSWORD: 'confirm_password',
 
-  SEND: 'send'
+  SEND: 'send',
+  OR: 'or',
+  FORGOT_PASSWORD_QUESTION: 'forgot_passowrd?'
 }

@@ -23,7 +23,7 @@ const Page: React.FC = () => {
   const router = useRouter();
   const { language } = useLanguage();
   const { theme } = useColorTheme();
-  const { forgotPassword } = useApiBuilder();
+  const { forgotPasswordRequest } = useApiBuilder();
   const [error, setError] = useState("");
   const [response, setResponse] = useState("");
 
@@ -34,7 +34,7 @@ const Page: React.FC = () => {
   const handleSubmit = async ({
     email,
   }) => {
-    const { response, error } = await forgotPassword.apiCall({
+    const { response, error } = await forgotPasswordRequest.apiCall({
       email,
     });
     if(error) {
@@ -49,7 +49,7 @@ const Page: React.FC = () => {
   return (
     <PageContainer>
       <Head>
-        <title>{getPageTitle(Translations[language][Labels.SIGNIN])}</title>
+        <title>{getPageTitle(Translations[language][Labels.FORGOT_PASSWORD])}</title>
       </Head>
       <ResponsiveCenteredPageContent>
         <Frame>
@@ -57,7 +57,7 @@ const Page: React.FC = () => {
           <SuccessAlert response={response && `Um email será enviado para ${response}`} dismissible={false}/>
           <Form onSubmit={handleSubmit} schema={schema}>
             <Input name='email' label={Translations[language][Labels.EMAIL]} />
-            <Button loading={forgotPassword.loading}>{Translations[language][Labels.SEND]}</Button>
+            <Button loading={forgotPasswordRequest.loading}>{Translations[language][Labels.SEND]}</Button>
           </Form>
         </Frame>
       </ResponsiveCenteredPageContent>

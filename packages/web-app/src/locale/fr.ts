@@ -14,12 +14,15 @@ export const French = {
   [Labels.LOGOUT]: 'Quitter',
   [Labels.VERIFYACCOUNT]: 'Confirmer Compte',
   [Labels.PROFILE]: 'Profille',
-
+  [Labels.FORGOT_PASSWORD]: 'Oublié mot de passe',
+  [Labels.RESET_PASSWORD]: 'Restaurer mot de passe',
 
   [Labels.NAME]: 'Nom',
   [Labels.EMAIL]: 'E-mail',
   [Labels.PASSWORD]: 'Mot de passe',
   [Labels.CONFIRM_PASSWORD]: 'Confirmer le mot de passe',
 
-  [Labels.SEND]: 'Sauver'
+  [Labels.SEND]: 'Sauver',
+  [Labels.OR]: 'Ou',
+  [Labels.FORGOT_PASSWORD_QUESTION]: 'Avez vous oublié votre mot de passe?'
 }

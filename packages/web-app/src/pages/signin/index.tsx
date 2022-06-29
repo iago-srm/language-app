@@ -18,7 +18,8 @@ import {
   Container,
   Row,
   Col,
-  ErrorAlert
+  ErrorAlert,
+  Separator
 } from '@components';
 import { ResponsiveCenteredPageContent } from '@styles';
 
@@ -58,7 +59,7 @@ const LoginPage: React.FC = () => {
   return (
     <PageContainer>
       <Head>
-        <title>{getPageTitle(Translations[language][Labels.SIGNIN])}</title>
+        <title>{getPageTitle(Translations[language][Labels.FORGOT_PASSWORD])}</title>
       </Head>
       <ResponsiveCenteredPageContent>
         <Frame>
@@ -67,12 +68,12 @@ const LoginPage: React.FC = () => {
             <Input name='email' label={Translations[language][Labels.EMAIL]} />
             <PasswordInput name='password' label={Translations[language][Labels.PASSWORD]} type="password" />
             <Link href={'/forgot-password'}>
-              Esqueceu a Senha?
+              {Translations[language][Labels.FORGOT_PASSWORD_QUESTION]}
             </Link>
             <Button loading={credentialsSignIn.loading}>{Translations[language][Labels.SIGNIN]}</Button>
           </Form>
-          <hr/>
-          <GoogleButton type={theme} onClick={handleGoogleSignIn}>Entrar com Google</GoogleButton>
+          <Separator>{Translations[language][Labels.OR]}</Separator>
+          <GoogleButton type={theme} onClick={handleGoogleSignIn} />
         </Frame>
       </ResponsiveCenteredPageContent>
     </PageContainer>

@@ -14,12 +14,15 @@ export const English = {
   [Labels.LOGOUT]: 'Sign Out',
   [Labels.VERIFYACCOUNT]: 'Verify Account',
   [Labels.PROFILE]: 'Profile',
-
+  [Labels.FORGOT_PASSWORD]: 'Forgot Password',
+  [Labels.RESET_PASSWORD]: 'Reset Password',
 
   [Labels.NAME]: 'Name',
   [Labels.EMAIL]: 'E-mail',
   [Labels.PASSWORD]: 'Password',
   [Labels.CONFIRM_PASSWORD]: 'Confirm Password',
 
-  [Labels.SEND]: 'Send'
+  [Labels.SEND]: 'Send',
+  [Labels.OR]: 'Or',
+  [Labels.FORGOT_PASSWORD_QUESTION]: 'Forgot your password?'
 }

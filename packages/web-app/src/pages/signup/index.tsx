@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import Head from 'next/head'
+import Head from 'next/head';
+import GoogleButton from 'react-google-button';
+
 import { Translations, Labels } from '@locale';
 import { Container as PageContainer } from './styles'
 import { getPageTitle } from '@services/browser';
 import { ValidationSchemas } from '@services/validations';
-import { useLanguage, useAuth } from '@contexts';
+import { useLanguage, useAuth, useColorTheme } from '@contexts';
 import {
   Form,
   Input,
@@ -15,16 +17,22 @@ import {
   Row,
   Col,
   SuccessAlert,
-  ErrorAlert
+  ErrorAlert,
+  Separator
 } from '@components';
 
 const Page: React.FC = () => {
 
   const { language } = useLanguage();
-  const { credentialsSignUp: {
-    apiCall: credentialsSignUp,
-    loading: signUpLoading
-  } } = useAuth();
+  const { theme } = useColorTheme();
+
+  const {
+    credentialsSignUp: {
+      apiCall: credentialsSignUp,
+      loading: signUpLoading
+    },
+    googleSignIn
+  } = useAuth();
   const [error, setError] = useState("");
   const [response, setResponse] = useState("");
 
@@ -50,7 +58,10 @@ const Page: React.FC = () => {
     else {
       setResponse("Aguarde um e-mail de confirmação");
     }
+  }
 
+  const handleGoogleSignIn = async () => {
+    await googleSignIn();
   }
 
   return (
@@ -69,12 +80,10 @@ const Page: React.FC = () => {
                 <Input name='email' label={Translations[language][Labels.EMAIL]} />
                 <PasswordInput name='password' label={Translations[language][Labels.PASSWORD]} type="password" />
                 <PasswordInput name='confirmPassword' label={Translations[language][Labels.CONFIRM_PASSWORD]} type="password" />
-                {/* <Select label="Eu sou" name="role">
-                  <option value='INSTRUCTOR'>Instrutor</option>
-                  <option value='STUDENT'>Estudante</option>
-                </Select> */}
                 <Button loading={signUpLoading}>{Translations[language][Labels.SIGNUP]}</Button>
               </Form>
+              <Separator>{Translations[language][Labels.OR]}</Separator>
+              <GoogleButton type={theme} onClick={handleGoogleSignIn} />
             </Frame>
           </Col>
         </Row>

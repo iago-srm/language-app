@@ -63,7 +63,7 @@ const Page: React.FC<IResetPasswordProps> = ({ verificationToken }) => {
   return (
     <PageContainer>
       <Head>
-        <title>{getPageTitle(Translations[language][Labels.SIGNIN])}</title>
+        <title>{getPageTitle(Translations[language][Labels.RESET_PASSWORD])}</title>
       </Head>
       <ResponsiveCenteredPageContent>
         <Frame>
