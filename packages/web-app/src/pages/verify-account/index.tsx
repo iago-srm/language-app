@@ -29,7 +29,6 @@ const VerifyAccount: React.FC<IVerifyAccountProps> = ({ verificationToken, userI
   const [error, setError] = useState<string>();
   const [success, setSuccess] = useState<boolean>(false);
 
-  console.log(verifyAccount.loading)
   useEffect(() => {
     const fetch = async () => {
       const { error } = await verifyAccount.apiCall({

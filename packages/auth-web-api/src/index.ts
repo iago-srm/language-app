@@ -5,7 +5,9 @@ import {
   SignOutUseCase,
   VerifyAccountUseCase,
   UpdateUserUseCase,
-  UpdateProfileImageUseCase
+  UpdateProfileImageUseCase,
+  ForgotPasswordRequestUseCase,
+  ResetPasswordUseCase
 } from '@application/use-cases';
 import {
   SignInControllerFactory,
@@ -15,7 +17,9 @@ import {
   UpdateUserControllerFactory,
   VerifyAccountControllerFactory,
   UpdateProfileImageControllerFactory,
-  ErrorHandlerControllerFactory
+  ForgotPasswordRequestControllerFactory,
+  ErrorHandlerControllerFactory,
+  ResetPasswordControllerFactory
 } from '@adapters/REST-controllers';
 import {
   AuthenticationMiddlewareControllerFactory
@@ -23,7 +27,8 @@ import {
 import {
   UserRepository,
   VerificationTokenRepository,
-  ProfileImageRepository
+  ProfileImageRepository,
+  ForgotPasswordTokenRepository
 } from '@adapters/repositories';
 import {
   JWTTokenService,
@@ -49,6 +54,8 @@ export enum Dependencies {
   UPDATEUSERCONTROLLER = 'updateUserController',
   VERIFYACCOUNTCONTROLLER = 'verifyAccountController',
   UPDATEPROFILEIMAGECONTROLLER = 'updateProfileImageController',
+  FORGOTPASSWORDREQUESTCONTROLLER = 'forgotPasswordRequestController',
+  RESETPASSWORDCONTROLLER = 'resetPasswordController',
 
   AUTHMIDDLEWARE = 'authMiddleware',
   ERRORHANDLER = 'errorHandler',
@@ -70,11 +77,14 @@ export enum Dependencies {
   VERIFYACCOUNTUSECASE = 'verifyAccountUseCase',
   UPDATEUSERUSECASE = 'updateUserUseCase',
   UPDATEPROFILEIMAGEUSECASE = 'updateProfileImageUseCase',
+  FORGOTPASSWORDREQUESTUSECASE = 'forgotPasswordRequestUseCase',
+  RESETPASSWORDUSECASE = 'resetPasswordUseCase',
 
   // repositories
   USERREPOSITORY = 'userRepository',
   VERIFICATIONTOKENREPOSITORY = 'verificationTokenRepository',
   PROFILEIMAGEREPOSITORY = 'profileImageRepository',
+  FORGOTPASSWORDTOKENREPOSITORY = 'forgotPasswordTokenRepository',
 
   // server
   SERVER = 'server',
@@ -89,6 +99,8 @@ container.register({
   [Dependencies.UPDATEUSERCONTROLLER]: awilix.asFunction(UpdateUserControllerFactory),
   [Dependencies.VERIFYACCOUNTCONTROLLER]: awilix.asFunction(VerifyAccountControllerFactory),
   [Dependencies.UPDATEPROFILEIMAGECONTROLLER]: awilix.asFunction(UpdateProfileImageControllerFactory),
+  [Dependencies.FORGOTPASSWORDREQUESTCONTROLLER]: awilix.asFunction(ForgotPasswordRequestControllerFactory),
+  [Dependencies.RESETPASSWORDCONTROLLER]: awilix.asFunction(ResetPasswordControllerFactory),
 
   [Dependencies.AUTHMIDDLEWARE]: awilix.asFunction(AuthenticationMiddlewareControllerFactory),
   [Dependencies.ERRORHANDLER]: awilix.asFunction(ErrorHandlerControllerFactory),
@@ -108,11 +120,14 @@ container.register({
   [Dependencies.VERIFYACCOUNTUSECASE]: awilix.asClass(VerifyAccountUseCase).classic(),
   [Dependencies.UPDATEUSERUSECASE]: awilix.asClass(UpdateUserUseCase).classic(),
   [Dependencies.UPDATEPROFILEIMAGEUSECASE]: awilix.asClass(UpdateProfileImageUseCase).classic(),
+  [Dependencies.RESETPASSWORDUSECASE]: awilix.asClass(ResetPasswordUseCase).classic(),
+  [Dependencies.FORGOTPASSWORDREQUESTUSECASE]: awilix.asClass(ForgotPasswordRequestUseCase).classic(),
 
   // repositories
   [Dependencies.USERREPOSITORY]: awilix.asClass(UserRepository),
   [Dependencies.VERIFICATIONTOKENREPOSITORY]: awilix.asClass(VerificationTokenRepository),
   [Dependencies.PROFILEIMAGEREPOSITORY]: awilix.asClass(ProfileImageRepository).classic(),
+  [Dependencies.FORGOTPASSWORDTOKENREPOSITORY]: awilix.asClass(ForgotPasswordTokenRepository)
 })
 
 // console.log('sgup res',container.resolve(Dependencies.SIGNUPCONTROLLER).controller.toString())

@@ -25,13 +25,9 @@ interface IResetPasswordProps {
 
 const Page: React.FC<IResetPasswordProps> = ({ verificationToken }) => {
 
-  const router = useRouter();
   const { language } = useLanguage();
   const { theme } = useColorTheme();
-  const { verifyForgotPasswordToken, updateUser } = useApiBuilder();
-
-  const [verifyTokenError, setVerifyTokenError] = useState("");
-  const [verifyTokenResponse, setVerifyTokenResponse] = useState(false);
+  const { resetPassword } = useApiBuilder();
 
   const [updateUserError, setUpdateUserError] = useState("");
   const [updateUserResponse, setUpdateUserResponse] = useState(false);
@@ -40,24 +36,25 @@ const Page: React.FC<IResetPasswordProps> = ({ verificationToken }) => {
     return new ValidationSchemas(language).getResetPasswordSchema()
   }, [language]);
 
-  useEffect(() => {
-    const fetch = async () => {
-      const { error } = await verifyForgotPasswordToken.apiCall({
-        token: verificationToken
-      });
-      if(error) setVerifyTokenError(error.message);
-      else setVerifyTokenResponse(true);
-    };
-    fetch();
-  }, []);
+  // useEffect(() => {
+  //   const fetch = async () => {
+  //     const { error } = await verifyForgotPasswordToken.apiCall({
+  //       token: verificationToken
+  //     });
+  //     if(error) setVerifyTokenError(error.message);
+  //     else setVerifyTokenResponse(true);
+  //   };
+  //   fetch();
+  // }, []);
 
   const handleSubmit = async ({
     password,
     confirmPassword
   }) => {
-    const { error } = await updateUser.apiCall({
+    const { error } = await resetPassword.apiCall({
       password,
-      confirmPassword
+      confirmPassword,
+      token: verificationToken
     });
     if(error) setUpdateUserError(error.message);
     else setUpdateUserResponse(true);
@@ -69,25 +66,15 @@ const Page: React.FC<IResetPasswordProps> = ({ verificationToken }) => {
         <title>{getPageTitle(Translations[language][Labels.SIGNIN])}</title>
       </Head>
       <ResponsiveCenteredPageContent>
-        <LoadingErrorData
-          loading={verifyForgotPasswordToken.loading}
-          error={verifyTokenError}
-          data={verifyTokenResponse}
-        >
-          <LoadingErrorData.Error>
-            <ErrorAlert error={"Token inválido"} dismissible={false}/>
-          </LoadingErrorData.Error>
-          <Frame>
-            <ErrorAlert error={updateUserError} onClose={() => setUpdateUserError(undefined)}/>
-            <SuccessAlert response={updateUserResponse && "Senha alterada com sucesso"} dismissible={false}/>
-            <Form onSubmit={handleSubmit} schema={schema}>
-              <PasswordInput name='password' label={Translations[language][Labels.PASSWORD]} type="password" />
-              <PasswordInput name='confirmPassword' label={Translations[language][Labels.CONFIRM_PASSWORD]} type="password" />
-              <Button loading={updateUser.loading}>{Translations[language][Labels.SEND]}</Button>
-            </Form>
-          </Frame>
-        </LoadingErrorData>
-
+        <Frame>
+          <ErrorAlert error={updateUserError} onClose={() => setUpdateUserError(undefined)}/>
+          <SuccessAlert response={updateUserResponse && "Senha alterada com sucesso"} dismissible={false}/>
+          <Form onSubmit={handleSubmit} schema={schema}>
+            <PasswordInput name='password' label={Translations[language][Labels.PASSWORD]} type="password" />
+            <PasswordInput name='confirmPassword' label={Translations[language][Labels.CONFIRM_PASSWORD]} type="password" />
+            <Button loading={resetPassword.loading}>{Translations[language][Labels.SEND]}</Button>
+          </Form>
+        </Frame>
       </ResponsiveCenteredPageContent>
     </PageContainer>
   )

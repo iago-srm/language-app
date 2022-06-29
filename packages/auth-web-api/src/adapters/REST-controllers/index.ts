@@ -6,3 +6,5 @@ export * from './error-handler';
 export * from './update-user';
 export * from './profile-image';
 export * from './verify-account';
+export * from './forgot-password-request';
+export * from './reset-password';

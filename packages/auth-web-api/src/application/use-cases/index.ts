@@ -5,6 +5,8 @@ import SignUpUseCase, { ISignUpUseCase } from './sign-up';
 import UpdateUserUseCase, { IUpdateUserUseCase } from './update-user';
 import UpdateProfileImageUseCase, { IUpdateProfileImageUseCase } from './update-profile-image';
 import VerifyAccountUseCase, { IVerifyAccountUseCase } from './verify-account';
+import ResetPasswordUseCase, { IResetPasswordUseCase } from './reset-password';
+import ForgotPasswordRequestUseCase, { IForgotPasswordRequestUseCase } from './forgot-password-request';
 export {
   SignInUseCase,
   ISignInUseCase,
@@ -17,5 +19,9 @@ export {
   VerifyAccountUseCase,
   IVerifyAccountUseCase,
   UpdateProfileImageUseCase,
-  IUpdateProfileImageUseCase
+  IUpdateProfileImageUseCase,
+  ResetPasswordUseCase,
+  IResetPasswordUseCase,
+  ForgotPasswordRequestUseCase,
+  IForgotPasswordRequestUseCase
 };

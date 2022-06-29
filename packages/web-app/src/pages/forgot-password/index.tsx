@@ -40,7 +40,10 @@ const Page: React.FC = () => {
     if(error) {
       setError(error.message)
     }
-    else setResponse(response.email);
+    else {
+      setError(undefined);
+      setResponse(response.email);
+    }
   }
 
   return (
@@ -50,7 +53,7 @@ const Page: React.FC = () => {
       </Head>
       <ResponsiveCenteredPageContent>
         <Frame>
-          <ErrorAlert error={error} onClose={() => setError(undefined)}/>
+          <ErrorAlert error={error} onClose={() => setError(undefined)} dismissible/>
           <SuccessAlert response={response && `Um email será enviado para ${response}`} dismissible={false}/>
           <Form onSubmit={handleSubmit} schema={schema}>
             <Input name='email' label={Translations[language][Labels.EMAIL]} />

@@ -30,8 +30,6 @@ export interface IGetUserAPIResponse extends IUser {};
 export interface IUpdateUserParams {
   name?: string;
   role?: 'STUDENT' | 'INSTRUCTOR';
-  password?: string;
-  confirmPassword?: string;
 }
 export interface IUpdateUserResponse {}
 
@@ -47,9 +45,14 @@ export interface IForgotPasswordResponse {
   email: string;
 }
 
-export interface IVerifyForgotPasswordParams {
+// export interface IVerifyForgotPasswordParams {
+//   token: string;
+// }
+// export interface IVerifyForgotPasswordResponse {}
+
+export interface IResetPasswordParams {
+  password?: string;
+  confirmPassword?: string;
   token: string;
 }
-export interface IVerifyForgotPasswordResponse {}
-
-
+export interface IResetPasswordResponse {}

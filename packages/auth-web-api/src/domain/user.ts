@@ -9,8 +9,8 @@ import {
 interface UserConstructorParams {
   name?: string;
   role?: string;
-  email: string;
-  password: string;
+  email?: string;
+  password?: string;
 }
 
 export class User {
@@ -19,9 +19,9 @@ export class User {
   password: string;
 
   constructor(args: UserConstructorParams) {
-    this.setPersonId(args.email, args.name);
+    if(args.email && args.name) this.setPersonId(args.email, args.name);
     if(args.role) this.setRole(args.role);
-    this.setPassword(args.password);
+    if(args.password) this.setPassword(args.password);
   }
 
   setPersonId(email: string, name: string) {

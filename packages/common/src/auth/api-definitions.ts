@@ -38,12 +38,17 @@ export const UpdateProfileImageHTTPDefinition: HTTPDefinition = {
   method: 'post'
 }
 
-export const ForgotPasswordHTTPDefinition: HTTPDefinition = {
+export const ForgotPasswordRequestHTTPDefinition: HTTPDefinition = {
   path: 'forgot-password-token',
   method: 'post'
 }
 
-export const VerifyForgotPasswordHTTPDefinition: HTTPDefinition = {
-  path: 'forgot-password-token/:token',
-  method: 'get'
+// export const VerifyForgotPasswordHTTPDefinition: HTTPDefinition = {
+//   path: 'forgot-password-token/:token',
+//   method: 'get'
+// }
+
+export const ResetPasswordHTTPDefinition: HTTPDefinition = {
+  path: 'user/password',
+  method: 'put'
 }

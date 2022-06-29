@@ -23,10 +23,10 @@ import {
   UpdateProfileImageHTTPDefinition,
   IForgotPasswordParams,
   IForgotPasswordResponse,
-  ForgotPasswordHTTPDefinition,
-  IVerifyForgotPasswordParams,
-  IVerifyForgotPasswordResponse,
-  VerifyForgotPasswordHTTPDefinition
+  ForgotPasswordRequestHTTPDefinition,
+  IResetPasswordParams,
+  IResetPasswordResponse,
+  ResetPasswordHTTPDefinition
 } from '@language-app/common';
 import { useLanguage, handleAuthToken } from '@contexts';
 import { useEffect } from 'react';
@@ -76,11 +76,11 @@ export const useApiBuilder = () => {
 
   const useUser = (canFetch: boolean) => useApiCallSWR<IGetUserAPIResponse>(canFetch && GetUserHTTPDefinition.path,authFetcher[GetUserHTTPDefinition.method].bind(authFetcher));
 
-  const forgotPassword = useApiCall<IForgotPasswordParams, IForgotPasswordResponse>
-    (({ email }) => authFetcher[ForgotPasswordHTTPDefinition.method](ForgotPasswordHTTPDefinition.path, { email }))
+  const forgotPasswordRequest = useApiCall<IForgotPasswordParams, IForgotPasswordResponse>
+    (({ email }) => authFetcher[ForgotPasswordRequestHTTPDefinition.method](ForgotPasswordRequestHTTPDefinition.path, { email }))
 
-  const verifyForgotPasswordToken = useApiCall<IVerifyForgotPasswordParams,IVerifyForgotPasswordResponse>
-    (({ token }) => authFetcher[VerifyForgotPasswordHTTPDefinition.method](`${VerifyForgotPasswordHTTPDefinition.path.split('/')[0]}/${token}`));
+  const resetPassword = useApiCall<IResetPasswordParams,IResetPasswordResponse>
+    ((args) => authFetcher[ResetPasswordHTTPDefinition.method](ResetPasswordHTTPDefinition.path, args));
 
   return {
     signUp,
@@ -90,8 +90,8 @@ export const useApiBuilder = () => {
     updateUser,
     verifyAccount,
     uploadProfileImage,
-    forgotPassword,
-    verifyForgotPasswordToken
+    forgotPasswordRequest,
+    resetPassword
   }
 }
 

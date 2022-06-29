@@ -17,6 +17,9 @@ export class ProfileImageRepository implements IProfileImageRepository {
     return `${process.env.PROFILE_IMAGE_BUCKET}/${imageName}`;
   }
 
+  getGenericImageUrl() {
+    return `${process.env.PROFILE_IMAGE_BUCKET}/generic-avatar-1.jpg`;
+  }
   // getProfileImageUrl(userId?: string) {
   //   return userId ? `${process.env.PROFILE_IMAGE_BUCKET}/${this._getImageName(userId)}` : `${process.env.PROFILE_IMAGE_BUCKET}/generic-avatar-1.jpg`;
   // }

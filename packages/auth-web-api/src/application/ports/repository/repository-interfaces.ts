@@ -1,4 +1,8 @@
-import { UserDTO, VerificationTokenDTO } from '.';
+import {
+  UserDTO,
+  VerificationTokenDTO,
+  ForgotPasswordTokenDTO
+} from '.';
 
 export interface IUserRepository {
   getUserById: (id: string) => Promise<UserDTO | null>;
@@ -12,7 +16,13 @@ export interface IVerificationTokenRepository {
   insertToken: (token: VerificationTokenDTO) => Promise<VerificationTokenDTO>;
 }
 
+export interface IForgotPasswordTokenRepository {
+  getTokenByTokenValue: (token: string) => Promise<ForgotPasswordTokenDTO | null>;
+  insertToken: (token: ForgotPasswordTokenDTO) => Promise<ForgotPasswordTokenDTO>;
+  invalidateToken: (token: ForgotPasswordTokenDTO) => Promise<ForgotPasswordTokenDTO>;
+}
+
 export interface IProfileImageRepository {
   uploadProfileImage: (file: any, userId: string) => Promise<string>;
-  // getProfileImageUrl: (userId?: string) => string;
+  getGenericImageUrl: () => string;
 }

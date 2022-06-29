@@ -28,6 +28,10 @@ export class AxiosFetcher implements Fetcher {
     return this._instance.get(url).then(this._successHandler).catch(this._errorHandler);
   }
 
+  put(url: string, body: any) {
+    return this._instance.put(url, body).then(this._successHandler).catch(this._errorHandler);
+  }
+
   post(url: string, body: any) {
     return this._instance.post(url, body).then(this._successHandler).catch(this._errorHandler);
   }
