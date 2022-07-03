@@ -13,13 +13,14 @@ export const ForgotPasswordRequestControllerFactory = ({
 }: {
   forgotPasswordRequestUseCase: IForgotPasswordRequestUseCase;
 }): IHTTPControllerDescriptor<IHTTPController> => {
-  const fn: IHTTPController = async (_, body, ___) => {
+  const fn: IHTTPController = async (_, body, ___, { language }) => {
     const {
       email
     } = serializer(body, ['email']);
 
     const response = await forgotPasswordRequestUseCase.execute({
-      email
+      email,
+      language
     })
 
     return {

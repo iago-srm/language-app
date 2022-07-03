@@ -1,5 +1,5 @@
 import sgMail from '@sendgrid/mail';
-import { IEmailService } from '@application/ports';
+import { IEmailService } from '@adapters/ports';
 
 export class SendgridEmailService implements IEmailService {
 

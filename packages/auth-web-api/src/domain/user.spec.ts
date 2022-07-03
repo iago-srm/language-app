@@ -1,6 +1,6 @@
 import { User } from './index';
 import { AuthRules, DomainRules } from '@language-app/common';
-import { ErrorMessages } from '@common/locale';
+import { ErrorMessagesLabels } from '@common/locale';
 import { EmailGenerator, PasswordGenerator } from '@language-app/common';
 
 class UserTestBuilder {
@@ -42,7 +42,7 @@ describe('Unit Tests for User Entity', () => {
       sutBuilder.withInvalidRole();
     } catch (e) {
       expect(e).toMatchObject({
-        errorName: ErrorMessages.INVALID_ROLE,
+        errorName: ErrorMessagesLabels.INVALID_ROLE,
       });
     }
   });
@@ -66,7 +66,7 @@ describe('Unit Tests for User Entity', () => {
       sutBuilder.withInvalidPassword();
     } catch (e) {
       expect(e).toMatchObject({
-        errorName: ErrorMessages.INVALID_PASSWORD,
+        errorName: ErrorMessagesLabels.INVALID_PASSWORD,
       });
     }
   });

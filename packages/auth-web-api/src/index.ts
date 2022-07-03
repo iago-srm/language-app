@@ -31,6 +31,9 @@ import {
   ForgotPasswordTokenRepository
 } from '@adapters/repositories';
 import {
+  AuthEmails
+} from '@adapters/services';
+import {
   JWTTokenService,
   IdGenerator,
   BCryptEncryptionService,
@@ -68,6 +71,7 @@ export enum Dependencies {
   LOGGER = 'logger',
   FILEMIDDLEWARE = 'fileMiddleware',
   STORAGESERVICE = 'storageService',
+  AUTHEMAILSERVICE = 'authEmailService',
 
   // use cases
   LOGOUTUSECASE = 'signOutUseCase',
@@ -112,6 +116,7 @@ container.register({
   [Dependencies.EMAILSERVICE]: awilix.asClass(SendgridEmailService),
   [Dependencies.FILEMIDDLEWARE]: awilix.asValue(putFileInReq),
   [Dependencies.STORAGESERVICE]: awilix.asClass(S3Service),
+  [Dependencies.AUTHEMAILSERVICE]: awilix.asClass(AuthEmails).classic(),
 
   // use cases
   [Dependencies.LOGOUTUSECASE]: awilix.asClass(SignOutUseCase).classic(),

@@ -5,6 +5,7 @@ import {
   IHTTPMiddleware,
 } from '@adapters/ports';
 import { IHTTPFrameworkAdapter } from './server';
+import { HeaderParser } from './headers';
 
 export class ExpressControllerAdapter implements IHTTPFrameworkAdapter {
   adaptControllerFunction(fn: IHTTPController) {
@@ -17,8 +18,12 @@ export class ExpressControllerAdapter implements IHTTPFrameworkAdapter {
           // this is placed here by the auth middleware.
           // It is then passed along to all requests that run after this middleware.
           user: (req as any).user,
+          // just in case
           req,
-          file: req.file
+          // for endpoints that receive files
+          file: req.file,
+          // for endpoints that need the client's language
+          language: HeaderParser.getPreferredLanguage(req)
         }
       );
       res.status(statusCode).json(response);

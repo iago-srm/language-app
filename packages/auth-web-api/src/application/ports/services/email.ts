@@ -1,8 +1,9 @@
-type EmailBody = {
-  text?: string;
-  html?: string;
+type SendEmailArgs = {
+  destination: string,
+  language: string,
+  url: string
 }
-
-export interface IEmailService {
-  sendEmail: (to: string, subject: string, body: EmailBody) => Promise<boolean>;
+export interface IAuthEmailService {
+  sendForgotPasswordEmail: (args: SendEmailArgs) => Promise<any>;
+  sendVerifyAccountEmail: (args: SendEmailArgs) => Promise<any>;
 }

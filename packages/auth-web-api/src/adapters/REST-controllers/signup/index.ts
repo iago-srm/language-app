@@ -11,14 +11,17 @@ export const SignUpControllerFactory = ({
 }: {
   signUpUseCase: ISignUpUseCase;
 }): IHTTPControllerDescriptor<IHTTPController> => {
-  const fn: IHTTPController = async (_, body) => {
-    const { email, password, name, confirmPassword } =
-      serializer(body);
+
+  const fn: IHTTPController = async (_, body, __, { language }) => {
+
+    const { email, password, name, confirmPassword } =  serializer(body);
+
     await signUpUseCase.execute({
       email,
       name,
       password,
       confirmPassword,
+      language
     });
 
     return {

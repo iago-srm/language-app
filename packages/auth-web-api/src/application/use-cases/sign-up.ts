@@ -5,7 +5,7 @@ import {
   UserDTO,
   IEncryptionService,
   IIdGenerator,
-  IEmailService,
+  IAuthEmailService,
   IProfileImageRepository,
 } from '../ports';
 import { User } from '@domain';
@@ -18,21 +18,23 @@ import {
   ISignUpAPIResponse
 } from '@language-app/common';
 
-type InputParams = ISignUpAPIParams;
+type InputParams = ISignUpAPIParams & { language: string };
 type Return = void;
 
 export type ISignUpUseCase = IUseCase<InputParams, Return>;
 
 class UseCase implements ISignUpUseCase {
+
   constructor (
     private userRepository: IUserRepository,
     private encryptionService: IEncryptionService,
     private idService: IIdGenerator,
-    private emailService: IEmailService,
+    private emailService: IAuthEmailService,
     private verificationTokenRepository: IVerificationTokenRepository,
     private profileImageRepository: IProfileImageRepository
   ){}
-  async execute({ email, password, name, confirmPassword }) {
+
+  async execute({ email, password, name, confirmPassword, language }) {
     const user = new User({ email, name, password });
 
     const existingUser = await this.userRepository.getUserByEmail(email);
@@ -60,17 +62,11 @@ class UseCase implements ISignUpUseCase {
       userId
     })
 
-    const confirmationLink = `${process.env.WEB_APP_URL}/verify-account?verificationToken=${token}&userId=${userId}`;
-
-    await this.emailService.sendEmail(
-      email,
-      'Confirme sua conta em language-app',
-      {
-        html: `
-        <p>Clique no link para confirmar sua conta: ${confirmationLink}</p>
-        `
-      }
-    );
+    await this.emailService.sendVerifyAccountEmail({
+      destination: email,
+      language,
+      url: `${process.env.WEB_APP_URL}/verify-account?verificationToken=${token}&userId=${userId}`
+    });
   }
 
 }

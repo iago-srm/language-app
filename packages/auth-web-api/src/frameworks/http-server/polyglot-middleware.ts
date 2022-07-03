@@ -1,28 +1,13 @@
 import Polyglot from 'node-polyglot';
-import { Languages } from '@language-app/common';
+import { Strings } from '@common/locale';
+import { HeaderParser } from './headers';
 
-const deflt = 'en';
-
-const getPreferredLanguage = (proposals) => {
-  const [lang, quality] = proposals.split(';')
-  if(Languages.includes(lang)) return lang;
-  return deflt;
-}
-
-export const startPolyglot = (messages) => {
+export const startPolyglot = () => {
   return (req, _, next) => {
-    const language = getPreferredLanguage(req.headers['x-accept-language'] || 'en;q=1');
+    const language = HeaderParser.getPreferredLanguage(req);
     req.polyglot = new Polyglot();
-    // does not work:
-    // req.headers['content-language'] = locale;
-    // console.log({language})
-    req.polyglot.extend(messages[language]);
-
-    // for (let lang in messages) {
-    //   if (locale.split('-')[0] === lang) {
-    //     req.polyglot.extend(messages[lang]);
-    //   }
-    // }
+    const strings = new Strings(language);
+    req.polyglot.extend(strings.error);
     next();
   };
 };

@@ -12,6 +12,9 @@ export type IHTTPController = (
       role: string;
       image: string;
     };
+    req?: any,
+    file?: any,
+    language?: string
   }
 ) => Promise<{ response: any; statusCode: number }>;
 

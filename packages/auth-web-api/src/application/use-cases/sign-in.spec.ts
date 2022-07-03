@@ -2,7 +2,7 @@ import {
   TestDataFacade
 } from '@common/test-helpers';
 import { UserDTOHelperBuilder } from '@common/test-helpers';
-import { ErrorMessages } from '@common/locale';
+import { ErrorMessagesLabels } from '@common/locale';
 
 describe('SignIn in use case unit tests', () => {
 
@@ -46,7 +46,7 @@ describe('SignIn in use case unit tests', () => {
     try {
       await testData.sut.signIn.execute(testData.inputBuilder.getResult());
     } catch(e) {
-      expect(e).toMatchObject({ errorName: ErrorMessages.INVALID_CREDENTIALS })
+      expect(e).toMatchObject({ errorName: ErrorMessagesLabels.INVALID_CREDENTIALS })
     }
   });
 
@@ -72,7 +72,7 @@ describe('SignIn in use case unit tests', () => {
     try {
       await testData.sut.signIn.execute(testData.inputBuilder.getResult());
     } catch(e) {
-      expect(e).toMatchObject({ errorName: ErrorMessages.INVALID_CREDENTIALS })
+      expect(e).toMatchObject({ errorName: ErrorMessagesLabels.INVALID_CREDENTIALS })
     }
   });
 

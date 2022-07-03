@@ -1,52 +1,52 @@
 import { CustomError } from '@language-app/common';
-import { ErrorMessages } from '../locale/error-messages';
+import { ErrorMessagesLabels } from '../locale/labels';
 
 export class PasswordsDontMatchError extends CustomError {
   HTTPstatusCode = 400;
   constructor() {
-    super({ errorName: ErrorMessages.PASSWORDS_DONT_MATCH });
+    super({ errorName: ErrorMessagesLabels.PASSWORDS_DONT_MATCH });
   }
 }
 
 export class InvalidRoleError extends CustomError {
   HTTPstatusCode = 400;
   constructor() {
-    super({ errorName: ErrorMessages.INVALID_ROLE });
+    super({ errorName: ErrorMessagesLabels.INVALID_ROLE });
   }
 }
 
 export class InvalidPasswordError extends CustomError {
   HTTPstatusCode = 400;
   constructor() {
-    super({ errorName: ErrorMessages.INVALID_PASSWORD });
+    super({ errorName: ErrorMessagesLabels.INVALID_PASSWORD });
   }
 }
 
 export class EmailAlreadySignedupError extends CustomError {
   HTTPstatusCode = 400;
   constructor() {
-    super({ errorName: ErrorMessages.EMAIL_IN_USE });
+    super({ errorName: ErrorMessagesLabels.EMAIL_IN_USE });
   }
 }
 
 export class TokenGenerationError extends CustomError {
   HTTPstatusCode = 400;
   constructor({ error }) {
-    super({ errorName: ErrorMessages.TOKEN_GENERATION, params: { error } });
+    super({ errorName: ErrorMessagesLabels.TOKEN_GENERATION, params: { error } });
   }
 }
 
 export class UserNotFoundError extends CustomError {
   HTTPstatusCode = 404;
   constructor() {
-    super({ errorName: ErrorMessages.USER_NOT_FOUND });
+    super({ errorName: ErrorMessagesLabels.USER_NOT_FOUND });
   }
 }
 
 export class InvalidValidationTokenError extends CustomError {
   HTTPstatusCode = 400;
   constructor() {
-    super({ errorName: ErrorMessages.VALIDATION_TOKEN });
+    super({ errorName: ErrorMessagesLabels.VALIDATION_TOKEN });
   }
 }
 

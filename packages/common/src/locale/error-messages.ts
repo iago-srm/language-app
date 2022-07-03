@@ -1,5 +1,4 @@
-
-export const ErrorMessages = {
+export const ErrorMessagesLabels = {
   INVALID_EMAIL: 'email',
   INVALID_NAME: 'name',
   INVALID_PASSWORD: 'invalid_password',

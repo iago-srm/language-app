@@ -4,9 +4,7 @@ import { RouteNotFoundError } from '@language-app/common';
 import helmet from 'helmet';
 import cors from 'cors';
 import { json } from 'body-parser';
-// import { errorHandler } from './error-handler';
 import { startPolyglot } from './polyglot-middleware';
-import { Messages } from '@/common/locale';
 import {
   Server as AbstractServer,
   IHTTPServerConstructorParams,
@@ -53,7 +51,8 @@ export class ExpressServer extends AbstractServer {
 
     //Middleware
     this._app.use(json());
-    this._app.use(startPolyglot(Messages));
+
+    this._app.use(startPolyglot());
 
     // Security
     this._app.use(helmet());

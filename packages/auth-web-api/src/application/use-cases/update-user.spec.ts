@@ -2,7 +2,7 @@ import {
   TestDataFacade
 } from '@common/test-helpers';
 import { UserDTOHelperBuilder } from '@common/test-helpers';
-import { ErrorMessages } from '@common/locale';
+import { ErrorMessagesLabels } from '@common/locale';
 
 describe('UpdateUser use case unit tests', () => {
 
@@ -50,7 +50,7 @@ describe('UpdateUser use case unit tests', () => {
     try {
       await testData.sut.updateUser.execute(input)
     } catch(e) {
-      expect(e).toMatchObject({ errorName: ErrorMessages.USER_NOT_FOUND })
+      expect(e).toMatchObject({ errorName: ErrorMessagesLabels.USER_NOT_FOUND })
     }
   });
 
@@ -74,7 +74,7 @@ describe('UpdateUser use case unit tests', () => {
     try {
       await testData.sut.updateUser.execute(input)
     } catch(e) {
-      expect(e).toMatchObject({ errorName: ErrorMessages.INVALID_ROLE })
+      expect(e).toMatchObject({ errorName: ErrorMessagesLabels.INVALID_ROLE })
     }
   })
 
