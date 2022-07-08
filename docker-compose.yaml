@@ -1,32 +1,50 @@
 version: "3"
 
 services:
-  domain:
-    image: iagosrm/language-app-domain
-    build: ./domain-web-api/
-    ports:
-      - "${PORT_DOMAIN}:${PORT_DOMAIN}"
-    environment:
-      - DATABASE_URL=${DATABASE_URL_DOMAIN}
-      - PORT=${PORT_DOMAIN}
+  # domain:
+  #   image: iagosrm/language-app-domain
+  #   build: ./web-api/
+  #   ports:
+  #     - "${PORT_DOMAIN}:${PORT_DOMAIN}"
+  #   environment:
+  #     - DATABASE_URL=${DATABASE_URL_DOMAIN}
+  #     - PORT=${PORT_DOMAIN}
 
+  # network:
+  #   driver: bridge
+  #   name: language-app
   auth:
-    image: iagosrm/language-app-auth
-    build: ./auth-web-api/
+    image: language-app-auth-web-api
+    container_name: auth-web-api
+    entrypoint: "npm run dev"
+    # entrypoint: "tail -f /dev/null"
     ports:
-      - "${PORT_AUTH}:${PORT_AUTH}"
+      - "${AUTH_PORT}:${AUTH_PORT}"
+      - 5555:5555 # prisma studio
     environment:
-      - DATABASE_URL=${DATABASE_URL_AUTH}
-      - PORT=${PORT_AUTH}
+      - DATABASE_URL=postgres://${AUTH_POSTGRES_USER}:${AUTH_POSTGRES_PASSWORD}@postgres-auth:5432/${AUTH_POSTGRES_SCHEMA}
+      - PORT=${AUTH_PORT}
+      - TOKEN_SECRET=${TOKEN_SECRET}
+      - SENDGRID_API_KEY=${SENDGRID_API_KEY}
+      - PROFILE_IMAGE_BUCKET=${PROFILE_IMAGE_BUCKET}
+      - WEB_APP_URL=${WEB_APP_URL}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    tty: true
+    volumes:
+      - ./packages/common:/app/packages/common
+      - ./packages/auth-web-api:/app/packages/auth-web-api
+      # - ./node_modules/
 
   postgres-auth:
     image: postgres
+    container_name: auth-postgres
     ports:
-      - "5432"
+      - "5432:5432"
     environment:
-      - POSTGRES_USER=${POSTGRES_USER_AUTH}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD_AUTH}
-      - POSTGRES_SCHEMA=${POSTGRES_SCHEMA_AUTH}
+      - POSTGRES_USER=${AUTH_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${AUTH_POSTGRES_PASSWORD}
+      - POSTGRES_DB=${AUTH_POSTGRES_SCHEMA}
     volumes:
       - ${HOME}/language-app-auth-postgres-data/:/var/lib/postgresql/data
     healthcheck:
@@ -35,18 +53,18 @@ services:
       timeout: 5s
       retries: 5
 
-  postgres-domain:
-    image: postgres
-    ports:
-      - "5432"
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER_DOMAIN}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD_DOMAIN}
-      - POSTGRES_SCHEMA=${POSTGRES_SCHEMA_DOMAIN}
-    volumes:
-      - ${HOME}/language-app-domain-postgres-data/:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
+  # postgres-domain:
+  #   image: postgres
+  #   ports:
+  #     - "5432"
+  #   environment:
+  #     - POSTGRES_USER=${POSTGRES_USER_DOMAIN}
+  #     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD_DOMAIN}
+  #     - POSTGRES_SCHEMA=${POSTGRES_SCHEMA_DOMAIN}
+  #   volumes:
+  #     - ${HOME}/language-app-domain-postgres-data/:/var/lib/postgresql/data
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U postgres"]
+  #     interval: 5s
+  #     timeout: 5s
+  #     retries: 5

@@ -1,2 +1,5 @@
 export * from './ibase-repository';
-export * from './user';
+export * from './user-prisma';
+export * from './verification-token';
+export * from './profile-image-repository';
+export * from './forgot-password-token';

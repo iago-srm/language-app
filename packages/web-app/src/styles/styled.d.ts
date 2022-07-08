@@ -2,9 +2,7 @@
 
 import 'styled-components'
 
-import theme from './theme'
-
-export type Theme = typeof theme
+import { getTheme, Theme } from '../contexts/color-mode-theme/theme'
 
 declare module 'styled-components' {
   export interface DefaultTheme extends Theme {}

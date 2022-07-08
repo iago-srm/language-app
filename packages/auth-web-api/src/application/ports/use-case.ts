@@ -1,5 +1,7 @@
-export type IUseCase<P,R> = {
-    execute: (args: P) => Promise<R>
-}
+// export type IUseCase<P, R> = {
+//   execute: (args: P) => Promise<R>;
+// };
 
-export type IUseCaseFactory<D,P,R> = (dependencies: D) => IUseCase<P,R>
+export interface IUseCase<P, R> {
+  execute: (args: P) => Promise<R>
+}

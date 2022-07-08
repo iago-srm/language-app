@@ -1,6 +1,5 @@
-import { CustomError } from '@common/errors';
+import { CustomError, DomainRules } from '@language-app/common';
 import { ErrorMessages } from '@common/locales';
-import { DomainRules } from '@language-app/common';
 
 // student output
 export class InvalidStudentOutputStatusError extends CustomError {

@@ -1,4 +1,4 @@
-import { PersonId } from '../person-id';
+import { PersonId } from '@language-app/common';
 import { Activity } from '../activity/activity';
 
 interface InstructorConstructorParams {
