@@ -38,7 +38,8 @@ const Page: React.FC = () => {
       email,
     });
     if(error) {
-      setError(error.message)
+      setError(error.message);
+      setResponse(undefined);
     }
     else {
       setError(undefined);

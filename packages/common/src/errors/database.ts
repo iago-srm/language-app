@@ -1,11 +1,11 @@
 import { CustomError } from './custom-error';
-import { ErrorMessages } from '../locale';
+import { ErrorMessagesLabels } from '../locale';
 
 export class DatabaseError extends CustomError {
   public HTTPstatusCode = 500;
 
   constructor() {
-    super({ errorName: ErrorMessages.DATABASE_ERROR });
+    super({ errorName: ErrorMessagesLabels.DATABASE_ERROR });
     // Object.setPrototypeOf(this, DatabaseError.prototype);
   }
 }

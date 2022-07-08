@@ -23,8 +23,9 @@ class UserTestBuilder {
     });
   }
 
-  valid(r?: string, e?: string, p?: string) {
+  valid(r?: string, e?: string, p?: string, n?: string) {
     return new User({
+      name: n || "iago",
       email: e || this.emailGenerator.getValidEmail(),
       role: r || DomainRules.USER.ROLES[0],
       password: p || this.passwordGenerator.getValidPassword(),
