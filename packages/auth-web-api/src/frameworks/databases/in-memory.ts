@@ -96,7 +96,7 @@
 //             resolve(entity);
 //         });
 //     }
-    
+
 //     // getManyByOwnField(field: string, value: string) {
 //     //     return new Promise<P[]>(resolve => resolve(this.repository.filter(entry => entry[field] === value)))
 //     // }

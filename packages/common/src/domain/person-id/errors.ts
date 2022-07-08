@@ -1,0 +1,18 @@
+import { ErrorMessagesLabels } from '../../locale';
+import { CustomError } from '../../errors';
+
+export class InvalidEmailError extends CustomError {
+  HTTPstatusCode = 400;
+  constructor() {
+    super({ errorName: ErrorMessagesLabels.INVALID_EMAIL });
+  }
+}
+
+export class InvalidNameError extends CustomError {
+  HTTPstatusCode = 400;
+  constructor() {
+    super({
+      errorName: ErrorMessagesLabels.INVALID_NAME,
+    });
+  }
+}

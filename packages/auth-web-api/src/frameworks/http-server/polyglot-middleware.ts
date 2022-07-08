@@ -1,14 +1,13 @@
 import Polyglot from 'node-polyglot';
+import { Strings } from '@common/locale';
+import { HeaderParser } from './headers';
 
-export const startPolyglot = (messages) => { 
-    return (req, _, next) => {
-        const locale = req.headers["accept-language"] || "en-US";
-        req.polyglot = new Polyglot();
-        for(let lang in messages) {
-            if(locale.split('-')[0] === lang) {
-                req.polyglot.extend(messages[lang])
-            }
-        }
-        next();
-    }; 
+export const startPolyglot = () => {
+  return (req, _, next) => {
+    const language = HeaderParser.getPreferredLanguage(req);
+    req.polyglot = new Polyglot();
+    const strings = new Strings(language);
+    req.polyglot.extend(strings.error);
+    next();
+  };
 };

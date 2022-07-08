@@ -1,15 +1,11 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "target": "es5",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": false,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -17,7 +13,19 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "baseUrl": "./src/",
+    "paths": {
+      "@utils": [ "utils/index.ts" ],
+      "@components": ["components/index.ts"],
+      "@locale": ["locale/index.ts"],
+      "@contexts": ["contexts/index.ts"],
+      "@styles": ["styles/index.ts"],
+      "@services/*": ["services/*/index.ts"]
+    },
+    "allowJs": true,
+    "strict": false,
+    "incremental": true
   },
   "include": [
     "next-env.d.ts",
