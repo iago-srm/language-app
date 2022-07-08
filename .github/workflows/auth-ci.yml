@@ -8,6 +8,7 @@ on:
       - hotfix/*
     paths:
       - 'packages/web-api-auth/**'
+      - 'packages/common/**'
 
 jobs:
   build_and_test:

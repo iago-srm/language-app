@@ -2,8 +2,8 @@ import {
   IDatabase,
   IBaseCollection,
   // ITest
-} from "@adapters/repositories";
-import { createConnection, Connection, Repository, DeepPartial } from "typeorm";
+} from '@adapters/repositories';
+import { createConnection, Connection, Repository, DeepPartial } from 'typeorm';
 
 export class TypeORMDatabase implements IDatabase {
   connection: Connection;
@@ -14,10 +14,12 @@ export class TypeORMDatabase implements IDatabase {
   }
   async connect() {
     try {
-      this.connection = await createConnection(this._dbConnectionName || 'development');
+      this.connection = await createConnection(
+        this._dbConnectionName || 'development'
+      );
       return true;
-    } catch(e) {
-      console.error("failed to create connection",e)
+    } catch (e) {
+      console.error('failed to create connection', e);
       return false;
     }
   }
@@ -41,8 +43,8 @@ class TypeORMCollectionAdapter<P> implements IBaseCollection<P> {
   constructor(private repository: Repository<P>) {}
 
   async getOneById(id: string) {
-    if(!id) {
-      throw Error("Null id was passed");
+    if (!id) {
+      throw Error('Null id was passed');
     }
     const response = await this.repository.findOne(id);
     return response;
@@ -54,7 +56,7 @@ class TypeORMCollectionAdapter<P> implements IBaseCollection<P> {
   }
 
   async getManyByIds(ids: string[]) {
-    return this.repository.findByIds(ids) // does this fail if one id is not found?
+    return this.repository.findByIds(ids); // does this fail if one id is not found?
   }
 
   getAll() {
@@ -71,10 +73,19 @@ class TypeORMCollectionAdapter<P> implements IBaseCollection<P> {
     return result ? true : false;
   }
 
-  getByFK(foreignTable: string, conditions: { foreignKey: string, value: string }[]) {
-    const query = `SELECT * FROM ${foreignTable} where ${conditions.map((condition,i, conditions) => i < conditions.length-1 ? `${condition.foreignKey} = \'${condition.value}\' AND` : `${condition.foreignKey} = \'${condition.value}\'`).join(" ")}`;
+  getByFK(
+    foreignTable: string,
+    conditions: { foreignKey: string; value: string }[]
+  ) {
+    const query = `SELECT * FROM ${foreignTable} where ${conditions
+      .map((condition, i, conditions) =>
+        i < conditions.length - 1
+          ? `${condition.foreignKey} = \'${condition.value}\' AND`
+          : `${condition.foreignKey} = \'${condition.value}\'`
+      )
+      .join(' ')}`;
     // console.log({query})
-    return this.repository.query(query)
+    return this.repository.query(query);
   }
 
   async insertMany(entities: P[]) {
@@ -84,6 +95,8 @@ class TypeORMCollectionAdapter<P> implements IBaseCollection<P> {
   }
 
   async deleteAll() {
-    await this.repository.query(`DELETE from ${this.repository.metadata.tableName}`);
+    await this.repository.query(
+      `DELETE from ${this.repository.metadata.tableName}`
+    );
   }
 }
