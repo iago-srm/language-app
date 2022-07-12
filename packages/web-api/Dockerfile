@@ -1,17 +1,19 @@
-FROM node:14
+FROM node:alpine
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY ./package*.json ./
+COPY ./tsconfig.json ./
+COPY ./packages/web-api/ ./packages/web-api/
+COPY ./packages/common/ ./packages/common/
 
-RUN npm install
+RUN npm i
 
-COPY . .
+WORKDIR /app/packages/web-api
 
 RUN npm run build
 
-ENV NODE_ENV production
+# EXPOSE 3006
 
-EXPOSE 3006
-
+# ENTRYPOINT ["tail", "-f", "/dev/null"]
 ENTRYPOINT ["npm", "start"]

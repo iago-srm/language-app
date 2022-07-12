@@ -2,10 +2,13 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": "./src/",
+    "outDir": "./build/",
     "paths": {
       "@adapters/repositories": ["adapters/repositories/index.ts"],
+      "@adapters/ports": ["adapters/ports/index.ts"],
       "@adapters/REST-controllers": ["adapters/REST-controllers/index.ts"],
       "@adapters/REST-middleware": ["adapters/REST-middleware/index.ts"],
+      "@adapters/services": ["adapters/services/index.ts"],
       "@application/use-cases": ["application/use-cases/index.ts"],
       "@application/ports": ["application/ports/index.ts"],
       "@domain": ["domain/index.ts"],
@@ -14,11 +17,12 @@
       "@frameworks/services": ["frameworks/services/index.ts"],
       "@common/logger": ["common/logger/index.ts"],
       "@common/test-helpers": ["common/test-helpers/index.ts"],
-      "@common/locales": ["common/locales/index.ts"],
+      "@common/locale": ["common/locale/index.ts"],
       "@common/errors": ["common/errors/index.ts"],
+      "@main": ["main/index.ts"],
       "@/*": ["*"]
     }
   },
   "exclude": ["node_modules", "src/__test__"],
-  "include": ["./src/**/*.tsx", "./src/**/*.ts"]
+  "include": ["./src/**/*.tsx", "./src/**/*.ts", "../common/src/"]
 }

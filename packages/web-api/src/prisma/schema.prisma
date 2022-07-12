@@ -1,0 +1,147 @@
+datasource db {
+  url      = env("DATABASE_URL")
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/client"
+}
+
+enum ActivityTypeValues {
+  TEXT
+  VIDEO
+}
+
+enum CefrValues {
+  A1
+  A2
+  B1
+  B2
+  C1
+  C2
+}
+
+model User {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name  String
+  email String
+
+  role String
+
+  student Student?
+  instructor Instructor?
+}
+
+
+model Instructor {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name  String
+  email String
+
+  user User @relation(fields: [userId], references: [id])
+  userId String @unique
+
+  activities Activity[]
+}
+
+model Student {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name  String
+  email String
+
+  user User @relation(fields: [userId], references: [id])
+  userId String @unique
+
+  cefr    CefrValues
+  outputs StudentOutput[]
+}
+
+// output to an activity
+model StudentOutput {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  answers  InstructionAnswer[]
+
+  activity   Activity? @relation(fields: [activityId], references: [id])
+  activityId String?
+  Student           Student?        @relation(fields: [studentId], references: [id])
+  studentId         String?
+}
+
+model InstructionAnswer {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  instruction ActivityInstruction?
+
+  studentOutput   StudentOutput? @relation(fields: [studentOutputId], references: [id])
+  studentOutputId String?
+}
+
+
+model ActivityInstruction {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  instruction    String
+  answer String
+  options String[]
+
+  studentAnswer InstructionAnswer @relation(fields: [answerId], references: [id])
+  answerId String @unique
+
+  activity   Activity? @relation(fields: [activityId], references: [id])
+  activityId String @unique
+}
+
+model FeedbackToActivity {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  activity   Activity? @relation(fields: [activityId], references: [id])
+  activityId String?
+}
+
+model Activity {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  cefr           CefrValues
+  topics          String[]
+  timeToComplete Int
+  type      ActivityTypeValues
+  content  String
+  startTime Int?
+  endTime   Int?
+  feedbacks FeedbackToActivity[]
+
+  lastVersion Int
+
+  studentOutputs StudentOutput[]
+  instructions ActivityInstruction[]
+
+  instructor   Instructor @relation(fields: [instructorId], references: [id])
+  instructorId String
+}
+
+//writing "version ActivityVersion" autocompletes the id, the @s and the one-to-many in the other table
+
+// for many-to-many, just create the array fields in both entities and
+// prisma creates the relationships table automatically. If you want to
+// manipulate this relationship entity somehow, explicitly declare it.
