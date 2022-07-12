@@ -1,12 +1,13 @@
 import {
   IProfileImageRepository,
-  IUseCase,
   IUserRepository,
 } from '../ports';
 import {
   UserNotFoundError,
-  InvalidRoleError
 } from '@common/errors';
+import {
+  IUseCase
+} from '@language-app/common';
 
 
 type InputParams = {

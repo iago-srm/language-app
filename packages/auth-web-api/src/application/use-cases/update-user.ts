@@ -1,5 +1,4 @@
 import {
-  IUseCase,
   IUserRepository,
 } from '../ports';
 import {
@@ -8,7 +7,8 @@ import {
 } from '@common/errors';
 import {
   IUpdateUserParams,
-  DomainRules
+  DomainRules,
+  IUseCase
 } from '@language-app/common';
 
 type InputParams = IUpdateUserParams & { userId: string; };

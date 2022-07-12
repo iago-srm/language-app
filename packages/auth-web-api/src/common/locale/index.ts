@@ -20,7 +20,7 @@ export class Strings {
   public error: IErrorMessages;
   public email: IEmailStrings;
 
-  constructor(l: string) {
+  setLanguage(l: string) {
     const language = Strings.GetLanguage(l);
     this.error = ErrorStrings[language];
     this.email = EmailStrings[language]

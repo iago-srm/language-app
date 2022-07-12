@@ -1,5 +1,5 @@
 import { IAuthEmailService } from "@application/ports";
-import { IEmailService } from '../ports';
+import { IEmailService } from '@language-app/common';
 import {
   Strings
 } from '@common/locale';
@@ -11,7 +11,8 @@ export class AuthEmails implements IAuthEmailService {
   ) {}
 
   sendForgotPasswordEmail({destination, language, url}) {
-    const strings = new Strings(language);
+    const strings = new Strings();
+    strings.setLanguage(language);
     return this.emailService.sendEmail(
       destination,
       strings.email.FORGOT_PASSWORD_SUBJECT,
@@ -20,7 +21,8 @@ export class AuthEmails implements IAuthEmailService {
   }
 
   sendVerifyAccountEmail({destination, language, url}) {
-    const strings = new Strings(language);
+    const strings = new Strings();
+    strings.setLanguage(language);
     return this.emailService.sendEmail(
       destination,
       strings.email.VERIFY_ACCOUNT_SUBJECT,

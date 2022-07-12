@@ -1,27 +1,27 @@
-import {
-  IUseCase,
-  IUseCaseFactory,
-} from '../ports';
-import {
-} from '@language-app/common';
+// import {
+//   IUseCase,
+//   IUseCaseFactory,
+// } from '../ports';
+// import {
+// } from '@language-app/common';
 
-type InputParams = {};
-type Return = {};
+// type InputParams = {};
+// type Return = {};
 
-type Dependencies = {};
+// type Dependencies = {};
 
-export type ILoginUseCase = IUseCase<InputParams, Return>;
+// export type ILoginUseCase = IUseCase<InputParams, Return>;
 
-type UseCaseFactory = IUseCaseFactory<Dependencies, InputParams, Return>;
+// type UseCaseFactory = IUseCaseFactory<Dependencies, InputParams, Return>;
 
-const Factory: UseCaseFactory = ({
-}) => {
-  return {
-    execute: async () => {
+// const Factory: UseCaseFactory = ({
+// }) => {
+//   return {
+//     execute: async () => {
 
-      return {}
-    },
-  };
-};
+//       return {}
+//     },
+//   };
+// };
 
-export default Factory;
+// export default Factory;

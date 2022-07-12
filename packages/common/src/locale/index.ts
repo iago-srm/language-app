@@ -1,4 +1,4 @@
 export * from './en';
-export * from './error-messages';
+export * from './labels';
 export * from './pt';
 export * from './languages';

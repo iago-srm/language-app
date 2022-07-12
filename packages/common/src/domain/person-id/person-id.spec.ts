@@ -1,6 +1,6 @@
 import { PersonId } from './index';
 import { AuthRules } from '../../auth';
-import { ErrorMessages } from '../../locale';
+import { ErrorMessagesLabels } from '../../locale';
 
 class PersonIdTestBuilder {
 
@@ -62,7 +62,7 @@ describe("Unit Tests for PersonId Entity", () => {
       sutBuilder.withInvalidEmail()
     } catch(e) {
       expect(e).toMatchObject({
-        errorName: ErrorMessages.INVALID_EMAIL
+        errorName: ErrorMessagesLabels.INVALID_EMAIL
       })
     }
   });
@@ -86,7 +86,7 @@ describe("Unit Tests for PersonId Entity", () => {
       sutBuilder.withInvalidLongName()
     } catch(e) {
       expect(e).toMatchObject({
-        errorName: ErrorMessages.INVALID_NAME
+        errorName: ErrorMessagesLabels.INVALID_NAME
       })
     }
 
@@ -96,7 +96,7 @@ describe("Unit Tests for PersonId Entity", () => {
       sutBuilder.withInvalidShortName()
     } catch(e) {
       expect(e).toMatchObject({
-        errorName: ErrorMessages.INVALID_NAME
+        errorName: ErrorMessagesLabels.INVALID_NAME
       })
     }
 

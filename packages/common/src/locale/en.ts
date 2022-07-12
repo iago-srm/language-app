@@ -1,4 +1,4 @@
-import { ErrorMessagesLabels as ErrorMessages } from './error-messages';
+import { ErrorMessagesLabels as ErrorMessages } from './labels';
 
 export const EnglishErrorMessages = {
   [ErrorMessages.INVALID_EMAIL]: 'Invalid e-mail',

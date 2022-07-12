@@ -1,9 +1,9 @@
 import {
-  IUseCase,
   IUserRepository
 } from '../ports';
 import {
-  ITokenContent
+  ITokenContent,
+  IUseCase
 } from '@language-app/common';
 
 type InputParams = ITokenContent;

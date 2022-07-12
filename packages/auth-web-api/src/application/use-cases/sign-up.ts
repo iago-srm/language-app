@@ -1,5 +1,4 @@
 import {
-  IUseCase,
   IUserRepository,
   IVerificationTokenRepository,
   UserDTO,
@@ -15,7 +14,7 @@ import {
 } from '@common/errors';
 import {
   ISignUpAPIParams,
-  ISignUpAPIResponse
+  IUseCase
 } from '@language-app/common';
 
 type InputParams = ISignUpAPIParams & { language: string };

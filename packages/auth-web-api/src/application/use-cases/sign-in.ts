@@ -1,5 +1,4 @@
 import {
-  IUseCase,
   IUserRepository,
   IEncryptionService,
   ITokenService,
@@ -11,6 +10,7 @@ import {
   UserNotVerifiedError,
   ISignInAPIResponse,
   ISignInAPIParams,
+  IUseCase
 } from '@language-app/common';
 
 type InputParams = ISignInAPIParams;

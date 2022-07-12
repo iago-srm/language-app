@@ -29,13 +29,6 @@ export class EmailAlreadySignedupError extends CustomError {
   }
 }
 
-export class TokenGenerationError extends CustomError {
-  HTTPstatusCode = 400;
-  constructor({ error }) {
-    super({ errorName: ErrorMessagesLabels.TOKEN_GENERATION, params: { error } });
-  }
-}
-
 export class UserNotFoundError extends CustomError {
   HTTPstatusCode = 404;
   constructor() {

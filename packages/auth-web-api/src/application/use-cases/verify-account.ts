@@ -1,15 +1,14 @@
 import {
-  IUseCase,
   IUserRepository,
   IVerificationTokenRepository
 } from '../ports';
 import {
   UserNotFoundError,
   InvalidValidationTokenError,
-  InvalidRoleError
 } from '@common/errors';
 import {
   IVerifyAccountParams,
+  IUseCase
 } from '@language-app/common';
 
 type InputParams = IVerifyAccountParams;

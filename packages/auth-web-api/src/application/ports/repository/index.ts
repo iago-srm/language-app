@@ -1,2 +1,2 @@
-export * from './repository-interfaces';
+export * from './repositories';
 export * from './dtos';
