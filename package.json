@@ -6,9 +6,7 @@
   "scripts": {
     "echo": "echo \"Hello from monorepo setup\"",
     "test": "jest",
-    "install:ci": "npm ci",
-    "docker:build:auth-web-api": "docker build -t language-app-auth-web-api -f auth-web-api.Dockerfile .",
-    "docker:exec:auth-web-api": "docker exec -ti auth-web-api /bin/sh"
+    "install:ci": "npm ci"
   },
   "workspaces": [
     "packages/*"

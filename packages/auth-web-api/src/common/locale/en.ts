@@ -3,9 +3,11 @@ import { EnglishErrorMessages as CommonEnglishErrorMessages } from '@language-ap
 
 export const EnglishErrorMessages = {
   ...CommonEnglishErrorMessages,
+  [ErrorMessagesLabels.INVALID_CREDENTIALS]: 'Wrong e-mail or password',
   [ErrorMessagesLabels.INVALID_ROLE]: 'Invalid role',
   [ErrorMessagesLabels.EMAIL_IN_USE]: 'There is already an account with that e-mail',
-  [ErrorMessagesLabels.TOKEN_GENERATION]: 'There was an error generating the token: %{error}'
+  [ErrorMessagesLabels.TOKEN_GENERATION]: 'There was an error generating the token: %{error}',
+  [ErrorMessagesLabels.UNVERIFIED_USER]: 'Univerified e-mail. Please follow the link sent to %{email}'
 };
 
 export const EnglishEmailStrings = {

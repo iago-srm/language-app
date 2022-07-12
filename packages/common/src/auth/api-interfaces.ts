@@ -35,7 +35,6 @@ export interface IUpdateUserResponse {}
 
 export interface IVerifyAccountParams {
   token: string;
-  userId: string;
 }
 
 export interface IForgotPasswordParams {
@@ -44,11 +43,6 @@ export interface IForgotPasswordParams {
 export interface IForgotPasswordResponse {
   email: string;
 }
-
-// export interface IVerifyForgotPasswordParams {
-//   token: string;
-// }
-// export interface IVerifyForgotPasswordResponse {}
 
 export interface IResetPasswordParams {
   password?: string;

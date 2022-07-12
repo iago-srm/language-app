@@ -10,7 +10,6 @@ export const EnglishErrorMessages = {
   'Something went wrong connecting to the database.',
   [ErrorMessages.CANNOT_ALTER_THIS_USER]:
     'You do not have authorization to alter this user',
-  [ErrorMessages.INVALID_CREDENTIALS]: 'Wrong e-mail or password',
   [ErrorMessages.INVALID_TOKEN]: 'Expired token. Please login again',
   [ErrorMessages.PARAMETER_NOT_PROVIDED]:
     '%{parameter} was not provided. Please refer to the documentation.',

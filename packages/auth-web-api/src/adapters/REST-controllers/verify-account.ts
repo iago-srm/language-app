@@ -13,15 +13,13 @@ export const VerifyAccountControllerFactory = ({
 }: {
   verifyAccountUseCase: IVerifyAccountUseCase;
 }): IHTTPControllerDescriptor<IHTTPController> => {
-  const fn: IHTTPController = async (params, body, query) => {
+  const fn: IHTTPController = async (params, body) => {
 
     const { token } = controllerSerializer(params, ['token']);
     const { verified } = controllerSerializer(body, ['verified']);
-    const { userId } = controllerSerializer(query, ['userId']);
 
     if(verified) await verifyAccountUseCase.execute({
       token,
-      userId
     });
 
     return {

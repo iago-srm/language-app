@@ -9,7 +9,6 @@ import {
 import {
   MissingTokenError,
   MalformedTokenError,
-  InvalidCredentialsError,
   Forbidden
 } from '@language-app/common';
 

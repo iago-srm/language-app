@@ -1,24 +1,10 @@
 import { CustomError } from './custom-error';
 import { ErrorMessagesLabels } from '../locale';
 
-export class CredentialsNotProvidedError extends CustomError {
-  HTTPstatusCode = 400;
-  constructor() {
-    super({ errorName: ErrorMessagesLabels.CREDENTIALS_NOT_PROVIDED });
-  }
-}
-
 export class RouteNotFoundError extends CustomError {
   HTTPstatusCode = 404;
   constructor() {
     super({ errorName: ErrorMessagesLabels.ROUTE_NOT_FOUND });
-  }
-}
-
-export class InvalidCredentialsError extends CustomError {
-  HTTPstatusCode = 400;
-  constructor() {
-    super({ errorName: ErrorMessagesLabels.INVALID_CREDENTIALS });
   }
 }
 
@@ -60,13 +46,8 @@ export class MalformedTokenError extends CustomError {
 export class Forbidden extends CustomError {
   HTTPstatusCode = 403;
   constructor() {
-    super({ errorName: ErrorMessagesLabels.TOKEN_VERSION });
+    super({ errorName: ErrorMessagesLabels.INVALID_TOKEN });
   }
 }
 
-export class UserNotVerifiedError extends CustomError {
-  HTTPstatusCode = 400;
-  constructor() {
-    super({ errorName: ErrorMessagesLabels.UNVERIFIED_USER });
-  }
-}
+

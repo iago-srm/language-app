@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Authentication API",
   "scripts": {
-    "generate-initial-migration": "npx typeorm migration:generate -n Initial",
     "gen-env": "gen-env-types .env -o src/env.d.ts -e .",
     "build": "npx prisma generate && tsc",
     "dev": "cross-env NODE_ENV=development ts-node-dev -r tsconfig-paths/register --respawn  --exit-child --ignore-watch node_modules src/index.ts",
@@ -13,7 +12,9 @@
     "format": "npx prettier --write .",
     "format:ci": "npx prettier --check .",
     "sync:db": "npx prisma db push --accept-data-loss",
-    "docker:build": "docker build -t language-app-auth-web-api -f ./Dockerfile ../.."
+    "docker:build": "docker build -t language-app-auth-web-api -f ./Dockerfile ../..",
+    "docker:exec": "docker exec -ti auth-web-api /bin/sh"
+
   },
   "prisma": {
     "schema": "../common/src/auth/prisma/schema.prisma"

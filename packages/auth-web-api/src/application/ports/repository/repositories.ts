@@ -12,7 +12,7 @@ export interface IUserRepository {
 }
 
 export interface IVerificationTokenRepository {
-  getTokenByUserId: (id: string) => Promise<VerificationTokenDTO | null>;
+  getTokenByTokenValue: (token: string) => Promise<VerificationTokenDTO | null>;
   insertToken: (token: VerificationTokenDTO) => Promise<VerificationTokenDTO>;
 }
 

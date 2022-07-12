@@ -43,3 +43,24 @@ export class InvalidValidationTokenError extends CustomError {
   }
 }
 
+export class UserNotVerifiedError extends CustomError {
+  HTTPstatusCode = 400;
+  constructor({ email }) {
+    super({ errorName: ErrorMessagesLabels.UNVERIFIED_USER, params: { email } });
+  }
+}
+
+export class InvalidCredentialsError extends CustomError {
+  HTTPstatusCode = 400;
+  constructor() {
+    super({ errorName: ErrorMessagesLabels.INVALID_CREDENTIALS });
+  }
+}
+
+export class CredentialsNotProvidedError extends CustomError {
+  HTTPstatusCode = 400;
+  constructor() {
+    super({ errorName: ErrorMessagesLabels.CREDENTIALS_NOT_PROVIDED });
+  }
+}
+

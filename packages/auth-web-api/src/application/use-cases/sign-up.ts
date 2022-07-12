@@ -64,7 +64,7 @@ class UseCase implements ISignUpUseCase {
     await this.emailService.sendVerifyAccountEmail({
       destination: email,
       language,
-      url: `${process.env.WEB_APP_URL}/verify-account?verificationToken=${token}&userId=${userId}`
+      url: `${process.env.WEB_APP_URL}/verify-account?verificationToken=${token}`
     });
   }
 
