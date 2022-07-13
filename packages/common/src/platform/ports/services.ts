@@ -25,3 +25,6 @@ export interface IStorageService {
   uploadFile: (file: any, fileName: string) => Promise<boolean>;
 }
 
+export interface IQueueService {
+  sendMessage: (message: any, queueUrl: string) => Promise<boolean>;
+}

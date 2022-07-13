@@ -17,10 +17,13 @@ export enum Dependencies {
   TOKENSERVICE = 'tokenService',
   IDSERVICE = 'idService',
   ENCRYPTIONSERVICE = 'encryptionService',
-  EMAILSERVICE = 'emailService',
   LOGGER = 'logger',
-  STORAGESERVICE = 'storageService',
   AUTHEMAILSERVICE = 'authEmailService',
+  AUTHEVENTQUEUE = 'authEventQueue',
+
+  STORAGESERVICE = 'storageService',
+  EMAILSERVICE = 'emailService',
+  QUEUESERVICE = 'queueService',
 
   // use cases
   LOGOUTUSECASE = 'signOutUseCase',

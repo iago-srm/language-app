@@ -1,5 +1,6 @@
 import {
   IUserRepository,
+  IAuthEventQueue
 } from '../ports';
 import {
   UserNotFoundError,
@@ -19,6 +20,7 @@ export type IUpdateUserUseCase = IUseCase<InputParams, Return>;
 class UseCase implements IUpdateUserUseCase {
   constructor (
     private userRepository: IUserRepository,
+    private authEventQueue: IAuthEventQueue
   ){}
   async execute({ role, userId }) {
 
@@ -30,6 +32,8 @@ class UseCase implements IUpdateUserUseCase {
       throw new InvalidRoleError();
 
     await this.userRepository.updateUser(userId, { role });
+
+    await this.authEventQueue.publishNewUser(user);
   }
 
 }

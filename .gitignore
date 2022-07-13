@@ -22,3 +22,10 @@ npm-debug.log*
 # yarn-error.log*
 prisma-client/
 #*.js
+
+# terraform
+function.zip
+.terraform/
+*.out
+terraform.tfplan
+terraform.tfstate

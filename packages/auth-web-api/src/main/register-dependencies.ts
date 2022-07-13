@@ -27,13 +27,15 @@ import {
   ForgotPasswordTokenRepository
 } from '@adapters/repositories';
 import {
-  AuthEmails
+  AuthEmails,
+  AuthEventQueue
 } from '@adapters/services';
 import {
   JWTTokenService,
   IdGenerator,
   BCryptEncryptionService,
   SendgridEmailService,
+  SQSService,
   putFileInReq,
   S3Service
 } from '@language-app/common';
@@ -59,9 +61,12 @@ export const registerDependencies = (container: awilix.AwilixContainer) => {
     [Dependencies.ENCRYPTIONSERVICE]: awilix.asClass(BCryptEncryptionService),
     [Dependencies.IDSERVICE]: awilix.asClass(IdGenerator),
     [Dependencies.TOKENSERVICE]: awilix.asClass(JWTTokenService),
-    [Dependencies.EMAILSERVICE]: awilix.asClass(SendgridEmailService),
-    [Dependencies.STORAGESERVICE]: awilix.asClass(S3Service),
     [Dependencies.AUTHEMAILSERVICE]: awilix.asClass(AuthEmails).classic(),
+    [Dependencies.AUTHEVENTQUEUE]: awilix.asClass(AuthEventQueue).classic(),
+
+    [Dependencies.STORAGESERVICE]: awilix.asClass(S3Service),
+    [Dependencies.EMAILSERVICE]: awilix.asClass(SendgridEmailService),
+    [Dependencies.QUEUESERVICE]: awilix.asClass(SQSService),
 
     // use cases
     [Dependencies.LOGOUTUSECASE]: awilix.asClass(SignOutUseCase).classic(),

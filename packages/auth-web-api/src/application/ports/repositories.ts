@@ -2,7 +2,7 @@ import {
   UserDTO,
   VerificationTokenDTO,
   ForgotPasswordTokenDTO
-} from '.';
+} from './dtos';
 
 export interface IUserRepository {
   getUserById: (id: string) => Promise<UserDTO | null>;

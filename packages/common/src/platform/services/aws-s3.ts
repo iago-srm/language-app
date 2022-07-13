@@ -8,7 +8,7 @@ export class S3Service implements IStorageService {
   private _s3: S3;
 
   constructor() {
-    AWS.config.update({ region: 'us-west-2' });
+    AWS.config.update({ region: 'us-east-1' });
     this._s3 = new AWS.S3({apiVersion: '2006-03-01'});
   }
 

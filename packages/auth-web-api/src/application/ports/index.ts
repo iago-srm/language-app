@@ -1,2 +1,3 @@
 export * from './services';
-export * from './repository';
+export * from './dtos';
+export * from './repositories';
