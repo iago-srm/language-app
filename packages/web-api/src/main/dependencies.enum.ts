@@ -1,17 +1,6 @@
 export enum Dependencies {
   // controllers
-  LOGINCONTROLLER = 'signInController',
-  SIGNUPCONTROLLER = 'signupController',
-  GETUSERCONTROLLER = 'getUserController',
-  LOGOUTCONTROLLER = 'signOutController',
-  UPDATEUSERCONTROLLER = 'updateUserController',
-  VERIFYACCOUNTCONTROLLER = 'verifyAccountController',
-  UPDATEPROFILEIMAGECONTROLLER = 'updateProfileImageController',
-  FORGOTPASSWORDREQUESTCONTROLLER = 'forgotPasswordRequestController',
-  RESETPASSWORDCONTROLLER = 'resetPasswordController',
-
-  // middleware
-  FILEMIDDLEWARE = 'fileMiddleware',
+  GETACTIVITIES = 'getActivities',
 
   // services
   TOKENSERVICE = 'tokenService',
@@ -23,19 +12,9 @@ export enum Dependencies {
   AUTHEMAILSERVICE = 'authEmailService',
 
   // use cases
-  LOGOUTUSECASE = 'signOutUseCase',
-  LOGINUSECASE = 'signInUseCase',
-  SIGNUPUSECASE = 'signUpUseCase',
-  GETUSERUSECASE = 'getUserUseCase',
-  VERIFYACCOUNTUSECASE = 'verifyAccountUseCase',
-  UPDATEUSERUSECASE = 'updateUserUseCase',
-  UPDATEPROFILEIMAGEUSECASE = 'updateProfileImageUseCase',
-  FORGOTPASSWORDREQUESTUSECASE = 'forgotPasswordRequestUseCase',
-  RESETPASSWORDUSECASE = 'resetPasswordUseCase',
+  GETSTUDENTACTIVITIESUSECASE = 'getStudentActivitiesUseCase',
+  GETINSTRUCTORACTIVITIESUSECASE = 'getInstructorActivitiesUseCase',
 
   // repositories
-  USERREPOSITORY = 'userRepository',
-  VERIFICATIONTOKENREPOSITORY = 'verificationTokenRepository',
-  PROFILEIMAGEREPOSITORY = 'profileImageRepository',
-  FORGOTPASSWORDTOKENREPOSITORY = 'forgotPasswordTokenRepository',
+  ACTIVITYREPOSITORY = 'activityRepository'
 }

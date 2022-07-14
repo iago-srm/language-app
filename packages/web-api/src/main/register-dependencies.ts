@@ -1,40 +1,21 @@
 import * as awilix from "awilix";
 import {
-  SignInUseCase,
-  SignUpUseCase,
-  SignOutUseCase,
-  VerifyAccountUseCase,
-  UpdateUserUseCase,
-  UpdateProfileImageUseCase,
-  ForgotPasswordRequestUseCase,
-  ResetPasswordUseCase
+  GetStudentActivitiesUseCase,
+  GetInstructorActivitiesUseCase
 } from '@application/use-cases';
 import {
-  SignInControllerFactory,
-  SignOutControllerFactory,
-  GetUserControllerFactory,
-  SignUpControllerFactory,
-  UpdateUserControllerFactory,
-  VerifyAccountControllerFactory,
-  UpdateProfileImageControllerFactory,
-  ForgotPasswordRequestControllerFactory,
-  ResetPasswordControllerFactory
+  GetActivitiesControllerFactory
 } from '@adapters/REST-controllers';
 import {
-  UserRepository,
-  VerificationTokenRepository,
-  ProfileImageRepository,
-  ForgotPasswordTokenRepository
+  ActivityRepository
 } from '@adapters/repositories';
 import {
-  AuthEmails
 } from '@adapters/services';
 import {
   JWTTokenService,
   IdGenerator,
   BCryptEncryptionService,
   SendgridEmailService,
-  putFileInReq,
   S3Service
 } from '@language-app/common';
 import { Dependencies } from '@main';
@@ -42,18 +23,7 @@ import { Dependencies } from '@main';
 export const registerDependencies = (container: awilix.AwilixContainer) => {
   container.register({
     // controllers
-    [Dependencies.LOGINCONTROLLER]: awilix.asFunction(SignInControllerFactory),
-    [Dependencies.LOGOUTCONTROLLER]: awilix.asFunction(SignOutControllerFactory),
-    [Dependencies.SIGNUPCONTROLLER]: awilix.asFunction(SignUpControllerFactory),
-    [Dependencies.GETUSERCONTROLLER]: awilix.asFunction(GetUserControllerFactory),
-    [Dependencies.UPDATEUSERCONTROLLER]: awilix.asFunction(UpdateUserControllerFactory),
-    [Dependencies.VERIFYACCOUNTCONTROLLER]: awilix.asFunction(VerifyAccountControllerFactory),
-    [Dependencies.UPDATEPROFILEIMAGECONTROLLER]: awilix.asFunction(UpdateProfileImageControllerFactory),
-    [Dependencies.FORGOTPASSWORDREQUESTCONTROLLER]: awilix.asFunction(ForgotPasswordRequestControllerFactory),
-    [Dependencies.RESETPASSWORDCONTROLLER]: awilix.asFunction(ResetPasswordControllerFactory),
 
-    // middleware
-    [Dependencies.FILEMIDDLEWARE]: awilix.asValue(putFileInReq),
 
     // services
     [Dependencies.ENCRYPTIONSERVICE]: awilix.asClass(BCryptEncryptionService),
@@ -61,22 +31,12 @@ export const registerDependencies = (container: awilix.AwilixContainer) => {
     [Dependencies.TOKENSERVICE]: awilix.asClass(JWTTokenService),
     [Dependencies.EMAILSERVICE]: awilix.asClass(SendgridEmailService),
     [Dependencies.STORAGESERVICE]: awilix.asClass(S3Service),
-    [Dependencies.AUTHEMAILSERVICE]: awilix.asClass(AuthEmails).classic(),
 
     // use cases
-    [Dependencies.LOGOUTUSECASE]: awilix.asClass(SignOutUseCase).classic(),
-    [Dependencies.LOGINUSECASE]: awilix.asClass(SignInUseCase).classic(),
-    [Dependencies.SIGNUPUSECASE]: awilix.asClass(SignUpUseCase).classic(),
-    [Dependencies.VERIFYACCOUNTUSECASE]: awilix.asClass(VerifyAccountUseCase).classic(),
-    [Dependencies.UPDATEUSERUSECASE]: awilix.asClass(UpdateUserUseCase).classic(),
-    [Dependencies.UPDATEPROFILEIMAGEUSECASE]: awilix.asClass(UpdateProfileImageUseCase).classic(),
-    [Dependencies.RESETPASSWORDUSECASE]: awilix.asClass(ResetPasswordUseCase).classic(),
-    [Dependencies.FORGOTPASSWORDREQUESTUSECASE]: awilix.asClass(ForgotPasswordRequestUseCase).classic(),
+    [Dependencies.GETINSTRUCTORACTIVITIESUSECASE]: awilix.asClass(GetInstructorActivitiesUseCase).classic(),
+    [Dependencies.GETSTUDENTACTIVITIESUSECASE]: awilix.asClass(GetStudentActivitiesUseCase).classic(),
 
     // repositories
-    [Dependencies.USERREPOSITORY]: awilix.asClass(UserRepository),
-    [Dependencies.VERIFICATIONTOKENREPOSITORY]: awilix.asClass(VerificationTokenRepository),
-    [Dependencies.PROFILEIMAGEREPOSITORY]: awilix.asClass(ProfileImageRepository).classic(),
-    [Dependencies.FORGOTPASSWORDTOKENREPOSITORY]: awilix.asClass(ForgotPasswordTokenRepository)
+    [Dependencies.ACTIVITYREPOSITORY]: awilix.asClass(ActivityRepository)
   })
 }

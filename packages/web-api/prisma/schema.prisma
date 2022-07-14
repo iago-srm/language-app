@@ -5,7 +5,7 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/client"
+  output   = "../generated/client"
 }
 
 enum ActivityTypeValues {
@@ -63,21 +63,8 @@ model Student {
   userId String @unique
 
   cefr    CefrValues
-  outputs StudentOutput[]
-}
-
-// output to an activity
-model StudentOutput {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  answers  InstructionAnswer[]
-
-  activity   Activity? @relation(fields: [activityId], references: [id])
-  activityId String?
-  Student           Student?        @relation(fields: [studentId], references: [id])
-  studentId         String?
+  activitiesStarted Activity[]
+  instructionAnswers InstructionAnswer[]
 }
 
 model InstructionAnswer {
@@ -85,10 +72,12 @@ model InstructionAnswer {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  instruction ActivityInstruction?
+  answer String
 
-  studentOutput   StudentOutput? @relation(fields: [studentOutputId], references: [id])
-  studentOutputId String?
+  instruction   ActivityInstruction? @relation(fields: [instructionId], references: [id])
+  instructionId String?
+  Student           Student?        @relation(fields: [studentId], references: [id])
+  studentId         String?
 }
 
 
@@ -98,14 +87,13 @@ model ActivityInstruction {
   updatedAt DateTime @updatedAt
 
   instruction    String
-  answer String
+  correctAnswer String
   options String[]
 
-  studentAnswer InstructionAnswer @relation(fields: [answerId], references: [id])
-  answerId String @unique
+  answers InstructionAnswer[]
 
   activity   Activity? @relation(fields: [activityId], references: [id])
-  activityId String @unique
+  activityId Int @unique
 }
 
 model FeedbackToActivity {
@@ -113,34 +101,46 @@ model FeedbackToActivity {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  message String
+  grade Int
+
   activity   Activity? @relation(fields: [activityId], references: [id])
-  activityId String?
+  activityId Int?
 }
 
 model Activity {
-  id        String   @id @default(uuid())
+  id        Int   @id @unique @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  cefr           CefrValues
+  title String
+  description String
   topics          String[]
   timeToComplete Int
-  type      ActivityTypeValues
   content  String
   startTime Int?
   endTime   Int?
-  feedbacks FeedbackToActivity[]
-
   lastVersion Int
 
-  studentOutputs StudentOutput[]
+  contentType      ActivityTypeValues
+  cefr           CefrValues
+
+  feedbacks FeedbackToActivity[]
   instructions ActivityInstruction[]
+  studentsStartedThis Student[]
 
   instructor   Instructor @relation(fields: [instructorId], references: [id])
   instructorId String
 }
 
 //writing "version ActivityVersion" autocompletes the id, the @s and the one-to-many in the other table
+
+// RELATIONS
+// for one-to-one, one of the entities will have only the field
+// referencing the other, and the other will have two field, including the one with the @relation decorator.
+
+// for many-to-one, place an array on the entity that holds many,
+// and the one entity plus a field for its id in the many entity.
 
 // for many-to-many, just create the array fields in both entities and
 // prisma creates the relationships table automatically. If you want to

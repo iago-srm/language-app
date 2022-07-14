@@ -4,6 +4,7 @@
     "baseUrl": "./src/",
     "outDir": "./build/",
     "paths": {
+      "@generated/prisma-client": ["../generated/client"],
       "@adapters/repositories": ["adapters/repositories/index.ts"],
       "@adapters/ports": ["adapters/ports/index.ts"],
       "@adapters/REST-controllers": ["adapters/REST-controllers/index.ts"],

@@ -1,13 +1,13 @@
 import { Feedback } from '@domain';
 import { DomainRules } from '@language-app/common';
-import { ErrorMessages } from '@common/locales';
+import { ErrorMessagesLabels } from '@common/locale';
 
 describe('Unit Tests for FeedbackToActivity Entity', () => {
   it('Should throw an error if and invalid grade is passed', () => {
     try {
       new Feedback({ grade: 10, message: 'ok' });
     } catch (e) {
-      expect(e).toMatchObject({ errorName: ErrorMessages.FEEDBACK_GRADE });
+      expect(e).toMatchObject({ errorName: ErrorMessagesLabels.FEEDBACK_GRADE });
     }
   });
 
@@ -18,7 +18,7 @@ describe('Unit Tests for FeedbackToActivity Entity', () => {
         message: 'k'.repeat(DomainRules.FEEDBACK.MAX_LENGTH + 1),
       });
     } catch (e) {
-      expect(e).toMatchObject({ errorName: ErrorMessages.FEEDBACK_MESSAGE });
+      expect(e).toMatchObject({ errorName: ErrorMessagesLabels.FEEDBACK_MESSAGE });
     }
   });
 

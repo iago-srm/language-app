@@ -1,6 +1,6 @@
 import { FlashCard } from '.';
 import { DomainRules } from '@language-app/common';
-import { ErrorMessages } from '@common/locales';
+import { ErrorMessagesLabels } from '@common/locale';
 
 describe('Unit Tests for flashcard entity', () => {
   const testCasesBucketValue = [0, 8, 15];
@@ -11,7 +11,7 @@ describe('Unit Tests for flashcard entity', () => {
           bucket,
         });
       } catch (e) {
-        expect(e).toMatchObject({ errorName: ErrorMessages.BUCKET_VALUE });
+        expect(e).toMatchObject({ errorName: ErrorMessagesLabels.BUCKET_VALUE });
       }
     })
   );
@@ -28,7 +28,7 @@ describe('Unit Tests for flashcard entity', () => {
         new FlashCard({ front, back });
       } catch (e) {
         expect(e).toMatchObject({
-          errorName: ErrorMessages.FLASHCARD_TEXT_LENGTH,
+          errorName: ErrorMessagesLabels.FLASHCARD_TEXT_LENGTH,
         });
       }
     })
