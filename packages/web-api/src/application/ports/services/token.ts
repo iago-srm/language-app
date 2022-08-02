@@ -1,4 +1,5 @@
-export interface ITokenService {
-  generate: (payload: any) => string;
-  verify: (token: string) => Promise<any>;
-}
+import { ITokenService as ICommonTokenService } from '@language-app/common';
+
+export interface ITokenService extends ICommonTokenService {};
+
+

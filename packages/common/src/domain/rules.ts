@@ -26,23 +26,15 @@ export const DomainRules = {
       MIN_LENGTH: 5,
       MAX_LENGTH: 200
     },
-    TYPES: {
-      READING: ['TEXT'],
-      LISTENING: ['YOUTUBE'],
-      ALL: ['TEXT', 'YOUTUBE']
-    },
+    CONTENTTYPE: ['VIDEO', 'TEXT'],
     MAX_VIDEO_LENGTH: 10*60, // in seconds. 10 min max
     MAX_TEXT_LENGTH: 2000, // in characters
-    STATUS: ['PENDING', 'ACCEPTED', 'REJECTED'],
     MAX_TIME_TO_COMPLETE: 30, // in minutes
     TOPICS: ['SCIENCE & TECHONOLOGY', 'ARTS', 'CURRENT AFFAIRS', 'SPORTS']
   },
   FEEDBACK: {
     GRADES: [1,2,3,4,5],
     MAX_LENGTH: 500 // in characters
-  },
-  STUDENT_OUTPUT: {
-    STATUS: ['FEEDBACK_GIVEN', 'FEEDBACK_PENDING']
   },
   USER: {
     ROLES: ['STUDENT', 'INSTRUCTOR', 'ADMIN']

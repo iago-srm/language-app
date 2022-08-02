@@ -1,3 +1,7 @@
-node_modules
-src/__test__
+**/node_modules
+**/build
+**/__test__
+**/*.spec.*s
+packages/auth-web-api/
+packages/web-app/
 npm-debug.log

@@ -1,4 +1,4 @@
-import { ErrorMessagesLabels as ErrorMessages } from './error-messages';
+import { ErrorMessagesLabels as ErrorMessages } from './labels';
 
 export const PortugueseErrorMessages = {
   [ErrorMessages.INVALID_EMAIL]: 'Invalid e-mail',
@@ -9,7 +9,6 @@ export const PortugueseErrorMessages = {
   'Algo deu errado para se conectar ao banco de dados.',
   [ErrorMessages.CANNOT_ALTER_THIS_USER]:
     'Você não tem autorização para alterar este usuário.',
-  [ErrorMessages.INVALID_CREDENTIALS]: 'E-mail ou senha incorretos.',
   [ErrorMessages.INVALID_TOKEN]:
     'Token expirado. Por favor, realize o login novamente.',
   [ErrorMessages.PARAMETER_NOT_PROVIDED]:

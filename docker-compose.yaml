@@ -1,70 +1,78 @@
 version: "3"
 
 services:
-  # domain:
-  #   image: iagosrm/language-app-domain
-  #   build: ./web-api/
-  #   ports:
-  #     - "${PORT_DOMAIN}:${PORT_DOMAIN}"
-  #   environment:
-  #     - DATABASE_URL=${DATABASE_URL_DOMAIN}
-  #     - PORT=${PORT_DOMAIN}
 
-  # network:
-  #   driver: bridge
-  #   name: language-app
-  auth:
-    image: language-app-auth-web-api
-    container_name: auth-web-api
+  domain:
+    image: language-app-web-api
+    container_name: web-api
     entrypoint: "npm run dev"
     # entrypoint: "tail -f /dev/null"
     ports:
-      - "${AUTH_PORT}:${AUTH_PORT}"
-      - 5555:5555 # prisma studio
+      - "${DOMAIN_PORT}:${DOMAIN_PORT}"
+      - 5556:5555 # prisma studio
     environment:
-      - DATABASE_URL=postgres://${AUTH_POSTGRES_USER}:${AUTH_POSTGRES_PASSWORD}@postgres-auth:5432/${AUTH_POSTGRES_SCHEMA}
-      - PORT=${AUTH_PORT}
-      - TOKEN_SECRET=${TOKEN_SECRET}
-      - SENDGRID_API_KEY=${SENDGRID_API_KEY}
-      - PROFILE_IMAGE_BUCKET=${PROFILE_IMAGE_BUCKET}
-      - WEB_APP_URL=${WEB_APP_URL}
+      - DATABASE_URL=postgres://${DOMAIN_POSTGRES_USER}:${DOMAIN_POSTGRES_PASSWORD}@postgres-domain:5432/${DOMAIN_POSTGRES_SCHEMA}
+      - PORT=${DOMAIN_PORT}
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
     tty: true
     volumes:
       - ./packages/common:/app/packages/common
-      - ./packages/auth-web-api:/app/packages/auth-web-api
-      # - ./node_modules/
+      - ./packages/web-api:/app/packages/web-api
 
-  postgres-auth:
+  postgres-domain:
     image: postgres
-    container_name: auth-postgres
+    container_name: domain-postgres
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_USER=${AUTH_POSTGRES_USER}
-      - POSTGRES_PASSWORD=${AUTH_POSTGRES_PASSWORD}
-      - POSTGRES_DB=${AUTH_POSTGRES_SCHEMA}
+      - POSTGRES_USER=${DOMAIN_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${DOMAIN_POSTGRES_PASSWORD}
+      - POSTGRES_DB=${DOMAIN_POSTGRES_SCHEMA}
     volumes:
-      - ${HOME}/language-app-auth-postgres-data/:/var/lib/postgresql/data
+      - ${HOME}/language-app-domain-postgres-data/:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
       timeout: 5s
       retries: 5
 
-  # postgres-domain:
-  #   image: postgres
+  # auth:
+  #   image: language-app-auth-web-api
+  #   container_name: auth-web-api
+  #   entrypoint: "npm run dev"
+  #   # entrypoint: "tail -f /dev/null"
   #   ports:
-  #     - "5432"
+  #     - "${AUTH_PORT}:${AUTH_PORT}"
+  #     - 5555:5555 # prisma studio
   #   environment:
-  #     - POSTGRES_USER=${POSTGRES_USER_DOMAIN}
-  #     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD_DOMAIN}
-  #     - POSTGRES_SCHEMA=${POSTGRES_SCHEMA_DOMAIN}
+  #     - DATABASE_URL=postgres://${AUTH_POSTGRES_USER}:${AUTH_POSTGRES_PASSWORD}@postgres-auth:5432/${AUTH_POSTGRES_SCHEMA}
+  #     - PORT=${AUTH_PORT}
+  #     - TOKEN_SECRET=${TOKEN_SECRET}
+  #     - SENDGRID_API_KEY=${SENDGRID_API_KEY}
+  #     - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+  #     - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+  #     - WEB_APP_URL=http://localhost:3000
+  #   tty: true
   #   volumes:
-  #     - ${HOME}/language-app-domain-postgres-data/:/var/lib/postgresql/data
+  #     - ./packages/common:/app/packages/common
+  #     - ./packages/auth-web-api:/app/packages/auth-web-api
+  #     # - ./node_modules/
+
+  # postgres-auth:
+  #   image: postgres
+  #   container_name: auth-postgres
+  #   ports:
+  #     - "5432:5432"
+  #   environment:
+  #     - POSTGRES_USER=${AUTH_POSTGRES_USER}
+  #     - POSTGRES_PASSWORD=${AUTH_POSTGRES_PASSWORD}
+  #     - POSTGRES_DB=${AUTH_POSTGRES_SCHEMA}
+  #   volumes:
+  #     - ${HOME}/language-app-auth-postgres-data/:/var/lib/postgresql/data
   #   healthcheck:
   #     test: ["CMD-SHELL", "pg_isready -U postgres"]
   #     interval: 5s
   #     timeout: 5s
   #     retries: 5
+

@@ -69,7 +69,7 @@ export const useApiBuilder = () => {
     ((args) => authFetcher[UpdateUserHTTPDefinition.method](UpdateUserHTTPDefinition.path, args));
 
   const verifyAccount = useApiCall<IVerifyAccountParams, void>
-    (({token, userId}) => authFetcher[VerifyAccountHTTPDefinition.method](`${VerifyAccountHTTPDefinition.path.split('/')[0]}/${token}`, { verified: true }, { userId }));
+    (({token}) => authFetcher[VerifyAccountHTTPDefinition.method](`${VerifyAccountHTTPDefinition.path.split('/')[0]}/${token}`, { verified: true }));
 
   const uploadProfileImage = useApiCall<any, any>
     ((args) => authFetcher[UpdateProfileImageHTTPDefinition.method](UpdateProfileImageHTTPDefinition.path, args));

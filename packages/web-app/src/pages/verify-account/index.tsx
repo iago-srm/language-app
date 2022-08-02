@@ -20,8 +20,8 @@ import { useApiBuilder } from 'services/api';
 
 interface IVerifyAccountProps {
   verificationToken: string;
-  userId: string;
 }
+
 const VerifyAccount: React.FC<IVerifyAccountProps> = ({ verificationToken, userId }) => {
 
   const { language } = useLanguage();
@@ -33,7 +33,6 @@ const VerifyAccount: React.FC<IVerifyAccountProps> = ({ verificationToken, userI
     const fetch = async () => {
       const { error } = await verifyAccount.apiCall({
         token: verificationToken,
-        userId
       });
       if(error) setError(error.message);
       else setSuccess(true);

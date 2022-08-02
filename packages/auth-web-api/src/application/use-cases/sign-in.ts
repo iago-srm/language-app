@@ -1,5 +1,4 @@
 import {
-  IUseCase,
   IUserRepository,
   IEncryptionService,
   ITokenService,
@@ -9,9 +8,14 @@ import {
   CredentialsNotProvidedError,
   InvalidCredentialsError,
   UserNotVerifiedError,
+} from '@common/errors';
+import {
   ISignInAPIResponse,
   ISignInAPIParams,
-} from '@language-app/common';
+} from '@language-app/common/src/auth';
+import {
+  IUseCase
+} from '@language-app/common/src/platform';
 
 type InputParams = ISignInAPIParams;
 type Return = ISignInAPIResponse;
@@ -36,7 +40,7 @@ class UseCase implements ISignInUseCase {
     else if (email && password) {
       userDTO = await this.userRepository.getUserByEmail(email);
       if(!userDTO) throw new InvalidCredentialsError();
-      if(!userDTO.emailVerified) throw new UserNotVerifiedError();
+      if(!userDTO.emailVerified) throw new UserNotVerifiedError({ email });
 
       const passwordValid = await this.encryptionService.compare(
         password,

@@ -29,13 +29,6 @@ export class EmailAlreadySignedupError extends CustomError {
   }
 }
 
-export class TokenGenerationError extends CustomError {
-  HTTPstatusCode = 400;
-  constructor({ error }) {
-    super({ errorName: ErrorMessagesLabels.TOKEN_GENERATION, params: { error } });
-  }
-}
-
 export class UserNotFoundError extends CustomError {
   HTTPstatusCode = 404;
   constructor() {
@@ -47,6 +40,27 @@ export class InvalidValidationTokenError extends CustomError {
   HTTPstatusCode = 400;
   constructor() {
     super({ errorName: ErrorMessagesLabels.VALIDATION_TOKEN });
+  }
+}
+
+export class UserNotVerifiedError extends CustomError {
+  HTTPstatusCode = 400;
+  constructor({ email }) {
+    super({ errorName: ErrorMessagesLabels.UNVERIFIED_USER, params: { email } });
+  }
+}
+
+export class InvalidCredentialsError extends CustomError {
+  HTTPstatusCode = 400;
+  constructor() {
+    super({ errorName: ErrorMessagesLabels.INVALID_CREDENTIALS });
+  }
+}
+
+export class CredentialsNotProvidedError extends CustomError {
+  HTTPstatusCode = 400;
+  constructor() {
+    super({ errorName: ErrorMessagesLabels.CREDENTIALS_NOT_PROVIDED });
   }
 }
 

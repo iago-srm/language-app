@@ -1,5 +1,4 @@
 import {
-  IUseCase,
   IUserRepository,
   IForgotPasswordTokenRepository,
   IEncryptionService
@@ -12,7 +11,8 @@ import {
 } from '@common/errors';
 import {
   IResetPasswordParams,
-  DomainRules
+  DomainRules,
+  IUseCase
 } from '@language-app/common';
 import { User } from '@domain';
 

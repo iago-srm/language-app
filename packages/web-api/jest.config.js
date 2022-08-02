@@ -20,4 +20,5 @@ module.exports = {
   moduleNameMapper: pathsToModuleNameMapper(tsconfig.compilerOptions.paths),
   modulePaths: ['<rootDir>'],
   modulePathIgnorePatterns: ['__test__'],
+  // testMatch: ['**/adapters/**/?(*.)+(spec).ts'],
 };

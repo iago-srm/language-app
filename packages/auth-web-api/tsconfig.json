@@ -19,9 +19,10 @@
       "@common/test-helpers": ["common/test-helpers/index.ts"],
       "@common/locale": ["common/locale/index.ts"],
       "@common/errors": ["common/errors/index.ts"],
+      "@main": ["main/index.ts"],
       "@/*": ["*"]
     }
   },
   "exclude": ["node_modules", "src/__test__"],
-  "include": ["./src/**/*.tsx", "./src/**/*.ts"]
+  "include": ["./src/**/*.tsx", "./src/**/*.ts", "../common/src/"]
 }

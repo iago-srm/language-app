@@ -1,5 +1,5 @@
 import { IProfileImageRepository } from '@application/ports';
-import { IStorageService } from '../ports/storage';
+import { IStorageService } from '@language-app/common';
 
 export class ProfileImageRepository implements IProfileImageRepository {
 

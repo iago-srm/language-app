@@ -1,5 +1,4 @@
 import {
-  IUseCase,
   IUserRepository,
   IForgotPasswordTokenRepository,
   IAuthEmailService,
@@ -12,7 +11,8 @@ import {
 } from '@common/errors';
 import {
   IForgotPasswordParams,
-  IForgotPasswordResponse
+  IForgotPasswordResponse,
+  IUseCase
 } from '@language-app/common';
 
 type InputParams = IForgotPasswordParams & { language: string };

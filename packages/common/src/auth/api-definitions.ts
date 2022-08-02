@@ -1,7 +1,4 @@
-type HTTPDefinition = {
-  path: string,
-  method: 'put' | 'get' | 'patch' | 'post' | 'delete';
-}
+import { HTTPDefinition } from '../types';
 
 export const SignUpHTTPDefinition: HTTPDefinition = {
   path: 'user',
