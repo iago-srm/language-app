@@ -9,7 +9,8 @@ import {
   IAuthEmailService,
   IProfileImageRepository,
   IVerificationTokenRepository,
-  IForgotPasswordTokenRepository
+  IForgotPasswordTokenRepository,
+  IAuthEventQueue
 } from '@application/ports';
 import {
   SignInUseCase,
@@ -45,6 +46,7 @@ export class TestDataFacade {
   public mockEmailService: IAuthEmailService;
   public mockProfileImageRepository: IProfileImageRepository;
   public mockForgotPasswordTokenRepository: IForgotPasswordTokenRepository;
+  public mockAuthEventQueue: IAuthEventQueue;
 
   public sut: {
     signIn: SignInUseCase,
@@ -100,7 +102,7 @@ export class TestDataFacade {
     }
 
     this.mockVerificationTokenRepository = {
-      getTokenByUserId: mockVerificationTokenRepository?.getTokenByUserId || jest.fn(),
+      getTokenByTokenValue: mockVerificationTokenRepository?.getTokenByTokenValue || jest.fn(),
       insertToken: mockVerificationTokenRepository?.insertToken || jest.fn()
     }
 
@@ -131,7 +133,8 @@ export class TestDataFacade {
         this.mockUserRepository
       ),
       updateUser: new UpdateUserUseCase(
-        this.mockUserRepository
+        this.mockUserRepository,
+        this.mockAuthEventQueue
       ),
       verifyAccount: new VerifyAccountUseCase(
         this.mockUserRepository,

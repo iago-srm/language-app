@@ -1,4 +1,7 @@
 **/node_modules
+**/generated
+.github/
+infra/
 **/build
 **/__test__
 **/*.spec.*s

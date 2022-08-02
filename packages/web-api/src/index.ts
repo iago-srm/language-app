@@ -11,7 +11,7 @@ dotenv.config();
 const container = awilix.createContainer();
 
 registerDependencies(container);
-registerServer(container, '/api/domain/v1', startPolyglot(new Strings()));
+registerServer(container, '/domain', startPolyglot(new Strings()));
 
 const server = container.resolve('server');
 

@@ -1,5 +1,8 @@
 **/node_modules
 **/build
+**/generated
+.github/
+infra/
 **/__test__
 **/*.spec.*s
 packages/auth-web-api/
