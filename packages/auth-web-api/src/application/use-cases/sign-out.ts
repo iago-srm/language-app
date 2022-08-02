@@ -1,13 +1,13 @@
 import {
-  IUseCase,
   IUserRepository
 } from '../ports';
 import {
-  ITokenContent
+  ITokenContent,
+  IUseCase
 } from '@language-app/common';
 
 type InputParams = ITokenContent;
-type Return = {};
+type Return = void;
 
 export type ISignOutUseCase = IUseCase<InputParams, Return>;
 
@@ -25,8 +25,6 @@ class UseCase implements ISignOutUseCase {
         tokenVersion: tokenVersion + 1
       })
     }
-
-    return {}
   }
 
 };

@@ -1,23 +1,26 @@
 import { DomainRules } from '@language-app/common';
 import {
-  InvalidActivityInstructionLengthError,
   InvalidInstructionOptionSetError,
+  InvalidActivityInstructionLengthError,
+  InvalidActivityOptionLengthError
 } from '../errors';
-import { ActivityOption } from './option';
 
 interface ActivityInstructionConstructorParams {
+  correctAnswer: string;
   text: string;
-  isCheckbox: boolean;
+  options?: string[];
 }
 
 export class ActivityInstruction {
-  isCheckbox: boolean;
+  correctAnswer: string;
   text: string;
-  options?: ActivityOption[];
+  options?: { [key: string]: string }[];
+  private _separator = '//%//';
 
-  constructor(args: ActivityInstructionConstructorParams) {
-    this.setInstruction(args.text);
-    this.isCheckbox = args.isCheckbox;
+  constructor(args: Partial<ActivityInstructionConstructorParams>) {
+    args.text && this.setInstruction(args.text);
+    args.options && this.parseOptions(args.options, args.correctAnswer);
+    args.correctAnswer && this.setCorrectAnswer(args.correctAnswer);
   }
 
   setInstruction(text: string) {
@@ -32,17 +35,24 @@ export class ActivityInstruction {
     this.text = text;
   }
 
-  // if instruction is no checkbox type (is, therefore, radio), one and only one correct option is allowed.
-  // if instruction is of type checkbox, zero or more correct options are allowed.
-  addOptions(options: ActivityOption[]) {
-    const providedNoCorrectOptions =
-      options.findIndex((option) => option.isCorrect) === -1;
-    if (providedNoCorrectOptions && !this.isCheckbox)
-      throw new InvalidInstructionOptionSetError();
-    const providedMultipleCorrectOptions =
-      options.filter((option) => option.isCorrect).length > 1;
-    if (providedMultipleCorrectOptions && !this.isCheckbox)
-      throw new InvalidInstructionOptionSetError();
-    this.options = options;
+  parseOptions(options: string[], correctAnswer: string) {
+    if(!correctAnswer) throw new Error('Options but no correct answer');
+    for(let option of options) {
+      const [letter, text] = option.split(this._separator);
+      if (
+        text.length < DomainRules.ACTIVITY.OPTION.MIN_LENGTH ||
+        text.length > DomainRules.ACTIVITY.OPTION.MAX_LENGTH
+      ) {
+        throw new InvalidActivityOptionLengthError({
+          text,
+        });
+      }
+      this.options[letter] = text;
+    }
+    if(!options[correctAnswer]) throw new InvalidInstructionOptionSetError();
+  }
+
+  setCorrectAnswer(text: string) {
+    this.correctAnswer = text;
   }
 }

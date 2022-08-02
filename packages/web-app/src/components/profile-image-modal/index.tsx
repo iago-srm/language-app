@@ -52,7 +52,7 @@ export const ProfileImageModal = ({ onClose, user }) => {
           <img src={(selectedFile && URL.createObjectURL(selectedFile)) || user.image}/>
         </div>
         <br/>
-        <input type="file" onChange={onFileChange} accept="image/png, image/jpeg" name='profile-image'/>
+        <input type="file" onChange={onFileChange} accept="image/png, image/jpeg"/>
         <hr/>
         <Button onClick={onFileUpload} loading={uploadProfileImage.loading}>
           Salvar

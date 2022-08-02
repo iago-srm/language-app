@@ -1,5 +1,4 @@
-import { ErrorMessagesLabels } from "@/../../common"
-import { EmailStringsLabels } from "./labels"
+import { ErrorMessagesLabels } from "./labels"
 
 export interface IEmailStrings {
   'FORGOT_PASSWORD_BODY': (url: string) => string;

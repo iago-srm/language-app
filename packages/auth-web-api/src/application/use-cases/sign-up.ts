@@ -1,5 +1,4 @@
 import {
-  IUseCase,
   IUserRepository,
   IVerificationTokenRepository,
   UserDTO,
@@ -15,7 +14,7 @@ import {
 } from '@common/errors';
 import {
   ISignUpAPIParams,
-  ISignUpAPIResponse
+  IUseCase
 } from '@language-app/common';
 
 type InputParams = ISignUpAPIParams & { language: string };
@@ -65,7 +64,7 @@ class UseCase implements ISignUpUseCase {
     await this.emailService.sendVerifyAccountEmail({
       destination: email,
       language,
-      url: `${process.env.WEB_APP_URL}/verify-account?verificationToken=${token}&userId=${userId}`
+      url: `${process.env.WEB_APP_URL}/verify-account?verificationToken=${token}`
     });
   }
 

@@ -5,7 +5,9 @@ export const PortugueseErrorMessages = {
   ...CommonPortugueseErrorMessages,
   [ErrorMessagesLabels.INVALID_ROLE]: 'Papel inválido',
   [ErrorMessagesLabels.EMAIL_IN_USE]: 'Já existe uma conta cadastrada com este e-mail.',
-  [ErrorMessagesLabels.TOKEN_GENERATION]: 'Houve um erro na geração da autenticação: %{error}'
+  [ErrorMessagesLabels.TOKEN_GENERATION]: 'Houve um erro na geração da autenticação: %{error}',
+  [ErrorMessagesLabels.INVALID_CREDENTIALS]: 'E-mail ou senha incorretos.',
+  [ErrorMessagesLabels.UNVERIFIED_USER]: 'Conta não verificada. Por favor, clicar no link enviado para %{email}'
 };
 
 export const PortugueseEmailStrings = {

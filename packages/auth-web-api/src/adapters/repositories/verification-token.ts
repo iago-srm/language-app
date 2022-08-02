@@ -1,4 +1,4 @@
-import { IVerificationTokenRepository, VerificationTokenDTO } from '@application/ports';
+import { IVerificationTokenRepository } from '@application/ports';
 import { PrismaClient } from '@prisma/client';
 
 export class VerificationTokenRepository implements IVerificationTokenRepository {
@@ -8,10 +8,10 @@ export class VerificationTokenRepository implements IVerificationTokenRepository
     this.prisma = new PrismaClient();
   }
 
-  getTokenByUserId(id: string) {
+  getTokenByTokenValue(token: string) {
     return this.prisma.verificationToken.findUnique({
       where: {
-        userId: id
+        token
       }
     })
   }

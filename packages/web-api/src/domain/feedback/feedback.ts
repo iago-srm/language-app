@@ -10,9 +10,9 @@ export class Feedback {
   grade: number;
   message: string;
 
-  constructor(args: FeedbackConstructorParams) {
-    this.setGrade(args.grade);
-    this.setMessage(args.message);
+  constructor(args: Partial<FeedbackConstructorParams>) {
+    args.grade && this.setGrade(args.grade);
+    args.message && this.setMessage(args.message);
   }
 
   setGrade(grade: number) {

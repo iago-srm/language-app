@@ -1,5 +1,12 @@
-export * from './sign-up';
-export * from './log-in';
-export * from './get-extracts';
-export * from './get-categories';
-export * from './categorize-extracts';
+import GetStudentActivitiesUseCase, { IGetStudentActivitiesUseCase } from './get-student-activities';
+import GetInstructorActivitiesUseCase, { IGetInstructorActivitiesUseCase } from './get-instructor-activities';
+import NewUserUseCase, { INewUserUseCase } from './new-user';
+export {
+  GetInstructorActivitiesUseCase,
+  IGetInstructorActivitiesUseCase,
+  GetStudentActivitiesUseCase,
+  IGetStudentActivitiesUseCase,
+  NewUserUseCase,
+  INewUserUseCase
+}
+
