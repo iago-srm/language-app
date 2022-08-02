@@ -1,7 +1,8 @@
 import {
   ActivityDTO,
   ActivityInstructionDTO,
-  CEFR
+  CEFR,
+  UserDTO
 } from '.';
 
 export interface IActivityRepository {
@@ -14,4 +15,9 @@ export interface IActivityRepository {
   getActivityById: (id: number) => Promise<ActivityDTO>;
   insertActivity: (activity: ActivityDTO) => Promise<Partial<ActivityDTO>>;
   insertNewInstructions: (activityId: number, instructions: ActivityInstructionDTO[]) => Promise<Partial<ActivityDTO>>;
+}
+
+export interface IUserRepository {
+  insertUserAndStudent: (user: Partial<UserDTO>, id: string) => Promise<UserDTO>;
+  insertUserAndInstructor: (user: Partial<UserDTO>, id: string) => Promise<UserDTO>;
 }

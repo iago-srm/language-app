@@ -6,7 +6,7 @@ export const controllerSerializer = (body: { [k: string]: string }, fields: ({ n
 
   fields.forEach((field) => {
     if(typeof field !== 'string') {
-      if(!field.optional && !values[field.name]) throw new ParameterNotProvidedError({ parameter: name });
+      if(!field.optional && !body[field.name]) throw new ParameterNotProvidedError({ parameter: field.name });
       values[field.name] = body[field.name];
     }
     else if (typeof field ===  'string') values[field] = body[field];

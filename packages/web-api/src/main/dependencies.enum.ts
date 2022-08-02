@@ -1,6 +1,7 @@
 export enum Dependencies {
   // controllers
-  GETACTIVITIES = 'getActivities',
+  GETACTIVITIESCONTROLLER = 'getActivitiesController',
+  NEWUSERCONTROLLER = 'newUserController',
 
   // services
   TOKENSERVICE = 'tokenService',
@@ -11,10 +12,15 @@ export enum Dependencies {
   STORAGESERVICE = 'storageService',
   AUTHEMAILSERVICE = 'authEmailService',
 
+  // middleware
+  FILEMIDDLEWARE = 'fileMiddleware',
+
   // use cases
   GETSTUDENTACTIVITIESUSECASE = 'getStudentActivitiesUseCase',
   GETINSTRUCTORACTIVITIESUSECASE = 'getInstructorActivitiesUseCase',
+  NEWUSERUSECASE = 'newUserUseCase',
 
   // repositories
-  ACTIVITYREPOSITORY = 'activityRepository'
+  ACTIVITYREPOSITORY = 'activityRepository',
+  USERREPOSITORY = 'userRepository'
 }

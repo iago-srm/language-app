@@ -19,3 +19,8 @@ export const PostActivityInstructionHTTPDefinition: HTTPDefinition = {
   path: 'activities/:id/instructions',
   method: 'post'
 }
+
+export const NewUserHTTPDefinition: HTTPDefinition = {
+  path: 'users/',
+  method: 'post'
+}
