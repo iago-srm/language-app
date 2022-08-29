@@ -14,7 +14,7 @@ dist
 
 # misc
 .DS_Store
-.env*
+.env
 /certificates
 .next
 npm-debug.log*
