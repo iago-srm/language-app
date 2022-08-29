@@ -6,7 +6,8 @@
   "scripts": {
     "echo": "echo \"Hello from monorepo setup\"",
     "test": "jest",
-    "install:ci": "npm ci"
+    "install:ci": "npm ci",
+    "psql:local:db": "docker exec -ti language-app-postgres psql -U postgres -h localhost -p 5432"
   },
   "workspaces": [
     "packages/*"
