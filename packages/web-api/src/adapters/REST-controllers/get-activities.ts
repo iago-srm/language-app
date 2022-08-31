@@ -22,7 +22,7 @@ export const GetActivitiesControllerFactory = ({
       title,
       cefr,
       cursor
-    } = controllerSerializer(query, ['title, cefr', 'cursor']);
+    } = controllerSerializer(query, ['title', 'cefr', 'cursor']);
 
     const { id, role } = user;
 

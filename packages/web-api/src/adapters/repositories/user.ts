@@ -2,7 +2,7 @@ import {
   IUserRepository,
   UserDTO
 } from '@application/ports';
-import { PrismaClient } from '@generated/prisma-client';
+import { PrismaClient } from '@prisma-client';
 
 export class UserRepository implements IUserRepository {
   prisma: PrismaClient;

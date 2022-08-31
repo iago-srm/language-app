@@ -4,7 +4,7 @@ import {
   CEFR,
   IActivityRepository
 } from '@application/ports';
-import { PrismaClient } from '@generated/prisma-client';
+import { PrismaClient } from '@prisma-client';
 
 export class ActivityRepository implements IActivityRepository {
   prisma: PrismaClient;
@@ -32,14 +32,10 @@ export class ActivityRepository implements IActivityRepository {
           { cefr },
         ]
       },
-      select: {
-        instructions: {
-          select: {
-            answers: {
-              where: {
-                studentId
-              }
-            }
+      include: {
+        outputs: {
+          where: {
+            studentId
           }
         }
       }
@@ -122,7 +118,10 @@ export class ActivityRepository implements IActivityRepository {
           create: instructions
         }
       },
-      select: { id: true }
+      include: {
+        instructions: true
+      }
+      // select: { id: true }
     })
   }
 

@@ -19,8 +19,13 @@ export enum Dependencies {
   GETSTUDENTACTIVITIESUSECASE = 'getStudentActivitiesUseCase',
   GETINSTRUCTORACTIVITIESUSECASE = 'getInstructorActivitiesUseCase',
   NEWUSERUSECASE = 'newUserUseCase',
+  NEWACTIVITYUSECASE = 'newActivityUseCase',
+  NEWACTIVITYINSTRUCTIONUSECASE = 'newActivityInstructionUseCase',
+  NEWSTUDENTOUTPUTUSECASE = 'newStudentOutputUseCase',
+  GETSTUDENTOUTPUTUSECASE = 'getStudentOutputUseCase',
 
   // repositories
   ACTIVITYREPOSITORY = 'activityRepository',
+  STUDENTOUTPUTREPOSITORY = 'studentOutputRepository',
   USERREPOSITORY = 'userRepository'
 }

@@ -55,10 +55,11 @@ model Student {
 
   cefr    CefrValues?
 
+  activitiesStarted Activity[]
+  outputs StudentOutput[]
+
   user User @relation(fields: [userId], references: [id])
   userId String @unique
-  activitiesStarted Activity[]
-  instructionAnswers InstructionAnswer[]
 }
 
 model InstructionAnswer {
@@ -70,8 +71,8 @@ model InstructionAnswer {
 
   instruction   ActivityInstruction? @relation(fields: [instructionId], references: [id])
   instructionId String?
-  Student           Student?        @relation(fields: [studentId], references: [id])
-  studentId         String?
+  studentOutput StudentOutput? @relation(fields: [studentOutputId], references: [id])
+  studentOutputId Int?
 }
 
 
@@ -87,7 +88,7 @@ model ActivityInstruction {
   answers InstructionAnswer[]
 
   activity   Activity? @relation(fields: [activityId], references: [id])
-  activityId Int @unique
+  activityId Int?
 }
 
 model FeedbackToActivity {
@@ -100,6 +101,8 @@ model FeedbackToActivity {
 
   activity   Activity? @relation(fields: [activityId], references: [id])
   activityId Int?
+  studentOutput StudentOutput? @relation(fields: [studentOutputId], references: [id])
+  studentOutputId Int? @unique
 }
 
 model Activity {
@@ -122,16 +125,30 @@ model Activity {
   feedbacks FeedbackToActivity[]
   instructions ActivityInstruction[]
   studentsStartedThis Student[]
+  outputs StudentOutput[]
 
   instructor   Instructor @relation(fields: [instructorId], references: [id])
   instructorId String
 }
 
+model StudentOutput {
+  id        Int   @id @unique @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  answers InstructionAnswer[]
+  feedback FeedbackToActivity?
+
+  activity   Activity? @relation(fields: [activityId], references: [id])
+  activityId Int?
+  Student           Student?        @relation(fields: [studentId], references: [id])
+  studentId         String?
+}
 //writing "version ActivityVersion" autocompletes the id, the @s and the one-to-many in the other table
 
 // RELATIONS
-// for one-to-one, one of the entities will have only the field
-// referencing the other, and the other will have two fields, including the one with the @relation decorator.
+// for one-to-one, one of the entities will have only the field referencing the other, 
+// and the other will have two fields, including the one with the @relation decorator.
 
 // for many-to-one, place an array on the entity that holds many,
 // and the one entity plus a field for its id in the many entity.
