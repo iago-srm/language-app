@@ -19,7 +19,7 @@ import {
     ){}
   
     async execute ({ output }) {
-  
+      console.log({output})
   
       return 
     }

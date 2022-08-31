@@ -2,26 +2,26 @@ version: "3"
 
 services:
 
-  domain:
-    image: language-app/web-api
-    build:
-      context: .
-      dockerfile: packages/web-api/Dockerfile
-    container_name: language-app-web-api
-    entrypoint: "npm run dev"
-    # entrypoint: "tail -f /dev/null"
-    ports:
-      - "${DOMAIN_PORT}:${DOMAIN_PORT}"
-      - 5556:5555 # prisma studio
-    environment:
-      - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${DOMAIN_POSTGRES_SCHEMA}
-      - PORT=${DOMAIN_PORT}
-      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-    tty: true
-    volumes:
-      - ./packages/common:/app/packages/common
-      - ./packages/web-api:/app/packages/web-api
+  # domain:
+  #   image: language-app/web-api
+  #   build:
+  #     context: .
+  #     dockerfile: packages/web-api/Dockerfile
+  #   container_name: language-app-web-api
+  #   entrypoint: "npm run dev"
+  #   # entrypoint: "tail -f /dev/null"
+  #   ports:
+  #     - "${DOMAIN_PORT}:${DOMAIN_PORT}"
+  #     - 5556:5555 # prisma studio
+  #   environment:
+  #     - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${DOMAIN_POSTGRES_SCHEMA}
+  #     - PORT=${DOMAIN_PORT}
+  #     - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+  #     - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+  #   tty: true
+  #   volumes:
+  #     - ./packages/common:/app/packages/common
+  #     - ./packages/web-api:/app/packages/web-api
 
   postgres:
     image: postgres

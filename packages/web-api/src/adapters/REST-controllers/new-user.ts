@@ -19,11 +19,7 @@ export const NewUserControllerFactory = ({
       name,
       email,
       role
-    } = controllerSerializer(body, [
-      { name: 'name', optional: false },
-      { name: 'email', optional: false },
-      { name: 'role', optional: false },
-    ]);
+    } = controllerSerializer(body, ['name','email','role']);
 
     await newUserUseCase.execute({ name, email, role });
 

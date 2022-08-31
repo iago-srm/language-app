@@ -20,6 +20,7 @@ import {
   
     async execute ({ activity }) {
   
+      console.log({activity})
       return this.activityRepository.insertActivity(activity);
     }
   

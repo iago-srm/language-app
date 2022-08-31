@@ -1,42 +1,42 @@
 import { HTTPDefinition } from '../types';
 
 export const SignUpHTTPDefinition: HTTPDefinition = {
-  path: 'user',
+  path: 'users',
   method: 'post'
 }
 
 export const UpdateUserHTTPDefinition: HTTPDefinition = {
-  path: 'user',
+  path: 'users',
   method: 'patch'
 }
 
 export const SignInHTTPDefinition: HTTPDefinition = {
-  path: 'session',
+  path: 'sessions',
   method: 'post'
 }
 
 export const SignOutHTTPDefinition: HTTPDefinition = {
-  path: 'session',
+  path: 'sessions',
   method: 'patch'
 }
 
 export const GetUserHTTPDefinition: HTTPDefinition = {
-  path: 'user',
+  path: 'users',
   method: 'get'
 }
 
 export const VerifyAccountHTTPDefinition: HTTPDefinition = {
-  path: 'verification-token/:token',
+  path: 'verification-tokens/:token',
   method: 'patch'
 }
 
 export const UpdateProfileImageHTTPDefinition: HTTPDefinition = {
-  path: 'user/profile-image',
+  path: 'user/profile-images',
   method: 'post'
 }
 
 export const ForgotPasswordRequestHTTPDefinition: HTTPDefinition = {
-  path: 'forgot-password-token',
+  path: 'forgot-password-tokens',
   method: 'post'
 }
 
@@ -46,6 +46,6 @@ export const ForgotPasswordRequestHTTPDefinition: HTTPDefinition = {
 // }
 
 export const ResetPasswordHTTPDefinition: HTTPDefinition = {
-  path: 'user/password',
+  path: 'users/passwords',
   method: 'put'
 }

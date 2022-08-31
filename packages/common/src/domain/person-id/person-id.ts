@@ -10,11 +10,11 @@ interface PersonIdConstructorParams {
 
 export class  PersonId {
   id?: string;
-  email: string;
-  name: string;
+  email?: string;
+  name?: string;
 
   constructor(args: PersonIdConstructorParams) {
-    this.setEmail(args.email, args.emailValidator);
+    if(args.email) this.setEmail(args.email, args.emailValidator);
     if(args.name) this.setName(args.name);
 
     this.id = args.id;
