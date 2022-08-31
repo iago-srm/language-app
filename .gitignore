@@ -7,14 +7,14 @@ node_modules
 
 # testing
 coverage
-
+.logs
 # production
 build
 dist
 
 # misc
 .DS_Store
-.env*
+.env
 /certificates
 .next
 npm-debug.log*

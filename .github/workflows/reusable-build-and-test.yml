@@ -28,7 +28,7 @@ jobs:
       #   run: npm run format:ci
 
       - name: Build
-        working-directory: './packages/${{ inputs.package }}'
+        working-directory: 'packages/${{ inputs.package }}'
         run: npm run build
 
       - name: Install Dependencies

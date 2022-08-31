@@ -5,6 +5,17 @@ export interface UserDTO {
   role?: string;
 }
 
+export interface StudentOutputDTO {
+  answers: {
+    instructionId: string;
+    answer: string
+  }[];
+  feedback?: {
+    grade?: number;
+    message?: string;
+  }
+}
+
 export interface InstructorDTO {
   userId: string;
 }
