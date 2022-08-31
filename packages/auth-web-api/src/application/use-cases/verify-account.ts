@@ -24,10 +24,10 @@ class UseCase implements IVerifyAccountUseCase {
   async execute({ token: verificationToken }) {
 
     const token = await this.verificationTokenRepository.getTokenByTokenValue(verificationToken);
-    const user = await this.userRepository.getUserById(token.userId);
-
-    if (!user) throw new UserNotFoundError();
     if (!token) throw new InvalidValidationTokenError();
+
+    const user = await this.userRepository.getUserById(token.userId);
+    if (!user) throw new UserNotFoundError();
 
     if(token.token !== verificationToken)
       throw new InvalidValidationTokenError();

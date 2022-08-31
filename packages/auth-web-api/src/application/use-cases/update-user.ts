@@ -11,6 +11,7 @@ import {
   DomainRules,
   IUseCase
 } from '@language-app/common';
+import { User } from '@domain';
 
 type InputParams = IUpdateUserParams & { userId: string; };
 type Return = void;
@@ -22,16 +23,15 @@ class UseCase implements IUpdateUserUseCase {
     private userRepository: IUserRepository,
     private authEventQueue: IAuthEventQueue
   ){}
-  async execute({ role, userId }) {
+  async execute({ role, name, userId }) {
 
     const user = await this.userRepository.getUserById(userId);
 
     if (!user) throw new UserNotFoundError();
 
-    if(!DomainRules.USER.ROLES.includes(role))
-      throw new InvalidRoleError();
+    new User({ role, name })
 
-    await this.userRepository.updateUser(userId, { role });
+    await this.userRepository.updateUser(userId, { role, name });
 
     await this.authEventQueue.publishNewUser(user);
   }

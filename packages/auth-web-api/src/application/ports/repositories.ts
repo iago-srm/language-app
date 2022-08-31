@@ -19,7 +19,7 @@ export interface IVerificationTokenRepository {
 export interface IForgotPasswordTokenRepository {
   getTokenByTokenValue: (token: string) => Promise<ForgotPasswordTokenDTO | null>;
   insertToken: (token: ForgotPasswordTokenDTO) => Promise<ForgotPasswordTokenDTO>;
-  invalidateToken: (token: ForgotPasswordTokenDTO) => Promise<ForgotPasswordTokenDTO>;
+  updateToken: (id: string, data: Partial<ForgotPasswordTokenDTO>) => Promise<ForgotPasswordTokenDTO>;
 }
 
 export interface IProfileImageRepository {

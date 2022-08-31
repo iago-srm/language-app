@@ -21,10 +21,14 @@ export const UpdateUserControllerFactory = ({
     const {
       name,
       role,
-    } = controllerSerializer(body, [{ name: 'name', optional: true }, 'role']);
+    } = controllerSerializer(body, [
+      { name: 'name', optional: true }, 
+      { name: 'role', optional: true }
+    ]);
 
     await updateUserUseCase.execute({
       role: role as any,
+      name: name as any,
       userId: user.id
     })
 

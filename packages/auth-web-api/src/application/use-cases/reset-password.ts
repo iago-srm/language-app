@@ -4,14 +4,11 @@ import {
   IEncryptionService
 } from '../ports';
 import {
-  UserNotFoundError,
-  InvalidRoleError,
   InvalidValidationTokenError,
   InvalidPasswordError
 } from '@common/errors';
 import {
   IResetPasswordParams,
-  DomainRules,
   IUseCase
 } from '@language-app/common';
 import { User } from '@domain';
@@ -41,7 +38,9 @@ class UseCase implements IResetPasswordUseCase {
       hashedPassword: await this.encryptionService.encrypt(password)
     });
 
-    await this.forgotPasswordTokenRepository.invalidateToken(token);
+    await this.forgotPasswordTokenRepository.updateToken(token.id, {
+      expiresAt: new Date(Date.now())
+    });
   }
 
 }

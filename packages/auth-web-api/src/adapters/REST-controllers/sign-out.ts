@@ -14,13 +14,13 @@ export const SignOutControllerFactory = ({
 
     const { id, tokenVersion } = user;
 
-    const resp = await signOutUseCase.execute({
+    await signOutUseCase.execute({
       id,
       tokenVersion,
     });
 
     return {
-      response: resp,
+      response: "",
       statusCode: 200,
     };
   };
