@@ -4,6 +4,12 @@ module.exports = withImages({
   esModule: true,
 })
 
-const withTM = require('next-transpile-modules')(['@language-app/common']); // pass the modules you would like to see transpiled
+const withTM = require('next-transpile-modules')([
+  '@language-app/common-core',
+  '@language-app/common-utils'
+]);
 
-module.exports = withTM({});
+module.exports = withImages(withTM({
+  pageExtensions: ['jsx', 'tsx']
+}));
+

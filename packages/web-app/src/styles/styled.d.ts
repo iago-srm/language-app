@@ -5,5 +5,16 @@ import 'styled-components'
 import { getTheme, Theme } from '../contexts/color-mode-theme/theme'
 
 declare module 'styled-components' {
-  export interface DefaultTheme extends Theme {}
+  export interface DefaultTheme {
+    colors: {
+      background: string;
+      highlightedText: string;
+      highlight: string;
+      text: string;
+      primary: string;
+      secondary: string;
+      error: string;
+    },
+    inputBorderRadius: string;
+  }
 }

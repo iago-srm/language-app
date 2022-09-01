@@ -6,14 +6,12 @@ import {
 } from '../ports';
 import {
   UserNotFoundError,
-  InvalidValidationTokenError,
-  InvalidRoleError
 } from '@common/errors';
 import {
   IForgotPasswordParams,
   IForgotPasswordResponse,
-  IUseCase
-} from '@language-app/common';
+} from '@language-app/common-core';
+import { IUseCase } from '@language-app/common-platform';
 
 type InputParams = IForgotPasswordParams & { language: string };
 type Return = IForgotPasswordResponse;
@@ -40,7 +38,7 @@ class UseCase implements IForgotPasswordRequestUseCase {
     await this.forgotPasswordTokenRepository.insertToken({
       token,
       userId: user.id,
-      expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 3)
+      expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 3) //3h
     });
 
     await this.authEmailService.sendForgotPasswordEmail({

@@ -1,6 +1,10 @@
 export enum Dependencies {
   // controllers
   GETACTIVITIESCONTROLLER = 'getActivitiesController',
+  GETSTUDENTOUTPUTCONTROLLER = 'getStudentOutputController',
+  GETSTUDENTOUTPUTSCONTROLLER = 'getStudentOutputsController',
+  NEWACTIVITYCONTROLLER = 'newActivityController',
+  NEWSTUDENTOUTPUTCONTROLLER = 'newStudentOutputController',
   NEWUSERCONTROLLER = 'newUserController',
 
   // services
@@ -18,11 +22,12 @@ export enum Dependencies {
   // use cases
   GETSTUDENTACTIVITIESUSECASE = 'getStudentActivitiesUseCase',
   GETINSTRUCTORACTIVITIESUSECASE = 'getInstructorActivitiesUseCase',
-  NEWUSERUSECASE = 'newUserUseCase',
-  NEWACTIVITYUSECASE = 'newActivityUseCase',
-  NEWACTIVITYINSTRUCTIONUSECASE = 'newActivityInstructionUseCase',
-  NEWSTUDENTOUTPUTUSECASE = 'newStudentOutputUseCase',
   GETSTUDENTOUTPUTUSECASE = 'getStudentOutputUseCase',
+  GETSTUDENTOUTPUTSUSECASE = 'getStudentOutputsUseCase',
+  NEWACTIVITYINSTRUCTIONUSECASE = 'newActivityInstructionUseCase',
+  NEWACTIVITYUSECASE = 'newActivityUseCase',
+  NEWSTUDENTOUTPUTUSECASE = 'newStudentOutputUseCase',
+  NEWUSERUSECASE = 'newUserUseCase',
 
   // repositories
   ACTIVITYREPOSITORY = 'activityRepository',

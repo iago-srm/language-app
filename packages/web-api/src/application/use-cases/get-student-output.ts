@@ -7,30 +7,20 @@ import {
   } from '@language-app/common';
   
   type InputParams = {
-    studentOutputId?: string;
-    studentId?: string;
+    studentOutputId: string;
   };
-  type Return = StudentOutputDTO[] | StudentOutputDTO;
+  type Return = StudentOutputDTO;
   
-  export type IGetStudentOutputsUseCase = IUseCase<InputParams, Return>;
+  export type IGetStudentOutputUseCase = IUseCase<InputParams, Return>;
   
-  class UseCase implements IGetStudentOutputsUseCase {
+  class UseCase implements IGetStudentOutputUseCase {
   
     constructor(
       private studentOutputRepository: IStudentOutputRepository
     ){}
   
-    async execute ({ studentId, studentOutputId }) {
-      
-      let result: StudentOutputDTO[] | StudentOutputDTO;
-
-      if(studentId) {
-        result = await this.studentOutputRepository.getStudentOutputsByStudentId(studentId);
-      } else if (studentOutputId) {
-        result = await this.studentOutputRepository.getStudentOutputById(studentOutputId);
-      }
-  
-      return result;
+    async execute ({ studentOutputId }) {
+      return this.studentOutputRepository.getStudentOutputById(studentOutputId);
     }
   
   };

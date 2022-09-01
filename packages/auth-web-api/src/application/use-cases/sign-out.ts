@@ -2,9 +2,9 @@ import {
   IUserRepository
 } from '../ports';
 import {
-  ITokenContent,
   IUseCase
-} from '@language-app/common';
+} from '@language-app/common-platform';
+import { ITokenContent } from '@language-app/common-core';
 
 type InputParams = ITokenContent;
 type Return = void;

@@ -8,8 +8,10 @@ import {
 } from '@common/errors';
 import {
   IVerifyAccountParams,
+} from '@language-app/common-core';
+import {
   IUseCase
-} from '@language-app/common';
+} from '@language-app/common-platform';
 
 type InputParams = IVerifyAccountParams;
 type Return = void;
@@ -24,10 +26,10 @@ class UseCase implements IVerifyAccountUseCase {
   async execute({ token: verificationToken }) {
 
     const token = await this.verificationTokenRepository.getTokenByTokenValue(verificationToken);
-    const user = await this.userRepository.getUserById(token.userId);
-
-    if (!user) throw new UserNotFoundError();
     if (!token) throw new InvalidValidationTokenError();
+
+    const user = await this.userRepository.getUserById(token.userId);
+    if (!user) throw new UserNotFoundError();
 
     if(token.token !== verificationToken)
       throw new InvalidValidationTokenError();

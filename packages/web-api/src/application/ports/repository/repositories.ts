@@ -25,6 +25,6 @@ export interface IUserRepository {
 
 export interface IStudentOutputRepository {
   getStudentOutputById: (outputId: number) => Promise<StudentOutputDTO>;
-  getStudentOutputsByStudentId: (studentId: string) => Promise<StudentOutputDTO[]>;
+  getStudentOutputsByStudentId: (studentId: string) => Promise<(Partial<StudentOutputDTO> & Partial<ActivityDTO>)[]>;
   insertStudentOutput: (output: StudentOutputDTO) => Promise<StudentOutputDTO>;
 }

@@ -1,6 +1,6 @@
 import {
   IForgotPasswordTokenRepository,
-  VerificationTokenDTO
+  ForgotPasswordTokenDTO
 } from '@application/ports';
 import { PrismaClient } from '@prisma/client';
 
@@ -25,11 +25,11 @@ export class ForgotPasswordTokenRepository implements IForgotPasswordTokenReposi
     })
   }
 
-  invalidateToken(token: any) {
+  updateToken(id: string, {expiresAt}: Partial<ForgotPasswordTokenDTO>) {
     return this.prisma.forgotPasswordToken.update({
-      where: { id: token.id },
+      where: { id },
       data: {
-        expiresAt: new Date(Date.now())
+        expiresAt
       }
     })
   }

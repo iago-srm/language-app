@@ -20,7 +20,7 @@ import {
   
     async execute ({ instruction }) {
   
-  
+      console.log({instruction})
       return 
     }
   

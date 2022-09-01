@@ -1,16 +1,13 @@
 import {
   IUpdateUserUseCase
 } from '@application/use-cases';
-import { UpdateUserHTTPDefinition } from '@language-app/common';
+import { UpdateUserHTTPDefinition } from '@language-app/common-core';
 import {
   IHTTPController,
   IHTTPControllerDescriptor,
-} from '@language-app/common';
-import { controllerSerializer } from '@language-app/common';
-import {
-  IUpdateUserParams,
-  DomainRules
-} from '@language-app/common';
+  controllerSerializer
+} from '@language-app/common-platform';
+
 
 export const UpdateUserControllerFactory = ({
   updateUserUseCase
@@ -21,10 +18,14 @@ export const UpdateUserControllerFactory = ({
     const {
       name,
       role,
-    } = controllerSerializer(body, [{ name: 'name', optional: true }, 'role']);
+    } = controllerSerializer(body, [
+      { name: 'name', optional: true }, 
+      { name: 'role', optional: true }
+    ]);
 
     await updateUserUseCase.execute({
       role: role as any,
+      name: name as any,
       userId: user.id
     })
 

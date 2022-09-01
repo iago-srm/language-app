@@ -109,7 +109,7 @@ export class TestDataFacade {
     this.mockForgotPasswordTokenRepository = {
       getTokenByTokenValue: mockForgotPasswordTokenRepository?.getTokenByTokenValue || jest.fn(),
       insertToken: mockForgotPasswordTokenRepository?.insertToken || jest.fn(),
-      invalidateToken: mockForgotPasswordTokenRepository?.invalidateToken || jest.fn()
+      updateToken: mockForgotPasswordTokenRepository?.updateToken || jest.fn()
     }
 
 

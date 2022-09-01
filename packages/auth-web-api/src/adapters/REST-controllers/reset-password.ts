@@ -1,12 +1,12 @@
 import {
   IResetPasswordUseCase
 } from '@application/use-cases';
-import { ResetPasswordHTTPDefinition } from '@language-app/common';
+import { ResetPasswordHTTPDefinition } from '@language-app/common-core';
 import {
   IHTTPController,
   IHTTPControllerDescriptor,
-} from '@language-app/common';
-import { controllerSerializer } from '@language-app/common';
+  controllerSerializer
+} from '@language-app/common-platform';
 
 export const ResetPasswordControllerFactory = ({
   resetPasswordUseCase

@@ -29,8 +29,16 @@ import {
       return this.prisma.studentOutput.findMany({
         where: {
           studentId: id
-        }, include: {
-          answers: true
+        }, 
+        include: {
+          activity: {
+            select: {
+              cefr: true,
+              timeToComplete: true,
+              topics: true,
+              contentType: true
+            }
+          }
         }
       })
     }

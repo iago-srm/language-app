@@ -1,5 +1,7 @@
 import { EmailStringsLabels, ErrorMessagesLabels } from './labels';
-import { EnglishErrorMessages as CommonEnglishErrorMessages } from '@language-app/common';
+import { 
+  EnglishErrorMessages as CommonEnglishErrorMessages 
+} from '@language-app/common-utils';
 
 export const EnglishErrorMessages = {
   ...CommonEnglishErrorMessages,
@@ -7,7 +9,9 @@ export const EnglishErrorMessages = {
   [ErrorMessagesLabels.INVALID_ROLE]: 'Invalid role',
   [ErrorMessagesLabels.EMAIL_IN_USE]: 'There is already an account with that e-mail',
   [ErrorMessagesLabels.TOKEN_GENERATION]: 'There was an error generating the token: %{error}',
-  [ErrorMessagesLabels.UNVERIFIED_USER]: 'Univerified e-mail. Please follow the link sent to %{email}'
+  [ErrorMessagesLabels.UNVERIFIED_USER]: 'Univerified e-mail. Please follow the link sent to %{email}',
+  [ErrorMessagesLabels.VALIDATION_TOKEN]: 'Invalid verification token. Please sign up again.'
+
 };
 
 export const EnglishEmailStrings = {

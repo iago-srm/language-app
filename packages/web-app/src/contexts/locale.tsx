@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 
-import { Languages } from '@language-app/common';
+import { Languages } from '@language-app/common-utils';
 
 import { LocalStorage } from '@services/browser';
 

@@ -1,5 +1,7 @@
 import { EmailStringsLabels, ErrorMessagesLabels } from './labels';
-import { PortugueseErrorMessages as CommonPortugueseErrorMessages } from '@language-app/common';
+import { 
+  PortugueseErrorMessages as CommonPortugueseErrorMessages 
+} from '@language-app/common-utils';
 
 export const PortugueseErrorMessages = {
   ...CommonPortugueseErrorMessages,
@@ -7,7 +9,9 @@ export const PortugueseErrorMessages = {
   [ErrorMessagesLabels.EMAIL_IN_USE]: 'Já existe uma conta cadastrada com este e-mail.',
   [ErrorMessagesLabels.TOKEN_GENERATION]: 'Houve um erro na geração da autenticação: %{error}',
   [ErrorMessagesLabels.INVALID_CREDENTIALS]: 'E-mail ou senha incorretos.',
-  [ErrorMessagesLabels.UNVERIFIED_USER]: 'Conta não verificada. Por favor, clicar no link enviado para %{email}'
+  [ErrorMessagesLabels.UNVERIFIED_USER]: 'Conta não verificada. Por favor, clicar no link enviado para %{email}',
+  [ErrorMessagesLabels.VALIDATION_TOKEN]: 'Token de verificação inválido'
+
 };
 
 export const PortugueseEmailStrings = {

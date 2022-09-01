@@ -14,8 +14,10 @@ import {
 } from '@common/errors';
 import {
   ISignUpAPIParams,
+} from '@language-app/common-core';
+import {
   IUseCase
-} from '@language-app/common';
+} from '@language-app/common-platform';
 
 type InputParams = ISignUpAPIParams & { language: string };
 type Return = void;
@@ -28,7 +30,7 @@ class UseCase implements ISignUpUseCase {
     private userRepository: IUserRepository,
     private encryptionService: IEncryptionService,
     private idService: IIdGenerator,
-    private emailService: IAuthEmailService,
+    private authEmailService: IAuthEmailService,
     private verificationTokenRepository: IVerificationTokenRepository,
     private profileImageRepository: IProfileImageRepository
   ){}
@@ -55,16 +57,16 @@ class UseCase implements ISignUpUseCase {
       tokenVersion: 0,
     };
 
+    await this.authEmailService.sendVerifyAccountEmail({
+      destination: email,
+      language,
+      url: `${process.env.WEB_APP_URL}/verify-account?verificationToken=${token}`
+    });
+
     await this.userRepository.insertUser(userDTO);
     await this.verificationTokenRepository.insertToken({
       token,
       userId
-    })
-
-    await this.emailService.sendVerifyAccountEmail({
-      destination: email,
-      language,
-      url: `${process.env.WEB_APP_URL}/verify-account?verificationToken=${token}`
     });
   }
 

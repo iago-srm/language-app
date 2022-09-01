@@ -14,7 +14,7 @@ import {
 } from '@services/api';
 import { LocalStorage } from "@services/browser";
 import { setCookie, parseCookies } from 'nookies'
-import { IGetUserAPIResponse } from "@language-app/common";
+import { IGetUserAPIResponse } from "@language-app/common-core";
 
 interface IAuthContext {
   isAuthenticated?: number;

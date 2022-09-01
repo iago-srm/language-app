@@ -1,9 +1,9 @@
 import { ISignOutUseCase } from '@application/use-cases';
-import { SignOutHTTPDefinition } from '@language-app/common';
+import { SignOutHTTPDefinition } from '@language-app/common-core';
 import {
   IHTTPController,
   IHTTPControllerDescriptor,
-} from '@language-app/common';
+} from '@language-app/common-platform';
 
 export const SignOutControllerFactory = ({
   signOutUseCase,
@@ -14,13 +14,13 @@ export const SignOutControllerFactory = ({
 
     const { id, tokenVersion } = user;
 
-    const resp = await signOutUseCase.execute({
+    await signOutUseCase.execute({
       id,
       tokenVersion,
     });
 
     return {
-      response: resp,
+      response: "",
       statusCode: 200,
     };
   };

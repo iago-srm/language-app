@@ -27,7 +27,7 @@ import {
   IResetPasswordParams,
   IResetPasswordResponse,
   ResetPasswordHTTPDefinition
-} from '@language-app/common';
+} from '@language-app/common-core';
 import { useLanguage, handleAuthToken } from '@contexts';
 import { useEffect } from 'react';
 

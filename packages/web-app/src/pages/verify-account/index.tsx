@@ -22,7 +22,7 @@ interface IVerifyAccountProps {
   verificationToken: string;
 }
 
-const VerifyAccount: React.FC<IVerifyAccountProps> = ({ verificationToken, userId }) => {
+const VerifyAccount: React.FC<IVerifyAccountProps> = ({ verificationToken }) => {
 
   const { language } = useLanguage();
   const { verifyAccount } = useApiBuilder();

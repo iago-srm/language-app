@@ -1,5 +1,5 @@
 import { IAuthEmailService } from "@application/ports";
-import { IEmailService } from '@language-app/common';
+import { IEmailService } from '@language-app/common-platform';
 import {
   Strings
 } from '@common/locale';
