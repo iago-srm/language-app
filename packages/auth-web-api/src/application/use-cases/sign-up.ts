@@ -14,8 +14,10 @@ import {
 } from '@common/errors';
 import {
   ISignUpAPIParams,
+} from '@language-app/common-core';
+import {
   IUseCase
-} from '@language-app/common';
+} from '@language-app/common-platform';
 
 type InputParams = ISignUpAPIParams & { language: string };
 type Return = void;

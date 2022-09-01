@@ -1,4 +1,4 @@
-import { CustomError } from '@language-app/common';
+import { CustomError } from '@language-app/common-utils';
 import { ErrorMessagesLabels } from '../locale/labels';
 
 export class PasswordsDontMatchError extends CustomError {

@@ -12,10 +12,10 @@ import {
 import {
   ISignInAPIResponse,
   ISignInAPIParams,
-} from '@language-app/common/src/auth';
+} from '@language-app/common-core';
 import {
   IUseCase
-} from '@language-app/common/src/platform';
+} from '@language-app/common-platform';
 
 type InputParams = ISignInAPIParams;
 type Return = ISignInAPIResponse;

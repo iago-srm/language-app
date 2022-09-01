@@ -1,5 +1,7 @@
 import { EmailStringsLabels, ErrorMessagesLabels } from './labels';
-import { PortugueseErrorMessages as CommonPortugueseErrorMessages } from '@language-app/common';
+import { 
+  PortugueseErrorMessages as CommonPortugueseErrorMessages 
+} from '@language-app/common-utils';
 
 export const PortugueseErrorMessages = {
   ...CommonPortugueseErrorMessages,

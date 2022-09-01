@@ -8,8 +8,10 @@ import {
 } from '@common/errors';
 import {
   IVerifyAccountParams,
+} from '@language-app/common-core';
+import {
   IUseCase
-} from '@language-app/common';
+} from '@language-app/common-platform';
 
 type InputParams = IVerifyAccountParams;
 type Return = void;

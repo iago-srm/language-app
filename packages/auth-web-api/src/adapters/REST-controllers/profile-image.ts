@@ -1,11 +1,11 @@
 import {
   IUpdateProfileImageUseCase
 } from '@application/use-cases';
-import { UpdateProfileImageHTTPDefinition } from '@language-app/common';
+import { UpdateProfileImageHTTPDefinition } from '@language-app/common-core';
 import {
   IHTTPController,
   IHTTPControllerDescriptor,
-} from '@language-app/common';
+} from '@language-app/common-platform';
 
 export const UpdateProfileImageControllerFactory = ({
   updateProfileImageUseCase

@@ -4,7 +4,7 @@ import {
   validateEmail,
   DomainRules,
   AuthRules,
-} from '@language-app/common';
+} from '@language-app/common-core';
 
 interface UserConstructorParams {
   name?: string;

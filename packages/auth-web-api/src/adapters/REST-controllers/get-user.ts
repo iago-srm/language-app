@@ -1,8 +1,8 @@
 import {
   IHTTPController,
   IHTTPControllerDescriptor,
-} from '@language-app/common';
-import { GetUserHTTPDefinition } from '@language-app/common';
+} from '@language-app/common-platform';
+import { GetUserHTTPDefinition } from '@language-app/common-core';
 
 export const GetUserControllerFactory = (): IHTTPControllerDescriptor<IHTTPController> => {
   const fn: IHTTPController = async (_,__,___, { user }) => {

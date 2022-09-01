@@ -10,8 +10,8 @@ import {
 import {
   IForgotPasswordParams,
   IForgotPasswordResponse,
-  IUseCase
-} from '@language-app/common';
+} from '@language-app/common-core';
+import { IUseCase } from '@language-app/common-platform';
 
 type InputParams = IForgotPasswordParams & { language: string };
 type Return = IForgotPasswordResponse;

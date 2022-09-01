@@ -1,7 +1,7 @@
 import { User } from './index';
-import { AuthRules, DomainRules } from '@language-app/common';
+import { DomainRules } from '@language-app/common-core';
 import { ErrorMessagesLabels } from '@common/locale';
-import { EmailGenerator, PasswordGenerator } from '@language-app/common';
+import { EmailGenerator, PasswordGenerator } from '@language-app/common-utils';
 
 class UserTestBuilder {
   emailGenerator = new EmailGenerator();

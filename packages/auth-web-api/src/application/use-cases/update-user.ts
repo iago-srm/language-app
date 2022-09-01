@@ -4,13 +4,13 @@ import {
 } from '../ports';
 import {
   UserNotFoundError,
-  InvalidRoleError
 } from '@common/errors';
 import {
   IUpdateUserParams,
-  DomainRules,
+} from '@language-app/common-core';
+import {
   IUseCase
-} from '@language-app/common';
+} from '@language-app/common-platform';
 import { User } from '@domain';
 
 type InputParams = IUpdateUserParams & { userId: string; };

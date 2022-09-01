@@ -2,7 +2,7 @@ import {
   ITokenService as ICommonTokenService,
   IIdGenerator as ICommonIdGenerator,
   IEncryptionService as ICommonEncryptionService,
-} from '@language-app/common';
+} from '@language-app/common-platform';
 import {
   UserDTO
 } from './dtos';

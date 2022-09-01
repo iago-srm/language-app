@@ -1,4 +1,4 @@
-import { EmailGenerator, PasswordGenerator } from '@language-app/common';
+import { EmailGenerator, PasswordGenerator } from '@language-app/common-utils';
 import { AbstractBuilder } from './abstract-builder';
 
 const emailGenerator = new EmailGenerator();
