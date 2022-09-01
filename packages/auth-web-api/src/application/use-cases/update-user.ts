@@ -23,7 +23,7 @@ class UseCase implements IUpdateUserUseCase {
     private userRepository: IUserRepository,
     private authEventQueue: IAuthEventQueue
   ){}
-  async execute({ role, name, userId }) {
+  async execute({ role, name, userId }: InputParams) {
 
     const user = await this.userRepository.getUserById(userId);
 

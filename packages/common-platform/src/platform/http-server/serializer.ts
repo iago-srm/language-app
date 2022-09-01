@@ -1,4 +1,4 @@
-import { ParameterNotProvidedError } from '@language-app/common';
+import { ParameterNotProvidedError } from '@language-app/common-utils';
 
 export const controllerSerializer = (body: { [k: string]: string }, fields: ({ name: string, optional?: boolean } | string) []) => {
 

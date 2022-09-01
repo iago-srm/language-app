@@ -1,5 +1,5 @@
 import { ITokenService } from '../ports';
-import { TokenGenerationError } from '../../errors';
+import { TokenGenerationError } from '@language-app/common-utils';
 import jwt from 'jsonwebtoken';
 
 export class JWTTokenService implements ITokenService {

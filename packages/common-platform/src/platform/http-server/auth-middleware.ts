@@ -1,16 +1,15 @@
 import {
   ITokenService,
-  // IUserRepository
 } from '../ports';
 import {
   IHTTPMiddleware,
   IHTTPControllerDescriptor,
-} from '@language-app/common';
+} from '@language-app/common-platform';
 import {
   MissingTokenError,
   MalformedTokenError,
   Forbidden
-} from '@language-app/common';
+} from '@language-app/common-utils';
 
 type Dependencies = {
   userRepository: any; // TODO

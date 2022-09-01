@@ -1,6 +1,6 @@
 import express, { Express, RequestHandler, ErrorRequestHandler } from 'express';
 import 'express-async-errors';
-import { RouteNotFoundError } from '@language-app/common';
+import { RouteNotFoundError } from '@language-app/common-utils';
 import helmet from 'helmet';
 import cors from 'cors';
 import { json } from 'body-parser';

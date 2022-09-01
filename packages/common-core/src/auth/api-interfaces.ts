@@ -29,7 +29,7 @@ export interface IGetUserAPIResponse extends IUser {};
 
 export interface IUpdateUserParams {
   name?: string;
-  role?: 'STUDENT' | 'INSTRUCTOR';
+  role?: 'STUDENT' | 'INSTRUCTOR' | string;
 }
 export interface IUpdateUserResponse {}
 

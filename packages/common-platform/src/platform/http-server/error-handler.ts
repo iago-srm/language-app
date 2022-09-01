@@ -2,7 +2,7 @@ import {
   IHTTPErrorHandler,
   IHTTPControllerDescriptor,
 } from '../ports';
-import { CustomError } from '@language-app/common';
+import { CustomError } from '@language-app/common-utils';
 
 export const ErrorHandlerControllerFactory =
   ({}): IHTTPControllerDescriptor<IHTTPErrorHandler> => {

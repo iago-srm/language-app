@@ -7,7 +7,6 @@ import { ILogger } from './logger';
 import {
   IHTTPController,
   IHTTPErrorHandler,
-  IHTTPControllerPathDescriptor,
   IHTTPMiddleware,
 } from '../ports';
 
