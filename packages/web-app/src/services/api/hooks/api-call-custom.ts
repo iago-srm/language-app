@@ -1,5 +1,5 @@
 import React from 'react'
-import { ServerError } from '@language-app/common'
+import { ServerError } from '@language-app/common-utils'
 
 export type UseApiCallResponse<P,R> =
 //  = ReturnType<typeof useApiCall>

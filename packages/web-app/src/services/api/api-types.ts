@@ -8,7 +8,7 @@ import {
   ISignOutAPIResponse,
   IGetUserAPIParams,
   IGetUserAPIResponse,
-} from '@language-app/common';
+} from '@language-app/common-core';
 
 export type SignIn = UseApiCallResponse<ISignInAPIParams, ISignInAPIResponse>;
 export type SignUp = UseApiCallResponse<ISignUpAPIParams, ISignUpAPIResponse>;

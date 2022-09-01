@@ -1,5 +1,5 @@
 import * as yup from 'yup'
-import { AuthRules } from '@language-app/common';
+import { AuthRules } from '@language-app/common-core';
 import { Labels, Translations } from '@locale';
 
 export class ValidationSchemas {

@@ -6,7 +6,6 @@ import { Container as PageContainer } from './styles'
 import { getPageTitle } from '@services/browser';
 import { useLanguage, useAuth } from '@contexts';
 import { Translations, Labels } from '@locale';
-import { ActionButton } from './action-button';
 import {
   Button,
   Container,
@@ -15,7 +14,8 @@ import {
   ErrorAlert,
   SuccessAlert,
   AlertLink,
-  LoadingErrorData
+  LoadingErrorData,
+  ActionButton
 } from '@components';
 import { useApiBuilder } from 'services/api';
 

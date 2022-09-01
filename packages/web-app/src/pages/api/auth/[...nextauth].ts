@@ -3,7 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { PrismaClient } from '@prisma/client';
 import axios from 'axios';
-import { SignInHTTPDefinition } from "@language-app/common";
+import { SignInHTTPDefinition } from "@language-app/common-core";
 
 const prisma = new PrismaClient();
 

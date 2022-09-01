@@ -1,4 +1,4 @@
-import { ServerError } from '@language-app/common';
+import { ServerError } from '@language-app/common-utils';
 import useSWR from 'swr';
 
 export type IUseApiCallResponse<R> = {

@@ -6,17 +6,11 @@ import {
   Container as PageContainer,
   PStyled
 } from './styles';
-import { ProfileImg } from './profile-img';
 import { getPageTitle } from '@services/browser';
 import { useLanguage, useAuth } from '@contexts';
 import { Translations, Labels } from '@locale';
 import {
-  Button,
-  Container,
-  Row,
-  Col,
-  ErrorAlert,
-  SuccessAlert,
+  ProfileImg,
   LoadingErrorData,
   ProfileImageModal
 } from '@components';
