@@ -1,0 +1,21 @@
+{
+  "name": "@language-app/common-platform",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "tsc -p ./tsconfig.json",
+    "test": "jest --no-cache --runInBand --watchAll"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
+    "aws-sdk": "^2.1160.0",
+    "jsonwebtoken": "^8.5.1",
+    "node-polyglot": "^2.4.2",
+    "uuid": "^8.3.2",
+    "bcryptjs": "^2.4.3",
+    "multer": "^1.4.5-lts.1"
+  }
+}

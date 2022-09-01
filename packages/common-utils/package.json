@@ -1,5 +1,5 @@
 {
-  "name": "@language-app/common",
+  "name": "@language-app/common-utils",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -8,11 +8,5 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@faker-js/faker": "^6.2.0"
-  },
-  "dependencies": {
-    "email-validator": "^2.0.4"
-  }
+  "license": "ISC"
 }

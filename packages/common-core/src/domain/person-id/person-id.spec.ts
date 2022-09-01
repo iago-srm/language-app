@@ -1,6 +1,6 @@
 import { PersonId } from './index';
-import { AuthRules } from '../../auth';
-import { ErrorMessagesLabels } from '../../locale';
+import { AuthRules } from '@language-app/common-core';
+import { ErrorMessagesLabels } from '@language-app/common-utils';
 
 class PersonIdTestBuilder {
 

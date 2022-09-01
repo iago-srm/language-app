@@ -1,5 +1,5 @@
 import { InvalidEmailError, InvalidNameError } from './errors';
-import { AuthRules } from '../../auth';
+import { AuthRules } from '@language-app/common-core';
 
 interface PersonIdConstructorParams {
   id?: string;
