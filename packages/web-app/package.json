@@ -9,7 +9,7 @@
     "start": "next start"
   },
   "prisma": {
-    "schema": "../common/src/auth/prisma/schema.prisma"
+    "schema": "../common-core/src/auth/prisma/schema.prisma"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
