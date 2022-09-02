@@ -16,19 +16,13 @@
     "packages/*"
   ],
   "devDependencies": {
-    "@types/bcryptjs": "^2.4.2",
-    "@types/body-parser": "^1.19.0",
-    "@types/cors": "^2.8.12",
-    "@types/express": "^4.17.12",
+   
     "@types/function-bind": "^1.1.6",
     "@types/jest": "^26.0.5",
-    "@types/jsonwebtoken": "^8.5.8",
-    "@types/multer": "^1.4.7",
     "@types/node": "^17.0.22",
     "@types/node-polyglot": "^2.4.1",
     "@types/pino": "^6.3.11",
     "@types/supertest": "^2.0.10",
-    "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.6.0",
     "@typescript-eslint/parser": "^5.6.0",
     "cross-env": "^7.0.3",
@@ -46,13 +40,9 @@
   "dependencies": {
     "@prisma/client": "^4.3.0",
     "awilix": "^7.0.3",
-    "body-parser": "^1.19.0",
-    "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "dotenv-safe": "^8.2.0",
-    "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
-    "helmet": "^4.6.0",
     "reflect-metadata": "^0.1.13"
   }
 }
