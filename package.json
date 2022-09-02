@@ -5,7 +5,10 @@
   "license": "MIT",
   "scripts": {
     "echo": "echo \"Hello from monorepo setup\"",
-    "test": "jest",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "dev": "turbo run dev",
     "install:ci": "npm ci",
     "psql:local:db": "docker exec -ti language-app-postgres psql -U postgres -h localhost -p 5432"
   },
