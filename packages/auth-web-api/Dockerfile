@@ -13,6 +13,8 @@ COPY ./packages/common-utils/ ./packages/common-utils/
 
 RUN npm i
 
+RUN chmod -R 777 node_modules/
+
 WORKDIR /app/packages/auth-web-api
 
 RUN npm run build
