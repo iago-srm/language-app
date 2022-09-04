@@ -2,12 +2,12 @@ import {
   IGetStudentActivitiesUseCase,
   IGetInstructorActivitiesUseCase
 } from '@application/use-cases';
-import { GetActivitiesHTTPDefinition } from '@language-app/common';
+import { GetActivitiesHTTPDefinition } from '@language-app/common-core';
 import {
   IHTTPController,
   IHTTPControllerDescriptor,
   controllerSerializer
-} from '@language-app/common';
+} from '@language-app/common-platform';
 
 export const GetActivitiesControllerFactory = ({
   getStudentActivitiesUseCase,

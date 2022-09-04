@@ -75,7 +75,7 @@ export function AuthProvider({ children }) {
       // router.push('/dashboard');
     }
     return {
-      error: error.message,
+      error: error.message || "Algo deu errado",
     }
   }
   const signOut = React.useCallback(async () => {

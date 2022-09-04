@@ -1,12 +1,12 @@
 import {
     INewActivityUseCase,
   } from '@application/use-cases';
-  import { NewActivityHTTPDefinition } from '@language-app/common';
+  import { NewActivityHTTPDefinition } from '@language-app/common-core';
   import {
     IHTTPController,
     IHTTPControllerDescriptor,
     controllerSerializer
-  } from '@language-app/common';
+  } from '@language-app/common-platform';
   
   export const NewActivityControllerFactory = ({
     newActivityUseCase,
@@ -23,9 +23,15 @@ import {
         'cefr',
         'timeToComplete',
         'topics',
-        'instruction'
+        'instructions',
+        { name: 'description', optional: true },
       ]) as any;
   
+      if(!activity.instructions.length) throw new Error("activity must have instructions");
+      activity.instructions.forEach(instruction => {
+        if(!instruction.text || !instruction.correctAnswer) throw new Error("Wrong format for activity instruction");
+      });
+
       const { id, role } = user;
   
       if(role !== "INSTRUCTOR") {

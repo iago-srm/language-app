@@ -1,4 +1,6 @@
-import { ErrorMessagesLabels as CommonErrorMessagesLabels } from '@language-app/common';
+import { 
+  ErrorMessagesLabels as CommonErrorMessagesLabels 
+} from '@language-app/common-utils';
 
 export const ErrorMessagesLabels = {
   ...CommonErrorMessagesLabels,

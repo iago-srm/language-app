@@ -1,4 +1,4 @@
-import { DomainRules } from '@language-app/common';
+import { DomainRules } from '@language-app/common-core';
 import { InvalidGradeError, InvalidFeedbackMessageError } from '../errors';
 
 interface FeedbackConstructorParams {

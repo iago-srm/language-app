@@ -23,19 +23,19 @@ enum CefrValues {
 }
 
 model User {
-  id        String   @id
+  id            String    @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  name  String
-  email String
+  name          String?
+  email         String?   @unique
 
-  role String
-
+  role String?
+  tokenVersion Int @default(0)
+  
   student Student?
   instructor Instructor?
 }
-
 
 model Instructor {
   id        String   @id

@@ -31,8 +31,8 @@ import {
 import { useLanguage, handleAuthToken } from '@contexts';
 import { useEffect } from 'react';
 
-export const AUTH_BASE_URL = `${process.env.NEXT_PUBLIC_AUTH_URL}/api/v1`;
-export const DOMAIN_BASE_URL = `${process.env.NEXT_PUBLIC_AUTH_URL}/api/v1`;
+export const AUTH_BASE_URL = `${process.env.NEXT_PUBLIC_AUTH_URL}`;
+export const DOMAIN_BASE_URL = `${process.env.NEXT_PUBLIC_AUTH_URL}`;
 
 const signInFetcher = new AxiosFetcher(AUTH_BASE_URL);
 const authFetcher = new AxiosFetcher(AUTH_BASE_URL);

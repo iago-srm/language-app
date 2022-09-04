@@ -1,5 +1,5 @@
 import { ActivityInstruction } from './instruction';
-import { DomainRules } from '@language-app/common';
+import { DomainRules } from '@language-app/common-core';
 
 describe('Unit Tests for ActivityInstruction Entity', () => {
   it('Should not throw an error if valid text length is passed to constructor.', () => {

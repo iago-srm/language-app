@@ -1,12 +1,12 @@
 import {
   INewUserUseCase
 } from '@application/use-cases';
-import { NewUserHTTPDefinition } from '@language-app/common';
+import { NewUserHTTPDefinition } from '@language-app/common-core';
 import {
   IHTTPController,
   IHTTPControllerDescriptor,
   controllerSerializer
-} from '@language-app/common';
+} from '@language-app/common-platform';
 
 export const NewUserControllerFactory = ({
   newUserUseCase

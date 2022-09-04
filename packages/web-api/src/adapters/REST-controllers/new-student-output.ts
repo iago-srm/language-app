@@ -1,12 +1,12 @@
 import {
     INewStudentOutputUseCase,
   } from '@application/use-cases';
-  import { NewStudentOutputHTTPDefinition } from '@language-app/common';
+  import { NewStudentOutputHTTPDefinition } from '@language-app/common-core';
   import {
     IHTTPController,
     IHTTPControllerDescriptor,
     controllerSerializer
-  } from '@language-app/common';
+  } from '@language-app/common-platform';
   
   export const NewStudentOutputControllerFactory = ({
     newStudentOutputUseCase,

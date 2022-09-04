@@ -1,7 +1,7 @@
 import * as awilix from 'awilix';
 import dotenv from 'dotenv';
 import { Strings } from '@common/locale';
-import { registerServer, startPolyglot } from '@language-app/common';
+import { registerServer, startPolyglot } from '@language-app/common-platform';
 import {
   registerDependencies,
 } from '@main';

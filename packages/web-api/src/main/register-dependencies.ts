@@ -31,7 +31,7 @@ import {
   BCryptEncryptionService,
   SendgridEmailService,
   S3Service
-} from '@language-app/common';
+} from '@language-app/common-platform';
 import { Dependencies } from '@main';
 
 export const registerDependencies = (container: awilix.AwilixContainer) => {

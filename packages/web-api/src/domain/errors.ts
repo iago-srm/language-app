@@ -1,4 +1,5 @@
-import { CustomError, DomainRules } from '@language-app/common';
+import { DomainRules } from '@language-app/common-core';
+import { CustomError } from "@language-app/common-utils";
 import { ErrorMessagesLabels } from '@common/locale';
 
 // student output
