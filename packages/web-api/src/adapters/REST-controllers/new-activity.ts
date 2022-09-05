@@ -19,6 +19,7 @@ import {
         'content', 
         { name: 'startTime', optional: true },
         { name: 'endTime', optional: true },
+        'contentType',
         'title',
         'cefr',
         'timeToComplete',
@@ -28,9 +29,9 @@ import {
       ]) as any;
   
       if(!activity.instructions.length) throw new Error("activity must have instructions");
-      activity.instructions.forEach(instruction => {
-        if(!instruction.text || !instruction.correctAnswer) throw new Error("Wrong format for activity instruction");
-      });
+      // activity.instructions.forEach(instruction => {
+      //   if(!instruction.text || !instruction.correctAnswer) throw new Error("Wrong format for activity instruction");
+      // });
 
       const { id, role } = user;
   
@@ -40,6 +41,7 @@ import {
   
       return {
         response: await newActivityUseCase.execute({
+          userId: id,
           activity
         }),
         statusCode: 200,

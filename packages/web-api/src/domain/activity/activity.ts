@@ -57,14 +57,16 @@ export class Activity {
   }
 
   setTimeToComplete(timeToComplete: number) {
-    if (timeToComplete > DomainRules.ACTIVITY.MAX_TIME_TO_COMPLETE)
+    if(isNaN(timeToComplete)) throw new InvalidActivityTimeToCompleteError();
+    if (timeToComplete > DomainRules.ACTIVITY.MAX_TIME_TO_COMPLETE
+      || timeToComplete < DomainRules.ACTIVITY.MIN_TIME_TO_COMPLETE)
       throw new InvalidActivityTimeToCompleteError();
     this.timeToComplete = timeToComplete;
   }
 
   setContentType(contentType: string) {
     if (!DomainRules.ACTIVITY.CONTENTTYPE.includes(contentType))
-      throw new InvalidActivityTypeError({ contentType });
+      throw new InvalidActivityTypeError({ text: contentType });
     this.contentType = contentType;
   }
 
@@ -108,7 +110,7 @@ export class Activity {
 
   setCefr(value: string) {
     if (!DomainRules.CEFR.POSSIBLE_VALUES.includes(value))
-      throw new InvalidCEFRError();
+      throw new InvalidCEFRError({ text: value });
     this.cefr = value;
   }
 }

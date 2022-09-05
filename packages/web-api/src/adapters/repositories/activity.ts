@@ -84,7 +84,7 @@ export class ActivityRepository implements IActivityRepository {
     })
   }
 
-  insertActivity(activity: ActivityDTO) {
+  insertActivity(instructorId: string, activity: ActivityDTO) {
     const {
       title,
       contentType,
@@ -94,8 +94,6 @@ export class ActivityRepository implements IActivityRepository {
       endTime,
       cefr,
       timeToComplete,
-      lastVersion,
-      instructorId,
       instructions,
       description
     } = activity;
@@ -109,7 +107,6 @@ export class ActivityRepository implements IActivityRepository {
         endTime,
         cefr,
         timeToComplete,
-        lastVersion,
         description,
         instructor: {
           connect: {id: instructorId}

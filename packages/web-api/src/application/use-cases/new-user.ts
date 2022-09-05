@@ -7,9 +7,11 @@ import {
 } from '@language-app/common-platform';
 
 type InputParams = {
+  userId: string;
   name: string;
   email: string;
-  role: string
+  role: string;
+  tokenVersion: number;
 };
 type Return = void;
 
@@ -22,11 +24,15 @@ class UseCase implements INewUserUseCase {
     private idService: IIdGenerator
   ){}
 
-  async execute ({ role, name, email }) {
+  async execute ({ userId, role, name, email, tokenVersion }) {
 
     const id = this.idService.getId();
-    if(role === 'STUDENT') await this.userRepository.insertUserAndStudent({ role, name, email }, id);
-    else await this.userRepository.insertUserAndInstructor({ role, name, email }, id);
+
+    const existingUser = await this.userRepository.getUserById(userId);
+    if(existingUser) throw new Error(`User with id ${userId} already exists`);
+
+    if(role === 'STUDENT') await this.userRepository.insertUserAndStudent({ role, name, email, tokenVersion }, userId, id);
+    else await this.userRepository.insertUserAndInstructor({ role, name, email, tokenVersion }, userId, id);
 
   }
 

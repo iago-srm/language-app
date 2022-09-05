@@ -3,10 +3,17 @@ import {
   ActivityInstructionDTO,
   CEFR,
   UserDTO,
-  StudentOutputDTO
+  StudentOutputDTO,
+  InstructorDTO
 } from '.';
 
 export interface IActivityRepository {
+  getActivitiesByStudentId: (
+    cursor: number,
+    studentId: string,
+    title?: string,
+    cefr?: CEFR
+  ) => Promise<Partial<ActivityDTO>[]>;
   getActivitiesByInstructorIdOrAll: (
     cursor: number,
     instructorId?: string,
@@ -14,13 +21,18 @@ export interface IActivityRepository {
     cefr?: CEFR,
   ) => Promise<Partial<ActivityDTO>[]>;
   getActivityById: (id: number) => Promise<ActivityDTO>;
-  insertActivity: (activity: ActivityDTO) => Promise<ActivityDTO>;
+  insertActivity: (instructorId: string, activity: ActivityDTO) => Promise<ActivityDTO>;
   insertNewInstructions: (activityId: number, instructions: ActivityInstructionDTO[]) => Promise<Partial<ActivityDTO>>;
 }
 
 export interface IUserRepository {
-  insertUserAndStudent: (user: Partial<UserDTO>, id: string) => Promise<UserDTO>;
-  insertUserAndInstructor: (user: Partial<UserDTO>, id: string) => Promise<UserDTO>;
+  insertUserAndStudent: (user: Partial<UserDTO>, userId: string, studentId: string) => Promise<UserDTO>;
+  insertUserAndInstructor: (user: Partial<UserDTO>, userId: string, instructorId: string) => Promise<UserDTO>;
+  getUserById: (id: string) => Promise<UserDTO>;
+}
+
+export interface IInstructorRepository {
+  getInstructorByUserId: (userId:string) => Promise<InstructorDTO>;
 }
 
 export interface IStudentOutputRepository {

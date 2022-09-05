@@ -81,8 +81,8 @@ model ActivityInstruction {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  instruction    String
-  correctAnswer String
+  text    String
+  answer String
   options String[]
 
   answers InstructionAnswer[]
@@ -111,13 +111,12 @@ model Activity {
   updatedAt DateTime @updatedAt
 
   title String
-  description String
+  description String?
   topics          String[]
   timeToComplete Int
   content  String
   startTime Int?
   endTime   Int?
-  lastVersion Int
 
   contentType      ActivityTypeValues
   cefr           CefrValues

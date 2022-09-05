@@ -20,7 +20,8 @@ import {
 import {
   ActivityRepository,
   StudentOutputRepository,
-  UserRepository
+  UserRepository,
+  InstructorRepository
 } from '@adapters/repositories';
 import {
 } from '@adapters/services';
@@ -69,5 +70,6 @@ export const registerDependencies = (container: awilix.AwilixContainer) => {
     [Dependencies.ACTIVITYREPOSITORY]: awilix.asClass(ActivityRepository),
     [Dependencies.USERREPOSITORY]: awilix.asClass(UserRepository),
     'studentOutputRepository': awilix.asClass(StudentOutputRepository),
+    'instructorRepository': awilix.asClass(InstructorRepository),
   })
 }

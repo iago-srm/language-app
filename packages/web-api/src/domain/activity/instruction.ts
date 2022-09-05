@@ -6,21 +6,21 @@ import {
 } from '../errors';
 
 interface ActivityInstructionConstructorParams {
-  correctAnswer: string;
+  answer: string;
   text: string;
   options?: string[];
 }
 
 export class ActivityInstruction {
-  correctAnswer: string;
+  answer: string;
   text: string;
-  options?: { [key: string]: string }[];
+  options?: { [key: string]: string }[] = [];
   private _separator = '//%//';
 
   constructor(args: Partial<ActivityInstructionConstructorParams>) {
     args.text && this.setInstruction(args.text);
-    args.options && this.parseOptions(args.options, args.correctAnswer);
-    args.correctAnswer && this.setCorrectAnswer(args.correctAnswer);
+    args.options && this.parseOptions(args.options, args.answer);
+    args.answer && this.setanswer(args.answer);
   }
 
   setInstruction(text: string) {
@@ -35,8 +35,10 @@ export class ActivityInstruction {
     this.text = text;
   }
 
-  parseOptions(options: string[], correctAnswer: string) {
-    if(!correctAnswer) throw new Error('Options but no correct answer');
+  parseOptions(options: string[], answer: string) {
+    if(!Array.isArray(options) || !options.length) throw new Error("\"options\" parameter must be a non-empty array")
+    if(!answer) throw new Error('Options but no correct answer');
+    const parsedOptions = [];
     for(let option of options) {
       const [letter, text] = option.split(this._separator);
       if (
@@ -47,12 +49,13 @@ export class ActivityInstruction {
           text,
         });
       }
-      this.options[letter] = text;
+      this.options = { ...this.options, [letter]: text };
     }
-    if(!options[correctAnswer]) throw new InvalidInstructionOptionSetError();
+    if(!Object.keys(this.options).find(option => option === answer))
+      throw new InvalidInstructionOptionSetError({ text: answer });
   }
 
-  setCorrectAnswer(text: string) {
-    this.correctAnswer = text;
+  setanswer(text: string) {
+    this.answer = text;
   }
 }

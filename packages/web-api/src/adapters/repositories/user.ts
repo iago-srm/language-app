@@ -12,32 +12,34 @@ export class UserRepository implements IUserRepository {
     this.prisma = new PrismaClient();
   }
 
-  insertUserAndStudent(user: UserDTO, id: string) {
+  insertUserAndStudent(user: UserDTO, userId: string, studentId: string) {
     return this.prisma.user.create({
       data: {
-        id,
+        id: userId,
         email: user.email,
         name: user.name,
         role: user.role,
+        tokenVersion: user.tokenVersion,
         student: {
           create: {
-            id,
+            id: studentId,
           }
         }
       }
     })
   }
 
-  insertUserAndInstructor(user: UserDTO, id: string) {
+  insertUserAndInstructor(user: UserDTO, userId: string, instructorId: string) {
     return this.prisma.user.create({
       data: {
-        id,
+        id: userId,
         email: user.email,
         name: user.name,
         role: user.role,
+        tokenVersion: user.tokenVersion,
         instructor: {
           create: {
-            id,
+            id: instructorId,
           }
         }
       }

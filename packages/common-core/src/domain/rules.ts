@@ -29,6 +29,7 @@ export const DomainRules = {
     CONTENTTYPE: ['VIDEO', 'TEXT'],
     MAX_VIDEO_LENGTH: 10*60, // in seconds. 10 min max
     MAX_TEXT_LENGTH: 2000, // in characters
+    MIN_TIME_TO_COMPLETE: 5, // in minutes
     MAX_TIME_TO_COMPLETE: 30, // in minutes
     TOPICS: ['SCIENCE & TECHONOLOGY', 'ARTS', 'CURRENT AFFAIRS', 'SPORTS']
   },

@@ -3,6 +3,7 @@ export interface UserDTO {
   name?: string;
   email: string;
   role?: string;
+  tokenVersion?: number;
 }
 
 export interface StudentOutputDTO {
@@ -17,6 +18,7 @@ export interface StudentOutputDTO {
 }
 
 export interface InstructorDTO {
+  id: string;
   userId: string;
 }
 
@@ -25,8 +27,8 @@ export interface InstructionAnswerDTO {
 }
 
 export interface ActivityInstructionDTO {
-  instruction: string;
-  correctAnswer: string;
+  text: string;
+  answer: string;
   options?: string[];
 }
 
@@ -41,13 +43,12 @@ export interface ActivityDTO {
   content: string;
   startTime?: number;
   endTime?: number;
-  lastVersion: number;
   cefr: CEFR;
   topics: string[];
-  instructions: ActivityInstructionDTO[];
+  instructions?: ActivityInstructionDTO[];
   timeToComplete: number;
   createdAt?: Date;
-  description: string;
+  description?: string;
 }
 
 
