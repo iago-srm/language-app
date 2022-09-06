@@ -22,7 +22,7 @@ export interface IActivityRepository {
   ) => Promise<Partial<ActivityDTO>[]>;
   getActivityById: (id: number) => Promise<ActivityDTO>;
   insertActivity: (instructorId: string, activity: ActivityDTO) => Promise<ActivityDTO>;
-  insertNewInstructions: (activityId: number, instructions: ActivityInstructionDTO[]) => Promise<Partial<ActivityDTO>>;
+  insertNewInstructions: (activityId: number, instructions: ActivityInstructionDTO[]) => Promise<Partial<ActivityInstructionDTO>[]>;
 }
 
 export interface IUserRepository {

@@ -50,8 +50,7 @@ import {
   
     return {
       controller: fn,
-      method: NewActivityHTTPDefinition.method,
-      path: NewActivityHTTPDefinition.path,
+      ...NewActivityHTTPDefinition,
       middlewares: ['auth']
     };
   };

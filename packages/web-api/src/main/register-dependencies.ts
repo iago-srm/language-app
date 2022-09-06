@@ -14,6 +14,7 @@ import {
   GetStudentOutputControllerFactory,
   GetStudentOutputsControllerFactory,
   NewActivityControllerFactory,
+  NewActivityInstructionControllerFactory,
   NewStudentOutputControllerFactory,
   NewUserControllerFactory
 } from '@adapters/REST-controllers';
@@ -42,6 +43,7 @@ export const registerDependencies = (container: awilix.AwilixContainer) => {
     [Dependencies.GETSTUDENTOUTPUTCONTROLLER]: awilix.asFunction(GetStudentOutputControllerFactory),
     [Dependencies.GETSTUDENTOUTPUTSCONTROLLER]: awilix.asFunction(GetStudentOutputsControllerFactory),
     [Dependencies.NEWACTIVITYCONTROLLER]: awilix.asFunction(NewActivityControllerFactory),
+    "newActivityInstructionController": awilix.asFunction(NewActivityInstructionControllerFactory),
     [Dependencies.NEWSTUDENTOUTPUTCONTROLLER]: awilix.asFunction(NewStudentOutputControllerFactory),
     [Dependencies.NEWUSERCONTROLLER]: awilix.asFunction(GetStudentOutputControllerFactory),
     [Dependencies.NEWUSERCONTROLLER]: awilix.asFunction(NewUserControllerFactory),

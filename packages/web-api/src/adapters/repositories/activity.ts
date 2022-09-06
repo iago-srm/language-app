@@ -122,8 +122,8 @@ export class ActivityRepository implements IActivityRepository {
     })
   }
 
-  insertNewInstructions(activityId: number, instructions: ActivityInstructionDTO[]) {
-    return this.prisma.activity.update({
+  async insertNewInstructions(activityId: number, instructions: ActivityInstructionDTO[]) {
+    return (await this.prisma.activity.update({
       where: { id: activityId },
       data: {
         instructions: {
@@ -131,8 +131,18 @@ export class ActivityRepository implements IActivityRepository {
             data: instructions
           }
         }
+      },
+      select: {
+        instructions: {
+          select: {
+            answer: true,
+            options: true,
+            text: true,
+            id: true
+          }
+        }
       }
-    })
+    })).instructions
   }
 
 
