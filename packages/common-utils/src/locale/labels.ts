@@ -6,6 +6,7 @@ export const ErrorMessagesLabels = {
   PASSWORDS_DONT_MATCH: 'passwords_dont_match',
   CANNOT_ALTER_THIS_USER: 'cannot_alter_this_user',
   PARAMETER_NOT_PROVIDED: 'parameter_not_provided',
+  INVALID_PARAMETER: 'invalid_parameter',
   INVALID_TOKEN: 'invalid_token',
   DATABASE_ERROR: 'database_error',
   USER_NOT_FOUND: 'user_not_found',

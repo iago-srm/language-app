@@ -16,4 +16,5 @@ export const EnglishErrorMessages = {
   [ErrorMessages.USER_NOT_FOUND]: 'User not found',
   [ErrorMessages.MALFORMED_TOKEN]: 'Authentication token has wrong format',
   [ErrorMessages.MISSING_TOKEN]: 'Please provide an authentication token',
+  [ErrorMessages.INVALID_PARAMETER]: "Some request parameter has wrong format. Please refer to documentation"
 }
