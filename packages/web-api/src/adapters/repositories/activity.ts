@@ -8,52 +8,30 @@ import { PrismaClient } from '@prisma-client';
 
 export class ActivityRepository implements IActivityRepository {
   prisma: PrismaClient;
-  private _pageSize = 10;
+  private _pageSize = 2;
 
   constructor() {
     this.prisma = new PrismaClient();
   }
 
-  getActivitiesByStudentId(
-    cursor: number,
-    studentId: string,
-    title?: string,
-    cefr?: CEFR
-  ) {
-    return this.prisma.activity.findMany({
-      take: this._pageSize,
+  _paginate(id) {
+    return id ? {
       skip: 1,
       cursor: {
-        id: cursor
-      },
-      where: {
-        AND: [
-          { title: { contains: title }},
-          { cefr },
-        ]
-      },
-      include: {
-        outputs: {
-          where: {
-            studentId
-          }
-        }
+        id
       }
-    })
+    } : undefined
   }
 
-  getActivitiesByInstructorIdOrAll(
-    cursor: number,
-    instructorId?: string,
-    title?: string,
-    cefr?: CEFR
-  ) {
+  getActivities({
+    instructorId,
+    cursor,
+    title,
+    cefr
+  }) {
     return this.prisma.activity.findMany({
       take: this._pageSize,
-      skip: 1,
-      cursor: {
-        id: cursor
-      },
+      ...this._paginate(cursor),
       where: {
         AND: [
           { title: { contains: title }},
@@ -61,17 +39,48 @@ export class ActivityRepository implements IActivityRepository {
           { instructorId }
         ]
       },
-      orderBy: {
-        id: 'asc',
-      },
       select: {
+        id: true,
         title: true,
+        description: true,
+        timeToComplete: true,
         contentType: true,
         topics: true,
         cefr: true
       }
     })
   }
+
+  // getActivitiesByInstructorId(
+  //   instructorId: string,
+  //   cursor: number,
+  //   title?: string,
+  //   cefr?: CEFR
+  // ) {
+  //   return this.prisma.activity.findMany({
+  //     take: this._pageSize,
+  //     skip: 1,
+  //     cursor: {
+  //       id: cursor
+  //     },
+  //     where: {
+  //       AND: [
+  //         { title: { contains: title }},
+  //         { cefr },
+  //         { instructorId }
+  //       ]
+  //     },
+  //     orderBy: {
+  //       id: 'asc',
+  //     },
+  //     select: {
+  //       title: true,
+  //       contentType: true,
+  //       topics: true,
+  //       cefr: true
+  //     }
+  //   })
+  // }
 
   getActivityById(id: number) {
     return this.prisma.activity.findUnique({

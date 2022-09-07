@@ -7,19 +7,27 @@ import {
   InstructorDTO
 } from '.';
 
+type GetActivitiesInput = {
+  instructorId?: string,
+  cursor?: number,
+  title?: string,
+  cefr?: CEFR
+}
+
 export interface IActivityRepository {
-  getActivitiesByStudentId: (
-    cursor: number,
-    studentId: string,
-    title?: string,
-    cefr?: CEFR
-  ) => Promise<Partial<ActivityDTO>[]>;
-  getActivitiesByInstructorIdOrAll: (
-    cursor: number,
-    instructorId?: string,
-    title?: string,
-    cefr?: CEFR,
-  ) => Promise<Partial<ActivityDTO>[]>;
+  getActivities: (args: GetActivitiesInput) => Promise<Partial<ActivityDTO>[]>;
+  // getActivitiesByStudentId: (
+  //   cursor: number,
+  //   studentId: string,
+  //   title?: string,
+  //   cefr?: CEFR
+  // ) => Promise<Partial<ActivityDTO>[]>;
+  // getActivitiesByInstructorId: (
+  //   instructorId: string,
+  //   cursor?: number, //in first query, there is no cursor
+  //   title?: string,
+  //   cefr?: CEFR,
+  // ) => Promise<Partial<ActivityDTO>[]>;
   getActivityById: (id: number) => Promise<ActivityDTO>;
   insertActivity: (instructorId: string, activity: ActivityDTO) => Promise<ActivityDTO>;
   insertNewInstructions: (activityId: number, instructions: ActivityInstructionDTO[]) => Promise<Partial<ActivityInstructionDTO>[]>;

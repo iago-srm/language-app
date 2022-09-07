@@ -22,24 +22,31 @@ export const GetActivitiesControllerFactory = ({
       title,
       cefr,
       cursor
-    } = controllerSerializer(query, ['title', 'cefr', 'cursor']);
+    } = controllerSerializer(query, [
+      { name: 'title', optional: true }, 
+      { name: 'cefr', optional: true }, 
+      { name: 'cursor', optional: true }
+    ]);
 
     const { id, role } = user;
 
-    if(isNaN(Number(cursor))) throw new Error('cursor is not a number');
+    if(cursor && isNaN(Number(cursor))) throw new Error('cursor must be a number');
 
-    // let useCase = role === 'STUDENT' ? getStudentActivitiesUseCase : getInstructorActivitiesUseCase;
+    // same page lists activities. If instructor is logged in, it returns their activities.
+    // if a student is logged in, it returns all activities, based on the filters applied.
     let resp;
     if(role === 'STUDENT') {
+      console.log("student activities")
       resp = await getStudentActivitiesUseCase.execute({
-        cursor: Number(cursor),
+        cursor: cursor && Number(cursor),
         title,
         cefr
       });
     } else {
+      console.log("instructor activities")
       resp = await getInstructorActivitiesUseCase.execute({
-        instructorId: id,
-        cursor: Number(cursor),
+        userId: id,
+        cursor: cursor && Number(cursor),
         title,
         cefr
       });
