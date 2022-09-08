@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 import React from 'react';
+import { 
+  barHeight,
+  barBottomBorderHeight
+} from './navbar.styles';
 
 const Backdrop = styled.div`
   position: absolute;
@@ -11,14 +15,19 @@ const Backdrop = styled.div`
   flex-direction: column;
   justify-content: start;
   align-items: start;
-  backdrop-filter: blur(13px);
+  // backdrop-filter: blur(13px);
 `;
 
 const Container = styled.div`
-  border-radius: 10px;
-  border: 1px solid black;
-  background-color: ${({theme}) => theme.colors.background};
-  width: 80%;
+  background-color: ${({theme}) => theme.colors.primary};
+  width: 100%;
+  position: absolute;
+  top: ${barHeight};
+  left: 0;
+  * {
+    margin: 2px 0;
+  }
+
 `;
 
 const HeaderStyled = styled.div`
@@ -34,9 +43,9 @@ const ContentStyled = styled.div`
 
 const getChildrenOnDisplayName = (children, displayName) => React.Children.map(children, (child) => child.type.displayName === displayName ? child : null);
 
-export const SideMenu = ({ children, onClose }) => {
+export const DrawerMenu = ({ children, onClose }) => {
 
-  const header = getChildrenOnDisplayName(children, 'Header');
+  // const header = getChildrenOnDisplayName(children, 'Header');
   const menuItems = getChildrenOnDisplayName(children, 'Content');
 
     const handleOutsideClick = (e) => {
@@ -47,9 +56,6 @@ export const SideMenu = ({ children, onClose }) => {
     return (
       <Backdrop id="outside" onClick={handleOutsideClick}>
         <Container role='nav'>
-          <HeaderStyled>
-            {header}
-          </HeaderStyled>
           <Content>
             {menuItems}
           </Content>
@@ -58,10 +64,10 @@ export const SideMenu = ({ children, onClose }) => {
     )
 }
 
-const Header = ({children}) => children;
-Header.displayName = 'Header';
-SideMenu.Header = Header;
+// const Header = ({children}) => children;
+// Header.displayName = 'Header';
+// DrawerMenu.Header = Header;
 
 const Content = ({children}) => children;
 Content.displayName = 'Content';
-SideMenu.Content = Content;
+DrawerMenu.Content = Content;

@@ -16,6 +16,7 @@ export const French = {
   [Labels.PROFILE]: 'Profille',
   [Labels.FORGOT_PASSWORD]: 'Oublié mot de passe',
   [Labels.RESET_PASSWORD]: 'Restaurer mot de passe',
+  [Labels.DASHBOARD]: 'Paneaux',
 
   [Labels.NAME]: 'Nom',
   [Labels.EMAIL]: 'E-mail',

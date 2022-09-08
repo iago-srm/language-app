@@ -1,12 +1,12 @@
 import React, { InputHTMLAttributes } from "react";
 import {
-  InputStyled,
+  FormInputStyled,
   ErrorMessageContainer,
   InputLabelStyled
 } from './styles';
 
 interface IInput extends React.AllHTMLAttributes<InputHTMLAttributes<{}>> {
-  name: string;
+  name?: string;
   register?: any;
   errors?: any;
 }
@@ -15,13 +15,13 @@ export function Input({ register, name, errors, label, ...rest }: IInput) {
   return (
     <InputLabelStyled>
       {label}
-      <InputStyled
-        {...register(name)}
+      <FormInputStyled
+        {...register && register(name)}
         {...rest}
         placeholder={label}
-        error={errors[name]}
+        error={errors && errors[name]}
       />
-      <ErrorMessageContainer >{errors[name]?.message}</ErrorMessageContainer>
+      <ErrorMessageContainer >{errors && errors[name]?.message}</ErrorMessageContainer>
     </InputLabelStyled>
   )
 }

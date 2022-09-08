@@ -22,7 +22,7 @@ const LogoImageContainer = styled.div`
 `;
 
 export const Navbar = () => {
-  const { theme, setTheme } = useColorTheme();
+  const { mode, setMode } = useColorTheme();
   const { language, setLanguage } = useLanguage();
   const { user, isAuthenticated, signOut } = useAuth();
 
@@ -39,13 +39,18 @@ export const Navbar = () => {
           <Link href={'/'}>
             <LogoImageContainer ><Image src='/images/logo.png' width={50} height={50}/></LogoImageContainer>
           </Link>
-          <ThemeToggle theme={theme} setTheme={setTheme}/>
-          <LanguageSelect onChange={(e) => setLanguage(e.target.value)} language={language}/>
         </NavbarAtomic.LeftButtons>
         <NavbarAtomic.RightButtons>
+          <ThemeToggle mode={mode} setMode={setMode}/>
+          <LanguageSelect onChange={setLanguage} language={language}/>
           {user
             ?
             <>
+              <NavbarAtomic.Button path='/dashboard' >
+                <Link href={'/dashboard'}>
+                  {Translations[language][Labels.DASHBOARD]}
+                </Link>
+              </NavbarAtomic.Button>
               <HoverPanel user={user} onSignOut={handleSignOut}/>
             </>
             :

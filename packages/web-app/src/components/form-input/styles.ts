@@ -5,13 +5,20 @@ export const InputLabelStyled = styled.label`
   color: ${p => p.theme.colors.text};
 `;
 
-export const InputStyled = styled.input<{error: any}>`
+export const FormInputStyled = styled.input<{error: any}>`
   margin-top: 10px;
   margin-bottom: 10px;
   width: 100%;
   padding: 10px;
   border-radius: ${({theme}) => theme.inputBorderRadius};
   border: ${p => p.error ? "3px solid red" : "none"};
+`;
+
+export const InputStyled = styled.input`
+  padding: 10px;
+  border-radius: ${({theme}) => theme.inputBorderRadius};
+  border: none;
+  width: 100%;
 `;
 
 export const ErrorMessageContainer = styled.p`
@@ -26,7 +33,6 @@ export const SelectStyled = styled.select`
   padding: 4px;
   border-radius: ${({theme}) => theme.inputBorderRadius};
 `;
-
 export const InputIconContainerStyled = styled.span`
   position: absolute;
   color: black;

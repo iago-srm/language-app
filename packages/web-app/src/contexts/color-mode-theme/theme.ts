@@ -4,7 +4,7 @@ import {
 } from './types';
 
 const theme = {
-  inputBorderRadius: '10px'
+  inputBorderRadius: '3px'
 };
 
 export const getTheme: (mode: Modes) => Theme = (mode: Modes) => {

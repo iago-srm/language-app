@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import Head from 'next/head'
-import Image from 'next/image'
 import { parseCookies } from 'nookies';
 import jwt from 'jsonwebtoken';
 import { useRouter } from 'next/router';
@@ -52,7 +51,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     }
   }
   const payload = jwt.verify(token, process.env.NEXT_PUBLIC_AUTH_TOKEN_SECRET) as any;
-  console.log({payload})
 
   return {
     props: {}

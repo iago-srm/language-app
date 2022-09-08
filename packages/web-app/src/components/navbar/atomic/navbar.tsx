@@ -11,13 +11,13 @@ import {
   BarButtonContainer,
   HamburguerButtonContainer,
   BarButtonStyled,
-  SideMenuButtonStyled
+  SideMenuButtonStyled,
+  barHeight
 } from './navbar.styles';
 import { HamburguerButton } from './hamburguer';
-import { SideMenu } from './side-menu';
+import { DrawerMenu } from './drawer-menu';
 
 const responsiveBreakpoint = 550;
-const barHeight = '7vh';
 
 const NavbarContext = createContext({
   currentPath: '/',
@@ -65,26 +65,23 @@ export const Navbar: React.FunctionComponent<NavbarProps> & NavbarSubComponents 
         <BarButtonContainer>
           {buttonsOnLeft}
         </BarButtonContainer>
-        <MediaQuery maxWidth={responsiveBreakpoint}>
+        <MediaQuery maxWidth={responsiveBreakpoint}> {/** Small screen */}
           <HamburguerButtonContainer>
             <HamburguerButton open={burguerOpen} onClick={() => setBurguerOpen(open => !open)}/>
           </HamburguerButtonContainer>
         </MediaQuery>
-        <MediaQuery minWidth={responsiveBreakpoint}>
+        <MediaQuery minWidth={responsiveBreakpoint}> {/** Big screen */}
           <BarButtonContainer>
             {buttonsOnRight}
           </BarButtonContainer>
         </MediaQuery>
       </Container>
       {burguerOpen ? (
-        <SideMenu onClose={() => setBurguerOpen(false)}>
-          <SideMenu.Header>
-            {buttonsOnLeft}
-          </SideMenu.Header>
-          <SideMenu.Content>
+        <DrawerMenu onClose={() => setBurguerOpen(false)}>
+          <DrawerMenu.Content>
             {buttonsOnRight}
-          </SideMenu.Content>
-        </SideMenu>
+          </DrawerMenu.Content>
+        </DrawerMenu>
       ) : null}
     </NavbarContext.Provider>
   )

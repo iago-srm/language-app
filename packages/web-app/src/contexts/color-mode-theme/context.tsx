@@ -9,33 +9,35 @@ import { getTheme } from './theme';
 import { LocalStorage } from '@services/browser';
 
 const ColorModeContext = React.createContext<ColorModeContextType>({
-  theme: 'dark',
-  setTheme: () => {}
+  mode: 'dark',
+  theme: getTheme('dark'),
+  setMode: () => {}
 });
 
 const localStorage = new LocalStorage();
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setThemeState] = useState<Modes>('dark');
+  const [mode, setModeState] = useState<Modes>('dark');
 
-  const setTheme = (args?: string) => {
-    const colorTheme = args || localStorage.getTheme(theme);
-    if(validateMode(colorTheme)) {
-      setThemeState(colorTheme as Modes);
-      localStorage.setTheme(colorTheme)
+  const setMode = (args?: string) => {
+    const colorMode = args || localStorage.getMode(mode);
+    if(validateMode(colorMode)) {
+      setModeState(colorMode as Modes);
+      localStorage.setMode(colorMode)
     }
 
   }
 
   useEffect(() => {
-    setTheme()
+    setMode()
   }, [])
 
   return (
-    <StyledThemeProvider theme={getTheme(theme)}>
+    <StyledThemeProvider theme={getTheme(mode)}>
       <ColorModeContext.Provider value={{
-        theme,
-        setTheme
+        mode,
+        theme: getTheme(mode),
+        setMode
       }}>
         {children}
       </ColorModeContext.Provider>

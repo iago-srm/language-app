@@ -1,9 +1,9 @@
 import DarkModeToggle from "react-dark-mode-toggle";
 
-export const ThemeToggle = ({ theme, setTheme }) => (
+export const ThemeToggle = ({ mode, setMode }) => (
   <DarkModeToggle
-    onChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-    checked={theme === 'dark'}
+    onChange={() => setMode(mode === 'dark' ? 'light' : 'dark')}
+    checked={mode === 'dark'}
     size={80}
   />
 )

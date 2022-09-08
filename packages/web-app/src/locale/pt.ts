@@ -16,6 +16,7 @@ export const Portuguese = {
   [Labels.PROFILE]: 'Perfil',
   [Labels.FORGOT_PASSWORD]: 'Esqueci a Senha',
   [Labels.RESET_PASSWORD]: 'Redefinir Senha',
+  [Labels.DASHBOARD]: 'Minha área',
 
   [Labels.NAME]: 'Nome',
   [Labels.EMAIL]: 'E-mail',

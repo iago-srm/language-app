@@ -16,6 +16,7 @@ export const Labels = {
   PROFILE: 'profile',
   FORGOT_PASSWORD: 'forgot_password',
   RESET_PASSWORD: 'reset_password',
+  DASHBOARD: 'dashboard',
 
   // form fields
   NAME: 'name',

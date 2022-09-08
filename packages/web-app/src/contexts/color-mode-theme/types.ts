@@ -1,8 +1,9 @@
 import { DefaultTheme } from 'styled-components';
 
 export type ColorModeContext = {
-  theme: 'dark' | 'light',
-  setTheme: (args?: string) => void
+  mode: 'dark' | 'light',
+  theme: DefaultTheme,
+  setMode: (args?: string) => void
 }
 
 export type Modes = 'dark' | 'light';

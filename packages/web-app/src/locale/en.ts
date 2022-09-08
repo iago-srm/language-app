@@ -16,6 +16,7 @@ export const English = {
   [Labels.PROFILE]: 'Profile',
   [Labels.FORGOT_PASSWORD]: 'Forgot Password',
   [Labels.RESET_PASSWORD]: 'Reset Password',
+  [Labels.DASHBOARD]: 'Dasboard',
 
   [Labels.NAME]: 'Name',
   [Labels.EMAIL]: 'E-mail',

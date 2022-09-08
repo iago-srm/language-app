@@ -4,8 +4,6 @@ import NextLink from 'next/link';
 import styled from 'styled-components';
 import { useColorTheme } from '@contexts';
 
-// const genericAvatar = 'https://www.interstatedevelopment.com/wp-content/uploads/2019/04/generic-avatar-1.jpg';
-
 const NavImageContainer = styled.div`
   img {
     height: 50px;
@@ -25,7 +23,6 @@ const PanelNameContainer = styled.div`
 `;
 
 const DropdownMenuContainer = styled.div`
-  border: 1px solid ${p => p.theme.colors.text};
   button {
     padding: 0;
   }
@@ -55,7 +52,7 @@ export const HoverPanel: React.FC<{
         </NavImageContainer>
       </Dropdown.Toggle>
 
-      <Dropdown.Menu variant={theme}>
+      <Dropdown.Menu style={{ backgroundColor: theme.colors.primary }}>
         <DropdownMenuContainer>
           <PanelImageContainer>
             <NavImg src={user?.image}/>

@@ -135,7 +135,12 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider value={{
-      user,
+      user: {
+        id: '7eb14bc7-26cb-468e-86c0-fad7c8af0619',
+        tokenVersion: 0,
+        role: 'STUDENT',
+        cefr: "A2"
+      }, // for debugging purposes
       isAuthenticated,
       isUserLoading: userLoading || (!userLoading && !user && !userError),
       userError,

@@ -1,5 +1,8 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { FlexCentered } from '@styles';
+
+export const barHeight = '10vh';
+export const barBottomBorderHeight = '3px';
 
 export const Container = styled.nav`
   width: 100vw;
@@ -7,7 +10,9 @@ export const Container = styled.nav`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border-bottom: 2px solid ${p => p.theme.colors.secondary};
+  height: ${barHeight};
+  // overflow: hidden;
+  border-bottom: ${barBottomBorderHeight} solid ${p => p.theme.colors.secondary};
 `;
 
 export const BarButtonContainer = styled(FlexCentered)`
