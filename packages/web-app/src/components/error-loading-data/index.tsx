@@ -26,7 +26,8 @@ export const LoadingErrorData = ({ loading, error, data, children }) => {
     };
 
     React.Children.map(children, (Child, i) => {
-      if(Child) switch(Child.type.name) {
+      console.log(Child.type?.name)
+      if(Child) switch(Child.type?.name) {
         case "NoData":
           c.noData.push(<React.Fragment key={i}>{Child}</React.Fragment>);
           break;
@@ -45,7 +46,6 @@ export const LoadingErrorData = ({ loading, error, data, children }) => {
     if(!c.error.length) c.error.push(<React.Fragment key={1}>{defaultError}</React.Fragment>);
     if(!c.loading.length) c.loading.push(<React.Fragment key={1}>{defaultLoading}</React.Fragment>);
     if(!c.noData.length) c.noData.push(<React.Fragment key={1}>{defaultNoData}</React.Fragment>);
-
     return c;
   }
 
@@ -54,7 +54,7 @@ export const LoadingErrorData = ({ loading, error, data, children }) => {
       {loading && !data && !error && <LoadingErrorData.Loading>{parseChildren().loading}</LoadingErrorData.Loading>}
       {!data && !loading && error && <LoadingErrorData.Error>{parseChildren().error}</LoadingErrorData.Error>}
       {!loading && !error && !data && <LoadingErrorData.NoData>{parseChildren().noData}</LoadingErrorData.NoData>}
-      {!loading && data && children && parseChildren().other}
+      {!loading && !!data && parseChildren().other}
     </>
   );
 };

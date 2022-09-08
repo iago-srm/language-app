@@ -33,7 +33,7 @@ import {
   IGetActivitiesParams,
   IGetActivitiesResponse
 } from '@language-app/common-core';
-import { useLanguage, handleAuthToken } from '@contexts';
+import { useLanguage, handleAuthToken,useAuth } from '@contexts';
 import { useEffect } from 'react';
 
 export const AUTH_BASE_URL = `${process.env.NEXT_PUBLIC_AUTH_URL}`;
@@ -56,6 +56,7 @@ export const setCommonHeaders = (header: string, value: any) => {
 
 export const useApiBuilder = () => {
 
+  const { tokenHeaderSet } = useAuth();
   const { language } = useLanguage();
 
   useEffect(() => {
@@ -88,9 +89,10 @@ export const useApiBuilder = () => {
   const resetPassword = useApiCall<IResetPasswordParams,IResetPasswordResponse>
     ((args) => authFetcher[ResetPasswordHTTPDefinition.method](ResetPasswordHTTPDefinition.path, args));
 
-  const getActivities = useApiCall<IGetActivitiesParams, IGetActivitiesResponse>
-    (({ title, cefr, topics }) => domainFetcher[GetActivitiesHTTPDefinition.method](`${GetActivitiesHTTPDefinition.path}?title=${title}&cefr=${cefr}&topics=${topics}`));
+  // const getActivities = useApiCall<IGetActivitiesParams, IGetActivitiesResponse>
+  //   (({ title, cefr, topics }) => domainFetcher[GetActivitiesHTTPDefinition.method](`${GetActivitiesHTTPDefinition.path}?title=${title}&cefr=${cefr}&topics=${topics}`));
 
+  const getActivities = ({ title, cefr, topics }) => useApiCallSWR<IGetActivitiesResponse>(tokenHeaderSet && `${GetActivitiesHTTPDefinition.path}?title=${title}&cefr=${cefr}&topics=${topics}`, domainFetcher[GetActivitiesHTTPDefinition.method].bind(domainFetcher))
   return {
     signUp,
     signIn,

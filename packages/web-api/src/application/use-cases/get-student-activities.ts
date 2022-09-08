@@ -33,7 +33,7 @@ class UseCase implements IGetStudentActivitiesUseCase {
 
     return {
       activities,
-      cursor: activities[activities.length - 1].id
+      cursor: activities[activities.length - 1]?.id || undefined
     }
   }
 

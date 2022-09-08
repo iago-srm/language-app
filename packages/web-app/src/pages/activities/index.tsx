@@ -21,23 +21,27 @@ const Activities: React.FC = () => {
     title: "",
     topics: DomainRules.ACTIVITY.TOPICS,
   });
-  const [activities, setActivities] = useState([]);
-  const [activitiesError, setActivitiesError] = useState<string>();
 
   const {
     getActivities
   } = useApiBuilder();
+  
+  const {
+    data,
+    loading,
+    error
+  } = getActivities(filters);
 
-  useEffect(() => {
-    tokenHeaderSet && (async () => {
-      const {
-        response: { activities },
-        error
-      } = await getActivities.apiCall(filters);
-      if(!error) setActivities(() => activities);
-      else setActivitiesError(() => error.message);
-    })()
-  }, [tokenHeaderSet]);
+  // useEffect(() => {
+  //   tokenHeaderSet && (async () => {
+  //     const {
+  //       response: { activities },
+  //       error
+  //     } = await getActivities.apiCall(filters);
+  //     if(!error) setActivities(() => activities);
+  //     else setActivitiesError(() => error.message);
+  //   })()
+  // }, [tokenHeaderSet]);
 
   return (
     <Container>
@@ -46,10 +50,14 @@ const Activities: React.FC = () => {
       </Head>
       <Filters setFilters={setFilters} filters={filters}/>
       <LoadingErrorData
-        loading={getActivities.loading}
-        error={activitiesError}
-        data={activities.length}
+        loading={loading}
+        error={error}
+        data={data?.activities?.length}
       >
+        <LoadingErrorData.NoData>
+          <h3>Não há atividades com esses filtros</h3>
+        </LoadingErrorData.NoData>
+        {data && data.activities && data.activities.map(activity => <p>{JSON.stringify(activity)}</p>)}
 
       </LoadingErrorData>
     </Container>
