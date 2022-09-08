@@ -27,6 +27,7 @@ interface IAuthContext {
   credentialsSignUp?: SignUp;
   signOut?: () => void;
   updateUser?: () => void;
+  tokenHeaderSet: boolean;
 }
 
 export const handleAuthToken = (token: string) => {
@@ -38,7 +39,9 @@ export const handleAuthToken = (token: string) => {
   })
 }
 
-const AuthContext = React.createContext<IAuthContext>({})
+const AuthContext = React.createContext<IAuthContext>({
+  tokenHeaderSet: false
+})
 
 const localStorage = new LocalStorage();
 
@@ -125,7 +128,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const token = localStorage.getRefreshToken();
     if(userError && token) {
-      console.log({userError,token});
+      // console.log({userError,token});
     }
   },[userError]);
 
@@ -153,6 +156,7 @@ export function AuthProvider({ children }) {
       credentialsSignUp,
       signOut,
       // updateUser
+      tokenHeaderSet
     }}>
       {children}
     </AuthContext.Provider>

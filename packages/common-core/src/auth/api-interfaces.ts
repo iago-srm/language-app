@@ -50,3 +50,15 @@ export interface IResetPasswordParams {
   token: string;
 }
 export interface IResetPasswordResponse {}
+
+export interface IGetActivitiesParams {}
+export type IGetActivitiesResponse = {
+  cursor: number;
+  activities: {
+    id: string;
+    title: string;
+    description?: string;
+    cefr: string;
+    topics: string[];
+  }[]
+}

@@ -26,13 +26,18 @@ import {
   ForgotPasswordRequestHTTPDefinition,
   IResetPasswordParams,
   IResetPasswordResponse,
-  ResetPasswordHTTPDefinition
+  ResetPasswordHTTPDefinition,
+} from '@language-app/common-core';
+import {
+  GetActivitiesHTTPDefinition,
+  IGetActivitiesParams,
+  IGetActivitiesResponse
 } from '@language-app/common-core';
 import { useLanguage, handleAuthToken } from '@contexts';
 import { useEffect } from 'react';
 
 export const AUTH_BASE_URL = `${process.env.NEXT_PUBLIC_AUTH_URL}`;
-export const DOMAIN_BASE_URL = `${process.env.NEXT_PUBLIC_AUTH_URL}`;
+export const DOMAIN_BASE_URL = `${process.env.NEXT_PUBLIC_DOMAIN_URL}`;
 
 const signInFetcher = new AxiosFetcher(AUTH_BASE_URL);
 const authFetcher = new AxiosFetcher(AUTH_BASE_URL);
@@ -45,6 +50,7 @@ signInFetcher.setInterceptor((res) => {
 
 export const setCommonHeaders = (header: string, value: any) => {
   const fetchers = [signInFetcher, authFetcher, domainFetcher];
+  // console.log({header, value})
   fetchers.forEach(fetcher => fetcher.setHeader(header, value));
 }
 
@@ -69,7 +75,7 @@ export const useApiBuilder = () => {
     ((args) => authFetcher[UpdateUserHTTPDefinition.method](UpdateUserHTTPDefinition.path, args));
 
   const verifyAccount = useApiCall<IVerifyAccountParams, void>
-    (({token}) => authFetcher[VerifyAccountHTTPDefinition.method](`${VerifyAccountHTTPDefinition.path.split('/')[0]}/${token}`, { verified: true }));
+    (({token}) => authFetcher[VerifyAccountHTTPDefinition.method](`${VerifyAccountHTTPDefinition.path.split('/')[0]}/${token}`));
 
   const uploadProfileImage = useApiCall<any, any>
     ((args) => authFetcher[UpdateProfileImageHTTPDefinition.method](UpdateProfileImageHTTPDefinition.path, args));
@@ -82,6 +88,9 @@ export const useApiBuilder = () => {
   const resetPassword = useApiCall<IResetPasswordParams,IResetPasswordResponse>
     ((args) => authFetcher[ResetPasswordHTTPDefinition.method](ResetPasswordHTTPDefinition.path, args));
 
+  const getActivities = useApiCall<IGetActivitiesParams, IGetActivitiesResponse>
+    (({ title, cefr, topics }) => domainFetcher[GetActivitiesHTTPDefinition.method](`${GetActivitiesHTTPDefinition.path}?title=${title}&cefr=${cefr}&topics=${topics}`));
+
   return {
     signUp,
     signIn,
@@ -91,7 +100,8 @@ export const useApiBuilder = () => {
     verifyAccount,
     uploadProfileImage,
     forgotPasswordRequest,
-    resetPassword
+    resetPassword,
+    getActivities
   }
 }
 
