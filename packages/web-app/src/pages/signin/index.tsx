@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 import GoogleButton from 'react-google-button';
 
 import { Translations, Labels } from '@locale';
@@ -15,6 +14,7 @@ import {
   PasswordInput,
   Button,
   Frame,
+  Anchor,
   Container,
   Row,
   Col,
@@ -67,9 +67,9 @@ const LoginPage: React.FC = () => {
           <Form onSubmit={handleSubmit} schema={loginSchema}>
             <Input name='email' label={Translations[language][Labels.EMAIL]} />
             <PasswordInput name='password' label={Translations[language][Labels.PASSWORD]} type="password" />
-            <Link href={'/forgot-password'}>
+            <Anchor href={'/forgot-password'}>
               {Translations[language][Labels.FORGOT_PASSWORD_QUESTION]}
-            </Link>
+            </Anchor>
             <Button loading={credentialsSignIn.loading}>{Translations[language][Labels.SIGNIN]}</Button>
           </Form>
           <Separator>{Translations[language][Labels.OR]}</Separator>

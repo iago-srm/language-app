@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router';
-
 import {
   Container as PageContainer,
   PStyled
@@ -12,7 +11,8 @@ import { Translations, Labels } from '@locale';
 import {
   ProfileImg,
   LoadingErrorData,
-  ProfileImageModal
+  ProfileImageModal,
+  Anchor
 } from '@components';
 import { ResponsiveCenteredPageContent } from '@styles';
 
@@ -43,7 +43,7 @@ const Profile: React.FC = () => {
               {modalVisible &&
                 <ProfileImageModal onClose={() => setModalVisible(false)} user={user}/>
               }
-              <PStyled>Eu sou {user.role}</PStyled>
+              <PStyled>{user.role ? `Eu sou ${user.role}` : <Anchor href="/dashboard/set-role">Complete seu cadastro</Anchor>}</PStyled>
             </div>
           }
         </LoadingErrorData>

@@ -28,7 +28,6 @@ import {
   
       const existingUser = await this.userRepository.getUserByEmail(email);
   
-      console.log("signup",{id, email, name, existingUser})
       if (existingUser) return;
   
       const userDTO: UserDTO = {

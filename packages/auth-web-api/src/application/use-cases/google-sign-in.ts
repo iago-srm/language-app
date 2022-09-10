@@ -28,7 +28,6 @@ import {
     async execute({ id }) {
       let userDTO: UserDTO;
   
-      console.log("signin",{id})
     userDTO = await this.userRepository.getUserById(id);
     if(!userDTO) throw new InvalidCredentialsError();
 
@@ -37,7 +36,6 @@ import {
         tokenVersion: userDTO.tokenVersion,
       });
   
-      console.log("signin",{token})
       return {
         token,
       };
