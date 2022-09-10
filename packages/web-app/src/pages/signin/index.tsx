@@ -27,7 +27,7 @@ const LoginPage: React.FC = () => {
 
   const router = useRouter();
   const { language } = useLanguage();
-  const { theme } = useColorTheme();
+  const { mode } = useColorTheme();
   const {
     googleSignIn,
     credentialsSignIn,
@@ -73,7 +73,7 @@ const LoginPage: React.FC = () => {
             <Button loading={credentialsSignIn.loading}>{Translations[language][Labels.SIGNIN]}</Button>
           </Form>
           <Separator>{Translations[language][Labels.OR]}</Separator>
-          <GoogleButton type={theme} onClick={handleGoogleSignIn} />
+          <GoogleButton type={mode} onClick={handleGoogleSignIn} />
         </Frame>
       </ResponsiveCenteredPageContent>
     </PageContainer>

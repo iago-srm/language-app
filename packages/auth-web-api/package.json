@@ -16,9 +16,6 @@
     "docker:build": "docker build -t language-app/auth-web-api -f ./Dockerfile ../..",
     "docker:exec": "docker exec -ti language-app-auth-web-api /bin/bash"
   },
-  "prisma": {
-    "schema": "../common-core/src/auth/prisma/schema.prisma"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC"

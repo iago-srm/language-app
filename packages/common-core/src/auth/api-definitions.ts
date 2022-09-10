@@ -5,6 +5,11 @@ export const SignUpHTTPDefinition: HTTPDefinition = {
   method: 'post'
 }
 
+export const GoogleSignUpHTTPDefinition: HTTPDefinition = {
+  path: 'users/providers/google',
+  method: 'post'
+}
+
 export const UpdateUserHTTPDefinition: HTTPDefinition = {
   path: 'users',
   method: 'patch'
@@ -12,6 +17,11 @@ export const UpdateUserHTTPDefinition: HTTPDefinition = {
 
 export const SignInHTTPDefinition: HTTPDefinition = {
   path: 'sessions',
+  method: 'post'
+}
+
+export const GoogleSignInHTTPDefinition: HTTPDefinition = {
+  path: 'sessions/providers/google',
   method: 'post'
 }
 

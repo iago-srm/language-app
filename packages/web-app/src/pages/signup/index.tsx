@@ -24,7 +24,7 @@ import {
 const Page: React.FC = () => {
 
   const { language } = useLanguage();
-  const { theme } = useColorTheme();
+  const { mode } = useColorTheme();
 
   const {
     credentialsSignUp: {
@@ -83,7 +83,7 @@ const Page: React.FC = () => {
                 <Button loading={signUpLoading}>{Translations[language][Labels.SIGNUP]}</Button>
               </Form>
               <Separator>{Translations[language][Labels.OR]}</Separator>
-              <GoogleButton type={theme} onClick={handleGoogleSignIn} />
+              <GoogleButton type={mode} onClick={handleGoogleSignIn} />
             </Frame>
           </Col>
         </Row>

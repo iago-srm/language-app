@@ -7,7 +7,9 @@ import {
   UpdateUserUseCase,
   UpdateProfileImageUseCase,
   ForgotPasswordRequestUseCase,
-  ResetPasswordUseCase
+  ResetPasswordUseCase,
+  GoogleSignInUseCase,
+  GoogleSignUpUseCase
 } from '@application/use-cases';
 import {
   SignInControllerFactory,
@@ -18,7 +20,9 @@ import {
   VerifyAccountControllerFactory,
   UpdateProfileImageControllerFactory,
   ForgotPasswordRequestControllerFactory,
-  ResetPasswordControllerFactory
+  ResetPasswordControllerFactory,
+  GoogleSignInControllerFactory,
+  GoogleSignUpControllerFactory
 } from '@adapters/REST-controllers';
 import {
   UserRepository,
@@ -53,6 +57,9 @@ export const registerDependencies = (container: awilix.AwilixContainer) => {
     [Dependencies.UPDATEPROFILEIMAGECONTROLLER]: awilix.asFunction(UpdateProfileImageControllerFactory),
     [Dependencies.FORGOTPASSWORDREQUESTCONTROLLER]: awilix.asFunction(ForgotPasswordRequestControllerFactory),
     [Dependencies.RESETPASSWORDCONTROLLER]: awilix.asFunction(ResetPasswordControllerFactory),
+    "googleSignUpController": awilix.asFunction(GoogleSignUpControllerFactory),
+    "googleSignInController": awilix.asFunction(GoogleSignInControllerFactory),
+
 
     // middleware
     [Dependencies.FILEMIDDLEWARE]: awilix.asValue(putFileInReq),
@@ -77,6 +84,8 @@ export const registerDependencies = (container: awilix.AwilixContainer) => {
     [Dependencies.UPDATEPROFILEIMAGEUSECASE]: awilix.asClass(UpdateProfileImageUseCase).classic(),
     [Dependencies.RESETPASSWORDUSECASE]: awilix.asClass(ResetPasswordUseCase).classic(),
     [Dependencies.FORGOTPASSWORDREQUESTUSECASE]: awilix.asClass(ForgotPasswordRequestUseCase).classic(),
+    "googleSignInUseCase": awilix.asClass(GoogleSignInUseCase).classic(),
+    "googleSignUpUseCase": awilix.asClass(GoogleSignUpUseCase).classic(),
 
     // repositories
     [Dependencies.USERREPOSITORY]: awilix.asClass(UserRepository),
