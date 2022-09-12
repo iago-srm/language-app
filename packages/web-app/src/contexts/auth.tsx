@@ -56,11 +56,11 @@ export function AuthProvider({ children }) {
   } = useApiBuilder();
 
   const [isAuthenticated, setIsAuthenticated] = useState(0);
-  const { mutate } = useSWRConfig();
+  // const { mutate } = useSWRConfig();
   const [tokenHeaderSet, setTokenHeaderSet] = React.useState(false);
 
   const refreshUser = () => {
-    mutate('user');
+    mutateUser();
   }
 
   const googleSignIn = React.useCallback(async () => {
@@ -122,7 +122,8 @@ export function AuthProvider({ children }) {
   const {
     data: user,
     loading: userLoading,
-    error: userError
+    error: userError,
+    mutate: mutateUser
   } = useUser(tokenHeaderSet);
 
   // const [user, setUser] = useState<IGetUserAPIResponse>();

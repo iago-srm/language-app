@@ -12,7 +12,7 @@ import { faAngleRight, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
 const responsiveBreakpoint = 550;
 
-export const Filters = ({ setFilters, filters}) => {
+export const ActivityFilters = ({ setFilters, filters}) => {
 
   const isBigScreen = useMediaQuery({ minWidth: responsiveBreakpoint });
   const [drawerOpen, setDrawerOpen] = useState(false);

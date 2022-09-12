@@ -35,9 +35,6 @@ const SetRole: React.FC = () => {
     const { error } = await updateUser.apiCall({role: selectedRole});
     console.log({error})
     if(error) setError(error.message);
-    else {
-      router.push('/dashboard');
-    }
   }
 
   return (

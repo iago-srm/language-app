@@ -7,9 +7,8 @@ import { getPageTitle } from '@services/browser';
 import { useLanguage, useAuth } from '@contexts';
 import { Translations, Labels } from '@locale';
 import { DomainRules } from '@language-app/common-core';
-import { Filters } from './filters';
 import { useApiBuilder } from '@services/api';
-import { LoadingErrorData } from '@components';
+import { LoadingErrorData, ActivityFilters as Filters } from '@components';
 
 const Activities: React.FC = () => {
 

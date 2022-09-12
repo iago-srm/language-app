@@ -26,7 +26,6 @@ export const LoadingErrorData = ({ loading, error, data, children }) => {
     };
 
     React.Children.map(children, (Child, i) => {
-      console.log(Child.type?.name)
       if(Child) switch(Child.type?.name) {
         case "NoData":
           c.noData.push(<React.Fragment key={i}>{Child}</React.Fragment>);

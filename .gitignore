@@ -10,10 +10,12 @@ node_modules
 # testing
 coverage
 .logs
+
 # production
 build
 dist
 .turbo/
+
 # misc
 .DS_Store
 .env
@@ -26,6 +28,8 @@ npm-debug.log*
 prisma-client/
 #*.js
 generated/
+tinymce.min.js
+tinymce/
 
 # terraform
 function.zip

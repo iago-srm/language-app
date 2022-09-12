@@ -31,7 +31,9 @@ import {
 import {
   GetActivitiesHTTPDefinition,
   IGetActivitiesParams,
-  IGetActivitiesResponse
+  IGetActivitiesResponse,
+  NewActivityHTTPDefinition,
+  IPostActivity
 } from '@language-app/common-core';
 import { useLanguage, handleAuthToken,useAuth } from '@contexts';
 import { useEffect } from 'react';
@@ -92,7 +94,11 @@ export const useApiBuilder = () => {
   // const getActivities = useApiCall<IGetActivitiesParams, IGetActivitiesResponse>
   //   (({ title, cefr, topics }) => domainFetcher[GetActivitiesHTTPDefinition.method](`${GetActivitiesHTTPDefinition.path}?title=${title}&cefr=${cefr}&topics=${topics}`));
 
-  const getActivities = ({ title, cefr, topics }) => useApiCallSWR<IGetActivitiesResponse>(tokenHeaderSet && `${GetActivitiesHTTPDefinition.path}?title=${title}&cefr=${cefr}&topics=${topics}`, domainFetcher[GetActivitiesHTTPDefinition.method].bind(domainFetcher))
+  const getActivities = ({ title, cefr, topics }) => useApiCallSWR<IGetActivitiesResponse>(tokenHeaderSet && `${GetActivitiesHTTPDefinition.path}?title=${title}&cefr=${cefr}&topics=${topics}`, domainFetcher[GetActivitiesHTTPDefinition.method].bind(domainFetcher));
+
+  const postActivity = useApiCall<IPostActivity["params"], IPostActivity["response"]>
+    ((args) => domainFetcher[NewActivityHTTPDefinition.method](NewActivityHTTPDefinition.path, args));
+
   return {
     signUp,
     signIn,
@@ -103,7 +109,8 @@ export const useApiBuilder = () => {
     uploadProfileImage,
     forgotPasswordRequest,
     resetPassword,
-    getActivities
+    getActivities,
+    postActivity
   }
 }
 

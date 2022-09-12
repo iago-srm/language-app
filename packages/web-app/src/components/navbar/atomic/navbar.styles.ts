@@ -5,7 +5,7 @@ export const barHeight = '10vh';
 export const barBottomBorderHeight = '3px';
 
 export const Container = styled.nav`
-  width: 100vw;
+  width: 100%;
   background-color: ${p => p.theme.colors.primary};
   display: flex;
   flex-direction: row;

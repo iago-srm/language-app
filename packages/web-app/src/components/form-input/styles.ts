@@ -14,11 +14,11 @@ export const FormInputStyled = styled.input<{error: any}>`
   border: ${p => p.error ? "3px solid red" : "none"};
 `;
 
-export const InputStyled = styled.input`
+export const InputStyled = styled.input<{width?: string}>`
   padding: 10px;
   border-radius: ${({theme}) => theme.inputBorderRadius};
   border: none;
-  width: 100%;
+  width: ${({width}) => width || "100%"};
 `;
 
 export const ErrorMessageContainer = styled.p`
