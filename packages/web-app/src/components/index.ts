@@ -18,3 +18,5 @@ export * from './filters';
 export * from './editor';
 export * from './activity/display';
 export * from './activity/input';
+export * from './tooltip';
+export * from './question-tooltip';

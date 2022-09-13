@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { getChildrenOnDisplayName } from 'components/utils';
 import MediaQuery, { useMediaQuery } from 'react-responsive';
 import { useState, useEffect } from 'react';
+import { QuestionTooltip } from '@components';
 
 const PanelStyled = styled.div`
     padding: 10px;
@@ -34,6 +35,11 @@ const SectionStyled = styled.div<{isBigScreen?: boolean, height: string}>`
         height: ${({height}) => height};
 
     }
+    h6 {
+        font-weight: bold;
+        font-size: 1.2rem;
+        display: inline-block;
+    }
     
 `;
 
@@ -41,10 +47,11 @@ interface ISectionProps {
     children: any, 
     name?: string,
     height?: string; 
+    tooltipText?: string;
 }
 const responsiveBreakpoint = 550;
 
-export const Section = ({ children, name, height }: ISectionProps) => {
+export const Section = ({ children, name, height, tooltipText }: ISectionProps) => {
 
   const isBigScreen = useMediaQuery({ minWidth: responsiveBreakpoint });
 
@@ -57,14 +64,13 @@ export const Section = ({ children, name, height }: ISectionProps) => {
 
   const panels = content.length ? content[0].props.children : children;
     const left = getChildrenOnDisplayName(panels, 'Left');
-    console.log({children, content})
     const right = getChildrenOnDisplayName(panels, 'Right');
     const header = getChildrenOnDisplayName(children, 'Header');
 
 
     return (
         <SectionStyled isBigScreen={hasMounted && isBigScreen} height={height}>
-            <span>{name}</span>
+            <h6>{name}</h6><span>{tooltipText && <QuestionTooltip content={tooltipText}/>}</span>
             {header}
             <ContentContainer>
                 <LeftStyled >

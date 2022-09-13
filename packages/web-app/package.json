@@ -16,6 +16,7 @@
     "@language-app/common-core": "^1.0.0",
     "@language-app/common-utils": "^1.0.0",
     "@tinymce/tinymce-react": "^4.2.0",
+    "@tippyjs/react": "^4.2.6",
     "@types/react-bootstrap": "^0.32.29",
     "axios": "^0.27.2",
     "babel-preset-next": "^1.4.0",

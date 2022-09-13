@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { 
   Container as PageContainer, 
   CEFRSelectContainer, 
-  DescriptionTextAreaContainer 
+  DescriptionTextAreaContainer,
 } from './styles';
 import { Section } from './section';
 import { getPageTitle } from '@services/browser';
@@ -18,7 +18,10 @@ import {
   ContentTypeSelectionForm,
   TextContent,
   VideoTimeInput,
-  VideoContent
+  VideoContent,
+  Instructions,
+  EditableInstruction,
+  NewInstructionButton
 } from '@components';
 import { useMediaQuery } from 'react-responsive';
 
@@ -39,7 +42,12 @@ const Activities: React.FC = () => {
       video: "",
       text: ""
     },
-    contentType: "TEXT"
+    contentType: "TEXT",
+    instructions: [
+      {text: "Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem Ipsum", options: [{ a: "5", b: "6", c: "7" }], answer: ["a", "b"]},
+      {text: "Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem Ipsum", options: [{ a: "5", b: "6", c: "7" }], answer: ["a", "b"]}
+
+    ]
   });
   const {
     postActivity
@@ -66,10 +74,10 @@ const Activities: React.FC = () => {
             <h3>Insira os dados</h3>
         </Section.Left>
         <Section.Right>
-            <h3>Veja uma prévia</h3>
+            <h3>Visualize a atividade</h3>
         </Section.Right>
       </Section>}
-      <Section name="Title and Details">
+      <Section name="Title and Details" tooltipText='Explicações'>
         <Section.Left>
             <InputStyled 
               placeholder="Title" 
@@ -82,23 +90,31 @@ const Activities: React.FC = () => {
             </CEFRSelectContainer>
         </Section.Left>
         <Section.Right>
-          <TitleAndDetails title={activity.title} cefr={activity.cefr} topics={activity.topics}/>
+          <TitleAndDetails 
+            title={activity.title} 
+            cefr={activity.cefr} 
+            topics={activity.topics}
+          />
         </Section.Right>
       </Section>
-      <Section name="Description">
-          <Section.Left>
-              <DescriptionTextAreaContainer>
-                <textarea 
-                  value={activity.description} 
-                  onChange={onChangeDescription}
-                />
-              </DescriptionTextAreaContainer>
-          </Section.Left>
-          <Section.Right>
-              {activity.description}
-          </Section.Right>
+      <Section name="Description" tooltipText='Explicações'>
+        <Section.Left>
+            <DescriptionTextAreaContainer>
+              <textarea 
+                value={activity.description} 
+                onChange={onChangeDescription}
+              />
+            </DescriptionTextAreaContainer>
+        </Section.Left>
+        <Section.Right>
+            {activity.description}
+        </Section.Right>
       </Section>
-      <Section height={`${contentSectionHeight + 20}px`} name="Content">
+      <Section 
+        height={`${contentSectionHeight + 20}px`} 
+        name="Content" 
+        tooltipText='Explicações'
+      >
         <Section.Header>
           <ContentTypeSelectionForm 
             value={activity.contentType} 
@@ -143,6 +159,22 @@ const Activities: React.FC = () => {
             </Section.Right>
           </Section.Content>
         }
+      </Section>
+      <Section name="Instructions" tooltipText='Explicações'>
+        <Section.Left>
+          {activity.instructions.map((instruction, i) => (
+            <EditableInstruction 
+              key={i} 
+              number={i} 
+              onClick={() => {}} 
+              text={instruction.text}
+            />
+          ))}
+          <NewInstructionButton>Nova atividade</NewInstructionButton>
+        </Section.Left>
+        <Section.Right>
+          <Instructions instructions={activity.instructions} />
+        </Section.Right>
       </Section>
     </PageContainer>
   )

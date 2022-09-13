@@ -12,7 +12,7 @@ interface ActivityInstructionConstructorParams {
 }
 
 export class ActivityInstruction {
-  answer: string;
+  answer: string | string[];
   text: string;
   options?: { [key: string]: string }[] = [];
   private _separator = '//%//';

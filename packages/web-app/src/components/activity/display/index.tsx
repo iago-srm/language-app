@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import Ratio from 'react-bootstrap/Ratio';
+import Accordion from 'react-bootstrap/Accordion';
+import { InputStyled } from 'components/form-input';
 
 const TitleStyled = styled.h1``;
 
@@ -49,5 +51,31 @@ export const VideoContent = ({ url }) => {
             <iframe src={url} title="YouTube video" allowFullScreen></iframe>
             </Ratio>
         </div>
+    )
+}
+
+const ResponseTextArea = styled.textarea`
+    width: 100%;
+`;
+
+export const Instructions = ({ instructions }) => {
+    return (
+        <Accordion alwaysOpen>
+        {instructions.map((instruction,i) => (
+            <Accordion.Item key={i} eventKey={i}>
+                <Accordion.Header>{instruction.text}</Accordion.Header>
+                <Accordion.Body>
+                    {instruction.options.length
+                    ? 
+                    instruction.options.map((option, i) => (
+                        <p key={i}></p>
+                    ))
+                    : 
+                    <ResponseTextArea />
+                    }
+                </Accordion.Body>
+            </Accordion.Item>
+        ))}
+      </Accordion>
     )
 }
