@@ -65,10 +65,13 @@ export const Instructions = ({ instructions }) => {
             <Accordion.Item key={i} eventKey={i}>
                 <Accordion.Header>{instruction.text}</Accordion.Header>
                 <Accordion.Body>
-                    {instruction.options.length
+                    {instruction.options
                     ? 
                     instruction.options.map((option, i) => (
-                        <p key={i}></p>
+                        <label>
+                            {option.text}
+                            <input type="radio" key={i}/>
+                        </label>
                     ))
                     : 
                     <ResponseTextArea />

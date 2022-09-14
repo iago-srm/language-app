@@ -20,3 +20,5 @@ export * from './activity/display';
 export * from './activity/input';
 export * from './tooltip';
 export * from './question-tooltip';
+export * from './radio-menu';
+export * from './editable-options';

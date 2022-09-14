@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
 import { 
   Container as PageContainer, 
-  CEFRSelectContainer, 
+  CefrSelectContainer, 
   DescriptionTextAreaContainer,
 } from './styles';
 import { Section } from './section';
@@ -20,17 +20,30 @@ import {
   VideoTimeInput,
   VideoContent,
   Instructions,
-  EditableInstruction,
-  NewInstructionButton
+  EditableOptions,
+  InstructionModal,
 } from '@components';
 import { useMediaQuery } from 'react-responsive';
+import {
+  InstructionType,
+  Instruction
+} from '@model';
 
 const responsiveBreakpoint = 550;
 const contentSectionHeight = 500;
 
+
 const Activities: React.FC = () => {
 
   const { language } = useLanguage();
+  const [showNewInstructionModal, setShowNewInstructionModal] = useState(false);
+  const [instructionUnderEdit, setInstructionUnderEdit] = useState<any>();
+  
+  useEffect(() => {
+    if(instructionUnderEdit) setShowNewInstructionModal(true);
+    else setShowNewInstructionModal(false);
+  }, [instructionUnderEdit]);
+
   const [activity, setActivity] = useState({
     title: "",
     cefr: "",
@@ -44,11 +57,45 @@ const Activities: React.FC = () => {
     },
     contentType: "TEXT",
     instructions: [
-      {text: "Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem Ipsum", options: [{ a: "5", b: "6", c: "7" }], answer: ["a", "b"]},
-      {text: "Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem Ipsum", options: [{ a: "5", b: "6", c: "7" }], answer: ["a", "b"]}
+      {
+        id: "1",
+        text: "Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem Ipsum", 
+        options: [
+          { id: "1", text: "meu cu", isCorrect: true},
+          { id: "2", text: "seu cu", isCorrect: true},
+        ], 
+        answer: ["1", "2"],
+        type: InstructionType.OPTIONS
+      },
+      {id: "2", text: "Lorem cu", answer: "A vida é dura", type: InstructionType.TEXT }
 
     ]
   });
+
+  const setInstruction = (instruction) => {
+    const newInstructions = [...activity.instructions];
+
+    if(instructionUnderEdit) {
+      const editedInstructionIndex = activity.instructions.findIndex(ins => ins.id === instruction.id);
+      newInstructions[editedInstructionIndex] = instruction;
+    } else {
+      newInstructions.push(instruction);
+    }
+
+    setActivity(s => ({...s, instructions: newInstructions}));
+  }
+
+  const removeInstruction = (id) => {
+    if(!confirm("Deseja remover essa instrução?")) return;
+
+    const newInstructions = [...activity.instructions];
+
+    const removedInstructionIndex = activity.instructions.findIndex(ins => ins.id === id);
+    newInstructions.splice(removedInstructionIndex,1);
+    setActivity(s => ({...s, instructions: newInstructions}));
+
+  }
+
   const {
     postActivity
   } = useApiBuilder();
@@ -62,7 +109,10 @@ const Activities: React.FC = () => {
   const onChangeVideoContent = (e) => setActivity(s => ({...s, content: {...s.content, video: e.target.value}}));
   const onChangeStartTime = (e) => setActivity(s => ({...s, startTime: e.target.value }));
   const onChangeEndTime = (e) => setActivity(s => ({...s, endTime: e.target.value }));
-
+  const onCloseInstructionModal = () => {
+    if(instructionUnderEdit) setInstructionUnderEdit(undefined);
+    else setShowNewInstructionModal(false);
+  }
 
   return (
     <PageContainer>
@@ -77,6 +127,7 @@ const Activities: React.FC = () => {
             <h3>Visualize a atividade</h3>
         </Section.Right>
       </Section>}
+
       <Section name="Title and Details" tooltipText='Explicações'>
         <Section.Left>
             <InputStyled 
@@ -85,9 +136,9 @@ const Activities: React.FC = () => {
               value={activity.title} 
               onChange={onChangeTitle}
             />
-            <CEFRSelectContainer>
-              <CEFRSelect value={activity.cefr} onChange={onChangeCEFR}/>
-            </CEFRSelectContainer>
+          <CefrSelectContainer>
+            <CEFRSelect value={activity.cefr} onChange={onChangeCEFR}/>
+          </CefrSelectContainer>
         </Section.Left>
         <Section.Right>
           <TitleAndDetails 
@@ -99,6 +150,7 @@ const Activities: React.FC = () => {
       </Section>
       <Section name="Description" tooltipText='Explicações'>
         <Section.Left>
+          <div></div>
             <DescriptionTextAreaContainer>
               <textarea 
                 value={activity.description} 
@@ -124,6 +176,7 @@ const Activities: React.FC = () => {
         {activity.contentType === "TEXT" ? 
           <Section.Content>
             <Section.Left>
+              <div></div>
               <CustomEditor 
                 text={activity.content.text} 
                 onChange={onChangeTextContent}
@@ -162,20 +215,23 @@ const Activities: React.FC = () => {
       </Section>
       <Section name="Instructions" tooltipText='Explicações'>
         <Section.Left>
-          {activity.instructions.map((instruction, i) => (
-            <EditableInstruction 
-              key={i} 
-              number={i} 
-              onClick={() => {}} 
-              text={instruction.text}
-            />
-          ))}
-          <NewInstructionButton>Nova atividade</NewInstructionButton>
+          <EditableOptions<Instruction> 
+            onClickRemove={(instruction) => removeInstruction(instruction.id)}
+            onClickEdit={(instruction) => setInstructionUnderEdit(instruction)}
+            options={activity.instructions}
+            onClickNew={() => setShowNewInstructionModal(true)}
+          />
         </Section.Left>
         <Section.Right>
           <Instructions instructions={activity.instructions} />
         </Section.Right>
       </Section>
+      {showNewInstructionModal && 
+        <InstructionModal 
+          instructionUnderEdit={instructionUnderEdit}
+          onClose={onCloseInstructionModal}
+          setUpstreamInstruction={setInstruction}
+        />}
     </PageContainer>
   )
 }

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "echo": "echo \"Hello from web-app\" ",
-    "dev": "npx prisma generate && next dev",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start"
   },

@@ -5,10 +5,6 @@ export const Container = styled.div`
     padding: 30px;
 `;
 
-export const CEFRSelectContainer = styled.div`
-    width: 150px;
-    padding-top: 10px;
-`;
 
 export const DescriptionTextAreaContainer = styled.div` 
     visibility: visible;
@@ -17,4 +13,10 @@ export const DescriptionTextAreaContainer = styled.div`
         padding: 4px;
     }
 `;
+
+export const CefrSelectContainer = styled.section`
+    width: 150px;
+    padding-top: 10px;
+`;
+
 

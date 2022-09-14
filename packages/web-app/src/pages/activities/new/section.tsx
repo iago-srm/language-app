@@ -4,7 +4,7 @@ import MediaQuery, { useMediaQuery } from 'react-responsive';
 import { useState, useEffect } from 'react';
 import { QuestionTooltip } from '@components';
 
-const PanelStyled = styled.div`
+const PanelStyled = styled.section`
     padding: 10px;
 `;
 
@@ -15,7 +15,7 @@ const LeftStyled = styled(PanelStyled)``;
 
 const RightStyled = styled(PanelStyled)``;
 
-const SectionStyled = styled.div<{isBigScreen?: boolean, height: string}>`
+const SectionStyled = styled.section<{isBigScreen?: boolean, height: string}>`
     width: 100%;
     ${ContentContainer} {
         display: flex;
