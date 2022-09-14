@@ -22,3 +22,4 @@ export * from './tooltip';
 export * from './question-tooltip';
 export * from './radio-menu';
 export * from './editable-options';
+export * from './new-activity-section';

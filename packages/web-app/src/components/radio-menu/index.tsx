@@ -14,8 +14,8 @@ interface IRadioMenuProps {
 export const RadioMenu = ({ value, onChange, options }: IRadioMenuProps) => {
     return (
         <RadioMenuFormStyled>
-        {options.map(option => (
-            <label>
+        {options.map((option, i) => (
+            <label key={i}>
                 <input
                 type="radio"
                 value={option.value}

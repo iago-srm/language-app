@@ -33,7 +33,6 @@ const SectionStyled = styled.section<{isBigScreen?: boolean, height: string}>`
     ${LeftStyled} {
         width: ${({isBigScreen}) => isBigScreen ? "50%" : "100%"};
         height: ${({height}) => height};
-
     }
     h6 {
         font-weight: bold;

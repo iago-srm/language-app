@@ -2,7 +2,7 @@ import { ToastContainer, toast as toastifyToast} from 'react-toastify';
 import { useColorTheme } from '@contexts';
 
 export const Toast = () => {
-  const { theme } = useColorTheme();
+  const { mode } = useColorTheme();
   return <ToastContainer
     position="top-right"
     autoClose={5000}
@@ -13,7 +13,7 @@ export const Toast = () => {
     pauseOnFocusLoss
     draggable
     pauseOnHover
-    theme={theme}
+    theme={mode}
     />
 }
 

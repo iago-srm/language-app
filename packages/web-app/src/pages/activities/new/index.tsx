@@ -5,7 +5,6 @@ import {
   CefrSelectContainer, 
   DescriptionTextAreaContainer,
 } from './styles';
-import { Section } from './section';
 import { getPageTitle } from '@services/browser';
 import { useLanguage } from '@contexts';
 import { Translations, Labels } from '@locale';
@@ -22,6 +21,7 @@ import {
   Instructions,
   EditableOptions,
   InstructionModal,
+  Section
 } from '@components';
 import { useMediaQuery } from 'react-responsive';
 import {
