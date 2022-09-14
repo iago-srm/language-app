@@ -1,5 +1,4 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPencil } from '@fortawesome/free-solid-svg-icons'
+import { Icons } from '@components';
 import styled from 'styled-components';
 
 const ProfileImgStyled = styled.div`
@@ -33,7 +32,7 @@ export const ProfileImg = ({ src, onClick }) => {
   return (
     <ProfileImgStyled>
       <img src={src}/>
-      <div onClick={onClick}><FontAwesomeIcon icon={faPencil}/></div>
+      <div onClick={onClick}><Icons.EDIT/></div>
     </ProfileImgStyled>
   )
 }

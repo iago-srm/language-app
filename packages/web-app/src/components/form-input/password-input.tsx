@@ -5,8 +5,7 @@ import {
   InputLabelStyled,
   InputIconContainerStyled
 } from './styles';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { Icons } from '@components';
 
 interface IInput extends React.AllHTMLAttributes<InputHTMLAttributes<{}>> {
   name: string;
@@ -27,7 +26,7 @@ export function PasswordInput({ register, name, errors, label, ...rest }: IInput
         error={errors[name]}
       />
       <InputIconContainerStyled onClick={() => setPasswordVisible(c => !c)}>
-        <i>{passwordVisible ? <FontAwesomeIcon icon={faEye} /> : <FontAwesomeIcon icon={faEyeSlash} />}</i>
+        <i>{passwordVisible ? <Icons.CANSEE /> : <Icons.CANTSEE />}</i>
       </InputIconContainerStyled>
       <ErrorMessageContainer >{errors[name]?.message}</ErrorMessageContainer>
     </InputLabelStyled>

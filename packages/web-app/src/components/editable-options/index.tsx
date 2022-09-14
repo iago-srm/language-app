@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { Icons } from '@components';
 
 const NewItemButtonStyled = styled.button`
     width: 100%;
@@ -40,10 +39,10 @@ export const EditableOption = ({ text, onClickEdit, onClickRemove, item }) => {
         <EditableOptionContainer >
             <p>{text}</p>
             <button onClick={() => onClickEdit(item)}>
-                <FontAwesomeIcon icon={faPen} />
+                <Icons.EDIT />
             </button>
             <button onClick={() => onClickRemove(item)}>
-                <FontAwesomeIcon icon={faTimes} />
+                <Icons.DELETE />
             </button>
         </EditableOptionContainer>
     )

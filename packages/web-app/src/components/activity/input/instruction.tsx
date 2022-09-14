@@ -3,15 +3,14 @@ import { useEffect, useState } from 'react';
 import { 
     Modal,
     RadioMenu,
-    EditableOptions,
+    Icons,
     Button
 } from '@components';
 import {
     InstructionType,
     Instruction
   } from '@model';
-  import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-  import { faPen, faTimes } from '@fortawesome/free-solid-svg-icons';
+
 
   const NewItemButtonStyled = styled.button`
     width: 100%;
@@ -168,7 +167,7 @@ export const InstructionModal = ({
                             <input type="checkbox" checked={option.isCorrect} onChange={(e) => onChangeCorrectOption({...option, isCorrect: !option.isCorrect})}/>
                         </label>
                         <button onClick={() => onRemoveOption(option)}>
-                            <FontAwesomeIcon icon={faTimes} />
+                            <Icons.DELETE />
                         </button>
                     </OptionsContainer>
                 ))}
