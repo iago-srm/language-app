@@ -24,3 +24,4 @@ export * from './radio-menu';
 export * from './editable-options';
 export * from './new-activity-section';
 export * from './icons';
+export * from './breadcrumb';

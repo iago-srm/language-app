@@ -145,7 +145,8 @@ const Activities: React.FC = () => {
           <TitleAndDetails 
             title={activity.title} 
             cefr={activity.cefr} 
-            topics={activity.topics}
+            // topics={activity.topics}
+            topics={["SPORTS", "SCIENCE_&_TECHONOLOGY", "ARTS", "CURRENT_AFFAIRS"]}
           />
         </Section.Right>
       </Section>
