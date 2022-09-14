@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Ratio from 'react-bootstrap/Ratio';
 import Accordion from 'react-bootstrap/Accordion';
-import { InputStyled } from 'components/form-input';
+import { RadioMenu } from '@components';
 
 const TitleStyled = styled.h1``;
 
@@ -67,12 +67,20 @@ export const Instructions = ({ instructions }) => {
                 <Accordion.Body>
                     {instruction.options
                     ? 
-                    instruction.options.map((option, i) => (
-                        <label>
-                            {option.text}
-                            <input type="radio" key={i}/>
-                        </label>
-                    ))
+                    instruction.answer.length === 1 ? 
+                    <RadioMenu 
+                        value={undefined}
+                        onChange={() => {}}
+                        options={instruction.options.map(option => ({ value: option.id, label: option.text}))}
+                    />
+                    :
+                    <>Checkbox menu</>
+                    // instruction.options.map((option, i) => (
+                    //     <label>
+                    //         {option.text}
+                    //         <input type="radio" key={i}/>
+                    //     </label>
+                    // ))
                     : 
                     <ResponseTextArea />
                     }

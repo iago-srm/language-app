@@ -10,6 +10,8 @@ import {
     InstructionType,
     Instruction
   } from '@model';
+  import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+  import { faPen, faTimes } from '@fortawesome/free-solid-svg-icons';
 
   const NewItemButtonStyled = styled.button`
     width: 100%;
@@ -72,6 +74,10 @@ export const InstructionModal = ({
     }, [instructionUnderEdit]);
 
     const saveChanges = () => {
+        if(instruction.type === InstructionType.OPTIONS && instruction.options.length < 2) {
+            alert("Instruções de alternativas devem conter pelo menos duas alternativas");
+            return;
+        }
         if(instructionUnderEdit && !instruction.text) {
             alert("Instrução não pode ter texto vazio. Se deseja removê-la, clique no botão de remover.");
             return;
@@ -98,20 +104,40 @@ export const InstructionModal = ({
         }
     }
     // really necessary to use id here? why not just index?
-    const onChangeOption = (option) => {
+    const setNewOption = (option) => {
         const currentOptions = [...instruction.options];
         const optionIndex = currentOptions.findIndex(opt => opt.id === option.id);
         currentOptions[optionIndex] = option;
-        console.log({currentOptions, option})
         setInstruction(s => ({...s, options: currentOptions }));
     }
 
+    const onChangeCorrectOption = (option) => {
+        const currentAnswers = [...instruction.answer];
+
+        if(!option.isCorrect) {
+            const currentOptionIndex = currentAnswers.findIndex(answer => answer === option.id);
+            currentAnswers.splice(currentOptionIndex,1);
+        } else {
+            currentAnswers.push(option.id);
+        }
+        setNewOption(option);
+        setInstruction(s => ({...s, answer: currentAnswers}));
+    }
     const onAddOption = () => {
         setInstruction(s => ({...s, options: [...instruction.options, { 
             id: Date.now().toString(), 
             text: "", 
             isCorrect: false 
-        }] }));
+        }]}));
+    }
+
+    const onRemoveOption = (option) => {
+        const currentOptions = [...instruction.options];
+
+        const currentOptionIndex = currentOptions.findIndex(opt => opt.id === option.id);
+        currentOptions.splice(currentOptionIndex,1);
+
+        setInstruction(s => ({...s, options: currentOptions}));
     }
 
     return (
@@ -127,19 +153,23 @@ export const InstructionModal = ({
                 <label>
                     Tipo de Instrução
                     <InstructionTypeSelectionForm 
-                    value={instruction.type} 
-                    onChange={(e) => onChangeInstructionType(e.target.value)}/>
+                        value={instruction.type} 
+                        onChange={(e) => onChangeInstructionType(e.target.value)}
+                    />
                 </label>
                 {instruction.type === InstructionType.OPTIONS 
                 ? 
                 <>
                 {instruction.options.map((option,i) => (
-                    <OptionsContainer>
-                        <input value={option.text} onChange={(e) => onChangeOption({...option, text: e.target.value})}/>
+                    <OptionsContainer key={i}>
+                        <input value={option.text} onChange={(e) => setNewOption({...option, text: e.target.value})}/>
                         <label>
                             Alternativa correta?
-                            <input type="checkbox" checked={option.isCorrect} onChange={(e) => onChangeOption({...option, isCorrect: !option.isCorrect})}/>
+                            <input type="checkbox" checked={option.isCorrect} onChange={(e) => onChangeCorrectOption({...option, isCorrect: !option.isCorrect})}/>
                         </label>
+                        <button onClick={() => onRemoveOption(option)}>
+                            <FontAwesomeIcon icon={faTimes} />
+                        </button>
                     </OptionsContainer>
                 ))}
                 <NewItemButton onClick={onAddOption}>

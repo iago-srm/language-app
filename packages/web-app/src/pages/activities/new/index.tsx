@@ -21,7 +21,8 @@ import {
   Instructions,
   EditableOptions,
   InstructionModal,
-  Section
+  Section,
+  Button
 } from '@components';
 import { useMediaQuery } from 'react-responsive';
 import {
@@ -232,6 +233,9 @@ const Activities: React.FC = () => {
           onClose={onCloseInstructionModal}
           setUpstreamInstruction={setInstruction}
         />}
+      <Button onClick={() => console.log(activity)}>
+        Salvar
+      </Button>
     </PageContainer>
   )
 }
