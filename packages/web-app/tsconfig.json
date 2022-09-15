@@ -22,7 +22,12 @@
       "@contexts": ["contexts/index.ts"],
       "@styles": ["styles/index.ts"],
       "@services/*": ["services/*/index.ts"],
-      "@model": ["model/index.ts"]
+      "@model": ["model/index.ts"],
+      "@atomic/atoms": ["atomic/atoms/index.ts"],
+      "@atomic/molecules": ["atomic/molecules/index.ts"],
+      "@atomic/organisms": ["atomic/organisms/index.ts"],
+      "@atomic": ["atomic/index.ts"]
+
     },
     "allowJs": true,
     "strict": false,

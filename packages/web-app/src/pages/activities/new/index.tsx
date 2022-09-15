@@ -57,20 +57,7 @@ const Activities: React.FC = () => {
       text: ""
     },
     contentType: "TEXT",
-    instructions: [
-      {
-        id: "1",
-        text: "Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem Ipsum", 
-        options: [
-          { id: "1", text: "meu cu", isCorrect: true},
-          { id: "2", text: "seu cu", isCorrect: true},
-        ], 
-        answer: ["1", "2"],
-        type: InstructionType.OPTIONS
-      },
-      {id: "2", text: "Lorem cu", answer: "A vida é dura", type: InstructionType.TEXT }
-
-    ]
+    instructions: []
   });
 
   const setInstruction = (instruction) => {
