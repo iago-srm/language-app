@@ -1,4 +1,3 @@
-export * from './action-button';
 export * from './buttons';
 export * from './drawer-menu';
 export * from './error-loading-data';
@@ -6,9 +5,10 @@ export * from './icons';
 export * from './input-icon';
 export * from './frame';
 export * from './layout';
-export * from './separator';
 export * from './mode-toggle';
 export * from './select';
+export * from './selectable-panel';
+export * from './separator';
 export * from './toast';
 export * from './tooltip';
 export * from './typography';

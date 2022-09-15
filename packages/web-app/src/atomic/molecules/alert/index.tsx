@@ -1,5 +1,5 @@
 import BootstrapAlert from 'react-bootstrap/Alert';
-import { getChildrenOnDisplayName } from 'components/utils';
+import { getChildrenOnDisplayName } from 'atomic/utils';
 import {
   P
 } from '@atomic/atoms';

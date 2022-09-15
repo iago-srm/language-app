@@ -3,7 +3,7 @@ import { useLanguage, useColorTheme } from '@contexts';
 import { Alert, AlertProps } from '@atomic/molecules';
 
 interface SucceessAlertProps extends AlertProps {
-  response: string;
+  response: any;
 }
 
 export const SuccessAlert: React.FC<SucceessAlertProps> = ({ response, onClose, ...rest }) => {

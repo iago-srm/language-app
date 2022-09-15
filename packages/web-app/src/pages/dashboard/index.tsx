@@ -11,7 +11,7 @@ import { Translations, Labels } from '@locale';
 import { GetServerSideProps } from 'next'
 import {
   LoadingErrorData
-} from '@components';
+} from '@atomic';
 
 const Dashboard: React.FC = () => {
   const { language } = useLanguage();

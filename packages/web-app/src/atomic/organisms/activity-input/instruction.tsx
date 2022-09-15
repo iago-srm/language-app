@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { 
     RadioMenu,
     Button
-} from '@components';
+} from '@atomic';
 import { Icons } from '@atomic/atoms';
 import { Modal } from '@atomic/molecules';
 import {

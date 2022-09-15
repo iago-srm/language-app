@@ -13,7 +13,7 @@ import {
   LoadingErrorData,
   ProfileImageModal,
   Anchor
-} from '@components';
+} from '@atomic';
 import { ResponsiveCenteredPageContent } from '@styles';
 
 const Profile: React.FC = () => {

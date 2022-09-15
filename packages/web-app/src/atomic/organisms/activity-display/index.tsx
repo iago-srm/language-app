@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Ratio from 'react-bootstrap/Ratio';
 import Accordion from 'react-bootstrap/Accordion';
-import { RadioMenu, BreadCrumb } from '@components';
+import { RadioMenu, BreadCrumb } from '@atomic';
 
 
 enum CEFRColors {

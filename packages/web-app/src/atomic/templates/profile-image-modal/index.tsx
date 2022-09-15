@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Modal, ActionButton, Toast, successToast, errorToast } from '@atomic';
+import { Modal, Button, Toast, successToast, errorToast } from '@atomic';
 import styled from 'styled-components';
 import { useApiBuilder } from '@services/api';
 import { useAuth } from '@contexts';
@@ -54,9 +54,9 @@ export const ProfileImageModal = ({ onClose, user }) => {
         <br/>
         <input type="file" onChange={onFileChange} accept="image/png, image/jpeg"/>
         <hr/>
-        <ActionButton onClick={onFileUpload} loading={uploadProfileImage.loading}>
+        <Button onClick={onFileUpload} loading={uploadProfileImage.loading}>
           Salvar
-        </ActionButton>
+        </Button>
       </ModalContentStyled>
       <Toast/>
     </Modal>

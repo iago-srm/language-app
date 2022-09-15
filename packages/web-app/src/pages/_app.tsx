@@ -17,7 +17,7 @@ import {
 } from '@styles';
 import {
   Navbar
-} from '@components';
+} from '@atomic';
 
 const App: React.FC<AppProps> = ({
   Component,

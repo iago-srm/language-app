@@ -15,8 +15,8 @@ import {
   SuccessAlert,
   AlertLink,
   LoadingErrorData,
-  ActionButton
-} from '@components';
+  SelectablePanel
+} from '@atomic';
 import { useApiBuilder } from 'services/api';
 
 const studentDescription = 'Realize atividades e aprenda inglês';
@@ -50,20 +50,20 @@ const SetRole: React.FC = () => {
         <p>{selectedRole === 'STUDENT' ? studentDescription : instructorDescription}</p>
         <Row className="justify-content-lg-center">
           <Col xs lg="3">
-            <ActionButton
+            <SelectablePanel
               selected={selectedRole === 'STUDENT'}
               onClick={() => setSelectedRole('STUDENT')}
             >
               Estudante
-            </ActionButton>
+            </SelectablePanel>
           </Col>
           <Col xs lg="3" >
-            <ActionButton
+            <SelectablePanel
               selected={selectedRole === 'INSTRUCTOR'}
               onClick={() => setSelectedRole('INSTRUCTOR')}
             >
               Instrutor
-            </ActionButton>
+            </SelectablePanel>
             <Button
               loading={updateUser.loading}
               onClick={handleClickSave}

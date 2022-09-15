@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { getChildrenOnDisplayName } from 'components/utils';
+import { getChildrenOnDisplayName } from 'atomic/utils';
 import MediaQuery, { useMediaQuery } from 'react-responsive';
 import { useState, useEffect } from 'react';
-import { QuestionTooltip } from '@components';
+import { QuestionTooltip } from '@atomic';
 
 const PanelStyled = styled.section`
     padding: 10px;

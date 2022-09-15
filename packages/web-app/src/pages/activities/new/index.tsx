@@ -10,7 +10,7 @@ import { useLanguage } from '@contexts';
 import { Translations, Labels } from '@locale';
 import { useApiBuilder } from '@services/api';
 import { 
-  InputStyled, 
+  Input, 
   CustomEditor, 
   TitleAndDetails, 
   CEFRSelect,
@@ -23,7 +23,7 @@ import {
   InstructionModal,
   Section,
   Button
-} from '@components';
+} from '@atomic';
 import { useMediaQuery } from 'react-responsive';
 import {
   InstructionType,
@@ -118,7 +118,7 @@ const Activities: React.FC = () => {
 
       <Section name="Title and Details" tooltipText='Explicações'>
         <Section.Left>
-            <InputStyled 
+            <Input 
               placeholder="Title" 
               width="80%" 
               value={activity.title} 
@@ -178,7 +178,7 @@ const Activities: React.FC = () => {
           : 
           <Section.Content>
             <Section.Left>
-              <InputStyled 
+              <Input 
                 placeholder="Youtube URL" 
                 width="85%" 
                 value={activity.content.video} 

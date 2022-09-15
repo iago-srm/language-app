@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Icons } from '@atomic/atoms';
-import { NewItemButton, SquareButton } from '@atomic/molecules';
+import { NewItemButton, SquareButton } from '@atomic';
 
 
 export const EditableOptionContainer = styled.div`

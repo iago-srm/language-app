@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { 
-    InputStyled, 
+    Input, 
     RadioMenu
-} from '@components';
+} from '@atomic';
 export * from './instruction';
 
 export const ContentTypeSelectionForm = ({ value, onChange }) => {
@@ -32,7 +32,7 @@ export const VideoTimeInput = ({ label, value, onChange }) => {
     return (
         <VideoTimeLabelStyled>
             <p>{label}</p>
-            <InputStyled 
+            <Input 
                 style={{ display: "inline", marginTop: "5px", width: "100%"}} 
                 type="number"  
                 value={value} 

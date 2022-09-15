@@ -15,7 +15,7 @@ import {
   Frame,
   ErrorAlert,
   SuccessAlert
-} from '@components';
+} from '@atomic';
 import { ResponsiveCenteredPageContent } from '@styles';
 
 const Page: React.FC = () => {

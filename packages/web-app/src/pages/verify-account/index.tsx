@@ -15,7 +15,7 @@ import {
   ErrorAlert,
   SuccessAlert,
   AlertLink
-} from '@components';
+} from '@atomic';
 import { useApiBuilder } from 'services/api';
 
 interface IVerifyAccountProps {

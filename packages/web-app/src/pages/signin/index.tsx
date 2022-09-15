@@ -20,7 +20,7 @@ import {
   Col,
   ErrorAlert,
   Separator
-} from '@components';
+} from '@atomic';
 import { ResponsiveCenteredPageContent } from '@styles';
 
 const LoginPage: React.FC = () => {

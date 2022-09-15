@@ -19,7 +19,7 @@ import {
   SuccessAlert,
   ErrorAlert,
   Separator
-} from '@components';
+} from '@atomic';
 
 const Page: React.FC = () => {
 

@@ -8,7 +8,7 @@ import { useLanguage, useAuth } from '@contexts';
 import { Translations, Labels } from '@locale';
 import { DomainRules } from '@language-app/common-core';
 import { useApiBuilder } from '@services/api';
-import { LoadingErrorData, ActivityFilters as Filters } from '@components';
+import { LoadingErrorData, ActivityFilters as Filters } from '@atomic';
 
 const Activities: React.FC = () => {
 
