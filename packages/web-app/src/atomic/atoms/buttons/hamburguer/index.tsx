@@ -8,7 +8,6 @@ export const StyledBurger = styled.button<{open: boolean}>`
   height: 2rem;
   background: transparent;
   border: none;
-  cursor: pointer;
   padding: 0;
   z-index: 10;
 
@@ -18,6 +17,7 @@ export const StyledBurger = styled.button<{open: boolean}>`
 
   div {
     background-color: ${({theme}) => theme.colors.text};
+    // background-color: pink;
 
     width: 2rem;
     height: 0.25rem;

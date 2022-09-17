@@ -2,10 +2,8 @@
 
 import 'styled-components'
 
-import { Colors } from '../contexts/color-mode-theme/theme'
+import { Theme } from '../contexts/color-mode-theme/types'
 
 declare module 'styled-components' {
-  export interface DefaultTheme {
-    colors: Colors
-  }
+  export interface DefaultTheme extends Theme {}
 }

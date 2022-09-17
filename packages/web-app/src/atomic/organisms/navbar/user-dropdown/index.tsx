@@ -4,9 +4,12 @@ import NextLink from 'next/link';
 import styled from 'styled-components';
 import { useColorTheme } from '@contexts';
 
+const genericImage = "https://language-app-profile-image.s3.amazonaws.com/generic-avatar-1.jpg";
+
 const NavImageContainer = styled.div`
+  height: 80%;
   img {
-    height: 50px;
+    height: 100%;
   }
 `;
 
@@ -34,7 +37,7 @@ const DropdownMenuContainer = styled.div`
 `;
 
 const NavImg = ({src}) => {
-  return <img referrerPolicy="no-referrer" src={src} alt={'Imagem do Usuário'}/>
+  return <img referrerPolicy="no-referrer" src={src || genericImage} alt={'Imagem do Usuário'}/>
 }
 
 export const NavbarDropDown: React.FC<{
@@ -46,7 +49,7 @@ export const NavbarDropDown: React.FC<{
 
   return (
     <Dropdown >
-      <Dropdown.Toggle style={{ backgroundColor: 'inherit', border: 'none' }}>
+      <Dropdown.Toggle style={{ backgroundColor: 'inherit', border: 'none', height: "100%" }}>
         <NavImageContainer>
           <NavImg src={user?.image}/>
         </NavImageContainer>
@@ -57,7 +60,7 @@ export const NavbarDropDown: React.FC<{
           <PanelImageContainer>
             <NavImg src={user?.image}/>
           </PanelImageContainer>
-          <PanelNameContainer>Olá, {user?.name}</PanelNameContainer>
+          <PanelNameContainer>{user ? `Olá, ${user.name}` : "Olá!"}</PanelNameContainer>
           <Dropdown.Item as={'button'}>
             <NextLink href={'/profile'}>
               Perfil

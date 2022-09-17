@@ -11,6 +11,8 @@ import {
   Container,
   BarButtonContainer,
   HamburguerButtonContainer,
+  BarAuthenticatedSectionContainer,
+  DrawerAuthenticatedSectionContainer,
   LogoImageContainer
 } from './styles';
 import { BarButton, DrawerButton } from '../buttons';
@@ -22,18 +24,22 @@ import {
 } from '@atomic/molecules';
 import { HamburguerButton, DrawerMenu, ModeToggle } from '@atomic/atoms';
 
-const responsiveBreakpoint = 550;
-
 export const Navbar = () => {
+
+  const { mode, setMode, theme:  { responsiveBreakpoint } } = useColorTheme();
 
   const isBigScreen = useMediaQuery({ minWidth: responsiveBreakpoint });
   const [burguerOpen, setBurguerOpen] = useState(false);
-  const { mode, setMode } = useColorTheme();
   const { language, setLanguage } = useLanguage();
   const { user, isAuthenticated, signOut } = useAuth();
   const router = useRouter();
 
   const currentPath = router.pathname;
+
+  const [hasMounted, setHasMounted] = useState(false);
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
 
   const handleSignOut = () => {
     signOut();
@@ -47,6 +53,24 @@ export const Navbar = () => {
   useEffect(() => {
     setBurguerOpen(false);
   }, [currentPath]);
+
+  const getAuthenticatedSection = (Container, Button) => {
+    if(!hasMounted) return (
+      <Container></Container>
+    )
+    if(hasMounted && isAuthenticated) return (
+      <Container>
+        <Button path='/dashboard' labelName="DASHBOARD" highlighted={currentPath === '/dashboard'}/>
+        <NavbarDropDown user={user} onSignOut={handleSignOut} />
+      </Container>
+    )
+    return (
+      <Container>
+        <Button path='/signin' labelName={"SIGNIN"} highlighted={currentPath === '/signin'}/>
+        <Button path='/signup' labelName={"SIGNUP"} highlighted={currentPath === '/signup'}/>
+      </Container>
+    )
+  }
 
   return (
     <>
@@ -65,19 +89,7 @@ export const Navbar = () => {
           <BarButtonContainer>
             <ModeToggle mode={mode} setMode={setMode}/>
             <LanguageSelect onChange={setLanguage} language={language}/>
-            {user
-              ?
-              <>
-                <BarButton path='/dashboard' labelName="DASHBOARD" highlighted={currentPath === '/dashboard'}/>
-                <NavbarDropDown user={user} onSignOut={handleSignOut} />
-              </>
-              :
-              isAuthenticated < 0 &&
-              <>
-                <BarButton path='/signin' labelName={"SIGNIN"} highlighted={currentPath === '/signin'}/>
-                <BarButton path='/signup' labelName={"SIGNUP"} highlighted={currentPath === '/signup'}/>
-              </>
-            }
+            {getAuthenticatedSection(BarAuthenticatedSectionContainer, BarButton)}
           </BarButtonContainer>
         </MediaQuery>
       </Container>
@@ -85,8 +97,7 @@ export const Navbar = () => {
         <DrawerMenu>
           <ModeToggle mode={mode} setMode={setMode}/>
           <LanguageSelect onChange={setLanguage} language={language}/>
-          <DrawerButton path='/signin' labelName={"SIGNIN"} />
-          <DrawerButton path='/signup' labelName={"SIGNUP"} />
+          {getAuthenticatedSection(DrawerAuthenticatedSectionContainer, DrawerButton)}
         </DrawerMenu>
       ) : null}
     </>

@@ -23,6 +23,7 @@ import styled, { css } from 'styled-components';
   }
   
   export const BarButtonStyled = styled(ButtonStyled)<BarButtonProps>`
+    height: 100%;
     a {
       justify-content: center;
       ${p => p.highlighted ?
@@ -35,6 +36,8 @@ import styled, { css } from 'styled-components';
   export const DrawerMenuButtonStyled = styled(ButtonStyled)`
     a {
       justify-content: start;
-      padding: 0 15px;
+      padding: 15px;
     }
+    width: 95%;
+    margin: 0 auto;
   `;

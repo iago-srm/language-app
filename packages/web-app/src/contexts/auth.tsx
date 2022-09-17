@@ -17,7 +17,7 @@ import { setCookie, parseCookies } from 'nookies'
 import { IGetUserAPIResponse } from "@language-app/common-core";
 
 interface IAuthContext {
-  isAuthenticated?: number;
+  isAuthenticated?: boolean;
   user?: any;
   isUserLoading?: boolean;
   userError?: any;
@@ -55,7 +55,7 @@ export function AuthProvider({ children }) {
     useUser
   } = useApiBuilder();
 
-  const [isAuthenticated, setIsAuthenticated] = useState(0);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   // const { mutate } = useSWRConfig();
   const [tokenHeaderSet, setTokenHeaderSet] = React.useState(false);
 
@@ -91,7 +91,7 @@ export function AuthProvider({ children }) {
     await credentialsSignOut.apiCall();
     handleAuthToken("");
     setTokenHeaderSet(false);
-    setIsAuthenticated(-1);
+    setIsAuthenticated(false);
   }, [session]);
 
   useEffect(() => {
@@ -106,8 +106,9 @@ export function AuthProvider({ children }) {
     if(token) {
       setTokenHeaderSet(true);
       handleAuthToken(token);
+      setIsAuthenticated(true);
     } else {
-      setIsAuthenticated(-1);
+      setIsAuthenticated(false);
     }
   }, []);
 
@@ -152,7 +153,7 @@ export function AuthProvider({ children }) {
       //   cefr: "A2"
       // }, // for debugging purposes
       isAuthenticated,
-      isUserLoading: userLoading || (!userLoading && !user && !userError),
+      isUserLoading: userLoading,
       userError,
       refreshUser,
       googleSignIn,

@@ -4,8 +4,11 @@ export const Separator = styled.div`
   display: flex;
   align-items: center;
   text-align: center;
-  width: 100%;
-  margin-bottom: 20px;
+  width: 80%;
+  margin-right: 10%;
+  margin-left: 10%;
+  margin-top: 10px;
+  margin-bottom: 10px;
 
   :before,
   :after {

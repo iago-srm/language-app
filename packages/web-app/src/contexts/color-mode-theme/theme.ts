@@ -4,6 +4,7 @@ import {
 } from './types';
 import { DarkNavyBlue, LightGreyBlue } from './palettes';
 
+const responsiveBreakpoint = 550;
 
 export const getTheme: (mode: Modes) => Theme = (mode: Modes) => {
 
@@ -13,6 +14,7 @@ export const getTheme: (mode: Modes) => Theme = (mode: Modes) => {
   }
 
   return {
+    responsiveBreakpoint,
     colors: colors[mode]
   }
 }

@@ -7,7 +7,8 @@ import { Colors } from './types';
 export const DarkNavyBlue: Colors = {
     primary: "#2C3333",
     secondary: "#395B64",
-    accent: "#E7F6F2"
+    accent: "red",
+    text: "white"
 }
 
 //light
@@ -15,5 +16,6 @@ export const DarkNavyBlue: Colors = {
 export const LightGreyBlue: Colors = {
     primary: "#EAE3D2",
     secondary: "#607EAA",
-    accent: "#1C3879"
+    accent: "red",
+    text: "black"
 }

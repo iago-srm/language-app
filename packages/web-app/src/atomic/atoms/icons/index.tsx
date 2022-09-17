@@ -6,7 +6,8 @@ import {
     faEyeSlash,
     faAngleRight, 
     faAngleDown,
-    faQuestionCircle 
+    faQuestionCircle,
+    faGlobe 
 } from '@fortawesome/free-solid-svg-icons';
 
 export const Icons = {
@@ -33,5 +34,8 @@ export const Icons = {
     ),
     QUESTION_CIRCLE: () => (
         <FontAwesomeIcon icon={faQuestionCircle} />
+    ),
+    GLOBE: () => (
+        <FontAwesomeIcon icon={faGlobe} />
     )
 }
