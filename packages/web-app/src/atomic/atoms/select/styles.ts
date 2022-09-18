@@ -20,6 +20,11 @@ export const getStyles = (theme) => ({
             ...styles,
             color: theme.colors.text,
             backgroundColor: theme.colors.secondary, 
+            cursor: "pointer",
+            "&:hover": {
+                color: theme.colors.accent,
+                backgroundColor: theme.colors.primary, 
+            }
         };
     },
     menu: (styles) => ({

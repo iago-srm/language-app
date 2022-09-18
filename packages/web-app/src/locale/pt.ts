@@ -11,7 +11,7 @@ export const Portuguese = {
   [Labels.HOME]: 'Home',
   [Labels.SIGNIN]: 'Entrar',
   [Labels.SIGNUP]: 'Cadastrar',
-  [Labels.LOGOUT]: 'Sair',
+  [Labels.SIGNOUT]: 'Sair',
   [Labels.VERIFYACCOUNT]: 'Confirmar Conta',
   [Labels.PROFILE]: 'Perfil',
   [Labels.FORGOT_PASSWORD]: 'Esqueci a Senha',

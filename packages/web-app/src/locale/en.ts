@@ -11,7 +11,7 @@ export const English = {
   [Labels.HOME]: 'Home',
   [Labels.SIGNIN]: 'Sign In',
   [Labels.SIGNUP]: 'Sign Up',
-  [Labels.LOGOUT]: 'Sign Out',
+  [Labels.SIGNOUT]: 'Sign Out',
   [Labels.VERIFYACCOUNT]: 'Verify Account',
   [Labels.PROFILE]: 'Profile',
   [Labels.FORGOT_PASSWORD]: 'Forgot Password',

@@ -15,14 +15,14 @@ import {
   DrawerAuthenticatedSectionContainer,
   LogoImageContainer
 } from './styles';
-import { BarButton, DrawerButton } from '../buttons';
+import { NavbarButton } from '../buttons';
 import {
   NavbarDropDown
 } from '../user-dropdown';
 import { 
   LanguageSelect 
 } from '@atomic/molecules';
-import { HamburguerButton, DrawerMenu, ModeToggle } from '@atomic/atoms';
+import { HamburguerButton, DrawerMenu, ModeToggle, Separator } from '@atomic';
 
 export const Navbar = () => {
 
@@ -54,20 +54,21 @@ export const Navbar = () => {
     setBurguerOpen(false);
   }, [currentPath]);
 
-  const getAuthenticatedSection = (Container, Button) => {
+  const getAuthenticatedSection = (Container) => {
     if(!hasMounted) return (
       <Container></Container>
     )
     if(hasMounted && isAuthenticated) return (
       <Container>
-        <Button path='/dashboard' labelName="DASHBOARD" highlighted={currentPath === '/dashboard'}/>
+        <NavbarButton path='/dashboard' labelName="DASHBOARD" highlighted={currentPath === '/dashboard'}/>
+        <Separator />
         <NavbarDropDown user={user} onSignOut={handleSignOut} />
       </Container>
     )
     return (
       <Container>
-        <Button path='/signin' labelName={"SIGNIN"} highlighted={currentPath === '/signin'}/>
-        <Button path='/signup' labelName={"SIGNUP"} highlighted={currentPath === '/signup'}/>
+        <NavbarButton path='/signin' labelName={"SIGNIN"} highlighted={currentPath === '/signin'}/>
+        <NavbarButton path='/signup' labelName={"SIGNUP"} highlighted={currentPath === '/signup'}/>
       </Container>
     )
   }
@@ -89,7 +90,7 @@ export const Navbar = () => {
           <BarButtonContainer>
             <ModeToggle mode={mode} setMode={setMode}/>
             <LanguageSelect onChange={setLanguage} language={language}/>
-            {getAuthenticatedSection(BarAuthenticatedSectionContainer, BarButton)}
+            {getAuthenticatedSection(BarAuthenticatedSectionContainer)}
           </BarButtonContainer>
         </MediaQuery>
       </Container>
@@ -97,7 +98,7 @@ export const Navbar = () => {
         <DrawerMenu>
           <ModeToggle mode={mode} setMode={setMode}/>
           <LanguageSelect onChange={setLanguage} language={language}/>
-          {getAuthenticatedSection(DrawerAuthenticatedSectionContainer, DrawerButton)}
+          {getAuthenticatedSection(DrawerAuthenticatedSectionContainer)}
         </DrawerMenu>
       ) : null}
     </>

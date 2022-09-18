@@ -11,7 +11,7 @@ export const Labels = {
   HOME: 'home',
   SIGNIN: 'signin',
   SIGNUP: 'signup',
-  LOGOUT: 'logout',
+  SIGNOUT: 'logout',
   VERIFYACCOUNT: 'verify_account',
   PROFILE: 'profile',
   FORGOT_PASSWORD: 'forgot_password',
