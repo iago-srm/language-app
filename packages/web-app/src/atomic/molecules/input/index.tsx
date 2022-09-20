@@ -6,21 +6,25 @@ import {
 } from './styles';
 
 interface IInput extends React.AllHTMLAttributes<InputHTMLAttributes<{}>> {
-  name?: string;
   register?: any;
   errors?: any;
+  icon?: React.ReactElement
 }
+//
+export function Input(args: IInput) {
 
-export function Input({ register, name, errors, label, ...rest }: IInput) {
+  const { register, name, errors, label, icon, ...rest } = args;
+  
   return (
     <InputLabelStyled>
       {label}
       <InputStyled
         {...register && register(name)}
         {...rest}
-        placeholder={label}
+        placeholder={label || rest.placeholder}
         error={errors && errors[name]}
       />
+      {icon}
       <ErrorMessageContainer >{errors && errors[name]?.message}</ErrorMessageContainer>
     </InputLabelStyled>
   )

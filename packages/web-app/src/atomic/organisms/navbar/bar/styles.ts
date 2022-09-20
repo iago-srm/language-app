@@ -21,7 +21,7 @@ export const BarAuthenticatedSectionContainer = styled.div`
   display: flex;
   flex-direction: row;
   margin: 0 5px;
-  height: 80%;
+  height: 100%;
 `;
 
 export const DrawerAuthenticatedSectionContainer = styled.div``;

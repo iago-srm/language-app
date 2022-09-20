@@ -32,6 +32,12 @@ export const SingleSelect = ({ options, onChange, value, selectedIcon }: ISingle
                             </SelectedOptionLabelContainer>
                         </>
                     )
+                } else if (context.selectValue.includes(option)) {
+                    return (
+                        <SelectedOptionLabelContainer>
+                            {option.label}
+                        </SelectedOptionLabelContainer>
+                    )
                 }
                 return option.label
             }}

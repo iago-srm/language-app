@@ -6,7 +6,7 @@ export * from './cefr-select';
 export * from './input';
 export * from './language-select';
 export * from './modal';
-export * from './password-input';
+export * from './password-inputs';
 export * from './profile-img';
 export * from './question-tooltip';
 export * from './topics-select';

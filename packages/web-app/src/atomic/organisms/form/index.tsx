@@ -31,7 +31,7 @@ export function Form({ defaultValues, children, onSubmit, schema, error }: IForm
           ? React.createElement(child.type, {
               ...{
                 ...child.props,
-                register: register,
+                register,
                 key: child.props.name,
                 errors
               }

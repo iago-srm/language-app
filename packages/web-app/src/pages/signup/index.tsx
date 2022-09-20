@@ -11,6 +11,7 @@ import {
   Form,
   Input,
   PasswordInput,
+  ConfirmPasswordInput,
   Button,
   Frame,
   Container,
@@ -78,9 +79,9 @@ const Page: React.FC = () => {
               <Form onSubmit={handleSubmit} schema={schema} error={error}>
                 <Input name='name' label={Translations[language][Labels.NAME]} />
                 <Input name='email' label={Translations[language][Labels.EMAIL]} />
-                <PasswordInput name='password' label={Translations[language][Labels.PASSWORD]} type="password" />
-                <PasswordInput name='confirmPassword' label={Translations[language][Labels.CONFIRM_PASSWORD]} type="password" />
-                <Button loading={signUpLoading}>{Translations[language][Labels.SIGNUP]}</Button>
+                <PasswordInput name="password" />
+                <ConfirmPasswordInput name="confirmPassword" />
+                <Button type="submit" loading={signUpLoading}>{Translations[language][Labels.SIGNUP]}</Button>
               </Form>
               <Separator>{Translations[language][Labels.OR]}</Separator>
               <GoogleButton type={mode} onClick={handleGoogleSignIn} />

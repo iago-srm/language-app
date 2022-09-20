@@ -12,6 +12,7 @@ import {
   Form,
   Input,
   PasswordInput,
+  ConfirmPasswordInput,
   Button,
   Frame,
   Anchor,
@@ -42,6 +43,7 @@ const LoginPage: React.FC = () => {
     email,
     password,
   }) => {
+    console.log("submit",{email, password})
     const { error } = await credentialsSignIn.signIn({
       email,
       password,
@@ -66,11 +68,11 @@ const LoginPage: React.FC = () => {
           <ErrorAlert error={error} onClose={() => setError(undefined)}/>
           <Form onSubmit={handleSubmit} schema={loginSchema}>
             <Input name='email' label={Translations[language][Labels.EMAIL]} />
-            <PasswordInput name='password' label={Translations[language][Labels.PASSWORD]} type="password" />
+            <PasswordInput name="password" />
             <Anchor href={'/forgot-password'}>
               {Translations[language][Labels.FORGOT_PASSWORD_QUESTION]}
             </Anchor>
-            <Button loading={credentialsSignIn.loading}>{Translations[language][Labels.SIGNIN]}</Button>
+            <Button type="submit" loading={credentialsSignIn.loading}>{Translations[language][Labels.SIGNIN]}</Button>
           </Form>
           <Separator>{Translations[language][Labels.OR]}</Separator>
           <GoogleButton type={mode} onClick={handleGoogleSignIn} />
