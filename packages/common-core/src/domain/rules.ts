@@ -31,7 +31,7 @@ export const DomainRules = {
     MAX_TEXT_LENGTH: 2000, // in characters
     MIN_TIME_TO_COMPLETE: 5, // in minutes
     MAX_TIME_TO_COMPLETE: 30, // in minutes
-    TOPICS: ['SCIENCE & TECHONOLOGY', 'ARTS', 'CURRENT AFFAIRS', 'SPORTS']
+    TOPICS: ['SCIENCE_&_TECHNOLOGY', 'ARTS', 'CURRENT_AFFAIRS', 'SPORTS']
   },
   FEEDBACK: {
     GRADES: [1,2,3,4,5],

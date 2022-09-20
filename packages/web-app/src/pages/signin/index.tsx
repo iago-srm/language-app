@@ -10,7 +10,7 @@ import { ValidationSchemas } from '@services/validations';
 import { useLanguage, useAuth, useColorTheme } from '@contexts';
 import {
   Form,
-  Input,
+  EmailInput,
   PasswordInput,
   FormButton as Button,
   Frame,
@@ -63,7 +63,7 @@ const LoginPage: React.FC = () => {
         <Frame>
           <ErrorAlert error={error} onClose={() => setError(undefined)}/>
           <Form onSubmit={handleSubmit} schema={loginSchema}>
-            <Input name='email' label={Translations[language][Labels.EMAIL]} />
+            <EmailInput name='email' />
             <PasswordInput name="password" />
             <Anchor href={'/forgot-password'}>
               {Translations[language][Labels.FORGOT_PASSWORD_QUESTION]}

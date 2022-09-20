@@ -33,6 +33,7 @@ export const FiltersDrawerMenu = styled.div`
 
 export const FiltersDrawer = styled.div`
     width: 100%;
+    border-bottom: 1px solid ${({theme}) => theme.colors.accent};
     background-color: ${({theme}) => theme.colors.primary};
     display: flex;
     flex-direction: column;

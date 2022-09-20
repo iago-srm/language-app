@@ -2,27 +2,11 @@ import styled from 'styled-components';
 import Ratio from 'react-bootstrap/Ratio';
 import Accordion from 'react-bootstrap/Accordion';
 import { RadioMenu, BreadCrumb } from '@atomic';
-
-
-enum CEFRColors {
-    "A1" = "#69B34C",
-    "A2" = "#ACB334",
-    "B1" = "#FAB733",
-    "B2" = "#FF8E15",
-    "C1" = "#FF4E11",
-    "C2" = "#FF0D0D",
-}
-
-enum TopicsColors {
-    'SCIENCE_&_TECHONOLOGY' = "blue",
-    'ARTS' = "pink",
-    "CURRENT_AFFAIRS" = "green", 
-    'SPORTS' = "red"
-}
+import { TopicsColors, CEFRColors } from '@model';
 
 export const TopicsBreadCrumbs = {
-    "SCIENCE_&_TECHONOLOGY": () => (
-        <BreadCrumb color={TopicsColors["SCIENCE_&_TECHONOLOGY"]}>
+    "SCIENCE_&_TECHNOLOGY": () => (
+        <BreadCrumb color={TopicsColors["SCIENCE_&_TECHNOLOGY"]}>
             Science & Technology
         </BreadCrumb>
     ),
@@ -54,7 +38,7 @@ const TitlePlaceholder = styled.h1`
 const CefrStyled = styled.h5<{cefr: string}>`
     color: ${({cefr}) => CEFRColors[cefr]};
     border-radius: 2px;
-    background-color: white;
+    background-color: ${({theme}) => theme.colors.secondary};
     display: inline-block;
     min-width: 36px;
 `;
@@ -66,9 +50,9 @@ export const TitleAndDetails = ({ title, cefr, topics }) => {
         <>
             {title ? <TitleStyled>{title}</TitleStyled> : <TitlePlaceholder>Title</TitlePlaceholder>}
             <CefrStyled cefr={cefr}>{"["}{cefr}{"]"}</CefrStyled>
-            {topics.map(topic => {
+            {topics.map((topic,i) => {
                 const Component = TopicsBreadCrumbs[topic];
-                return <Component />
+                return <Component key={i}/>
             })}
         </>
     )

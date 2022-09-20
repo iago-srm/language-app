@@ -11,6 +11,7 @@ export const BasePasswordInput = ({ label, placeholder, ...rest }) => {
         label={label}
         type={passwordVisible ? 'text' : 'password'}
         placeholder={placeholder}
+        canHaveErrors={true}
         icon={<InputIcon onClick={() => setPasswordVisible(c => !c)} icon={passwordVisible ? <Icons.CAN_SEE /> : <Icons.CANT_SEE />}/>}
         />
     )

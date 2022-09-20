@@ -18,7 +18,6 @@ export const SingleSelect = ({ options, onChange, value, selectedIcon }: ISingle
     const { theme } = useColorTheme();
 
     return (
-        options[0].value && options[0].label ? 
         <ReactSelect 
             formatOptionLabel={(option,context) => {
                 if(context.selectValue.includes(option) && selectedIcon) {
@@ -45,12 +44,6 @@ export const SingleSelect = ({ options, onChange, value, selectedIcon }: ISingle
             value={value}   
             styles={getStyles(theme)}
             onChange={onChange}
-        /> :         
-        <ReactSelect 
-            options={format(options)}  
-            value={format([value])[0]}   
-            styles={getStyles(theme)}
-            onChange={(v) => onChange(deFormat([v])[0])}
-        />
+        /> 
     )
 }

@@ -26,10 +26,11 @@ export const Icons = {
     CANT_SEE: () => (
         <FontAwesomeIcon icon={faEyeSlash} />
     ),
-    CHEVRON_RIGHT: (onClick: any) => (
-        <FontAwesomeIcon icon={faAngleRight} onClick={onClick}/>
-    ),
-    CHEVRON_DOWN: (onClick: any) => (
+    CHEVRON_RIGHT: ({onClick}: any) => {
+        console.log(onClick)
+        return <FontAwesomeIcon icon={faAngleRight} onClick={onClick}/>
+    },
+    CHEVRON_DOWN: ({onClick}: any) => (
         <FontAwesomeIcon icon={faAngleDown} onClick={onClick}/>
     ),
     QUESTION_CIRCLE: () => (

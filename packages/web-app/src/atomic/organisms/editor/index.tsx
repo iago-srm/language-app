@@ -1,8 +1,10 @@
 import { Editor } from "@tinymce/tinymce-react";
-import initFullProps from "./props";
+import { getProps } from "./props";
+import { useColorTheme } from "@contexts";
 
 export const CustomEditor = ({ text, onChange }) => {
 
+  const { theme } = useColorTheme();
   let contenido: string = text || "";
   let inicioBody: number = -1;
   let finBody: number = -1;
@@ -20,7 +22,7 @@ export const CustomEditor = ({ text, onChange }) => {
         tinymceScriptSrc="/tinymce/tinymce.min.js"
         value={contenido}
         init={{
-          ...initFullProps,
+          ...getProps(theme),
         }}
         onEditorChange={onChange}
       />

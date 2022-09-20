@@ -8,12 +8,13 @@ import {
 interface IInput extends React.AllHTMLAttributes<InputHTMLAttributes<{}>> {
   register?: any;
   errors?: any;
-  icon?: React.ReactElement
+  icon?: React.ReactElement;
+  canHaveErrors?: boolean;
 }
-//
+
 export function Input(args: IInput) {
 
-  const { register, name, errors, label, icon, ...rest } = args;
+  const { register, name, errors, label, icon, canHaveErrors, ...rest } = args;
   
   return (
     <InputLabelStyled>
@@ -25,7 +26,7 @@ export function Input(args: IInput) {
         error={errors && errors[name]}
       />
       {icon}
-      <ErrorMessageContainer >{errors && errors[name]?.message}</ErrorMessageContainer>
+      {canHaveErrors && <ErrorMessageContainer >{errors && errors[name]?.message}</ErrorMessageContainer>}
     </InputLabelStyled>
   )
 }

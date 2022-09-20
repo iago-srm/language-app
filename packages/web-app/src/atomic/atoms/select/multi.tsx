@@ -1,16 +1,18 @@
 import ReactSelect from 'react-select';
 import { format, deFormat } from './helpers';
-import { colorStyles } from './styles';
+import { getStyles } from './styles';
+import { useColorTheme } from '@contexts';
 
 export const MultiSelect = ({ options, onChange, value }) => {
+    const { theme } = useColorTheme();
 
     return (
         <ReactSelect 
             isMulti 
-            options={format(options)}  
-            value={format(value)}   
-            styles={colorStyles}
-            onChange={(v) => onChange(deFormat(v))}
+            options={options}  
+            value={value}   
+            styles={getStyles(theme)}
+            onChange={onChange}
         />
     )
 }

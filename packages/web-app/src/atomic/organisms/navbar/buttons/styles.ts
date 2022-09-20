@@ -17,8 +17,6 @@ export const NavbarButtonStyled = styled.div<NavbarButtonProps>`
       text-align: center;
       background-color: inherit;
       &:hover {
-        color: ${p => p.theme.colors.accent};
-
         background-color: ${p => p.theme.colors.secondary};
         cursor: pointer;
       }
@@ -36,7 +34,6 @@ export const NavbarButtonStyled = styled.div<NavbarButtonProps>`
     margin: 0 auto;
     a {
       &:hover {
-      color: ${p => p.theme.colors.accent};
         background-color: ${p => p.theme.colors.secondary};
         cursor: pointer;
       }

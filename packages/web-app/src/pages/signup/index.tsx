@@ -10,6 +10,7 @@ import { useLanguage, useAuth, useColorTheme } from '@contexts';
 import {
   Form,
   Input,
+  EmailInput,
   PasswordInput,
   ConfirmPasswordInput,
   FormButton as Button,
@@ -78,7 +79,7 @@ const Page: React.FC = () => {
               <SuccessAlert response={response} onClose={() => setResponse(undefined)}/>
               <Form onSubmit={handleSubmit} schema={schema} error={error}>
                 <Input name='name' label={Translations[language][Labels.NAME]} />
-                <Input name='email' label={Translations[language][Labels.EMAIL]} />
+                <EmailInput name='email' />
                 <PasswordInput name="password" />
                 <ConfirmPasswordInput name="confirmPassword" />
                 <Button loading={signUpLoading}>{Translations[language][Labels.SIGNUP]}</Button>

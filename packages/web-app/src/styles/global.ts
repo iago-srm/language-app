@@ -11,11 +11,7 @@ export const GlobalStyle = createGlobalStyle`
     color: ${props => props.theme.colors.text};
     box-sizing: border-box;
     font: 400 16px Roboto, sans-serif;
-    background: linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0.25),
-      rgba(0, 0, 0, 0.25)
-    ) ${props => props.theme.colors.background};
+    background-color: ${props => props.theme.colors.primary};
   }
 
   a {

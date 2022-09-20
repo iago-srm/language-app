@@ -6,16 +6,12 @@ export const Separator = styled.div<{margins?: string}>`
   text-align: center;
   width: 80%;
   margin: 10px ${({margins}) => margins ? margins : "10%"};
-  // margin-right: 10%;
-  // margin-left: 10%;
-  // margin-top: 10px;
-  // margin-bottom: 10px;
 
   :before,
   :after {
     content: '';
     flex: 1;
-    border-bottom: 1px solid ${({theme}) => theme.colors.text};
+    border-bottom: 1px solid ${({theme}) => theme.colors.accent};
   }
 
   :not(:empty)::before {

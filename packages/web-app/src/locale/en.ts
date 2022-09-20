@@ -25,5 +25,11 @@ export const English = {
 
   [Labels.SEND]: 'Send',
   [Labels.OR]: 'Or',
-  [Labels.FORGOT_PASSWORD_QUESTION]: 'Forgot your password?'
+  [Labels.FORGOT_PASSWORD_QUESTION]: 'Forgot your password?',
+
+  [Labels['SCIENCE_&_TECHNOLOGY']]: "Science & Technology",
+  [Labels['CURRENT_AFFAIRS']]: "Current Affairs",
+  [Labels['ARTS']]: "Arts",
+  [Labels['SPORTS']]: "Sports",
+
 }

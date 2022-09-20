@@ -4,6 +4,7 @@ import {
   Container as PageContainer, 
   CefrSelectContainer, 
   DescriptionTextAreaContainer,
+  TopicsSelectContainer
 } from './styles';
 import { getPageTitle } from '@services/browser';
 import { useLanguage } from '@contexts';
@@ -14,6 +15,7 @@ import {
   CustomEditor, 
   TitleAndDetails, 
   CEFRSelect,
+  TopicsSelect,
   ContentTypeSelectionForm,
   TextContent,
   VideoTimeInput,
@@ -29,6 +31,7 @@ import {
   InstructionType,
   Instruction
 } from '@model';
+import { DomainRules } from '@language-app/common-core';
 
 const responsiveBreakpoint = 550;
 const contentSectionHeight = 500;
@@ -91,7 +94,8 @@ const Activities: React.FC = () => {
 
   const onChangeContentType = (e) => setActivity(s => ({...s, contentType: e.target.value}));
   const onChangeTitle = (e) => setActivity(s => ({...s, title: e.target.value}));
-  const onChangeCEFR = (e) => setActivity(s => ({...s, cefr: e}));
+  const onChangeCEFR = (e) => setActivity(s => ({...s, cefr: e.value}));
+  const onChangeTopics = (e) => setActivity(s => {return {...s, topics: e}});
   const onChangeDescription = (e) => setActivity(s => ({...s, description: e.target.value}));
   const onChangeTextContent = (e) => setActivity(s => ({...s, content: {...s.content, text: e }}));
   const onChangeVideoContent = (e) => setActivity(s => ({...s, content: {...s.content, video: e.target.value}}));
@@ -125,27 +129,28 @@ const Activities: React.FC = () => {
               onChange={onChangeTitle}
             />
           <CefrSelectContainer>
-            <CEFRSelect value={activity.cefr} onChange={onChangeCEFR}/>
+            <CEFRSelect value={{ label: activity.cefr, value: activity.cefr }} onChange={onChangeCEFR}/>
           </CefrSelectContainer>
+          <TopicsSelectContainer>
+          <TopicsSelect onChange={onChangeTopics} value={activity.topics}/>
+          </TopicsSelectContainer>
         </Section.Left>
         <Section.Right>
           <TitleAndDetails 
             title={activity.title} 
             cefr={activity.cefr} 
-            // topics={activity.topics}
-            topics={["SPORTS", "SCIENCE_&_TECHONOLOGY", "ARTS", "CURRENT_AFFAIRS"]}
+            topics={activity.topics.map(topic => topic.value)}
           />
         </Section.Right>
       </Section>
       <Section name="Description" tooltipText='Explicações'>
         <Section.Left>
-          <div></div>
-            <DescriptionTextAreaContainer>
-              <textarea 
-                value={activity.description} 
-                onChange={onChangeDescription}
-              />
-            </DescriptionTextAreaContainer>
+          <DescriptionTextAreaContainer>
+            <textarea 
+              value={activity.description} 
+              onChange={onChangeDescription}
+            />
+          </DescriptionTextAreaContainer>
         </Section.Left>
         <Section.Right>
             {activity.description}
@@ -165,7 +170,6 @@ const Activities: React.FC = () => {
         {activity.contentType === "TEXT" ? 
           <Section.Content>
             <Section.Left>
-              <div></div>
               <CustomEditor 
                 text={activity.content.text} 
                 onChange={onChangeTextContent}

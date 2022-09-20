@@ -39,7 +39,6 @@ export const DrawerButtonStyled = styled.div`
 export const HamburguerButtonContainer = styled(FlexCentered)`
   width: 55px;
   cursor: pointer;
-
 `;
 
 export const LogoImageContainer = styled.div`

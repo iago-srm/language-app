@@ -6,6 +6,7 @@ const BreadCrumbStyled = styled.div<{color: string}>`
     padding: 5px;
     border-radius: 3px;
     margin: 0 3px;
+    color: black;
 `;
 
 export const BreadCrumb = ({ color, children }) => {

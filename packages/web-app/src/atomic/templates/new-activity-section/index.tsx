@@ -22,12 +22,12 @@ const SectionStyled = styled.section<{isBigScreen?: boolean, height: string}>`
         flex-direction: row;
     }
     padding-top: 20px;
-    span {
+    span.tooltip-button {
         display: inline-block;
         padding: 10px;
     }
     ${RightStyled} {
-        border-left: 1px solid white;
+        border-left: 1px solid ${({theme}) => theme.colors.text};
         width: 50%;
     }
     ${LeftStyled} {
@@ -69,7 +69,7 @@ export const Section = ({ children, name, height, tooltipText }: ISectionProps) 
 
     return (
         <SectionStyled isBigScreen={hasMounted && isBigScreen} height={height}>
-            <h6>{name}</h6><span>{tooltipText && <QuestionTooltip content={tooltipText}/>}</span>
+            <h6>{name}</h6><span className="tooltip-button">{tooltipText && <QuestionTooltip content={tooltipText}/>}</span>
             {header}
             <ContentContainer>
                 <LeftStyled >
