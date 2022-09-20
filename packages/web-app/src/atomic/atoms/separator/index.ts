@@ -1,14 +1,15 @@
 import styled from 'styled-components';
 
-export const Separator = styled.div`
+export const Separator = styled.div<{margins?: string}>`
   display: flex;
   align-items: center;
   text-align: center;
   width: 80%;
-  margin-right: 10%;
-  margin-left: 10%;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 10px ${({margins}) => margins ? margins : "10%"};
+  // margin-right: 10%;
+  // margin-left: 10%;
+  // margin-top: 10px;
+  // margin-bottom: 10px;
 
   :before,
   :after {

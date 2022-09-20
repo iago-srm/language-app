@@ -34,6 +34,7 @@ export interface IGoogleSignUpAPI {
     id: string;
     name: string;
     email: string;
+    image: string;
   }
   response: void;
 }

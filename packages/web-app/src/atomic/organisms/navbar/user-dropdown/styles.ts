@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const NavImageContainer = styled.div`
   height: 100%;
+  overflow: hidden;
   img {
     height: 100%;
   }

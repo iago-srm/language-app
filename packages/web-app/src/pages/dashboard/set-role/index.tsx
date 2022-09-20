@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router';
 
-import { Container as PageContainer } from './styles'
+import { Container as PageContainer, ButtonContainer } from './styles'
 import { getPageTitle } from '@services/browser';
 import { useLanguage, useAuth } from '@contexts';
 import { Translations, Labels } from '@locale';
 import {
-  Button,
+  FormButton as Button,
   Container,
   Row,
   Col,
@@ -25,7 +25,7 @@ const instructorDescription = 'Produza atividades para os seus estudantes aprend
 const SetRole: React.FC = () => {
 
   const router = useRouter();
-  const { user, isUserLoading, userError } = useAuth();
+  const { user, isUserLoading, userError, refreshUser } = useAuth();
   const { language } = useLanguage();
   const [selectedRole, setSelectedRole] = useState<'STUDENT' | 'INSTRUCTOR'>('STUDENT');
   const { updateUser } = useApiBuilder();
@@ -33,6 +33,7 @@ const SetRole: React.FC = () => {
 
   const handleClickSave = async () => {
     const { error } = await updateUser.apiCall({role: selectedRole});
+    refreshUser();
     console.log({error})
     if(error) setError(error.message);
   }
@@ -64,12 +65,16 @@ const SetRole: React.FC = () => {
             >
               Instrutor
             </SelectablePanel>
-            <Button
+          </Col>
+          </Row>
+          <Row className="justify-content-lg-center">
+          <Col xs lg="3" >
+          <Button
               loading={updateUser.loading}
               onClick={handleClickSave}
             >
-              Salvar
-            </Button>
+            Salvar
+          </Button>
           </Col>
         </Row></>}
         {user?.role && <SuccessAlert dismissible={false} response={<span>Cadastro completo. Acesse sua <AlertLink href='/dashboard'>página principal</AlertLink> de {user.role === 'INSTRUCTOR' ? 'instrutor' : 'estudante'}.</span>}/>}

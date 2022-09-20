@@ -20,11 +20,10 @@ import {
   
     constructor (
       private userRepository: IUserRepository,
-      private idService: IIdGenerator,
       private profileImageRepository: IProfileImageRepository
     ){}
   
-    async execute({ id, email, name }) {
+    async execute({ id, email, name, image }) {
   
       const existingUser = await this.userRepository.getUserByEmail(email);
   
@@ -32,9 +31,9 @@ import {
   
       const userDTO: UserDTO = {
         id,
-        email: email,
-        name: name,
-        image: this.profileImageRepository.getGenericImageUrl(),
+        email,
+        name,
+        image,
         emailVerified: true,
         tokenVersion: 0,
       };

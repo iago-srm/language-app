@@ -15,17 +15,16 @@ export default NextAuth({
   },
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
-      // console.log({
-      //   user, account, profile, email, credentials
-      // })
-      console.log(user.id, user.name, user.email)
+      // happens on sign-in of existing and new users
+      console.log("signin")
       try {
         await axios[GoogleSignUpHTTPDefinition.method]
           (`${process.env.NEXT_PUBLIC_AUTH_URL}/${GoogleSignUpHTTPDefinition.path}`,
           { 
             id: user.id,
             email: user.email,
-            name: user.name 
+            name: user.name,
+            image: user.image 
           });
       } catch(e) {
         console.log(e.response.data)
@@ -38,6 +37,7 @@ export default NextAuth({
       return baseUrl
     },
     async jwt({ user, token }) {
+      console.log("jwt")
       if(user) {
         let resp;
         try {

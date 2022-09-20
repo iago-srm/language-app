@@ -34,7 +34,7 @@ export const NavbarDropDown: React.FC<{
     <>
       <MediaQuery minWidth={responsiveBreakpoint}> {/** Big screen */}
         <Dropdown >
-          <Dropdown.Toggle style={{ backgroundColor: 'inherit', border: 'none', height: "100%" }}>
+          <Dropdown.Toggle style={{ backgroundColor: 'inherit', border: 'none', height: "100%", overflow: "hidden" }}>
             <NavImageContainer>
               <NavImg src={user?.image}/>
             </NavImageContainer>

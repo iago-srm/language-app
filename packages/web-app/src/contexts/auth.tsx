@@ -59,10 +59,6 @@ export function AuthProvider({ children }) {
   // const { mutate } = useSWRConfig();
   const [tokenHeaderSet, setTokenHeaderSet] = React.useState(false);
 
-  const refreshUser = () => {
-    mutateUser();
-  }
-
   const googleSignIn = React.useCallback(async () => {
     console.log("google");
     try {
@@ -97,7 +93,8 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     if(session) {
       handleAuthToken((session.token as { auth_token: string}).auth_token);
-      setTokenHeaderSet(true)
+      setTokenHeaderSet(true);
+      setIsAuthenticated(true);
     }
   }, [session]);
 
@@ -124,7 +121,7 @@ export function AuthProvider({ children }) {
     data: user,
     loading: userLoading,
     error: userError,
-    mutate: mutateUser
+    mutate: refreshUser
   } = useUser(tokenHeaderSet);
 
   // const [user, setUser] = useState<IGetUserAPIResponse>();
