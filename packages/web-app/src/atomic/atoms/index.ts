@@ -2,6 +2,7 @@ export * from './buttons';
 export * from './drawer-menu';
 export * from './error-loading-data';
 export * from './icons';
+export * from './input';
 export * from './input-icon';
 export * from './frame';
 export * from './layout';

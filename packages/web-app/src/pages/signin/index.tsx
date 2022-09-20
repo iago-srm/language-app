@@ -12,13 +12,9 @@ import {
   Form,
   Input,
   PasswordInput,
-  ConfirmPasswordInput,
-  Button,
+  FormButton as Button,
   Frame,
   Anchor,
-  Container,
-  Row,
-  Col,
   ErrorAlert,
   Separator
 } from '@atomic';
@@ -72,7 +68,7 @@ const LoginPage: React.FC = () => {
             <Anchor href={'/forgot-password'}>
               {Translations[language][Labels.FORGOT_PASSWORD_QUESTION]}
             </Anchor>
-            <Button type="submit" loading={credentialsSignIn.loading}>{Translations[language][Labels.SIGNIN]}</Button>
+            <Button loading={credentialsSignIn.loading}>{Translations[language][Labels.SIGNIN]}</Button>
           </Form>
           <Separator>{Translations[language][Labels.OR]}</Separator>
           <GoogleButton type={mode} onClick={handleGoogleSignIn} />

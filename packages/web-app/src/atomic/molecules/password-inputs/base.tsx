@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Icons, InputIcon } from '@atomic/atoms';
-import { Input } from '@atomic/molecules';
+import { Icons, InputIcon, Input } from '@atomic/atoms';
 
 export const BasePasswordInput = ({ label, placeholder, ...rest }) => {
     
