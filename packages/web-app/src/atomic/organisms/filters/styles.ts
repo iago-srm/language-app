@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const FiltersContainer = styled.div`
     display: grid;
     grid-template-columns: 2fr 4fr 1fr;
-    height: 10vh;
+    min-height: 10vh;
 
 `;
 

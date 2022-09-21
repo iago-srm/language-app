@@ -98,7 +98,7 @@ const Activities: React.FC = () => {
   const onChangeContentType = (e) => setActivity(s => ({...s, contentType: e.target.value}));
   const onChangeTitle = (e) => setActivity(s => ({...s, title: e.target.value}));
   const onChangeCEFR = (e) => setActivity(s => ({...s, cefr: e.value}));
-  const onChangeTopics = (e) => setActivity(s => {return {...s, topics: e}});
+  const onChangeTopics = (e) => setActivity(s =>  ({...s, topics: e}));
   const onChangeDescription = (e) => setActivity(s => ({...s, description: e.target.value}));
   const onChangeTextContent = (e) => setActivity(s => ({...s, content: {...s.content, text: e }}));
   const onChangeVideoContent = (e) => setActivity(s => ({...s, content: {...s.content, videoId: e.target.value}}));
@@ -139,7 +139,7 @@ const Activities: React.FC = () => {
           <TitleAndDetails 
             title={activity.title} 
             cefr={activity.cefr} 
-            topics={activity.topics.map(topic => topic.value)}
+            topics={activity.topics}
           />
         </Section.Right>
       </Section>

@@ -5,24 +5,26 @@ import { RadioMenu, BreadCrumb, CheckboxMenu } from '@atomic';
 import { TopicsColors, CEFRColors } from '@model';
 
 export const TopicsBreadCrumbs = {
-    "SCIENCE_&_TECHNOLOGY": () => (
+    "SCIENCE_&_TECHNOLOGY": ({ label }) => (
         <BreadCrumb color={TopicsColors["SCIENCE_&_TECHNOLOGY"]}>
-            Science & Technology
+            {label}
         </BreadCrumb>
     ),
-    "ARTS": () => (
+    "ARTS": ({ label }) => (
         <BreadCrumb color={TopicsColors["ARTS"]}>
-            Arts
+            {label}
         </BreadCrumb>
     ),
-    "CURRENT_AFFAIRS": () => (
+    "CURRENT_AFFAIRS": ({ label }) => (
         <BreadCrumb color={TopicsColors["CURRENT_AFFAIRS"]}>
-            Current Affairs
+            {label}
+            
         </BreadCrumb>
     ),
-    "SPORTS": () => (
+    "SPORTS": ({ label }) => (
         <BreadCrumb color={TopicsColors["SPORTS"]}>
-            Sports
+            {label}
+            
         </BreadCrumb>
     ),
 }
@@ -43,7 +45,11 @@ const CefrStyled = styled.h5<{cefr: string}>`
     min-width: 36px;
 `;
 
-
+interface ITitleAndDetailsProps {
+    title: string;
+    cefr: string;
+    topics: { label: string; value: string; }[];
+}
 export const TitleAndDetails = ({ title, cefr, topics }) => {
 
     return (
@@ -51,8 +57,8 @@ export const TitleAndDetails = ({ title, cefr, topics }) => {
             {title ? <TitleStyled>{title}</TitleStyled> : <TitlePlaceholder>Title</TitlePlaceholder>}
             {cefr && <CefrStyled cefr={cefr}>{"["}{cefr}{"]"}</CefrStyled>}
             {topics.map((topic,i) => {
-                const Component = TopicsBreadCrumbs[topic];
-                return <Component key={i}/>
+                const Component = TopicsBreadCrumbs[topic.value];
+                return <Component key={i} label={topic.label}/>
             })}
         </>
     )
@@ -108,7 +114,7 @@ export const Instructions = ({ instructions }) => {
                     />
                     :
                     <CheckboxMenu 
-                        value={undefined}
+                        values={undefined}
                         onChange={() => {}}
                         options={instruction.options.map(option => ({ value: option.id, label: option.text}))}
                         vertical={true}

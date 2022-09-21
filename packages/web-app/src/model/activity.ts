@@ -1,3 +1,6 @@
+import { Translations, Labels } from '@locale';
+import { DomainRules } from '@language-app/common-core';
+
 export enum InstructionType {
     OPTIONS = "options",
     TEXT = "text",
@@ -31,4 +34,14 @@ export enum TopicsColors {
     'ARTS' = "pink",
     "CURRENT_AFFAIRS" = "#C6DC93", 
     'SPORTS' = "#FFD9AD"
+}
+
+export const getLabeledTopics = (language) => {
+    const topicsLabels = {
+        "SCIENCE_&_TECHNOLOGY": Translations[language][Labels['SCIENCE_&_TECHNOLOGY']],
+        "CURRENT_AFFAIRS": Translations[language][Labels["CURRENT_AFFAIRS"]],
+        "SPORTS": Translations[language][Labels.SPORTS],
+        "ARTS": Translations[language][Labels.ARTS]
+    }
+    return DomainRules.ACTIVITY.TOPICS.map(topic => ({ label: topicsLabels[topic], value: topic }))
 }

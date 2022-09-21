@@ -6,7 +6,7 @@ import {
 } from './styles';
 import { useEffect, useState } from 'react';
 import MediaQuery, { useMediaQuery } from 'react-responsive';
-import { TopicsSelect, CEFRSelect, Input } from '@atomic';
+import { TopicsSelect, CEFRSelect, Input, CheckboxMenu } from '@atomic';
 import { 
   Icons
 } from '@atomic/atoms';
@@ -35,6 +35,7 @@ export const ActivityFilters = ({ setFilters, filters}) => {
           <FilterContainer><Input placeholder='Título' onChange={(e) => setFilters(filters => ({...filters, title: (e.target as any).value}))} value={filters.title} /></FilterContainer>
           <FilterContainer><TopicsSelect onChange={(vals) => {setFilters(f => ({...f, topics: vals.map(v => v.value)}))}} value={filters.topics.map(v => v.value)}/></FilterContainer>
           <FilterContainer><CEFRSelect onChange={(val) => {setFilters(f => ({...f, cefr: val}))}} value={filters.cefr}/></FilterContainer>
+
         </FiltersDrawer>}
       </MediaQuery>
       <MediaQuery minWidth={responsiveBreakpoint}>
@@ -42,6 +43,13 @@ export const ActivityFilters = ({ setFilters, filters}) => {
           <FilterContainer><Input placeholder='Título' onChange={(e) => setFilters(filters => ({...filters, title: (e.target as any).value}))} value={filters.title}/></FilterContainer>
           <FilterContainer><TopicsSelect onChange={(vals) => {setFilters(f => ({...f, topics: vals}))}} value={filters.topics}/></FilterContainer>
           <FilterContainer><CEFRSelect onChange={(val) => {setFilters(f => ({...f, cefr: val}))}} value={filters.cefr}/></FilterContainer>
+          <FilterContainer>
+            <CheckboxMenu 
+              values={filters.types}
+              onChange={(vals) => { setFilters(f => ({...f, types: vals}))}}
+              options={[{ value: "TEXT", label: "Texto"}, { value: "VIDEO", label: "Video"}]}
+            />
+          </FilterContainer>
         </FiltersContainer>
       </MediaQuery>
     </>

@@ -25,5 +25,10 @@ export const Portuguese = {
 
   [Labels.SEND]: 'Salvar',
   [Labels.OR]: 'Ou',
-  [Labels.FORGOT_PASSWORD_QUESTION]: 'Esqueceu a Senha?'
+  [Labels.FORGOT_PASSWORD_QUESTION]: 'Esqueceu a Senha?',
+
+  [Labels['SCIENCE_&_TECHNOLOGY']]: "Ciência & Tecnologia",
+  [Labels['CURRENT_AFFAIRS']]: "Atualidades",
+  [Labels['ARTS']]: "Artes",
+  [Labels['SPORTS']]: "Esportes",
 }

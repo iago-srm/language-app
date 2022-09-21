@@ -11,12 +11,23 @@ export const CheckboxFormStyled = styled.form<{vertical: boolean}>`
 `;
 
 interface ICheckboxProps {
-    value: string;
-    onChange: () => any;
+    values: string[];
+    onChange: (args?: any) => any;
     options: { value: string, label: string }[];
     vertical?: boolean;
 }
-export const CheckboxMenu = ({ value, onChange, options, vertical }: ICheckboxProps) => {
+export const CheckboxMenu = ({ values, onChange, options, vertical }: ICheckboxProps) => {
+    const onClick = (e) => {
+        const { value } = e.target;
+        if(values.includes(value)) {
+            const newValues = [...values];
+            newValues.splice(values.findIndex(v => v === value),1);
+            onChange(newValues);
+        } 
+        else {
+            onChange([...values, value]);
+        }
+    }
     return (
         <CheckboxFormStyled vertical={vertical}>
         {options.map((option, i) => (
@@ -24,8 +35,8 @@ export const CheckboxMenu = ({ value, onChange, options, vertical }: ICheckboxPr
                 <input
                 type="checkbox"
                 value={option.value}
-                checked={value && value.includes(option.value)}
-                onChange={onChange}
+                checked={values && values.includes(option.value)}
+                onChange={onClick}
                 />
                 {option.label}
             </label>

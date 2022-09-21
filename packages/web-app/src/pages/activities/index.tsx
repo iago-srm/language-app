@@ -8,6 +8,8 @@ import { useLanguage, useAuth } from '@contexts';
 import { Translations, Labels } from '@locale';
 import { useApiBuilder } from '@services/api';
 import { LoadingErrorData, ActivityFilters as Filters } from '@atomic';
+import { DomainRules } from '@language-app/common-core';
+import { getLabeledTopics } from '@model';
 
 const Activities: React.FC = () => {
 
@@ -15,9 +17,10 @@ const Activities: React.FC = () => {
   const { user } = useAuth();
 
   const [filters, setFilters] = useState({
-    cefr: user && user.cefr,
+    cefr: user && user.cefr || "A1",
     title: "",
-    topics: [],
+    topics: getLabeledTopics(language),
+    types: ['TEXT', 'VIDEO']
   });
 
   const {
