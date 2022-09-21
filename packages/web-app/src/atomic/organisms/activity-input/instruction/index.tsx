@@ -1,50 +1,21 @@
-import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { 
     RadioMenu,
-    Button
+    FormButton,
+    Modal,
+    Icons,
+    Separator,
+    NewItemButton
 } from '@atomic';
-import { Icons } from '@atomic/atoms';
-import { Modal } from '@atomic/molecules';
 import {
     InstructionType,
     Instruction
-  } from '@model';
-
-
-  const NewItemButtonStyled = styled.button`
-    width: 100%;
-    span {
-        font-size: 1.2rem;
-    }
-`;
-
-const NewItemButton = ({ children, ...rest }) => {
-    return (
-        <NewItemButtonStyled {...rest}>
-            <span>+</span>
-            {children}
-        </NewItemButtonStyled>
-    )
-}
-
-const InstructionModalContentContainer = styled.div`
-    textarea {
-        width: 80%;
-        padding: 10px;
-        margin: 10px;
-        display: block;
-    }
-    & > label {
-        display: block;
-    }
-`;
-
-const OptionsContainer = styled.div`
-    & > label {
-        cursor: pointer;
-    }
-`;
+} from '@model';
+import {
+    InstructionModalContentContainer,
+    OptionsContainer,
+    ButtonsContainer
+} from './styles';
 
 interface IInstructionModalProps {
     onClose: () => any;
@@ -80,7 +51,12 @@ export const InstructionModal = ({
         if(instructionUnderEdit && !instruction.text) {
             alert("Instrução não pode ter texto vazio. Se deseja removê-la, clique no botão de remover.");
             return;
-        } else if(instruction.text) {
+        }
+        if(!instruction.text) {
+            alert("Instrução não pode ter texto vazio. Para cancelar a criação, clique em cancelar.");
+            return;
+        } 
+        else if(instruction.text) {
             const instructionToSend = instruction.id ? instruction : {...instruction, id: Date.now()};
             if(instructionToSend.type === InstructionType.TEXT) instructionToSend.options = undefined;
             setUpstreamInstruction(instructionToSend);
@@ -177,17 +153,20 @@ export const InstructionModal = ({
                 </>
                 :
                 <>
+                    <h6>Sugestão de resposta</h6>
                     <textarea value={instruction.answer} onChange={(e) => onChangeInstructionAnswer(e.target.value)}/>
                 </>
             }
             </InstructionModalContentContainer>
-          {/* <p>{JSON.stringify(instructionUnderEdit)}</p> */}
-          <Button variant="secondary" onClick={onClose}>
+        <ButtonsContainer>
+          <FormButton variant="secondary" onClick={onClose}>
             Cancelar
-          </Button>
-          <Button variant="primary" onClick={saveChanges}>
+          </FormButton>
+          <FormButton variant="primary" onClick={saveChanges}>
             Salvar alterações
-          </Button>
+          </FormButton>
+        </ButtonsContainer>
+
         </Modal>
     )
 }

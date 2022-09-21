@@ -1,6 +1,7 @@
 export * from './activity-card';
 export * from './activity-display';
 export * from './activity-input';
+export * from './checkbox-menu';
 export * from './editable-options';
 export * from './editor';
 export * from './filters';

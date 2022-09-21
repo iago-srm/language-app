@@ -12,7 +12,8 @@ import {
   ProfileImg,
   LoadingErrorData,
   ProfileImageModal,
-  Anchor
+  Anchor,
+  Toast
 } from '@atomic';
 import { ResponsiveCenteredPageContent } from '@styles';
 
@@ -41,13 +42,15 @@ const Profile: React.FC = () => {
               <PStyled>Olá, {user.name}</PStyled>
               <ProfileImg src={user.image} onClick={() => setModalVisible(true)}/>
               {modalVisible &&
-                <ProfileImageModal onClose={() => setModalVisible(false)} user={user}/>
+                <ProfileImageModal onClose={() => setModalVisible(false)} image={user.image}/>
               }
               <PStyled>{user.role ? `Eu sou ${user.role}` : <Anchor href="/dashboard/set-role">Complete seu cadastro</Anchor>}</PStyled>
             </div>
           }
         </LoadingErrorData>
       </ResponsiveCenteredPageContent>
+      <Toast/>
+
     </PageContainer>
   )
 }

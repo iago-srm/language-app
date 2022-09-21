@@ -28,10 +28,10 @@ const SectionStyled = styled.section<{isBigScreen?: boolean, height: string}>`
     }
     ${RightStyled} {
         border-left: 1px solid ${({theme}) => theme.colors.text};
-        width: 50%;
+        width: 60%;
     }
     ${LeftStyled} {
-        width: ${({isBigScreen}) => isBigScreen ? "50%" : "100%"};
+        width: ${({isBigScreen}) => isBigScreen ? "40%" : "100%"};
         height: ${({height}) => height};
     }
     h6 {

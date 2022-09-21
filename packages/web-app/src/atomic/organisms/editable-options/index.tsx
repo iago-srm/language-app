@@ -1,24 +1,6 @@
-import styled from 'styled-components';
 import { Icons } from '@atomic/atoms';
 import { NewItemButton, SquareButton } from '@atomic';
-
-
-export const EditableOptionContainer = styled.div`
-    display: flex;
-    p {
-        margin: 0;
-        padding: 2px 5px;
-        line-height: 30px;
-        width: 90%;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
-    }
-    button {
-        font-size: 1.2rem;
-        padding: 3px;
-    }
-`;
+import { EditableOptionContainer } from './styles';
 
 export const EditableOption = ({ text, onClickEdit, onClickRemove, item }) => {
     return (

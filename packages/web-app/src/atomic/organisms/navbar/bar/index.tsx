@@ -61,7 +61,7 @@ export const Navbar = () => {
     if(hasMounted && isAuthenticated) return (
       <Container>
         <NavbarButton path='/dashboard' labelName="DASHBOARD" highlighted={currentPath === '/dashboard'}/>
-        <Separator margins="7%"/>
+        {/* <Separator margins="7%"/> */}
         <NavbarDropDown user={user} onSignOut={handleSignOut} />
       </Container>
     )

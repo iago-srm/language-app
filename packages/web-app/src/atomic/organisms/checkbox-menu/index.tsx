@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const RadioMenuFormStyled = styled.form<{vertical: boolean}>`
+export const CheckboxFormStyled = styled.form<{vertical: boolean}>`
     label {
         display: ${({vertical}) => vertical ? 'block' : 'inline-block'};
         padding: 3px 11px;
@@ -10,26 +10,26 @@ export const RadioMenuFormStyled = styled.form<{vertical: boolean}>`
     }
 `;
 
-interface IRadioMenuProps {
+interface ICheckboxProps {
     value: string;
     onChange: () => any;
     options: { value: string, label: string }[];
     vertical?: boolean;
 }
-export const RadioMenu = ({ value, onChange, options, vertical }: IRadioMenuProps) => {
+export const CheckboxMenu = ({ value, onChange, options, vertical }: ICheckboxProps) => {
     return (
-        <RadioMenuFormStyled vertical={vertical}>
+        <CheckboxFormStyled vertical={vertical}>
         {options.map((option, i) => (
             <label key={i}>
                 <input
-                type="radio"
+                type="checkbox"
                 value={option.value}
-                checked={value === option.value}
+                checked={value && value.includes(option.value)}
                 onChange={onChange}
                 />
                 {option.label}
             </label>
         ))}
-      </RadioMenuFormStyled>
+      </CheckboxFormStyled>
     )
 }

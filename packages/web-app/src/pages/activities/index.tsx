@@ -6,19 +6,18 @@ import {
 import { getPageTitle } from '@services/browser';
 import { useLanguage, useAuth } from '@contexts';
 import { Translations, Labels } from '@locale';
-import { DomainRules } from '@language-app/common-core';
 import { useApiBuilder } from '@services/api';
 import { LoadingErrorData, ActivityFilters as Filters } from '@atomic';
 
 const Activities: React.FC = () => {
 
   const { language } = useLanguage();
-  const { user, tokenHeaderSet } = useAuth();
+  const { user } = useAuth();
 
   const [filters, setFilters] = useState({
     cefr: user && user.cefr,
     title: "",
-    topics: DomainRules.ACTIVITY.TOPICS,
+    topics: [],
   });
 
   const {

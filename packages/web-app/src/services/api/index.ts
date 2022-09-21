@@ -83,7 +83,7 @@ export const useApiBuilder = () => {
   const uploadProfileImage = useApiCall<any, any>
     ((args) => authFetcher[UpdateProfileImageHTTPDefinition.method](UpdateProfileImageHTTPDefinition.path, args));
 
-  const useUser = (canFetch: boolean) => useApiCallSWR<IGetUserAPIResponse>(canFetch && GetUserHTTPDefinition.path,authFetcher[GetUserHTTPDefinition.method].bind(authFetcher));
+  const useUser = (canFetch: boolean) => useApiCallSWR<IGetUserAPIResponse>(canFetch && GetUserHTTPDefinition.path,authFetcher[GetUserHTTPDefinition.method].bind(authFetcher), { revalidateOnFocus: false });
 
   const forgotPasswordRequest = useApiCall<IForgotPasswordParams, IForgotPasswordResponse>
     (({ email }) => authFetcher[ForgotPasswordRequestHTTPDefinition.method](ForgotPasswordRequestHTTPDefinition.path, { email }))

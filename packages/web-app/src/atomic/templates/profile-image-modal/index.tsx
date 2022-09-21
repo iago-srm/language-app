@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Modal, Button, Toast, successToast, errorToast } from '@atomic';
 import styled from 'styled-components';
 import { useApiBuilder } from '@services/api';
@@ -20,7 +20,7 @@ const ModalContentStyled = styled.div`
 
 `;
 
-export const ProfileImageModal = ({ onClose, user }) => {
+export const ProfileImageModal = ({ onClose, image }) => {
 
   const [selectedFile, setSelectedFile] = useState();
   const { uploadProfileImage } = useApiBuilder();
@@ -30,7 +30,7 @@ export const ProfileImageModal = ({ onClose, user }) => {
     setSelectedFile(e.target.files[0]);
   }
 
-  const onFileUpload = async () => {
+  const onFileUpload = useCallback(async () => {
     const formData = new FormData();
     formData.append(
       'profile-image',
@@ -39,17 +39,17 @@ export const ProfileImageModal = ({ onClose, user }) => {
     const response = await uploadProfileImage.apiCall(formData);
     if(response.error) errorToast(response.error.message);
     else {
+      setTimeout(() => successToast('Imagem alterada com sucesso'), 0);
       refreshUser();
-      successToast('Imagem alterada com sucesso');
     }
-  }
+  }, [selectedFile]);
 
   return (
     <Modal onClose={onClose}>
       <ModalContentStyled>
         <h4>Escolha uma foto de perfil</h4>
         <div className='img-container'>
-          <img src={(selectedFile && URL.createObjectURL(selectedFile)) || user.image}/>
+          <img src={(selectedFile && URL.createObjectURL(selectedFile)) || image}/>
         </div>
         <br/>
         <input type="file" onChange={onFileChange} accept="image/png, image/jpeg"/>
@@ -58,7 +58,6 @@ export const ProfileImageModal = ({ onClose, user }) => {
           Salvar
         </Button>
       </ModalContentStyled>
-      <Toast/>
     </Modal>
   )
 }

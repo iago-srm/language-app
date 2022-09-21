@@ -4,14 +4,16 @@ import {
   Container as PageContainer, 
   CefrSelectContainer, 
   DescriptionTextAreaContainer,
-  TopicsSelectContainer
+  TopicsSelectContainer,
+  TitleInputContainer,
+  SubmitButtonContainer
 } from './styles';
 import { getPageTitle } from '@services/browser';
 import { useLanguage } from '@contexts';
 import { Translations, Labels } from '@locale';
 import { useApiBuilder } from '@services/api';
 import { 
-  Input, 
+  TitleInput, 
   CustomEditor, 
   TitleAndDetails, 
   CEFRSelect,
@@ -24,7 +26,8 @@ import {
   EditableOptions,
   InstructionModal,
   Section,
-  Button
+  FormButton,
+  VideoIdInput
 } from '@atomic';
 import { useMediaQuery } from 'react-responsive';
 import {
@@ -56,7 +59,7 @@ const Activities: React.FC = () => {
     startTime: 0,
     endTime: 0,
     content: {
-      video: "",
+      videoId: "",
       text: ""
     },
     contentType: "TEXT",
@@ -98,7 +101,7 @@ const Activities: React.FC = () => {
   const onChangeTopics = (e) => setActivity(s => {return {...s, topics: e}});
   const onChangeDescription = (e) => setActivity(s => ({...s, description: e.target.value}));
   const onChangeTextContent = (e) => setActivity(s => ({...s, content: {...s.content, text: e }}));
-  const onChangeVideoContent = (e) => setActivity(s => ({...s, content: {...s.content, video: e.target.value}}));
+  const onChangeVideoContent = (e) => setActivity(s => ({...s, content: {...s.content, videoId: e.target.value}}));
   const onChangeStartTime = (e) => setActivity(s => ({...s, startTime: e.target.value }));
   const onChangeEndTime = (e) => setActivity(s => ({...s, endTime: e.target.value }));
   const onCloseInstructionModal = () => {
@@ -122,17 +125,14 @@ const Activities: React.FC = () => {
 
       <Section name="Title and Details" tooltipText='Explicações'>
         <Section.Left>
-            <Input 
-              placeholder="Title" 
-              width="80%" 
-              value={activity.title} 
-              onChange={onChangeTitle}
-            />
+          <TitleInputContainer>
+            <TitleInput value={activity.title} onChange={onChangeTitle}/>
+          </TitleInputContainer>
           <CefrSelectContainer>
             <CEFRSelect value={{ label: activity.cefr, value: activity.cefr }} onChange={onChangeCEFR}/>
           </CefrSelectContainer>
           <TopicsSelectContainer>
-          <TopicsSelect onChange={onChangeTopics} value={activity.topics}/>
+            <TopicsSelect onChange={onChangeTopics} value={activity.topics}/>
           </TopicsSelectContainer>
         </Section.Left>
         <Section.Right>
@@ -182,10 +182,8 @@ const Activities: React.FC = () => {
           : 
           <Section.Content>
             <Section.Left>
-              <Input 
-                placeholder="Youtube URL" 
-                width="85%" 
-                value={activity.content.video} 
+              <VideoIdInput 
+                value={activity.content.videoId} 
                 onChange={onChangeVideoContent}
               />
               <br/>
@@ -201,7 +199,11 @@ const Activities: React.FC = () => {
               />
             </Section.Left>
             <Section.Right>
-              <VideoContent url={activity.content.video}/>
+              <VideoContent 
+                youtubeId={activity.content.videoId}
+                start={activity.startTime} 
+                end={activity.endTime} 
+              />
             </Section.Right>
           </Section.Content>
         }
@@ -225,9 +227,11 @@ const Activities: React.FC = () => {
           onClose={onCloseInstructionModal}
           setUpstreamInstruction={setInstruction}
         />}
-      <Button onClick={() => console.log(activity)}>
-        Salvar
-      </Button>
+      <SubmitButtonContainer>
+        <FormButton onClick={() => console.log(activity)}>
+          Salvar
+        </FormButton>
+      </SubmitButtonContainer>
     </PageContainer>
   )
 }

@@ -24,5 +24,11 @@ export const TopicsSelectContainer = styled.section`
     padding-top: 10px;
 `;
 
+export const TitleInputContainer = styled.section`
+    width: 80%;
+`;
 
-
+export const SubmitButtonContainer = styled.div`
+    width: 60%;
+    margin: 10px auto;
+`;

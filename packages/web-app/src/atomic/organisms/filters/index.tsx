@@ -33,7 +33,7 @@ export const ActivityFilters = ({ setFilters, filters}) => {
         </FiltersDrawerMenu>
         {drawerOpen && <FiltersDrawer>
           <FilterContainer><Input placeholder='Título' onChange={(e) => setFilters(filters => ({...filters, title: (e.target as any).value}))} value={filters.title} /></FilterContainer>
-          <FilterContainer><TopicsSelect onChange={(vals) => {setFilters(f => ({...f, topics: vals}))}} value={filters.topics}/></FilterContainer>
+          <FilterContainer><TopicsSelect onChange={(vals) => {setFilters(f => ({...f, topics: vals.map(v => v.value)}))}} value={filters.topics.map(v => v.value)}/></FilterContainer>
           <FilterContainer><CEFRSelect onChange={(val) => {setFilters(f => ({...f, cefr: val}))}} value={filters.cefr}/></FilterContainer>
         </FiltersDrawer>}
       </MediaQuery>
