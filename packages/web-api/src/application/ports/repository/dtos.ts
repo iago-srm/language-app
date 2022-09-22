@@ -22,6 +22,12 @@ export interface InstructorDTO {
   userId: string;
 }
 
+export interface StudentDTO {
+  id: string;
+  userId: string;
+  cefr: CEFR;
+}
+
 export interface InstructionAnswerDTO {
 
 }

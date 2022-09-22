@@ -8,7 +8,7 @@ import { PrismaClient } from '@prisma-client';
 
 export class ActivityRepository implements IActivityRepository {
   prisma: PrismaClient;
-  private _pageSize = 2;
+  private _pageSize = 20;
 
   constructor() {
     this.prisma = new PrismaClient();
@@ -27,8 +27,12 @@ export class ActivityRepository implements IActivityRepository {
     instructorId,
     cursor,
     title,
-    cefr
+    topics,
+    cefr,
+    contentType,
+    ids
   }) {
+    console.log(ids)
     return this.prisma.activity.findMany({
       take: this._pageSize,
       ...this._paginate(cursor),
@@ -36,7 +40,10 @@ export class ActivityRepository implements IActivityRepository {
         AND: [
           { title: { contains: title }},
           { cefr },
-          { instructorId }
+          { instructorId },
+          { topics: { hasSome: topics }},
+          { contentType },
+          ids ? { id: { in: ids }} : undefined
         ]
       },
       select: {
@@ -51,36 +58,35 @@ export class ActivityRepository implements IActivityRepository {
     })
   }
 
-  // getActivitiesByInstructorId(
-  //   instructorId: string,
-  //   cursor: number,
-  //   title?: string,
-  //   cefr?: CEFR
-  // ) {
-  //   return this.prisma.activity.findMany({
-  //     take: this._pageSize,
-  //     skip: 1,
-  //     cursor: {
-  //       id: cursor
-  //     },
-  //     where: {
-  //       AND: [
-  //         { title: { contains: title }},
-  //         { cefr },
-  //         { instructorId }
-  //       ]
-  //     },
-  //     orderBy: {
-  //       id: 'asc',
-  //     },
-  //     select: {
-  //       title: true,
-  //       contentType: true,
-  //       topics: true,
-  //       cefr: true
-  //     }
-  //   })
-  // }
+  async getActivitiesByStudentProgress(studentId: string, completed: boolean) {
+    return (await this.prisma.activitiesInProgress.findMany({
+      where: {
+        studentId,
+        completed
+      },
+      select: {
+        activityId: true
+      }
+    })).map(({ activityId }) => activityId);
+  }
+
+  async insertActivityProgress(studentId: string, activityId: number, completed: boolean) {
+    await this.prisma.activitiesInProgress.create({
+      data: {
+        student: {
+          connect: {
+            id: studentId
+          }
+        },
+        activity: {
+          connect: {
+            id: activityId
+          }
+        },
+        completed
+      }
+    })
+  }
 
   getActivityById(id: number) {
     return this.prisma.activity.findUnique({

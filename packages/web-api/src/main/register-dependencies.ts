@@ -8,6 +8,7 @@ import {
   NewActivityUseCase,
   NewStudentOutputUseCase,
   NewUserUseCase,
+  ChangeActivityProgressStatusUseCase
 } from '@application/use-cases';
 import {
   GetActivitiesControllerFactory,
@@ -16,13 +17,15 @@ import {
   NewActivityControllerFactory,
   NewActivityInstructionControllerFactory,
   NewStudentOutputControllerFactory,
-  NewUserControllerFactory
+  NewUserControllerFactory,
+  ChangeActivityProgressStatusControllerFactory
 } from '@adapters/REST-controllers';
 import {
   ActivityRepository,
   StudentOutputRepository,
   UserRepository,
-  InstructorRepository
+  InstructorRepository,
+  StudentRepository
 } from '@adapters/repositories';
 import {
 } from '@adapters/services';
@@ -47,6 +50,7 @@ export const registerDependencies = (container: awilix.AwilixContainer) => {
     [Dependencies.NEWSTUDENTOUTPUTCONTROLLER]: awilix.asFunction(NewStudentOutputControllerFactory),
     [Dependencies.NEWUSERCONTROLLER]: awilix.asFunction(GetStudentOutputControllerFactory),
     [Dependencies.NEWUSERCONTROLLER]: awilix.asFunction(NewUserControllerFactory),
+    "changeActivityProgressStatusControllerFactory": awilix.asFunction(ChangeActivityProgressStatusControllerFactory),
 
     // services
     [Dependencies.ENCRYPTIONSERVICE]: awilix.asClass(BCryptEncryptionService),
@@ -67,11 +71,13 @@ export const registerDependencies = (container: awilix.AwilixContainer) => {
     'newActivityUseCase': awilix.asClass(NewActivityUseCase).classic(),
     'newStudentOutputUseCase': awilix.asClass(NewStudentOutputUseCase).classic(),
     [Dependencies.NEWUSERUSECASE]: awilix.asClass(NewUserUseCase).classic(),
+    'changeActivityProgressStatusUseCase': awilix.asClass(ChangeActivityProgressStatusUseCase).classic(),
 
     // repositories
     [Dependencies.ACTIVITYREPOSITORY]: awilix.asClass(ActivityRepository),
     [Dependencies.USERREPOSITORY]: awilix.asClass(UserRepository),
     'studentOutputRepository': awilix.asClass(StudentOutputRepository),
     'instructorRepository': awilix.asClass(InstructorRepository),
+    'studentRepository': awilix.asClass(StudentRepository),
   })
 }

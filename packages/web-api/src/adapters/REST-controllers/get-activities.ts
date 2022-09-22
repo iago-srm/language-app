@@ -21,11 +21,19 @@ export const GetActivitiesControllerFactory = ({
     const {
       title,
       cefr,
+      topics,
+      contentType,
+      isInProgress,
+      isComplete,
       cursor
     } = controllerSerializer(query, [
       { name: 'title', optional: true }, 
       { name: 'cefr', optional: true }, 
-      { name: 'cursor', optional: true }
+      { name: 'cursor', optional: true },
+      { name: 'topics', optional: true, type: "array" },
+      { name: 'contentType', optional: true },
+      { name: 'isInProgress', optional: true },
+      { name: 'isComplete', optional: true },
     ]);
 
     const { id, role } = user;
@@ -38,9 +46,14 @@ export const GetActivitiesControllerFactory = ({
     if(role === 'STUDENT') {
       console.log("student activities")
       resp = await getStudentActivitiesUseCase.execute({
+        userId: id,
         cursor: cursor && Number(cursor),
         title,
-        cefr
+        cefr,
+        topics,
+        contentType,
+        isInProgress: isInProgress && true,
+        isComplete: isComplete && true,
       });
     } else {
       console.log("instructor activities")

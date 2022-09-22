@@ -8,6 +8,7 @@ import NewActivityUseCase, { INewActivityUseCase } from './new-activity';
 import NewStudentOutputUseCase, { INewStudentOutputUseCase } from './new-student-output';
 import NewUserUseCase, { INewUserUseCase } from './new-user';
 
+import ChangeActivityProgressStatusUseCase, { IChangeActivityProgressStatusUseCase } from './change-activity-progress-status';
 
 export {
   GetStudentActivitiesUseCase,
@@ -25,6 +26,8 @@ export {
   NewStudentOutputUseCase,
   INewStudentOutputUseCase,
   NewUserUseCase,
-  INewUserUseCase
+  INewUserUseCase,
+  ChangeActivityProgressStatusUseCase,
+  IChangeActivityProgressStatusUseCase
 }
 

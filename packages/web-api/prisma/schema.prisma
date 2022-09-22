@@ -55,8 +55,8 @@ model Student {
 
   cefr    CefrValues?
 
-  activitiesStarted Activity[]
   outputs StudentOutput[]
+  activitiesInProgress ActivitiesInProgress[]
 
   user User @relation(fields: [userId], references: [id])
   userId String @unique
@@ -123,8 +123,8 @@ model Activity {
 
   feedbacks FeedbackToActivity[]
   instructions ActivityInstruction[]
-  studentsStartedThis Student[]
   outputs StudentOutput[]
+  inProgress ActivitiesInProgress[]
 
   instructor   Instructor @relation(fields: [instructorId], references: [id])
   instructorId String
@@ -141,6 +141,19 @@ model StudentOutput {
   activity   Activity? @relation(fields: [activityId], references: [id])
   activityId Int?
   Student           Student?        @relation(fields: [studentId], references: [id])
+  studentId         String?
+}
+
+model ActivitiesInProgress {
+  id        Int   @id @unique @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  completed Boolean
+
+  activity   Activity? @relation(fields: [activityId], references: [id])
+  activityId Int?
+  student           Student?        @relation(fields: [studentId], references: [id])
   studentId         String?
 }
 //writing "version ActivityVersion" autocompletes the id, the @s and the one-to-many in the other table

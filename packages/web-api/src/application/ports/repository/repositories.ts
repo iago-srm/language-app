@@ -4,30 +4,24 @@ import {
   CEFR,
   UserDTO,
   StudentOutputDTO,
-  InstructorDTO
+  InstructorDTO,
+  StudentDTO
 } from '.';
 
 type GetActivitiesInput = {
   instructorId?: string,
   cursor?: number,
   title?: string,
-  cefr?: CEFR
+  cefr?: CEFR,
+  topics?: string[],
+  contentType?: string,
+  ids?: number[];
 }
 
 export interface IActivityRepository {
   getActivities: (args: GetActivitiesInput) => Promise<Partial<ActivityDTO>[]>;
-  // getActivitiesByStudentId: (
-  //   cursor: number,
-  //   studentId: string,
-  //   title?: string,
-  //   cefr?: CEFR
-  // ) => Promise<Partial<ActivityDTO>[]>;
-  // getActivitiesByInstructorId: (
-  //   instructorId: string,
-  //   cursor?: number, //in first query, there is no cursor
-  //   title?: string,
-  //   cefr?: CEFR,
-  // ) => Promise<Partial<ActivityDTO>[]>;
+  getActivitiesByStudentProgress: (studentId: string, completed: boolean) => Promise<number[]>;
+  insertActivityProgress: (studentId: string, activityId: number, completed: boolean) => Promise<void>;
   getActivityById: (id: number) => Promise<ActivityDTO>;
   insertActivity: (instructorId: string, activity: ActivityDTO) => Promise<ActivityDTO>;
   insertNewInstructions: (activityId: number, instructions: ActivityInstructionDTO[]) => Promise<Partial<ActivityInstructionDTO>[]>;
@@ -41,6 +35,10 @@ export interface IUserRepository {
 
 export interface IInstructorRepository {
   getInstructorByUserId: (userId:string) => Promise<InstructorDTO>;
+}
+
+export interface IStudentRepository {
+  getStudentByUserId: (userId:string) => Promise<StudentDTO>;
 }
 
 export interface IStudentOutputRepository {
