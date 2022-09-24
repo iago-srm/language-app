@@ -1,8 +1,9 @@
 import {
-  IUserRepository
+  IUserRepository,
+  IAuthEventQueue
 } from '../ports';
 import {
-  IUseCase
+  IUseCase,
 } from '@language-app/common-platform';
 import { ITokenContent } from '@language-app/common-core';
 
@@ -14,17 +15,24 @@ export type ISignOutUseCase = IUseCase<InputParams, Return>;
 class UseCase implements ISignOutUseCase {
 
   constructor(
-    private userRepository: IUserRepository
+    private userRepository: IUserRepository,
+    private authEventQueue: IAuthEventQueue
   ){}
 
   async execute ({ id, tokenVersion }) {
     const userDTO = await this.userRepository.getUserById(id);
 
+    const newTokenVersion = tokenVersion + 1;
     if(userDTO.tokenVersion === tokenVersion) {
       await this.userRepository.updateUser(id, {
-        tokenVersion: tokenVersion + 1
+        tokenVersion: newTokenVersion
       })
     }
+
+    await this.authEventQueue.signOutUser({
+      authApiId: id,
+      tokenVersion: newTokenVersion
+    });
   }
 
 };

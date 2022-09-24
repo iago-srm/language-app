@@ -6,3 +6,4 @@ export * from './new-activity-instruction';
 export * from './new-student-output';
 export * from './new-user';
 export * from './change-activity-progress-status';
+export * from './signout-user';

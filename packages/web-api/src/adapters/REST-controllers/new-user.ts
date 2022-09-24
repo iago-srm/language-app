@@ -16,18 +16,21 @@ export const NewUserControllerFactory = ({
   const fn: IHTTPController = async (_, body) => {
 
     const {
-      id,
+      authApiId,
       name,
       email,
       role,
       tokenVersion
-    } = controllerSerializer(body, ['id', 'name', 'email', 'role', 'tokenVersion']);
+    } = controllerSerializer(body, ['authApiId', 'name', 'email', 'role', 'tokenVersion']);
 
     if(isNaN(Number(tokenVersion)))   
       throw new Error(`Invalid Token Version: ${tokenVersion}`);
 
     await newUserUseCase.execute({ 
-      userId: id, name, email, role, 
+      authApiId: authApiId, 
+      name, 
+      email, 
+      role, 
       tokenVersion: Number(tokenVersion) 
     });
 

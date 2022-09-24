@@ -36,6 +36,7 @@ import {
         image,
         emailVerified: true,
         tokenVersion: 0,
+        provider: "google"
       };
   
       await this.userRepository.insertUser(userDTO);

@@ -28,9 +28,11 @@ export interface IActivityRepository {
 }
 
 export interface IUserRepository {
-  insertUserAndStudent: (user: Partial<UserDTO>, userId: string, studentId: string) => Promise<UserDTO>;
-  insertUserAndInstructor: (user: Partial<UserDTO>, userId: string, instructorId: string) => Promise<UserDTO>;
+  insertUserAndStudent: (user: Partial<UserDTO>, newId: string) => Promise<UserDTO>;
+  insertUserAndInstructor: (user: Partial<UserDTO>, newId: string) => Promise<UserDTO>;
   getUserById: (id: string) => Promise<UserDTO>;
+  getUserByAuthApiId: (authApiId: string) => Promise<UserDTO>;
+  updateUser: (user: Partial<UserDTO>, authApiId: string) => Promise<UserDTO>;
 }
 
 export interface IInstructorRepository {

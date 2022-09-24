@@ -55,6 +55,20 @@ export class MalformedTokenError extends CustomError {
   }
 }
 
+export class CouldNotVerifyTokenError extends CustomError {
+  HTTPstatusCode = 400;
+  constructor() {
+    super({ errorName: ErrorMessagesLabels.COULD_NOT_VERIFY_TOKEN });
+  }
+}
+
+export class InsufficientTokenError extends CustomError {
+  HTTPstatusCode = 400;
+  constructor() {
+    super({ errorName: ErrorMessagesLabels.COULD_NOT_VERIFY_TOKEN });
+  }
+}
+
 export class Forbidden extends CustomError {
   HTTPstatusCode = 403;
   constructor() {

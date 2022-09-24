@@ -7,6 +7,7 @@ import NewActivityInstructionUseCase, { INewActivityInstructionUseCase } from '.
 import NewActivityUseCase, { INewActivityUseCase } from './new-activity';
 import NewStudentOutputUseCase, { INewStudentOutputUseCase } from './new-student-output';
 import NewUserUseCase, { INewUserUseCase } from './new-user';
+import SignOutUserUseCase, { ISignOutUserUseCase } from './signout-user';
 
 import ChangeActivityProgressStatusUseCase, { IChangeActivityProgressStatusUseCase } from './change-activity-progress-status';
 
@@ -28,6 +29,8 @@ export {
   NewUserUseCase,
   INewUserUseCase,
   ChangeActivityProgressStatusUseCase,
-  IChangeActivityProgressStatusUseCase
+  IChangeActivityProgressStatusUseCase,
+  SignOutUserUseCase,
+  ISignOutUserUseCase
 }
 

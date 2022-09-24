@@ -14,4 +14,6 @@ export const ErrorMessagesLabels = {
   MALFORMED_TOKEN: 'malformed_token',
   ROUTE_NOT_FOUND: 'route_not_found',
   TOKEN_GENERATION: 'token_generation',
+  COULD_NOT_VERIFY_TOKEN: 'could_not_verify_token',
+  INSUFFICIENT_TOKEN: 'insufficient_token'
 }

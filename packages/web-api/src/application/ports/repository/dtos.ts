@@ -4,6 +4,7 @@ export interface UserDTO {
   email: string;
   role?: string;
   tokenVersion?: number;
+  authApiId: string;
 }
 
 export interface StudentOutputDTO {

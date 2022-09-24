@@ -21,6 +21,7 @@ model User {
   image         String?
   role String?
   tokenVersion Int @default(0)
+  provider String?
 }
 
 model VerificationToken {

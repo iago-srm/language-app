@@ -8,7 +8,8 @@ import {
   NewActivityUseCase,
   NewStudentOutputUseCase,
   NewUserUseCase,
-  ChangeActivityProgressStatusUseCase
+  ChangeActivityProgressStatusUseCase,
+  SignOutUserUseCase
 } from '@application/use-cases';
 import {
   GetActivitiesControllerFactory,
@@ -18,7 +19,8 @@ import {
   NewActivityInstructionControllerFactory,
   NewStudentOutputControllerFactory,
   NewUserControllerFactory,
-  ChangeActivityProgressStatusControllerFactory
+  ChangeActivityProgressStatusControllerFactory,
+  SignOutUserControllerFactory
 } from '@adapters/REST-controllers';
 import {
   ActivityRepository,
@@ -51,6 +53,7 @@ export const registerDependencies = (container: awilix.AwilixContainer) => {
     [Dependencies.NEWUSERCONTROLLER]: awilix.asFunction(GetStudentOutputControllerFactory),
     [Dependencies.NEWUSERCONTROLLER]: awilix.asFunction(NewUserControllerFactory),
     "changeActivityProgressStatusControllerFactory": awilix.asFunction(ChangeActivityProgressStatusControllerFactory),
+    "SignOutUserControllerFactory": awilix.asFunction(SignOutUserControllerFactory),
 
     // services
     [Dependencies.ENCRYPTIONSERVICE]: awilix.asClass(BCryptEncryptionService),
@@ -72,6 +75,7 @@ export const registerDependencies = (container: awilix.AwilixContainer) => {
     'newStudentOutputUseCase': awilix.asClass(NewStudentOutputUseCase).classic(),
     [Dependencies.NEWUSERUSECASE]: awilix.asClass(NewUserUseCase).classic(),
     'changeActivityProgressStatusUseCase': awilix.asClass(ChangeActivityProgressStatusUseCase).classic(),
+    'signOutUserUseCase': awilix.asClass(SignOutUserUseCase).classic(),
 
     // repositories
     [Dependencies.ACTIVITYREPOSITORY]: awilix.asClass(ActivityRepository),

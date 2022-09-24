@@ -8,7 +8,10 @@ import {
 import {
   MissingTokenError,
   MalformedTokenError,
-  Forbidden
+  Forbidden,
+  CouldNotVerifyTokenError,
+  InsufficientTokenError,
+  UserNotFoundError
 } from '@language-app/common-utils';
 
 type Dependencies = {
@@ -22,21 +25,27 @@ export const AuthenticationMiddlewareControllerFactory = ({
 }: Dependencies): IHTTPControllerDescriptor<IHTTPMiddleware> => {
   const fn: IHTTPMiddleware = async (req, headers) => {
 
+    // console.log(headers.authorization)
     if (!headers.authorization) throw new MissingTokenError();
 
     const [header, token] = headers.authorization.split(' ');
     if (header !== 'Bearer') throw new MalformedTokenError();
 
-    const tokenPayload = await tokenService.verify(token);
+    let tokenPayload;
+    try {
+      tokenPayload = await tokenService.verify(token);
+    } catch(e) {
+      throw new CouldNotVerifyTokenError();
+    }
 
     if(!Object.keys(tokenPayload).includes('id') ||
       !Object.keys(tokenPayload).includes('tokenVersion') ||
         isNaN(Number(tokenPayload.tokenVersion)))
-          throw new MalformedTokenError();
+          throw new InsufficientTokenError();
 
     const userDTO = await userRepository.getUserById(tokenPayload.id);
 
-    if (!userDTO) throw new MalformedTokenError();
+    if (!userDTO) throw new UserNotFoundError();
 
     if (userDTO.tokenVersion !== tokenPayload.tokenVersion) throw new Forbidden();
 

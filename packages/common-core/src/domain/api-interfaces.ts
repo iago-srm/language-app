@@ -37,3 +37,10 @@ export interface IPostActivity {
 
 export interface PostActivityInstructionParams {}
 export interface PostActivityInstructionResponse {}
+
+export interface SignOutUser {
+  params: {
+    tokenVersion: number;
+  }
+  response: void;
+}

@@ -32,6 +32,7 @@ model User {
 
   role String?
   tokenVersion Int @default(0)
+  authApiId String @unique
   
   student Student?
   instructor Instructor?
