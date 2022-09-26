@@ -58,10 +58,10 @@ import {
             //   {answer: '', instruction: { connect: {id: ''}}}
             // ]
             answers.map(answer => ({
-              answer: answer.answer,
-              instruction: {
-                connect: { id: answer.instructionId }
-              } 
+              // textAnswer: answer,
+              // instruction: {
+              //   connect: { id: answer.instructionId }
+              // } 
             }))
           },
           feedback: {

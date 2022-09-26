@@ -8,10 +8,7 @@ export interface UserDTO {
 }
 
 export interface StudentOutputDTO {
-  answers: {
-    instructionId: string;
-    answer: string
-  }[];
+  answers: ActivityInstructionStudentAnswerDTO[];
   feedback?: {
     grade?: number;
     message?: string;
@@ -29,18 +26,29 @@ export interface StudentDTO {
   cefr: CEFR;
 }
 
-export interface InstructionAnswerDTO {
+export interface ActivityInstructionStudentAnswerDTO {
+  id?: string;
+  optionsAnswers?: ActivityInstructionOptionDTO[];
+  textAnswer?: string;
+}
 
+export interface ActivityInstructionOptionDTO {
+  id: string;
+  text: string;
 }
 
 export interface ActivityInstructionDTO {
+  id?: string;
   text: string;
-  answer: string;
-  options?: string[];
+  optionsAnswers?: { id: string }[];
+  textAnswer?: string;
+  options?: ActivityInstructionOptionDTO[];
+  type: INSTRUCTIONTYPE;
 }
 
 export type CEFR = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
 export type CONTENTTYPE = 'TEXT' | 'VIDEO';
+export type INSTRUCTIONTYPE = "TEXT" | "OPTIONS";
 
 export interface ActivityDTO {
   id?: number;

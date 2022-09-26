@@ -14,7 +14,7 @@ import { contentValidator } from '../helpers';
 
 interface ActivityConstructorParams {
   topics: string[];
-  timeToComplete: number;
+  // timeToComplete: number;
   contentType: string;
   startTime: number;
   endTime: number;
@@ -39,7 +39,7 @@ export class Activity {
 
   constructor(args: Partial<ActivityConstructorParams>) {
     args.topics && this.setTopic(args.topics);
-    args.timeToComplete && this.setTimeToComplete(args.timeToComplete);
+    // args.timeToComplete && this.setTimeToComplete(args.timeToComplete);
     args.contentType && this.setContentType(args.contentType);
     args.content && this.setContent(args.content);
     this.setTimes(args.startTime, args.endTime);
@@ -56,13 +56,13 @@ export class Activity {
     this.topics = topics;
   }
 
-  setTimeToComplete(timeToComplete: number) {
-    if(isNaN(timeToComplete)) throw new InvalidActivityTimeToCompleteError();
-    if (timeToComplete > DomainRules.ACTIVITY.MAX_TIME_TO_COMPLETE
-      || timeToComplete < DomainRules.ACTIVITY.MIN_TIME_TO_COMPLETE)
-      throw new InvalidActivityTimeToCompleteError();
-    this.timeToComplete = timeToComplete;
-  }
+  // setTimeToComplete(timeToComplete: number) {
+  //   if(isNaN(timeToComplete)) throw new InvalidActivityTimeToCompleteError();
+  //   if (timeToComplete > DomainRules.ACTIVITY.MAX_TIME_TO_COMPLETE
+  //     || timeToComplete < DomainRules.ACTIVITY.MIN_TIME_TO_COMPLETE)
+  //     throw new InvalidActivityTimeToCompleteError();
+  //   this.timeToComplete = timeToComplete;
+  // }
 
   setContentType(contentType: string) {
     if (!DomainRules.ACTIVITY.CONTENTTYPE.includes(contentType))

@@ -127,38 +127,52 @@ export class ActivityRepository implements IActivityRepository {
           connect: {id: instructorId}
         },
         instructions: {
-          create: instructions
+          create: [
+            ...instructions.map(instruction => ({
+              ...instruction,
+              options: {
+                create: instruction.options
+              },
+              optionsAnswers: {
+                connect: instruction.optionsAnswers
+              }
+            }))
+          ]
         }
       },
       include: {
-        instructions: true
+        instructions: {
+          include: {
+            options: true,
+            optionsAnswers: true
+          }
+        }
       }
-      // select: { id: true }
     })
   }
 
-  async insertNewInstructions(activityId: number, instructions: ActivityInstructionDTO[]) {
-    return (await this.prisma.activity.update({
-      where: { id: activityId },
-      data: {
-        instructions: {
-          createMany: {
-            data: instructions
-          }
-        }
-      },
-      select: {
-        instructions: {
-          select: {
-            answer: true,
-            options: true,
-            text: true,
-            id: true
-          }
-        }
-      }
-    })).instructions
-  }
+  // async insertNewInstructions(activityId: number, instructions: ActivityInstructionDTO[]) {
+  //   return (await this.prisma.activity.update({
+  //     where: { id: activityId },
+  //     data: {
+  //       instructions: {
+  //         createMany: {
+  //           data: instructions
+  //         }
+  //       }
+  //     },
+  //     select: {
+  //       instructions: {
+  //         select: {
+  //           answer: true,
+  //           options: true,
+  //           text: true,
+  //           id: true
+  //         }
+  //       }
+  //     }
+  //   })).instructions
+  // }
 
 
 }

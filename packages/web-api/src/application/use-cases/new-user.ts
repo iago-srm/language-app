@@ -26,7 +26,7 @@ class UseCase implements INewUserUseCase {
 
   async execute ({ authApiId, role, name, email, tokenVersion }) {
 
-    const newId = this.idService.getId();
+    // const newId = this.idService.getId();
 
     const newUser = { 
       role, 
@@ -37,8 +37,8 @@ class UseCase implements INewUserUseCase {
     };
 
     if(role === 'STUDENT') 
-      await this.userRepository.insertUserAndStudent(newUser, newId);
-    else await this.userRepository.insertUserAndInstructor(newUser, newId);
+      await this.userRepository.insertUserAndStudent(newUser, authApiId);
+    else await this.userRepository.insertUserAndInstructor(newUser, authApiId);
 
   }
 

@@ -11,8 +11,8 @@ import { ActivityInstruction } from '@domain';
     activityId: number,
     instructions: ActivityInstructionDTO[];
   }
-  type Return = Partial<ActivityInstructionDTO>[];
-  // type Return = void;
+  // type Return = Partial<ActivityInstructionDTO>[];
+  type Return = void;
   
   export type INewActivityInstructionUseCase = IUseCase<InputParams, Return>;
   
@@ -33,7 +33,7 @@ import { ActivityInstruction } from '@domain';
 
       instructions.forEach(instruction => new ActivityInstruction({...instruction}));
 
-      return this.activityRepository.insertNewInstructions(activityId,instructions)
+      // return this.activityRepository.insertNewInstructions(activityId,instructions)
     }
   
   };

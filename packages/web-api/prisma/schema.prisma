@@ -13,6 +13,11 @@ enum ActivityTypeValues {
   VIDEO
 }
 
+enum ActivityInstructionTypeValues {
+  TEXT
+  OPTIONS
+}
+
 enum CefrValues {
   A1
   A2
@@ -63,12 +68,13 @@ model Student {
   userId String @unique
 }
 
-model InstructionAnswer {
+model InstructionStudentAnswer {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  answer String
+  textAnswer String?
+  optionsAnswers ActivityInstructionOption[] @relation(name: "selected")
 
   instruction   ActivityInstruction? @relation(fields: [instructionId], references: [id])
   instructionId String?
@@ -76,6 +82,17 @@ model InstructionAnswer {
   studentOutputId Int?
 }
 
+model ActivityInstructionOption {
+  id        String   @id @default(uuid())
+  text String
+
+  isOptionOf   ActivityInstruction? @relation(fields: [isOptionOfId], references: [id], name: "option")
+  isOptionOfId String?
+  isAnswerOf   ActivityInstruction? @relation(fields: [isAnswerOfId], references: [id], name: "answer")
+  isAnswerOfId String?
+  isSelectedIn InstructionStudentAnswer? @relation(fields: [isSelectedInId], references: [id], name: "selected")
+  isSelectedInId String?
+}
 
 model ActivityInstruction {
   id        String   @id @default(uuid())
@@ -83,10 +100,13 @@ model ActivityInstruction {
   updatedAt DateTime @updatedAt
 
   text    String
-  answer String
-  options String[]
 
-  answers InstructionAnswer[]
+  options ActivityInstructionOption[] @relation(name: "option")
+  optionsAnswers ActivityInstructionOption[] @relation(name: "answer")
+  textAnswer String?
+
+  studentAnswers InstructionStudentAnswer[]
+  type ActivityInstructionTypeValues
 
   activity   Activity? @relation(fields: [activityId], references: [id])
   activityId Int?
@@ -114,7 +134,7 @@ model Activity {
   title String
   description String?
   topics          String[]
-  timeToComplete Int
+  timeToComplete Int?
   content  String
   startTime Int?
   endTime   Int?
@@ -136,7 +156,7 @@ model StudentOutput {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  answers InstructionAnswer[]
+  answers InstructionStudentAnswer[]
   feedback FeedbackToActivity?
 
   activity   Activity? @relation(fields: [activityId], references: [id])

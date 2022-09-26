@@ -22,7 +22,7 @@ import {
         'contentType',
         'title',
         'cefr',
-        'timeToComplete',
+        // 'timeToComplete',
         'topics',
         'instructions',
         { name: 'description', optional: true },
