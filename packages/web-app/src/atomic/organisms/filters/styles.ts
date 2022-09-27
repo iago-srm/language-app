@@ -1,16 +1,32 @@
 import styled from 'styled-components';
 
-export const FiltersContainer = styled.div`
-    display: grid;
-    grid-template-columns: 2fr 4fr 1fr;
-    min-height: 10vh;
-
-`;
-
 export const FilterContainer = styled.div`
     width: 100%;
     padding: 5px;
 `;
+
+export const FiltersContainer = styled.div`
+    display: grid;
+    grid-template-columns: repeat(14, 1fr);
+    min-height: 10vh;
+    ${FilterContainer}.title {
+        grid-column: span 4;
+    }
+    ${FilterContainer}.topics {
+        grid-column: span 8;
+    }
+    ${FilterContainer}.cefr {
+        grid-column: span 2;
+    }
+    ${FilterContainer}.content-type {
+        grid-column: span 3;
+    }
+    ${FilterContainer}.is-in-progress {
+        grid-column: span 3;
+    }
+`;
+
+
 
 export const FiltersDrawerMenu = styled.div`
     display: flex;

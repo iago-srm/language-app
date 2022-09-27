@@ -1,11 +1,14 @@
 import styled from 'styled-components';
 
 export const ActivityCardContainer = styled.div`
-    display: grid;
-    grid-template-areas:
-        "topics title title title"
-        "topics desc desc desc"
-        "topics ";
+    width: 100%;
+    min-height: 100px;
+    background-color: ${({theme}) => theme.colors.primary};
+    color: ${({theme}) => theme.colors.text};
+    border-radius: 3px;
+    h3{}
+    p{}
+    
 `;
 
 // export const 

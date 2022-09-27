@@ -27,7 +27,8 @@ import {
   InstructionModal,
   Section,
   FormButton,
-  VideoIdInput
+  VideoIdInput,
+  ActivityCard
 } from '@atomic';
 import { useMediaQuery } from 'react-responsive';
 import {
@@ -108,6 +109,17 @@ const Activities: React.FC = () => {
     if(instructionUnderEdit) setInstructionUnderEdit(undefined);
     else setShowNewInstructionModal(false);
   }
+
+  const onSubmitActivity = () => {
+    const activityToSend = {
+      ...activity,
+      content: activity.contentType === "TEXT" ? activity.content.text : activity.content.videoId,
+      topics: activity.topics.map(({value}) => value),
+      
+    }
+    postActivity.apiCall(activityToSend);
+    console.log(activityToSend)
+  };
 
   return (
     <PageContainer>
@@ -228,7 +240,7 @@ const Activities: React.FC = () => {
           setUpstreamInstruction={setInstruction}
         />}
       <SubmitButtonContainer>
-        <FormButton onClick={() => console.log(activity)}>
+        <FormButton onClick={() => onSubmitActivity()}>
           Salvar
         </FormButton>
       </SubmitButtonContainer>

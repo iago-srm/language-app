@@ -1,22 +1,15 @@
-import styled from 'styled-components';
-
-export const CheckboxFormStyled = styled.form<{vertical: boolean}>`
-    label {
-        display: ${({vertical}) => vertical ? 'block' : 'inline-block'};
-        padding: 3px 11px;
-    }
-    input {
-        margin-right: 6px;
-    }
-`;
+import { CheckboxFormStyled } from './styles';
 
 interface ICheckboxProps {
     values: string[];
     onChange: (args?: any) => any;
     options: { value: string, label: string }[];
     vertical?: boolean;
+    label?: string;
 }
-export const CheckboxMenu = ({ values, onChange, options, vertical }: ICheckboxProps) => {
+
+
+export const CheckboxMenu = ({ values, onChange, options, vertical, label }: ICheckboxProps) => {
     const onClick = (e) => {
         const { value } = e.target;
         if(values.includes(value)) {
@@ -30,6 +23,7 @@ export const CheckboxMenu = ({ values, onChange, options, vertical }: ICheckboxP
     }
     return (
         <CheckboxFormStyled vertical={vertical}>
+        <p>{label}</p>
         {options.map((option, i) => (
             <label key={i}>
                 <input

@@ -32,7 +32,7 @@ export class ActivityRepository implements IActivityRepository {
     contentType,
     ids
   }) {
-    console.log(ids)
+    // console.log(ids)
     return this.prisma.activity.findMany({
       take: this._pageSize,
       ...this._paginate(cursor),
@@ -58,7 +58,7 @@ export class ActivityRepository implements IActivityRepository {
     })
   }
 
-  async getActivitiesByStudentProgress(studentId: string, completed: boolean) {
+  async getActivityIdsByStudentProgress(studentId: string, completed: boolean) {
     return (await this.prisma.activitiesInProgress.findMany({
       where: {
         studentId,
@@ -112,14 +112,15 @@ export class ActivityRepository implements IActivityRepository {
       instructions,
       description
     } = activity;
+    console.log(instructions[0]);
     return this.prisma.activity.create({
       data: {
         title,
         contentType,
         content,
         topics,
-        startTime,
-        endTime,
+        // startTime,
+        // endTime,
         cefr,
         timeToComplete,
         description,
@@ -173,6 +174,5 @@ export class ActivityRepository implements IActivityRepository {
   //     }
   //   })).instructions
   // }
-
 
 }

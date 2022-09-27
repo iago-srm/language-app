@@ -92,7 +92,8 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     if(session) {
-      handleAuthToken((session.token as { auth_token: string}).auth_token);
+      // handleAuthToken((session.token as { auth_token: string}).auth_token);
+      handleAuthToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Nzk2NzkxMDYsImRhdGEiOnsiaWQiOiJiNGY1NDllZi0zYTc4LTQ5ZTEtOTgwNC02ZWZlZjcwZjJhMzEiLCJ0b2tlblZlcnNpb24iOjV9LCJpYXQiOjE2NjQxMjcxMDZ9.fkY259IYJNC5VNmSrQ0dcAWv3_a58oK2rk8Prta04VU")
       setTokenHeaderSet(true);
       setIsAuthenticated(true);
     }

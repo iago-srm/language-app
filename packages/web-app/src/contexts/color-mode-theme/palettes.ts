@@ -6,7 +6,7 @@ export const Dark: Colors = {
     primary: "#16213E",
     secondary: "#0F3460",
     accent: "#E94560",
-    text: "white"
+    text: "#fff"
 }
 
 //light

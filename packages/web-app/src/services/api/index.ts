@@ -94,7 +94,22 @@ export const useApiBuilder = () => {
   // const getActivities = useApiCall<IGetActivitiesParams, IGetActivitiesResponse>
   //   (({ title, cefr, topics }) => domainFetcher[GetActivitiesHTTPDefinition.method](`${GetActivitiesHTTPDefinition.path}?title=${title}&cefr=${cefr}&topics=${topics}`));
 
-  const getActivities = ({ title, cefr, topics }) => useApiCallSWR<IGetActivitiesResponse>(tokenHeaderSet && `${GetActivitiesHTTPDefinition.path}?title=${title}&cefr=${cefr}&topics=${topics}`, domainFetcher[GetActivitiesHTTPDefinition.method].bind(domainFetcher));
+  const getActivities = ({ 
+    title, 
+    cefr, 
+    topics,
+    contentType,
+    isInProgress,
+    isComplete
+  }) => useApiCallSWR<IGetActivitiesResponse>(
+    tokenHeaderSet && `${GetActivitiesHTTPDefinition.path}`, 
+    (url) => domainFetcher[GetActivitiesHTTPDefinition.method].bind(domainFetcher)(url, {
+      title,
+      cefr,
+      topics,
+      contentType
+    })
+  );
 
   const postActivity = useApiCall<IPostActivity["params"], IPostActivity["response"]>
     ((args) => domainFetcher[NewActivityHTTPDefinition.method](NewActivityHTTPDefinition.path, args));

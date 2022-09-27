@@ -29,9 +29,6 @@ import {
       ]) as any;
   
       if(!activity.instructions.length) throw new Error("activity must have instructions");
-      // activity.instructions.forEach(instruction => {
-      //   if(!instruction.text || !instruction.correctAnswer) throw new Error("Wrong format for activity instruction");
-      // });
 
       const { id, role } = user;
   

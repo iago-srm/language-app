@@ -20,7 +20,7 @@ type GetActivitiesInput = {
 
 export interface IActivityRepository {
   getActivities: (args: GetActivitiesInput) => Promise<Partial<ActivityDTO>[]>;
-  getActivitiesByStudentProgress: (studentId: string, completed: boolean) => Promise<number[]>;
+  getActivityIdsByStudentProgress: (studentId: string, completed: boolean) => Promise<number[]>;
   insertActivityProgress: (studentId: string, activityId: number, completed: boolean) => Promise<void>;
   getActivityById: (id: number) => Promise<ActivityDTO & { instructions: ActivityInstructionDTO[] }>;
   insertActivity: (instructorId: string, activity: ActivityDTO) => Promise<ActivityDTO>;

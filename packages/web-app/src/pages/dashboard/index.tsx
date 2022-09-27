@@ -4,14 +4,11 @@ import { parseCookies } from 'nookies';
 import jwt from 'jsonwebtoken';
 import { useRouter } from 'next/router';
 
-import { Container } from './styles'
 import { getPageTitle } from '@services/browser';
 import { useLanguage, useAuth } from '@contexts';
 import { Translations, Labels } from '@locale';
 import { GetServerSideProps } from 'next'
-import {
-  LoadingErrorData
-} from '@atomic';
+
 
 const Dashboard: React.FC = () => {
   const { language } = useLanguage();
@@ -27,15 +24,11 @@ const Dashboard: React.FC = () => {
   }, [user]);
 
   return (
-    <Container>
+    <>
       <Head>
         <title>{getPageTitle(Translations[language][Labels.HOME])}</title>
       </Head>
-
-      <LoadingErrorData loading={isUserLoading} error={false} data={true}>
-
-      </LoadingErrorData>
-    </Container>
+    </>
   )
 }
 

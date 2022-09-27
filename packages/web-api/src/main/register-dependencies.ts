@@ -1,7 +1,6 @@
 import * as awilix from "awilix";
 import {
-  GetStudentActivitiesUseCase,
-  GetInstructorActivitiesUseCase,
+  GetActivitiesUseCase,
   GetStudentOutputUseCase,
   GetStudentOutputsUseCase,
   NewActivityInstructionUseCase,
@@ -66,8 +65,7 @@ export const registerDependencies = (container: awilix.AwilixContainer) => {
     [Dependencies.FILEMIDDLEWARE]: awilix.asValue(putFileInReq),
 
     // use cases
-    'getStudentActivitiesUseCase': awilix.asClass(GetStudentActivitiesUseCase).classic(),
-    [Dependencies.GETINSTRUCTORACTIVITIESUSECASE]: awilix.asClass(GetInstructorActivitiesUseCase).classic(),
+    'getActivitiesUseCase': awilix.asClass(GetActivitiesUseCase).classic(),
     'getStudentOutputUseCase': awilix.asClass(GetStudentOutputUseCase).classic(),
     'getStudentOutputsUseCase': awilix.asClass(GetStudentOutputsUseCase).classic(),
     'newActivityInstructionUseCase': awilix.asClass(NewActivityInstructionUseCase).classic(),

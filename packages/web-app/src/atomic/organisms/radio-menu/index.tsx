@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const RadioMenuFormStyled = styled.form<{vertical: boolean}>`
+export const RadioMenuFormStyled = styled.div<{vertical: boolean}>`
     label {
         display: ${({vertical}) => vertical ? 'block' : 'inline-block'};
         padding: 3px 11px;

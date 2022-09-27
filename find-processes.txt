@@ -1,0 +1,2 @@
+sudo netstat -nlp | grep :3000
+kill -9 [pid]

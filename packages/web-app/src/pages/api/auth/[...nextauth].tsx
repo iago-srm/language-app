@@ -37,7 +37,6 @@ export default NextAuth({
       return baseUrl
     },
     async jwt({ user, token }) {
-      console.log("jwt")
       if(user) {
         let resp;
         try {

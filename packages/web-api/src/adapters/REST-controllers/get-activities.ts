@@ -1,6 +1,5 @@
 import {
-  IGetStudentActivitiesUseCase,
-  IGetInstructorActivitiesUseCase
+  IGetActivitiesUseCase,
 } from '@application/use-cases';
 import { GetActivitiesHTTPDefinition } from '@language-app/common-core';
 import {
@@ -10,11 +9,9 @@ import {
 } from '@language-app/common-platform';
 
 export const GetActivitiesControllerFactory = ({
-  getStudentActivitiesUseCase,
-  getInstructorActivitiesUseCase
+  getActivitiesUseCase,
 }: {
-  getStudentActivitiesUseCase: IGetStudentActivitiesUseCase;
-  getInstructorActivitiesUseCase: IGetInstructorActivitiesUseCase;
+  getActivitiesUseCase: IGetActivitiesUseCase;
 }): IHTTPControllerDescriptor<IHTTPController> => {
   const fn: IHTTPController = async (_, __, query, { user }) => {
 
@@ -25,7 +22,8 @@ export const GetActivitiesControllerFactory = ({
       contentType,
       isInProgress,
       isComplete,
-      cursor
+      cursor,
+      thisInstructorOnly
     } = controllerSerializer(query, [
       { name: 'title', optional: true }, 
       { name: 'cefr', optional: true }, 
@@ -34,40 +32,25 @@ export const GetActivitiesControllerFactory = ({
       { name: 'contentType', optional: true },
       { name: 'isInProgress', optional: true },
       { name: 'isComplete', optional: true },
+      { name: 'thisInstructorOnly', optional: true },
     ]);
 
     const { id, role } = user;
 
     if(cursor && isNaN(Number(cursor))) throw new Error('cursor must be a number');
 
-    // same page lists activities. If instructor is logged in, it returns their activities.
-    // if a student is logged in, it returns all activities, based on the filters applied.
-    let resp;
-    if(role === 'STUDENT') {
-      console.log("student activities")
-      resp = await getStudentActivitiesUseCase.execute({
+    return {
+      response: await getActivitiesUseCase.execute({
         userId: id,
         cursor: cursor && Number(cursor),
         title,
         cefr,
         topics,
         contentType,
-        isInProgress: isInProgress && true,
-        isComplete: isComplete && true,
-      });
-    } else {
-      console.log("instructor activities")
-      resp = await getInstructorActivitiesUseCase.execute({
-        userId: id,
-        cursor: cursor && Number(cursor),
-        title,
-        cefr
-      });
-    }
-
-
-    return {
-      response: resp,
+        isInProgress: role === "STUDENT" && isInProgress === "true",
+        isComplete: role === "STUDENT" && isComplete === "true",
+        thisInstructorOnly: role === "INSTRUCTOR" && thisInstructorOnly === "true"
+      }),
       statusCode: 200,
     };
   };

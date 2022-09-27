@@ -1,6 +1,6 @@
 import { Icons } from '@atomic/atoms';
 import { NewItemButton, SquareButton } from '@atomic';
-import { EditableOptionContainer } from './styles';
+import { EditableOptionContainer, EditableOptionsContainer } from './styles';
 
 export const EditableOption = ({ text, onClickEdit, onClickRemove, item }) => {
     return (
@@ -27,7 +27,7 @@ export function EditableOptions<T extends { text: string }>({
     options, onClickEdit, onClickRemove, onClickNew 
 }: IEditableOptionsProps<T>) {
     return (
-        <>
+        <EditableOptionsContainer>
         {options.map((option, i) => (
             <EditableOption 
               key={i} 
@@ -40,6 +40,6 @@ export function EditableOptions<T extends { text: string }>({
           <NewItemButton onClick={onClickNew}>
             Novo
           </NewItemButton>
-        </>
+        </EditableOptionsContainer>
     )
 }

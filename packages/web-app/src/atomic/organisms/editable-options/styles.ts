@@ -2,6 +2,11 @@ import styled from 'styled-components';
 
 export const EditableOptionContainer = styled.div`
 display: flex;
+width: 100%;
+background-color: ${({theme}) => theme.colors.secondary};
+border-radius: 3px;
+padding: 5px;
+margin: 10px auto;
 p {
     margin: 0;
     padding: 2px 5px;
@@ -17,4 +22,10 @@ button {
 }
 `;
 
-// export const 
+export const EditableOptionsContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 150px;
+`;

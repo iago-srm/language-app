@@ -7,7 +7,12 @@ import {
     faAngleRight, 
     faAngleDown,
     faQuestionCircle,
-    faGlobe 
+    faGlobe,
+    faSearch,
+    faCheck,
+    faHourglassHalf,
+    faPlus,
+    faList 
 } from '@fortawesome/free-solid-svg-icons';
 
 export const Icons = {
@@ -15,7 +20,7 @@ export const Icons = {
         <FontAwesomeIcon icon={faTimes} />
     ),
     DELETE: () => (
-        <div style={{ color: "red" }}><FontAwesomeIcon icon={faTimes} /></div>
+        <div style={{ padding: "5px" }}><FontAwesomeIcon icon={faTimes} /></div>
     ),
     EDIT: () => (
         <FontAwesomeIcon icon={faPen} />
@@ -38,5 +43,20 @@ export const Icons = {
     ),
     GLOBE: () => (
         <FontAwesomeIcon icon={faGlobe} />
+    ),
+    SEARCH: () => (
+        <FontAwesomeIcon icon={faSearch} />
+    ),
+    CHECK: () => (
+        <FontAwesomeIcon icon={faCheck} />
+    ),
+    IN_PROGRESS: () => (
+        <FontAwesomeIcon icon={faHourglassHalf} />
+    ),
+    PLUS: () => (
+        <FontAwesomeIcon icon={faPlus} />
+    ),
+    LIST: () => (
+        <FontAwesomeIcon icon={faList} />
     )
 }

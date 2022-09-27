@@ -8,8 +8,7 @@ import { useLanguage, useAuth } from '@contexts';
 import { Translations, Labels } from '@locale';
 import { useApiBuilder } from '@services/api';
 import { LoadingErrorData, ActivityFilters as Filters } from '@atomic';
-import { DomainRules } from '@language-app/common-core';
-import { getLabeledTopics } from '@model';
+import { ActivityCard } from '@atomic';
 
 const Activities: React.FC = () => {
 
@@ -17,32 +16,28 @@ const Activities: React.FC = () => {
   const { user } = useAuth();
 
   const [filters, setFilters] = useState({
-    cefr: user && user.cefr || "A1",
+    cefr: user && user.cefr,
     title: "",
-    topics: getLabeledTopics(language),
-    types: ['TEXT', 'VIDEO']
+    topics: [],
+    contentType: [],
+    isInProgress: undefined,
+    isComplete: undefined
   });
 
   const {
     getActivities
   } = useApiBuilder();
   
+  useEffect(() => {
+    refreshActivities();
+  }, [filters]);
+
   const {
     data,
     loading,
-    error
-  } = getActivities(filters);
-
-  // useEffect(() => {
-  //   tokenHeaderSet && (async () => {
-  //     const {
-  //       response: { activities },
-  //       error
-  //     } = await getActivities.apiCall(filters);
-  //     if(!error) setActivities(() => activities);
-  //     else setActivitiesError(() => error.message);
-  //   })()
-  // }, [tokenHeaderSet]);
+    error,
+    mutate: refreshActivities
+  } = getActivities({...filters, topics: `${filters.topics.map(t => t.value)}`});
 
   return (
     <Container>
@@ -58,7 +53,15 @@ const Activities: React.FC = () => {
         <LoadingErrorData.NoData>
           <h3>Não há atividades com esses filtros</h3>
         </LoadingErrorData.NoData>
-        {data && data.activities && data.activities.map(activity => <p>{JSON.stringify(activity)}</p>)}
+        {data && data.activities && data.activities.map(activity => (
+          <ActivityCard 
+            topics={activity.topics} 
+            cefr={activity.cefr}
+            description={activity.description}
+            title={activity.title}
+            contentType={"TEXT"}
+          />
+        ))}
 
       </LoadingErrorData>
     </Container>

@@ -5,7 +5,9 @@ import {
     Modal,
     Icons,
     Separator,
-    NewItemButton
+    NewItemButton,
+    SquareButton,
+    Input
 } from '@atomic';
 import {
     InstructionType,
@@ -13,8 +15,9 @@ import {
 } from '@model';
 import {
     InstructionModalContentContainer,
-    OptionsContainer,
-    ButtonsContainer
+    OptionContainer,
+    ButtonsContainer,
+    ButtonContainer
 } from './styles';
 
 interface IInstructionModalProps {
@@ -26,7 +29,8 @@ interface IInstructionModalProps {
 const emptyInstruction: Instruction = {
     text: "",
     type: InstructionType.TEXT,
-    answer: "",
+    textAnswer: "",
+    optionsAnswers: [],
     options: [],
     id: ""
 };
@@ -44,10 +48,10 @@ export const InstructionModal = ({
     }, [instructionUnderEdit]);
 
     const saveChanges = () => {
-        if(instruction.type === InstructionType.OPTIONS && instruction.options.length < 2) {
-            alert("Instruções de alternativas devem conter pelo menos duas alternativas");
-            return;
-        }
+        // if(instruction.type === InstructionType.OPTIONS && instruction.options.length < 2) {
+        //     alert("Instruções de alternativas devem conter pelo menos duas alternativas");
+        //     return;
+        // }
         if(instructionUnderEdit && !instruction.text) {
             alert("Instrução não pode ter texto vazio. Se deseja removê-la, clique no botão de remover.");
             return;
@@ -58,22 +62,27 @@ export const InstructionModal = ({
         } 
         else if(instruction.text) {
             const instructionToSend = instruction.id ? instruction : {...instruction, id: Date.now()};
-            if(instructionToSend.type === InstructionType.TEXT) instructionToSend.options = undefined;
+            if(instructionToSend.type === InstructionType.TEXT) {
+                instructionToSend.options = undefined;
+                instructionToSend.optionsAnswers = undefined;
+            }
             setUpstreamInstruction(instructionToSend);
         }
         onClose();
     }
     const onChangeInstructionText = (e) => setInstruction(s => ({...s, text: e}));
-    const onChangeInstructionAnswer = (e) => setInstruction(s => ({...s, answer: e}));
+    const onChangeInstructionAnswer = (e) => setInstruction(s => ({...s, textAnswer: e}));
     const onChangeInstructionType = (e) => {
+        // changing to text instruction type
         if(e === InstructionType.TEXT && instruction.type === InstructionType.OPTIONS) {
-            setInstruction(s => ({...s, type: e, answer: "" }));
-        } else if(e === InstructionType.OPTIONS && instruction.type === InstructionType.TEXT) {
-            if(instruction.answer && !confirm("Deseja mudar de tipo de instrução? A resposta já inserida será perdida")) return;
+            setInstruction(s => ({...s, type: e }));
+        } // changing to options instruction type 
+        else if(e === InstructionType.OPTIONS && instruction.type === InstructionType.TEXT) {
+            // if(instruction.textAnswer && !confirm("Deseja mudar de tipo de instrução? A resposta já inserida será perdida")) return;
             setInstruction(s => ({
                 ...s, 
                 type: e, 
-                answer: [],
+                optionsAnswers: [],
                 options: s.options || [] 
             }));
         }
@@ -87,7 +96,7 @@ export const InstructionModal = ({
     }
 
     const onChangeCorrectOption = (option) => {
-        const currentAnswers = [...instruction.answer];
+        const currentAnswers = [...instruction.optionsAnswers];
 
         if(!option.isCorrect) {
             const currentOptionIndex = currentAnswers.findIndex(answer => answer === option.id);
@@ -96,8 +105,9 @@ export const InstructionModal = ({
             currentAnswers.push(option.id);
         }
         setNewOption(option);
-        setInstruction(s => ({...s, answer: currentAnswers}));
+        setInstruction(s => ({...s, optionsAnswers: currentAnswers}));
     }
+
     const onAddOption = () => {
         setInstruction(s => ({...s, options: [...instruction.options, { 
             id: Date.now().toString(), 
@@ -125,36 +135,36 @@ export const InstructionModal = ({
                     Texto da Instrução
                     <textarea value={instruction.text} onChange={(e) => onChangeInstructionText(e.target.value)}/>
                 </label>
-                <label>
-                    Tipo de Instrução
-                    <InstructionTypeSelectionForm 
-                        value={instruction.type} 
-                        onChange={(e) => onChangeInstructionType(e.target.value)}
-                    />
-                </label>
+                Tipo de Instrução
+                <InstructionTypeSelectionForm 
+                    value={instruction.type} 
+                    onChange={(e) => onChangeInstructionType(e.target.value)}
+                />
                 {instruction.type === InstructionType.OPTIONS 
                 ? 
                 <>
                 {instruction.options.map((option,i) => (
-                    <OptionsContainer key={i}>
-                        <input value={option.text} onChange={(e) => setNewOption({...option, text: e.target.value})}/>
+                    <OptionContainer key={i}>
+                        <Input value={option.text} onChange={(e: any) => setNewOption({...option, text: e.target.value})}/>
                         <label>
                             Alternativa correta?
                             <input type="checkbox" checked={option.isCorrect} onChange={(e) => onChangeCorrectOption({...option, isCorrect: !option.isCorrect})}/>
                         </label>
-                        <button onClick={() => onRemoveOption(option)}>
+                        <SquareButton onClick={() => onRemoveOption(option)}>
                             <Icons.DELETE />
-                        </button>
-                    </OptionsContainer>
+                        </SquareButton>
+                    </OptionContainer>
                 ))}
-                <NewItemButton onClick={onAddOption}>
-                    Nova alternativa
-                </NewItemButton>
+                <ButtonContainer>
+                    <NewItemButton onClick={onAddOption}>
+                        Nova alternativa
+                    </NewItemButton>
+                </ButtonContainer>
                 </>
                 :
                 <>
                     <h6>Sugestão de resposta</h6>
-                    <textarea value={instruction.answer} onChange={(e) => onChangeInstructionAnswer(e.target.value)}/>
+                    <textarea value={instruction.textAnswer} onChange={(e) => onChangeInstructionAnswer(e.target.value)}/>
                 </>
             }
             </InstructionModalContentContainer>

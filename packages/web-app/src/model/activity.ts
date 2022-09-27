@@ -2,8 +2,8 @@ import { Translations, Labels } from '@locale';
 import { DomainRules } from '@language-app/common-core';
 
 export enum InstructionType {
-    OPTIONS = "options",
-    TEXT = "text",
+    OPTIONS = "OPTIONS",
+    TEXT = "TEXT",
 }
   
 export interface Option {
@@ -17,7 +17,8 @@ export interface Instruction {
     type: InstructionType;
     text: string;
     options?: Option[];
-    answer: string | string[]
+    optionsAnswers: Option[];
+    textAnswer: string;
 }
 
 export enum CEFRColors {

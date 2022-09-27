@@ -14,11 +14,10 @@ const Home: React.FC = () => {
       <Head>
         <title>{getPageTitle(Translations[language][Labels.DASHBOARD])}</title>
       </Head>
-      <h3>Área do Estudante</h3>
+      <h3>Área do Instrutor</h3>
       <ButtonsContainer>
-        <DashboardButton label={"Procurar Atividades"} path="/activities" icon={<Icons.SEARCH/>}/>
-        <DashboardButton label={"Atividades em Progresso"} path="/activities" icon={<Icons.IN_PROGRESS/>}/>
-        <DashboardButton label={"Atividades Completas"} path="/activities" icon={<Icons.CHECK/>}/>
+        <DashboardButton label={"Nova Atividade"} path="/activities/new" icon={<Icons.PLUS/>}/>
+        <DashboardButton label={"Minhas Atividades"} path="/activities" icon={<Icons.IN_PROGRESS/>}/>
       </ButtonsContainer>
     </Container>
   )

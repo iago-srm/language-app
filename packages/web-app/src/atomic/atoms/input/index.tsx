@@ -16,7 +16,7 @@ export function Input(args: IInput) {
 
   const { register, name, errors, label, icon, canHaveErrors, ...rest } = args;
   
-  return (
+  return ( label ? 
     <InputLabelStyled>
       {label}
       <InputStyled
@@ -27,6 +27,13 @@ export function Input(args: IInput) {
       />
       {icon}
       {canHaveErrors && <ErrorMessageContainer >{errors && errors[name]?.message}</ErrorMessageContainer>}
-    </InputLabelStyled>
+    </InputLabelStyled> : <><InputStyled
+        {...register && register(name)}
+        {...rest}
+        placeholder={label || rest.placeholder}
+        error={errors && errors[name]}
+      />
+      {icon}
+      {canHaveErrors && <ErrorMessageContainer >{errors && errors[name]?.message}</ErrorMessageContainer>}</>
   )
 }

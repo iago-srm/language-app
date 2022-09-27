@@ -1,5 +1,4 @@
-import GetStudentActivitiesUseCase, { IGetStudentActivitiesUseCase } from './get-student-activities';
-import GetInstructorActivitiesUseCase, { IGetInstructorActivitiesUseCase } from './get-instructor-activities';
+import GetActivitiesUseCase, { IGetActivitiesUseCase } from './get-activities';
 import GetStudentOutputUseCase, { IGetStudentOutputUseCase } from './get-student-output';
 import GetStudentOutputsUseCase, { IGetStudentOutputsUseCase } from './get-student-outputs';
 
@@ -12,10 +11,8 @@ import SignOutUserUseCase, { ISignOutUserUseCase } from './signout-user';
 import ChangeActivityProgressStatusUseCase, { IChangeActivityProgressStatusUseCase } from './change-activity-progress-status';
 
 export {
-  GetStudentActivitiesUseCase,
-  IGetStudentActivitiesUseCase,
-  GetInstructorActivitiesUseCase,
-  IGetInstructorActivitiesUseCase,
+  GetActivitiesUseCase,
+  IGetActivitiesUseCase,
   GetStudentOutputUseCase,
   IGetStudentOutputUseCase,
   GetStudentOutputsUseCase,

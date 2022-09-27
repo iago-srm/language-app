@@ -12,11 +12,12 @@ export const DomainRules = {
   ACTIVITY: {
     OPTION: {
       MIN_LENGTH: 3,
-      MAX_LENGTH: 50
+      MAX_LENGTH: 50,
     },
     INSTRUCTION: {
       MIN_LENGTH: 5,
-      MAX_LENGTH: 200
+      MAX_LENGTH: 200,
+      TYPES: ['OPTIONS', "TEXT"] 
     },
     TITLE: {
       MIN_LENGTH: 5,

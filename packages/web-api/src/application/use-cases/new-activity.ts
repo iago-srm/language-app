@@ -29,7 +29,12 @@ import { InvalidInstructionOptionSetError } from '@/domain/errors';
       activity.instructions.forEach(instruction => new ActivityInstruction({...instruction}))
       new Activity({...activity});
 
-      activity.instructions = activity.instructions.map(instruction => {
+      activity.instructions = activity.instructions.map(inst => {
+        const instruction = {
+          ...inst,
+          id: this.idService.getId()
+        };
+        
         if(instruction.options) {
           const options = {};
           for(let option of instruction.options) {

@@ -18,19 +18,24 @@ export interface GetActivityResponse {}
 // export interface PostActivityParams {}
 // export interface PostActivityResponse {}
 
+interface Option {
+  text: string;
+  id: string;
+}
 export interface IPostActivity {
   params: {
     title: string;
     cefr: string;
-    timeToComplete: number;
+    // timeToComplete: number;
     startTime: number;
     endTime: number;
     content: string;
     instructions: {
       text: string;
-      answer?: string;
-      options?: string[];
-    }
+      optionsAnswers?: Option[];
+      textAnswer: string;
+      options?: Option[];
+    }[]
   }
   response: void;
 }

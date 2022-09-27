@@ -2,32 +2,9 @@ import styled from 'styled-components';
 import Ratio from 'react-bootstrap/Ratio';
 import Accordion from 'react-bootstrap/Accordion';
 import { RadioMenu, BreadCrumb, CheckboxMenu } from '@atomic';
-import { TopicsColors, CEFRColors } from '@model';
-
-export const TopicsBreadCrumbs = {
-    "SCIENCE_&_TECHNOLOGY": ({ label }) => (
-        <BreadCrumb color={TopicsColors["SCIENCE_&_TECHNOLOGY"]}>
-            {label}
-        </BreadCrumb>
-    ),
-    "ARTS": ({ label }) => (
-        <BreadCrumb color={TopicsColors["ARTS"]}>
-            {label}
-        </BreadCrumb>
-    ),
-    "CURRENT_AFFAIRS": ({ label }) => (
-        <BreadCrumb color={TopicsColors["CURRENT_AFFAIRS"]}>
-            {label}
-            
-        </BreadCrumb>
-    ),
-    "SPORTS": ({ label }) => (
-        <BreadCrumb color={TopicsColors["SPORTS"]}>
-            {label}
-            
-        </BreadCrumb>
-    ),
-}
+import { TopicsColors, CEFRColors, Instruction } from '@model';
+import { TopicsDisplay } from './topics';
+import { CEFRDisplay } from './cefr';
 
 const TitleStyled = styled.h1`
     word-wrap: break-word;
@@ -37,29 +14,18 @@ const TitlePlaceholder = styled.h1`
     color: grey;
 `;
 
-const CefrStyled = styled.h5<{cefr: string}>`
-    color: ${({cefr}) => CEFRColors[cefr]};
-    border-radius: 2px;
-    background-color: ${({theme}) => theme.colors.secondary};
-    display: inline-block;
-    min-width: 36px;
-`;
-
 interface ITitleAndDetailsProps {
     title: string;
     cefr: string;
     topics: { label: string; value: string; }[];
 }
-export const TitleAndDetails = ({ title, cefr, topics }) => {
+export const TitleAndDetails = ({ title, cefr, topics }: ITitleAndDetailsProps) => {
 
     return (
         <>
             {title ? <TitleStyled>{title}</TitleStyled> : <TitlePlaceholder>Title</TitlePlaceholder>}
-            {cefr && <CefrStyled cefr={cefr}>{"["}{cefr}{"]"}</CefrStyled>}
-            {topics.map((topic,i) => {
-                const Component = TopicsBreadCrumbs[topic.value];
-                return <Component key={i} label={topic.label}/>
-            })}
+            {cefr && <CEFRDisplay cefr={cefr}/>}
+            <TopicsDisplay topics={topics}/>
         </>
     )
 }
@@ -96,16 +62,16 @@ const ResponseTextArea = styled.textarea`
     width: 100%;
 `;
 
-export const Instructions = ({ instructions }) => {
+export const Instructions = ({ instructions }: { instructions: Instruction[] }) => {
     return (
         <Accordion alwaysOpen>
         {instructions.map((instruction,i) => (
-            <Accordion.Item key={i} eventKey={i}>
+            <Accordion.Item key={i} eventKey={`${i}`}>
                 <Accordion.Header>{instruction.text}</Accordion.Header>
                 <Accordion.Body>
                     {instruction.options
                     ? 
-                    instruction.answer.length === 1 ? 
+                    instruction.optionsAnswers.length === 1 ? 
                     <RadioMenu 
                         value={undefined}
                         onChange={() => {}}
