@@ -25,7 +25,6 @@ export class AxiosFetcher implements Fetcher {
   };
 
   get(url: string, query: {[k: string]: string}) {
-    console.log({query})
     return this._instance.get(url, { params: {...query}}).then(this._successHandler).catch(this._errorHandler);
   }
 

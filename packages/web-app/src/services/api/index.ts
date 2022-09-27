@@ -98,7 +98,7 @@ export const useApiBuilder = () => {
     title, 
     cefr, 
     topics,
-    contentType,
+    contentTypes,
     isInProgress,
     isComplete
   }) => useApiCallSWR<IGetActivitiesResponse>(
@@ -107,7 +107,7 @@ export const useApiBuilder = () => {
       title,
       cefr,
       topics,
-      contentType
+      contentTypes: `${contentTypes}` // turns array into ITEM,ITEM format
     })
   );
 

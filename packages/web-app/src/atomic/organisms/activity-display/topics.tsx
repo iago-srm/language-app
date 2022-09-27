@@ -28,7 +28,7 @@ export const TopicsBreadCrumbs = {
 
 export const TopicsDisplay = ({ topics }) => {
     return topics && topics.map((topic,i) => {
-        const Component = TopicsBreadCrumbs[topic.value];
-        return <Component key={i} label={topic.label}/>
+        const Component = TopicsBreadCrumbs[topic.value || topic];
+        return <Component key={i} label={topic.label || topic}/>
     })
 }

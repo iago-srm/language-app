@@ -29,7 +29,7 @@ export class ActivityRepository implements IActivityRepository {
     title,
     topics,
     cefr,
-    contentType,
+    contentTypes,
     ids
   }) {
     // console.log(ids)
@@ -42,7 +42,7 @@ export class ActivityRepository implements IActivityRepository {
           { cefr },
           { instructorId },
           { topics: { hasSome: topics }},
-          { contentType },
+          { contentType: { in: contentTypes }},
           ids ? { id: { in: ids }} : undefined
         ]
       },

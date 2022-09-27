@@ -32,7 +32,6 @@ export const Icons = {
         <FontAwesomeIcon icon={faEyeSlash} />
     ),
     CHEVRON_RIGHT: ({onClick}: any) => {
-        console.log(onClick)
         return <FontAwesomeIcon icon={faAngleRight} onClick={onClick}/>
     },
     CHEVRON_DOWN: ({onClick}: any) => (

@@ -19,7 +19,7 @@ const Activities: React.FC = () => {
     cefr: user && user.cefr,
     title: "",
     topics: [],
-    contentType: [],
+    contentTypes: [],
     isInProgress: undefined,
     isComplete: undefined
   });
@@ -37,14 +37,29 @@ const Activities: React.FC = () => {
     loading,
     error,
     mutate: refreshActivities
-  } = getActivities({...filters, topics: `${filters.topics.map(t => t.value)}`});
+  } = getActivities({
+    ...filters, 
+    topics: `${filters.topics.map(t => t.value)}`,
+    cefr: filters.cefr && `${filters.cefr.value}`,
+  });
+
+  const clearAllFilters = () => {
+    setFilters({
+      cefr: user && user.cefr,
+      title: "",
+      topics: [],
+      contentTypes: [],
+      isInProgress: undefined,
+      isComplete: undefined
+    });
+  };
 
   return (
     <Container>
       <Head>
         <title>{getPageTitle(Translations[language][Labels.DASHBOARD])}</title>
       </Head>
-      <Filters setFilters={setFilters} filters={filters}/>
+      <Filters setFilters={setFilters} filters={filters} clearAll={clearAllFilters}/>
       <LoadingErrorData
         loading={loading}
         error={error}

@@ -21,9 +21,6 @@ export const FiltersContainer = styled.div`
     ${FilterContainer}.content-type {
         grid-column: span 3;
     }
-    ${FilterContainer}.is-in-progress {
-        grid-column: span 3;
-    }
 `;
 
 

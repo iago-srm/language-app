@@ -20,6 +20,7 @@ export const SingleSelect = ({ options, onChange, value, selectedIcon }: ISingle
     return (
         <ReactSelect 
             formatOptionLabel={(option,context) => {
+                // if(!value) return;
                 if(context.selectValue.includes(option) && selectedIcon) {
                     return (
                         <>

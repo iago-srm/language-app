@@ -16,3 +16,5 @@
 - Insert activity instruction modal:
   - Text of multiple-choice should have between parenthesis what sub-type it is: only one correct answer (radio UI) or multiple (checkbox UI) and text in red if no correct answer.
   - Not allow to save if no correct answers in multiple-choice.
+- [BUG] CEFR Select keeps last choice when filters are cleared.
+- Activities pagination

@@ -15,7 +15,7 @@ type InputParams = {
   title?: string;
   cefr?: string;
   topics?: string[],
-  contentType?: string,
+  contentTypes?: string,
   isInProgress?: boolean,
   isComplete?: boolean,
   thisInstructorOnly: boolean
@@ -32,10 +32,10 @@ class UseCase implements IGetActivitiesUseCase {
     private activityRepository: IActivityRepository
   ){}
 
-  async execute ({ cursor, title, cefr, topics, contentType, isInProgress, isComplete, userId, thisInstructorOnly }) {
+  async execute ({ cursor, title, cefr, topics, contentTypes, isInProgress, isComplete, userId, thisInstructorOnly }) {
 
     console.log({
-      cursor, title, cefr, topics, contentType, isInProgress, isComplete, thisInstructorOnly
+      cursor, title, cefr, topics, contentTypes, isInProgress, isComplete, thisInstructorOnly
     });
 
     let instructorId;
@@ -73,7 +73,7 @@ class UseCase implements IGetActivitiesUseCase {
       title,
       cefr,
       topics: topics || DomainRules.ACTIVITY.TOPICS,
-      contentType,
+      contentTypes: contentTypes || DomainRules.ACTIVITY.CONTENTTYPE,
       ids: studentActivitiesIds 
     });
 

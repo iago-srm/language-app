@@ -14,7 +14,7 @@ type GetActivitiesInput = {
   title?: string,
   cefr?: CEFR,
   topics?: string[],
-  contentType?: string,
+  contentTypes?: string[],
   ids?: number[];
 }
 

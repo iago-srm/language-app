@@ -14,7 +14,7 @@ import {
 
 const responsiveBreakpoint = 550;
 
-export const ActivityFilters = ({ setFilters, filters}) => {
+export const ActivityFilters = ({ setFilters, filters, clearAll }) => {
 
   const isBigScreen = useMediaQuery({ minWidth: responsiveBreakpoint });
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -38,8 +38,8 @@ export const ActivityFilters = ({ setFilters, filters}) => {
           options={[{ value: "TEXT", label: "Texto"}, { value: "VIDEO", label: "Video"}]}
         />
       </FilterContainer>
-      <FilterContainer className="is-in-progress">
-        <Toggle onChange={(e) => setFilters(f => ({...f, isInProgress: e}))} checked={filters.isInProgress} label={"Activities in Progress"}/>
+      <FilterContainer className="clear-all">
+        <button onClick={clearAll}>Clear all</button>
       </FilterContainer>
     </>
   )
