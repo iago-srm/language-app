@@ -23,17 +23,23 @@ class UseCase implements IUpdateUserUseCase {
     private userRepository: IUserRepository,
     private authEventQueue: IAuthEventQueue
   ){}
-  async execute({ role, name, userId }) {
+  // do not allow update name for now
+  async execute({ role, name, userId }: InputParams) {
 
-    const user = await this.userRepository.getUserById(userId);
+    const userDTO = await this.userRepository.getUserById(userId);
 
-    if (!user) throw new UserNotFoundError();
+    if (!userDTO) throw new UserNotFoundError();
+    if(userDTO.role) return;
 
-    new User({ role, name })
+    new User({ role })
 
-    await this.userRepository.updateUser(userId, { role, name });
+    await this.userRepository.updateUser(userId, { role });
 
-    await this.authEventQueue.publishNewUser(user);
+    await this.authEventQueue.publishNewUser({
+      ...userDTO,
+      // name: name || userDTO.name, // try updating name if it has been provided
+      role: userDTO.role || role // do not let update role if it already set
+    });
   }
 
 }

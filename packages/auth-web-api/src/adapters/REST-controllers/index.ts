@@ -7,3 +7,5 @@ export * from './profile-image';
 export * from './verify-account';
 export * from './forgot-password-request';
 export * from './reset-password';
+export * from './google-sign-in';
+export * from './google-sign-up';

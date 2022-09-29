@@ -1,53 +1,56 @@
 import {
-  IGetStudentActivitiesUseCase,
-  IGetInstructorActivitiesUseCase
+  IGetActivitiesUseCase,
 } from '@application/use-cases';
-import { GetActivitiesHTTPDefinition } from '@language-app/common';
+import { GetActivitiesHTTPDefinition } from '@language-app/common-core';
 import {
   IHTTPController,
   IHTTPControllerDescriptor,
   controllerSerializer
-} from '@language-app/common';
+} from '@language-app/common-platform';
 
 export const GetActivitiesControllerFactory = ({
-  getStudentActivitiesUseCase,
-  getInstructorActivitiesUseCase
+  getActivitiesUseCase,
 }: {
-  getStudentActivitiesUseCase: IGetStudentActivitiesUseCase;
-  getInstructorActivitiesUseCase: IGetInstructorActivitiesUseCase;
+  getActivitiesUseCase: IGetActivitiesUseCase;
 }): IHTTPControllerDescriptor<IHTTPController> => {
   const fn: IHTTPController = async (_, __, query, { user }) => {
 
     const {
       title,
       cefr,
-      cursor
-    } = controllerSerializer(query, ['title', 'cefr', 'cursor']);
+      topics,
+      contentTypes,
+      isInProgress,
+      isComplete,
+      cursor,
+      thisInstructorOnly
+    } = controllerSerializer(query, [
+      { name: 'title', optional: true }, 
+      { name: 'cefr', optional: true }, 
+      { name: 'cursor', optional: true },
+      { name: 'topics', optional: true, type: "array" },
+      { name: 'contentTypes', optional: true, type: "array" },
+      { name: 'isInProgress', optional: true },
+      { name: 'isComplete', optional: true },
+      { name: 'thisInstructorOnly', optional: true },
+    ]);
 
     const { id, role } = user;
 
-    if(isNaN(Number(cursor))) throw new Error('cursor is not a number');
-
-    // let useCase = role === 'STUDENT' ? getStudentActivitiesUseCase : getInstructorActivitiesUseCase;
-    let resp;
-    if(role === 'STUDENT') {
-      resp = await getStudentActivitiesUseCase.execute({
-        cursor: Number(cursor),
-        title,
-        cefr
-      });
-    } else {
-      resp = await getInstructorActivitiesUseCase.execute({
-        instructorId: id,
-        cursor: Number(cursor),
-        title,
-        cefr
-      });
-    }
-
+    if(cursor && isNaN(Number(cursor))) throw new Error('cursor must be a number');
 
     return {
-      response: resp,
+      response: await getActivitiesUseCase.execute({
+        userId: id,
+        cursor: cursor && Number(cursor),
+        title,
+        cefr,
+        topics,
+        contentTypes,
+        isInProgress: role === "STUDENT" && isInProgress === "true",
+        isComplete: role === "STUDENT" && isComplete === "true",
+        thisInstructorOnly: role === "INSTRUCTOR" && thisInstructorOnly === "true"
+      }),
       statusCode: 200,
     };
   };

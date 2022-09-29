@@ -1,5 +1,4 @@
-import { EmailGenerator, PasswordGenerator } from '@language-app/common';
-import { threadId } from 'worker_threads';
+import { EmailGenerator, PasswordGenerator } from '@language-app/common-utils';
 import { AbstractBuilder } from './abstract-builder';
 
 const emailGenerator = new EmailGenerator();

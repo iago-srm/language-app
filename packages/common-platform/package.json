@@ -12,10 +12,25 @@
   "dependencies": {
     "@sendgrid/mail": "^7.7.0",
     "aws-sdk": "^2.1160.0",
+    "cors": "^2.8.5",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "helmet": "^4.6.0",
+
     "jsonwebtoken": "^8.5.1",
     "node-polyglot": "^2.4.2",
     "uuid": "^8.3.2",
     "bcryptjs": "^2.4.3",
     "multer": "^1.4.5-lts.1"
+  }, "devDependencies": {
+    "@types/multer": "^1.4.7",
+    "@types/uuid": "^8.3.4",
+    "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^8.5.8",
+    "@types/body-parser": "^1.19.0",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.12",
+    "@types/node-polyglot": "^2.4.1",
+    "@types/pino": "^6.3.11"
   }
 }

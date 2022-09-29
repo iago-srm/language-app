@@ -13,16 +13,16 @@ export class LocalStorage {
     return localStorage.getItem('language-app.token');
   }
 
-  getTheme(defaultTheme) {
-    const storedTheme = localStorage.getItem('color_theme');
-    if(!storedTheme) {
-      localStorage.setItem('color_theme', defaultTheme);
+  getMode(defaultMode) {
+    const storedMode = localStorage.getItem('color_mode');
+    if(!storedMode) {
+      localStorage.setItem('color_mode', defaultMode);
     }
-    return storedTheme || defaultTheme;
+    return storedMode || defaultMode;
   }
 
-  setTheme(theme: string) {
-    localStorage.setItem('color_theme', theme);
+  setMode(mode: string) {
+    localStorage.setItem('color_mode', mode);
   }
 
   setRefreshToken(token: string) {

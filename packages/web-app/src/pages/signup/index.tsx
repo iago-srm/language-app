@@ -10,8 +10,10 @@ import { useLanguage, useAuth, useColorTheme } from '@contexts';
 import {
   Form,
   Input,
+  EmailInput,
   PasswordInput,
-  Button,
+  ConfirmPasswordInput,
+  FormButton as Button,
   Frame,
   Container,
   Row,
@@ -19,12 +21,12 @@ import {
   SuccessAlert,
   ErrorAlert,
   Separator
-} from '@components';
+} from '@atomic';
 
 const Page: React.FC = () => {
 
   const { language } = useLanguage();
-  const { theme } = useColorTheme();
+  const { mode } = useColorTheme();
 
   const {
     credentialsSignUp: {
@@ -77,13 +79,13 @@ const Page: React.FC = () => {
               <SuccessAlert response={response} onClose={() => setResponse(undefined)}/>
               <Form onSubmit={handleSubmit} schema={schema} error={error}>
                 <Input name='name' label={Translations[language][Labels.NAME]} />
-                <Input name='email' label={Translations[language][Labels.EMAIL]} />
-                <PasswordInput name='password' label={Translations[language][Labels.PASSWORD]} type="password" />
-                <PasswordInput name='confirmPassword' label={Translations[language][Labels.CONFIRM_PASSWORD]} type="password" />
+                <EmailInput name='email' />
+                <PasswordInput name="password" />
+                <ConfirmPasswordInput name="confirmPassword" />
                 <Button loading={signUpLoading}>{Translations[language][Labels.SIGNUP]}</Button>
               </Form>
               <Separator>{Translations[language][Labels.OR]}</Separator>
-              <GoogleButton type={theme} onClick={handleGoogleSignIn} />
+              <GoogleButton type={mode} onClick={handleGoogleSignIn} />
             </Frame>
           </Col>
         </Row>

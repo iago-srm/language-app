@@ -1,5 +1,4 @@
-import GetStudentActivitiesUseCase, { IGetStudentActivitiesUseCase } from './get-student-activities';
-import GetInstructorActivitiesUseCase, { IGetInstructorActivitiesUseCase } from './get-instructor-activities';
+import GetActivitiesUseCase, { IGetActivitiesUseCase } from './get-activities';
 import GetStudentOutputUseCase, { IGetStudentOutputUseCase } from './get-student-output';
 import GetStudentOutputsUseCase, { IGetStudentOutputsUseCase } from './get-student-outputs';
 
@@ -7,13 +6,13 @@ import NewActivityInstructionUseCase, { INewActivityInstructionUseCase } from '.
 import NewActivityUseCase, { INewActivityUseCase } from './new-activity';
 import NewStudentOutputUseCase, { INewStudentOutputUseCase } from './new-student-output';
 import NewUserUseCase, { INewUserUseCase } from './new-user';
+import SignOutUserUseCase, { ISignOutUserUseCase } from './signout-user';
 
+import ChangeActivityProgressStatusUseCase, { IChangeActivityProgressStatusUseCase } from './change-activity-progress-status';
 
 export {
-  GetStudentActivitiesUseCase,
-  IGetStudentActivitiesUseCase,
-  GetInstructorActivitiesUseCase,
-  IGetInstructorActivitiesUseCase,
+  GetActivitiesUseCase,
+  IGetActivitiesUseCase,
   GetStudentOutputUseCase,
   IGetStudentOutputUseCase,
   GetStudentOutputsUseCase,
@@ -25,6 +24,10 @@ export {
   NewStudentOutputUseCase,
   INewStudentOutputUseCase,
   NewUserUseCase,
-  INewUserUseCase
+  INewUserUseCase,
+  ChangeActivityProgressStatusUseCase,
+  IChangeActivityProgressStatusUseCase,
+  SignOutUserUseCase,
+  ISignOutUserUseCase
 }
 

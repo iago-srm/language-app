@@ -12,34 +12,63 @@ export class UserRepository implements IUserRepository {
     this.prisma = new PrismaClient();
   }
 
-  insertUserAndStudent(user: UserDTO, id: string) {
+  insertUserAndStudent(user: UserDTO, newId: string) {
     return this.prisma.user.create({
       data: {
-        id,
+        authApiId: user.authApiId,
         email: user.email,
         name: user.name,
         role: user.role,
+        tokenVersion: user.tokenVersion,
         student: {
           create: {
-            id,
+            id: newId
           }
         }
       }
     })
   }
 
-  insertUserAndInstructor(user: UserDTO, id: string) {
+  insertUserAndInstructor(user: UserDTO, newId: string) {
     return this.prisma.user.create({
       data: {
-        id,
+        authApiId: user.authApiId,
         email: user.email,
         name: user.name,
         role: user.role,
+        tokenVersion: user.tokenVersion,
         instructor: {
           create: {
-            id,
+            id: newId,
           }
         }
+      }
+    })
+  }
+
+  getUserById(id: string) {
+    return this.prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
+  }
+
+  getUserByAuthApiId(authApiId: string) {
+    return this.prisma.user.findUnique({
+      where: {
+        authApiId,
+      },
+    });
+  }
+
+  updateUser(user: Partial<UserDTO>, authApiId: string) {
+    return this.prisma.user.update({
+      data: {
+        ...user
+      },
+      where: {
+        authApiId
       }
     })
   }

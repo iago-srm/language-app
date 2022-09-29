@@ -3,24 +3,44 @@ import {
   ActivityInstructionDTO,
   CEFR,
   UserDTO,
-  StudentOutputDTO
+  StudentOutputDTO,
+  InstructorDTO,
+  StudentDTO
 } from '.';
 
+type GetActivitiesInput = {
+  instructorId?: string,
+  cursor?: number,
+  title?: string,
+  cefr?: CEFR,
+  topics?: string[],
+  contentTypes?: string[],
+  ids?: number[];
+}
+
 export interface IActivityRepository {
-  getActivitiesByInstructorIdOrAll: (
-    cursor: number,
-    instructorId?: string,
-    title?: string,
-    cefr?: CEFR,
-  ) => Promise<Partial<ActivityDTO>[]>;
-  getActivityById: (id: number) => Promise<ActivityDTO>;
-  insertActivity: (activity: ActivityDTO) => Promise<ActivityDTO>;
-  insertNewInstructions: (activityId: number, instructions: ActivityInstructionDTO[]) => Promise<Partial<ActivityDTO>>;
+  getActivities: (args: GetActivitiesInput) => Promise<Partial<ActivityDTO>[]>;
+  getActivityIdsByStudentProgress: (studentId: string, completed: boolean) => Promise<number[]>;
+  insertActivityProgress: (studentId: string, activityId: number, completed: boolean) => Promise<void>;
+  getActivityById: (id: number) => Promise<ActivityDTO & { instructions: ActivityInstructionDTO[] }>;
+  insertActivity: (instructorId: string, activity: ActivityDTO) => Promise<ActivityDTO>;
+  // insertNewInstructions: (activityId: number, instructions: ActivityInstructionDTO[]) => Promise<Partial<ActivityInstructionDTO>[]>;
 }
 
 export interface IUserRepository {
-  insertUserAndStudent: (user: Partial<UserDTO>, id: string) => Promise<UserDTO>;
-  insertUserAndInstructor: (user: Partial<UserDTO>, id: string) => Promise<UserDTO>;
+  insertUserAndStudent: (user: Partial<UserDTO>, newId: string) => Promise<UserDTO>;
+  insertUserAndInstructor: (user: Partial<UserDTO>, newId: string) => Promise<UserDTO>;
+  getUserById: (id: string) => Promise<UserDTO>;
+  getUserByAuthApiId: (authApiId: string) => Promise<UserDTO>;
+  updateUser: (user: Partial<UserDTO>, authApiId: string) => Promise<UserDTO>;
+}
+
+export interface IInstructorRepository {
+  getInstructorByUserId: (userId:string) => Promise<InstructorDTO>;
+}
+
+export interface IStudentRepository {
+  getStudentByUserId: (userId:string) => Promise<StudentDTO>;
 }
 
 export interface IStudentOutputRepository {

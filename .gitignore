@@ -4,17 +4,22 @@
 node_modules
 /.pnp
 .pnp.js
+.logs
+.npm
 
 # testing
 coverage
 .logs
+
 # production
 build
 dist
+.turbo/
 
 # misc
 .DS_Store
 .env
+.env.local
 /certificates
 .next
 npm-debug.log*
@@ -23,6 +28,8 @@ npm-debug.log*
 prisma-client/
 #*.js
 generated/
+tinymce.min.js
+tinymce/
 
 # terraform
 function.zip

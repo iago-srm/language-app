@@ -1,0 +1,50 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+}
+
+model User {
+  id            String    @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  name          String?
+  email         String?   @unique
+  emailVerified Boolean? @default(false)
+  hashedPassword String?
+  verificationToken VerificationToken?
+  forgotPasswordToken ForgotPasswordToken[]
+  image         String?
+  role String?
+  tokenVersion Int @default(0)
+  provider String?
+}
+
+model VerificationToken {
+  id String @id @default(cuid())
+  updatedAt DateTime @updatedAt
+
+  token      String   @unique
+  userId       String @unique
+  createdAt DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id])
+
+  @@unique([id, token])
+}
+
+model ForgotPasswordToken {
+  id String @id @default(cuid())
+  updatedAt DateTime @updatedAt
+
+  token      String   @unique
+  userId       String
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+  user         User     @relation(fields: [userId], references: [id])
+
+  @@unique([id, token])
+}

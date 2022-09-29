@@ -7,6 +7,7 @@ export interface UserDTO {
   tokenVersion: number;
   image?: string;
   emailVerified: boolean;
+  provider?: string;
 }
 
 export interface VerificationTokenDTO {

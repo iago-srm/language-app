@@ -1,29 +1,40 @@
-import { DomainRules } from '@language-app/common';
+import { DomainRules } from '@language-app/common-core';
 import {
   InvalidInstructionOptionSetError,
   InvalidActivityInstructionLengthError,
   InvalidActivityOptionLengthError
 } from '../errors';
 
-interface ActivityInstructionConstructorParams {
-  correctAnswer: string;
+interface Option {
   text: string;
-  options?: string[];
+  id: string;
+}
+
+interface ActivityInstructionConstructorParams {
+  optionsAnswers: string[];
+  textAnswer: string;
+  text: string;
+  options?: Option[];
+  type: string;
 }
 
 export class ActivityInstruction {
-  correctAnswer: string;
+  optionsAnswers: string[];
+  textAnswer: string;
   text: string;
-  options?: { [key: string]: string }[];
-  private _separator = '//%//';
+  options?: Option[] = [];
 
   constructor(args: Partial<ActivityInstructionConstructorParams>) {
-    args.text && this.setInstruction(args.text);
-    args.options && this.parseOptions(args.options, args.correctAnswer);
-    args.correctAnswer && this.setCorrectAnswer(args.correctAnswer);
+    args.text && this.setInstructionText(args.text);
+    this.parseOptions(
+      args.options, 
+      args.optionsAnswers, 
+      args.textAnswer, 
+      args.type
+    );
   }
 
-  setInstruction(text: string) {
+  setInstructionText(text: string) {
     if (
       text.length < DomainRules.ACTIVITY.INSTRUCTION.MIN_LENGTH ||
       text.length > DomainRules.ACTIVITY.INSTRUCTION.MAX_LENGTH
@@ -35,24 +46,32 @@ export class ActivityInstruction {
     this.text = text;
   }
 
-  parseOptions(options: string[], correctAnswer: string) {
-    if(!correctAnswer) throw new Error('Options but no correct answer');
-    for(let option of options) {
-      const [letter, text] = option.split(this._separator);
-      if (
-        text.length < DomainRules.ACTIVITY.OPTION.MIN_LENGTH ||
-        text.length > DomainRules.ACTIVITY.OPTION.MAX_LENGTH
-      ) {
-        throw new InvalidActivityOptionLengthError({
-          text,
-        });
+  parseOptions(
+    options: Option[], 
+    optionsAnswers: string[], 
+    textAnswer: string, 
+    instructionType: string
+  ) {
+    // if(!Array.isArray(options) || !options.length) throw new Error("\"options\" parameter must be a non-empty array")
+    if(instructionType === "OPTIONS") {
+      if(!optionsAnswers) throw new Error('Options instruction type but no correct answer');
+      for(let option of options) {
+        if (
+          option.text.length < DomainRules.ACTIVITY.OPTION.MIN_LENGTH ||
+          option.text.length > DomainRules.ACTIVITY.OPTION.MAX_LENGTH
+        ) {
+          throw new InvalidActivityOptionLengthError({
+            text: option.text,
+          });
+        }
       }
-      this.options[letter] = text;
+      const optionIds = options.map(opt => opt.id);
+      for(let answer of optionsAnswers) {
+        if(!optionIds.includes(answer)) throw new InvalidInstructionOptionSetError({ text: answer });
+      }
     }
-    if(!options[correctAnswer]) throw new InvalidInstructionOptionSetError();
-  }
-
-  setCorrectAnswer(text: string) {
-    this.correctAnswer = text;
+    this.options = options;
+    this.optionsAnswers = optionsAnswers;
+    this.textAnswer = textAnswer;
   }
 }

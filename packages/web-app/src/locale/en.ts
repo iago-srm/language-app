@@ -11,11 +11,12 @@ export const English = {
   [Labels.HOME]: 'Home',
   [Labels.SIGNIN]: 'Sign In',
   [Labels.SIGNUP]: 'Sign Up',
-  [Labels.LOGOUT]: 'Sign Out',
+  [Labels.SIGNOUT]: 'Sign Out',
   [Labels.VERIFYACCOUNT]: 'Verify Account',
   [Labels.PROFILE]: 'Profile',
   [Labels.FORGOT_PASSWORD]: 'Forgot Password',
   [Labels.RESET_PASSWORD]: 'Reset Password',
+  [Labels.DASHBOARD]: 'Dasboard',
 
   [Labels.NAME]: 'Name',
   [Labels.EMAIL]: 'E-mail',
@@ -24,5 +25,11 @@ export const English = {
 
   [Labels.SEND]: 'Send',
   [Labels.OR]: 'Or',
-  [Labels.FORGOT_PASSWORD_QUESTION]: 'Forgot your password?'
+  [Labels.FORGOT_PASSWORD_QUESTION]: 'Forgot your password?',
+
+  [Labels['SCIENCE_&_TECHNOLOGY']]: "Science & Technology",
+  [Labels['CURRENT_AFFAIRS']]: "Current Affairs",
+  [Labels['ARTS']]: "Arts",
+  [Labels['SPORTS']]: "Sports",
+
 }

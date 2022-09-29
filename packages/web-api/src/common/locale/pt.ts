@@ -1,4 +1,6 @@
-import { PortugueseErrorMessages as CommonPortugueseErrorMessages } from '@language-app/common';
+import { 
+  PortugueseErrorMessages as CommonPortugueseErrorMessages 
+} from '@language-app/common-utils';
 import { ErrorMessagesLabels } from './labels';
 
 export const PortugueseErrorMessages = {

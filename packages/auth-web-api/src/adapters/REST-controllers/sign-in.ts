@@ -16,13 +16,11 @@ export const SignInControllerFactory = ({
     const {
       email,
       password,
-      id
-    } = controllerSerializer(body, ['email', 'password', 'id']);
+    } = controllerSerializer(body, ['email', 'password']);
 
     const resp = await signInUseCase.execute({
       email,
       password,
-      id
     });
 
     return {

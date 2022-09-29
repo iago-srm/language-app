@@ -18,7 +18,19 @@ export class CannotAlterUserError extends CustomError {
 export class ParameterNotProvidedError extends CustomError {
   HTTPstatusCode = 400;
   constructor({ parameter }) {
-    super({ errorName: ErrorMessagesLabels.PARAMETER_NOT_PROVIDED, params: { parameter } });
+    super({ 
+      errorName: ErrorMessagesLabels.PARAMETER_NOT_PROVIDED, 
+      params: { parameter } 
+    });
+  }
+}
+
+export class InvalidParameterError extends CustomError {
+  HTTPstatusCode = 400;
+  constructor() {
+    super({ 
+      errorName: ErrorMessagesLabels.INVALID_PARAMETER
+    });
   }
 }
 
@@ -40,6 +52,20 @@ export class MalformedTokenError extends CustomError {
   HTTPstatusCode = 403;
   constructor() {
     super({ errorName: ErrorMessagesLabels.MALFORMED_TOKEN });
+  }
+}
+
+export class CouldNotVerifyTokenError extends CustomError {
+  HTTPstatusCode = 400;
+  constructor() {
+    super({ errorName: ErrorMessagesLabels.COULD_NOT_VERIFY_TOKEN });
+  }
+}
+
+export class InsufficientTokenError extends CustomError {
+  HTTPstatusCode = 400;
+  constructor() {
+    super({ errorName: ErrorMessagesLabels.COULD_NOT_VERIFY_TOKEN });
   }
 }
 

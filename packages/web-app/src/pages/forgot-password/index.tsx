@@ -11,11 +11,11 @@ import { useLanguage, useColorTheme } from '@contexts';
 import {
   Form,
   Input,
-  Button,
+  FormButton as Button,
   Frame,
   ErrorAlert,
   SuccessAlert
-} from '@components';
+} from '@atomic';
 import { ResponsiveCenteredPageContent } from '@styles';
 
 const Page: React.FC = () => {

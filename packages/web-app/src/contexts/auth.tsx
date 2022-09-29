@@ -17,7 +17,7 @@ import { setCookie, parseCookies } from 'nookies'
 import { IGetUserAPIResponse } from "@language-app/common-core";
 
 interface IAuthContext {
-  isAuthenticated?: number;
+  isAuthenticated?: boolean;
   user?: any;
   isUserLoading?: boolean;
   userError?: any;
@@ -27,6 +27,7 @@ interface IAuthContext {
   credentialsSignUp?: SignUp;
   signOut?: () => void;
   updateUser?: () => void;
+  tokenHeaderSet: boolean;
 }
 
 export const handleAuthToken = (token: string) => {
@@ -38,7 +39,9 @@ export const handleAuthToken = (token: string) => {
   })
 }
 
-const AuthContext = React.createContext<IAuthContext>({})
+const AuthContext = React.createContext<IAuthContext>({
+  tokenHeaderSet: false
+})
 
 const localStorage = new LocalStorage();
 
@@ -52,16 +55,17 @@ export function AuthProvider({ children }) {
     useUser
   } = useApiBuilder();
 
-  const [isAuthenticated, setIsAuthenticated] = useState(0);
-  const { mutate } = useSWRConfig();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // const { mutate } = useSWRConfig();
   const [tokenHeaderSet, setTokenHeaderSet] = React.useState(false);
 
-  const refreshUser = () => {
-    mutate('user');
-  }
-
   const googleSignIn = React.useCallback(async () => {
-    await nextAuthSignIn("google", { callbackUrl: '/' });
+    console.log("google");
+    try {
+      await nextAuthSignIn("google", { callbackUrl: '/' });
+    } catch(e) {
+      console.log(e)
+    }
     setTokenHeaderSet(true);
   }, [])
 
@@ -75,7 +79,7 @@ export function AuthProvider({ children }) {
       // router.push('/dashboard');
     }
     return {
-      error: error.message,
+      error: error.message || "Algo deu errado",
     }
   }
   const signOut = React.useCallback(async () => {
@@ -83,13 +87,15 @@ export function AuthProvider({ children }) {
     await credentialsSignOut.apiCall();
     handleAuthToken("");
     setTokenHeaderSet(false);
-    setIsAuthenticated(-1);
+    setIsAuthenticated(false);
   }, [session]);
 
   useEffect(() => {
     if(session) {
-      handleAuthToken((session.token as { auth_token: string}).auth_token);
-      setTokenHeaderSet(true)
+      // handleAuthToken((session.token as { auth_token: string}).auth_token);
+      handleAuthToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Nzk2NzkxMDYsImRhdGEiOnsiaWQiOiJiNGY1NDllZi0zYTc4LTQ5ZTEtOTgwNC02ZWZlZjcwZjJhMzEiLCJ0b2tlblZlcnNpb24iOjV9LCJpYXQiOjE2NjQxMjcxMDZ9.fkY259IYJNC5VNmSrQ0dcAWv3_a58oK2rk8Prta04VU")
+      setTokenHeaderSet(true);
+      setIsAuthenticated(true);
     }
   }, [session]);
 
@@ -98,8 +104,9 @@ export function AuthProvider({ children }) {
     if(token) {
       setTokenHeaderSet(true);
       handleAuthToken(token);
+      setIsAuthenticated(true);
     } else {
-      setIsAuthenticated(-1);
+      setIsAuthenticated(false);
     }
   }, []);
 
@@ -114,7 +121,8 @@ export function AuthProvider({ children }) {
   const {
     data: user,
     loading: userLoading,
-    error: userError
+    error: userError,
+    mutate: refreshUser
   } = useUser(tokenHeaderSet);
 
   // const [user, setUser] = useState<IGetUserAPIResponse>();
@@ -125,7 +133,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const token = localStorage.getRefreshToken();
     if(userError && token) {
-      console.log({userError,token});
+      // console.log({userError,token});
     }
   },[userError]);
 
@@ -136,8 +144,14 @@ export function AuthProvider({ children }) {
   return (
     <AuthContext.Provider value={{
       user,
+      // : {
+      //   id: '7eb14bc7-26cb-468e-86c0-fad7c8af0619',
+      //   tokenVersion: 0,
+      //   role: 'STUDENT',
+      //   cefr: "A2"
+      // }, // for debugging purposes
       isAuthenticated,
-      isUserLoading: userLoading || (!userLoading && !user && !userError),
+      isUserLoading: userLoading,
       userError,
       refreshUser,
       googleSignIn,
@@ -148,6 +162,7 @@ export function AuthProvider({ children }) {
       credentialsSignUp,
       signOut,
       // updateUser
+      tokenHeaderSet
     }}>
       {children}
     </AuthContext.Provider>

@@ -4,12 +4,14 @@ import {
 } from '../ports';
 import {
   IUseCase
-} from '@language-app/common';
+} from '@language-app/common-platform';
 
 type InputParams = {
+  authApiId: string;
   name: string;
   email: string;
-  role: string
+  role: string;
+  tokenVersion: number;
 };
 type Return = void;
 
@@ -22,11 +24,21 @@ class UseCase implements INewUserUseCase {
     private idService: IIdGenerator
   ){}
 
-  async execute ({ role, name, email }) {
+  async execute ({ authApiId, role, name, email, tokenVersion }) {
 
-    const id = this.idService.getId();
-    if(role === 'STUDENT') await this.userRepository.insertUserAndStudent({ role, name, email }, id);
-    else await this.userRepository.insertUserAndInstructor({ role, name, email }, id);
+    // const newId = this.idService.getId();
+
+    const newUser = { 
+      role, 
+      name, 
+      email, 
+      tokenVersion,
+      authApiId
+    };
+
+    if(role === 'STUDENT') 
+      await this.userRepository.insertUserAndStudent(newUser, authApiId);
+    else await this.userRepository.insertUserAndInstructor(newUser, authApiId);
 
   }
 

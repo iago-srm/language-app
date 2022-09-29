@@ -1,12 +1,12 @@
 import {
   INewUserUseCase
 } from '@application/use-cases';
-import { NewUserHTTPDefinition } from '@language-app/common';
+import { NewUserHTTPDefinition } from '@language-app/common-core';
 import {
   IHTTPController,
   IHTTPControllerDescriptor,
   controllerSerializer
-} from '@language-app/common';
+} from '@language-app/common-platform';
 
 export const NewUserControllerFactory = ({
   newUserUseCase
@@ -16,12 +16,23 @@ export const NewUserControllerFactory = ({
   const fn: IHTTPController = async (_, body) => {
 
     const {
+      authApiId,
       name,
       email,
-      role
-    } = controllerSerializer(body, ['name','email','role']);
+      role,
+      tokenVersion
+    } = controllerSerializer(body, ['authApiId', 'name', 'email', 'role', 'tokenVersion']);
 
-    await newUserUseCase.execute({ name, email, role });
+    if(isNaN(Number(tokenVersion)))   
+      throw new Error(`Invalid Token Version: ${tokenVersion}`);
+
+    await newUserUseCase.execute({ 
+      authApiId: authApiId, 
+      name, 
+      email, 
+      role, 
+      tokenVersion: Number(tokenVersion) 
+    });
 
     return {
       response: "",
@@ -31,7 +42,6 @@ export const NewUserControllerFactory = ({
 
   return {
     controller: fn,
-    method: NewUserHTTPDefinition.method,
-    path: NewUserHTTPDefinition.path,
+    ...NewUserHTTPDefinition
   };
 };

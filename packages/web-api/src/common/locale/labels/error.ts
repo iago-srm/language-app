@@ -1,4 +1,6 @@
-import { ErrorMessagesLabels as CommonErrorMessagesLabels } from '@language-app/common';
+import { 
+  ErrorMessagesLabels as CommonErrorMessagesLabels 
+} from '@language-app/common-utils';
 
 export const ErrorMessagesLabels = {
   ...CommonErrorMessagesLabels,
@@ -13,7 +15,7 @@ export const ErrorMessagesLabels = {
   ACTIVITY_VIDEO_URL: 'activity_video_url',
   ACTIVITY_TOPIC: 'activity_topic',
   ACTIVITY_TIME_TO_COMPLETE: 'activity_time_to_complete',
-  ACTIVITY_INSTRUCTION_INVALID_OPTION_SET: 'activity_option_set',
+  ACTIVITY_OPTION_SET: 'activity_option_set',
   ROUTE_NOT_FOUND: 'route_not_found',
   CEFR: 'cefr',
   BUCKET_VALUE: 'bucket_value',

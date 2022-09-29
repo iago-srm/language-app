@@ -1,5 +1,5 @@
 import { FlashCard } from '.';
-import { DomainRules } from '@language-app/common';
+import { DomainRules } from '@language-app/common-core';
 import { ErrorMessagesLabels } from '@common/locale';
 
 describe('Unit Tests for flashcard entity', () => {

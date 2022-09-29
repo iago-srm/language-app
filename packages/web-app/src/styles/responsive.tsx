@@ -2,7 +2,7 @@ import {
   Container,
   Row,
   Col,
-} from '@components';
+} from '@atomic';
 
 export const ResponsiveCenteredPageContent = ({ children }) => {
   return (

@@ -11,11 +11,12 @@ export const Portuguese = {
   [Labels.HOME]: 'Home',
   [Labels.SIGNIN]: 'Entrar',
   [Labels.SIGNUP]: 'Cadastrar',
-  [Labels.LOGOUT]: 'Sair',
+  [Labels.SIGNOUT]: 'Sair',
   [Labels.VERIFYACCOUNT]: 'Confirmar Conta',
   [Labels.PROFILE]: 'Perfil',
   [Labels.FORGOT_PASSWORD]: 'Esqueci a Senha',
   [Labels.RESET_PASSWORD]: 'Redefinir Senha',
+  [Labels.DASHBOARD]: 'Minha área',
 
   [Labels.NAME]: 'Nome',
   [Labels.EMAIL]: 'E-mail',
@@ -24,5 +25,10 @@ export const Portuguese = {
 
   [Labels.SEND]: 'Salvar',
   [Labels.OR]: 'Ou',
-  [Labels.FORGOT_PASSWORD_QUESTION]: 'Esqueceu a Senha?'
+  [Labels.FORGOT_PASSWORD_QUESTION]: 'Esqueceu a Senha?',
+
+  [Labels['SCIENCE_&_TECHNOLOGY']]: "Ciência & Tecnologia",
+  [Labels['CURRENT_AFFAIRS']]: "Atualidades",
+  [Labels['ARTS']]: "Artes",
+  [Labels['SPORTS']]: "Esportes",
 }

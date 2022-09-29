@@ -30,15 +30,12 @@ class UseCase implements ISignInUseCase {
     private tokenService: ITokenService,
   ) {}
 
-  async execute({ id, email, password }) {
+  async execute({ email, password }) {
     let userDTO: UserDTO;
 
-    if(id) {
-      userDTO = await this.userRepository.getUserById(id);
-      if(!userDTO) throw new InvalidCredentialsError();
-    }
-    else if (email && password) {
+    if (email && password) {
       userDTO = await this.userRepository.getUserByEmail(email);
+      
       if(!userDTO) throw new InvalidCredentialsError();
       if(!userDTO.emailVerified) throw new UserNotVerifiedError({ email });
 

@@ -13,6 +13,11 @@ enum ActivityTypeValues {
   VIDEO
 }
 
+enum ActivityInstructionTypeValues {
+  TEXT
+  OPTIONS
+}
+
 enum CefrValues {
   A1
   A2
@@ -23,19 +28,20 @@ enum CefrValues {
 }
 
 model User {
-  id        String   @id
+  id            String    @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  name  String
-  email String
+  name          String?
+  email         String?   @unique
 
-  role String
-
+  role String?
+  tokenVersion Int @default(0)
+  authApiId String @unique
+  
   student Student?
   instructor Instructor?
 }
-
 
 model Instructor {
   id        String   @id
@@ -55,19 +61,20 @@ model Student {
 
   cefr    CefrValues?
 
-  activitiesStarted Activity[]
   outputs StudentOutput[]
+  activitiesInProgress ActivitiesInProgress[]
 
   user User @relation(fields: [userId], references: [id])
   userId String @unique
 }
 
-model InstructionAnswer {
+model InstructionStudentAnswer {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  answer String
+  textAnswer String?
+  optionsAnswers ActivityInstructionOption[] @relation(name: "selected")
 
   instruction   ActivityInstruction? @relation(fields: [instructionId], references: [id])
   instructionId String?
@@ -75,17 +82,31 @@ model InstructionAnswer {
   studentOutputId Int?
 }
 
+model ActivityInstructionOption {
+  id        String   @id @default(uuid())
+  text String
+
+  isOptionOf   ActivityInstruction? @relation(fields: [isOptionOfId], references: [id], name: "option")
+  isOptionOfId String?
+  isAnswerOf   ActivityInstruction? @relation(fields: [isAnswerOfId], references: [id], name: "answer")
+  isAnswerOfId String?
+  isSelectedIn InstructionStudentAnswer? @relation(fields: [isSelectedInId], references: [id], name: "selected")
+  isSelectedInId String?
+}
 
 model ActivityInstruction {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  instruction    String
-  correctAnswer String
-  options String[]
+  text    String
 
-  answers InstructionAnswer[]
+  options ActivityInstructionOption[] @relation(name: "option")
+  optionsAnswers ActivityInstructionOption[] @relation(name: "answer")
+  textAnswer String?
+
+  studentAnswers InstructionStudentAnswer[]
+  type ActivityInstructionTypeValues
 
   activity   Activity? @relation(fields: [activityId], references: [id])
   activityId Int?
@@ -111,21 +132,20 @@ model Activity {
   updatedAt DateTime @updatedAt
 
   title String
-  description String
+  description String?
   topics          String[]
-  timeToComplete Int
+  timeToComplete Int?
   content  String
   startTime Int?
   endTime   Int?
-  lastVersion Int
 
   contentType      ActivityTypeValues
   cefr           CefrValues
 
   feedbacks FeedbackToActivity[]
   instructions ActivityInstruction[]
-  studentsStartedThis Student[]
   outputs StudentOutput[]
+  inProgress ActivitiesInProgress[]
 
   instructor   Instructor @relation(fields: [instructorId], references: [id])
   instructorId String
@@ -136,12 +156,25 @@ model StudentOutput {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  answers InstructionAnswer[]
+  answers InstructionStudentAnswer[]
   feedback FeedbackToActivity?
 
   activity   Activity? @relation(fields: [activityId], references: [id])
   activityId Int?
   Student           Student?        @relation(fields: [studentId], references: [id])
+  studentId         String?
+}
+
+model ActivitiesInProgress {
+  id        Int   @id @unique @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  completed Boolean
+
+  activity   Activity? @relation(fields: [activityId], references: [id])
+  activityId Int?
+  student           Student?        @relation(fields: [studentId], references: [id])
   studentId         String?
 }
 //writing "version ActivityVersion" autocompletes the id, the @s and the one-to-many in the other table

@@ -1,12 +1,12 @@
 import {
     INewActivityUseCase,
   } from '@application/use-cases';
-  import { NewActivityHTTPDefinition } from '@language-app/common';
+  import { NewActivityHTTPDefinition } from '@language-app/common-core';
   import {
     IHTTPController,
     IHTTPControllerDescriptor,
     controllerSerializer
-  } from '@language-app/common';
+  } from '@language-app/common-platform';
   
   export const NewActivityControllerFactory = ({
     newActivityUseCase,
@@ -19,13 +19,17 @@ import {
         'content', 
         { name: 'startTime', optional: true },
         { name: 'endTime', optional: true },
+        'contentType',
         'title',
         'cefr',
-        'timeToComplete',
+        // 'timeToComplete',
         'topics',
-        'instruction'
+        'instructions',
+        { name: 'description', optional: true },
       ]) as any;
   
+      if(!activity.instructions.length) throw new Error("activity must have instructions");
+
       const { id, role } = user;
   
       if(role !== "INSTRUCTOR") {
@@ -34,6 +38,7 @@ import {
   
       return {
         response: await newActivityUseCase.execute({
+          userId: id,
           activity
         }),
         statusCode: 200,
@@ -42,8 +47,7 @@ import {
   
     return {
       controller: fn,
-      method: NewActivityHTTPDefinition.method,
-      path: NewActivityHTTPDefinition.path,
+      ...NewActivityHTTPDefinition,
       middlewares: ['auth']
     };
   };

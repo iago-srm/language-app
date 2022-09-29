@@ -5,7 +5,7 @@ import {
   } from '../ports';
   import {
     IUseCase
-  } from '@language-app/common';
+  } from '@language-app/common-platform';
   
   type InputParams = {
     cursor: number,

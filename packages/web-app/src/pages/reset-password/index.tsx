@@ -16,7 +16,7 @@ import {
   ErrorAlert,
   SuccessAlert,
   LoadingErrorData
-} from '@components';
+} from '@atomic';
 import { ResponsiveCenteredPageContent } from '@styles';
 
 interface IResetPasswordProps {

@@ -20,13 +20,23 @@ export const NewActivityInstructionHTTPDefinition: HTTPDefinition = {
   method: 'post'
 }
 
-export const NewUserHTTPDefinition: HTTPDefinition = {
-  path: 'users/',
+export const ActivityProgressStatusHTTPDefinition: HTTPDefinition = {
+  path: 'activities/progress-status',
   method: 'post'
 }
 
+export const NewUserHTTPDefinition: HTTPDefinition = {
+  path: 'users',
+  method: 'post'
+}
+
+export const SignOutUserHTTPDefinition: HTTPDefinition = {
+  path: 'users',
+  method: 'patch'
+}
+
 export const NewStudentOutputHTTPDefinition: HTTPDefinition = {
-  path: 'student-outputs/',
+  path: 'student-outputs',
   method: 'post'
 }
 
@@ -36,6 +46,6 @@ export const GetStudentOutputHTTPDefinition: HTTPDefinition = {
 }
 
 export const GetStudentOutputsHTTPDefinition: HTTPDefinition = {
-  path: 'student-outputs/',
+  path: 'student-outputs',
   method: 'get'
 }

@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 
 export interface Fetcher {
-  get: (url: string) => Promise<any>;
+  get: (url: string, query: {[k: string]: string}) => Promise<any>;
   patch: (url: string, body: any, query: any) => any;
 }
 
@@ -24,8 +24,8 @@ export class AxiosFetcher implements Fetcher {
     throw {status: e.response.status, message: e.response.data ? e.response.data.message : e.message}
   };
 
-  get(url: string) {
-    return this._instance.get(url).then(this._successHandler).catch(this._errorHandler);
+  get(url: string, query: {[k: string]: string}) {
+    return this._instance.get(url, { params: {...query}}).then(this._successHandler).catch(this._errorHandler);
   }
 
   put(url: string, body: any) {

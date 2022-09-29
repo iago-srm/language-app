@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router';
-
 import {
   Container as PageContainer,
   PStyled
@@ -12,8 +11,10 @@ import { Translations, Labels } from '@locale';
 import {
   ProfileImg,
   LoadingErrorData,
-  ProfileImageModal
-} from '@components';
+  ProfileImageModal,
+  Anchor,
+  Toast
+} from '@atomic';
 import { ResponsiveCenteredPageContent } from '@styles';
 
 const Profile: React.FC = () => {
@@ -41,13 +42,15 @@ const Profile: React.FC = () => {
               <PStyled>Olá, {user.name}</PStyled>
               <ProfileImg src={user.image} onClick={() => setModalVisible(true)}/>
               {modalVisible &&
-                <ProfileImageModal onClose={() => setModalVisible(false)} user={user}/>
+                <ProfileImageModal onClose={() => setModalVisible(false)} image={user.image}/>
               }
-              <PStyled>Eu sou {user.role}</PStyled>
+              <PStyled>{user.role ? `Eu sou ${user.role}` : <Anchor href="/dashboard/set-role">Complete seu cadastro</Anchor>}</PStyled>
             </div>
           }
         </LoadingErrorData>
       </ResponsiveCenteredPageContent>
+      <Toast/>
+
     </PageContainer>
   )
 }

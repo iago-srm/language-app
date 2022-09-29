@@ -2,11 +2,13 @@ import {
   IHTTPErrorHandler,
   IHTTPControllerDescriptor,
 } from '../ports';
-import { CustomError } from '@language-app/common';
+import { CustomError } from '@language-app/common-utils';
+import { handlePrismaError } from './prisma-error-handler';
 
 export const ErrorHandlerControllerFactory =
   ({}): IHTTPControllerDescriptor<IHTTPErrorHandler> => {
-    const fn: IHTTPErrorHandler = async (error, translator) => {
+    const fn: IHTTPErrorHandler = async (e, translator) => {
+      const error = handlePrismaError(e);
       if (error instanceof CustomError) {
         return {
           statusCode: error.HTTPstatusCode || 500,

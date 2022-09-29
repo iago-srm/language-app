@@ -10,6 +10,9 @@ const withTM = require('next-transpile-modules')([
 ]);
 
 module.exports = withImages(withTM({
-  pageExtensions: ['jsx', 'tsx']
+  pageExtensions: ['jsx', 'tsx'],
+  compiler: {
+    styledComponents: true,
+  },
 }));
 

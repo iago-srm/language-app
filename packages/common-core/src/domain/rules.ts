@@ -12,11 +12,12 @@ export const DomainRules = {
   ACTIVITY: {
     OPTION: {
       MIN_LENGTH: 3,
-      MAX_LENGTH: 50
+      MAX_LENGTH: 50,
     },
     INSTRUCTION: {
       MIN_LENGTH: 5,
-      MAX_LENGTH: 200
+      MAX_LENGTH: 200,
+      TYPES: ['OPTIONS', "TEXT"] 
     },
     TITLE: {
       MIN_LENGTH: 5,
@@ -29,8 +30,9 @@ export const DomainRules = {
     CONTENTTYPE: ['VIDEO', 'TEXT'],
     MAX_VIDEO_LENGTH: 10*60, // in seconds. 10 min max
     MAX_TEXT_LENGTH: 2000, // in characters
+    MIN_TIME_TO_COMPLETE: 5, // in minutes
     MAX_TIME_TO_COMPLETE: 30, // in minutes
-    TOPICS: ['SCIENCE & TECHONOLOGY', 'ARTS', 'CURRENT AFFAIRS', 'SPORTS']
+    TOPICS: ['SCIENCE_&_TECHNOLOGY', 'ARTS', 'CURRENT_AFFAIRS', 'SPORTS']
   },
   FEEDBACK: {
     GRADES: [1,2,3,4,5],

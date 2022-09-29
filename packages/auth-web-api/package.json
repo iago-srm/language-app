@@ -5,20 +5,17 @@
   "scripts": {
     "gen-env": "gen-env-types .env -o src/env.d.ts -e .",
     "build": "npx prisma generate && tsc",
-    "dev": "cross-env NODE_ENV=development ts-node-dev -r tsconfig-paths/register --respawn  --exit-child --ignore-watch node_modules src/index.ts",
-    "start": "npm run db:migrate:prod && cross-env NODE_ENV=production node -r ts-node/register/transpile-only -r tsconfig-paths/register ./build/auth-web-api/src/index.js",
+    "dev": "cross-env NODE_ENV=development ts-node-dev -r tsconfig-paths/register --respawn  --exit-child --ignore-watch node_modules src/index.ts & npx prisma studio",
+    "start": "npm run db:migrate:prod && cross-env NODE_ENV=production node -r ts-node/register/transpile-only -r tsconfig-paths/register ./build/index.js",
     "test": "cross-env NODE_ENV=test jest --watchAll",
     "test:ci": "cross-env NODE_ENV=test jest --no-cache --runInBand",
     "format": "npx prettier --write .",
     "format:ci": "npx prettier --check .",
     "db:sync": "npx prisma db push --accept-data-loss",
     "db:migrate:prod": "npx prisma migrate deploy",
+    "db:migrate:gen": "npx prisma migrate dev --name", 
     "docker:build": "docker build -t language-app/auth-web-api -f ./Dockerfile ../..",
     "docker:exec": "docker exec -ti language-app-auth-web-api /bin/bash"
-
-  },
-  "prisma": {
-    "schema": "../common/src/auth/prisma/schema.prisma"
   },
   "keywords": [],
   "author": "",

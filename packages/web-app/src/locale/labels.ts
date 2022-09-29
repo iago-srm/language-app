@@ -11,11 +11,12 @@ export const Labels = {
   HOME: 'home',
   SIGNIN: 'signin',
   SIGNUP: 'signup',
-  LOGOUT: 'logout',
+  SIGNOUT: 'logout',
   VERIFYACCOUNT: 'verify_account',
   PROFILE: 'profile',
   FORGOT_PASSWORD: 'forgot_password',
   RESET_PASSWORD: 'reset_password',
+  DASHBOARD: 'dashboard',
 
   // form fields
   NAME: 'name',
@@ -25,5 +26,11 @@ export const Labels = {
 
   SEND: 'send',
   OR: 'or',
-  FORGOT_PASSWORD_QUESTION: 'forgot_passowrd?'
+  FORGOT_PASSWORD_QUESTION: 'forgot_passowrd?',
+
+  //topics
+  "SCIENCE_&_TECHNOLOGY": "SCIENCE_&_TECHNOLOGY",
+  "CURRENT_AFFAIRS": "CURRENT_AFFAIRS",
+  "ARTS": "ARTS",
+  "SPORTS": "SPORTS"
 }

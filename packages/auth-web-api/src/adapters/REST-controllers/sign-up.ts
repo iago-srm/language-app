@@ -31,7 +31,7 @@ export const SignUpControllerFactory = ({
 
     return {
       response: "",
-      statusCode: 200,
+      statusCode: 201,
     };
   };
 

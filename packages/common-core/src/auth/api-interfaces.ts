@@ -1,13 +1,21 @@
 import { IUser } from './types';
 
 export interface ISignInAPIParams {
-  id?: string;
-  email?: string,
-  password?: string
+  email: string,
+  password: string
 }
 
 export interface ISignInAPIResponse {
   token: string;
+}
+
+export interface IGoogleSignInAPI {
+  params: {
+    id: string;
+  }
+  response: {
+    token: string;
+  };
 }
 
 export interface ISignUpAPIParams {
@@ -21,6 +29,15 @@ export interface ISignUpAPIResponse {
   token: string;
 }
 
+export interface IGoogleSignUpAPI {
+  params: {
+    id: string;
+    name: string;
+    email: string;
+    image: string;
+  }
+  response: void;
+}
 export interface ISignOutAPIParams {}
 export interface ISignOutAPIResponse {}
 
@@ -29,7 +46,7 @@ export interface IGetUserAPIResponse extends IUser {};
 
 export interface IUpdateUserParams {
   name?: string;
-  role?: 'STUDENT' | 'INSTRUCTOR';
+  role?: 'STUDENT' | 'INSTRUCTOR' | string;
 }
 export interface IUpdateUserResponse {}
 
@@ -50,3 +67,4 @@ export interface IResetPasswordParams {
   token: string;
 }
 export interface IResetPasswordResponse {}
+
