@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import Head from 'next/head'
+import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { 
   Container,
 } from './styles';
@@ -14,6 +15,8 @@ const Activities: React.FC = () => {
 
   const { language } = useLanguage();
   const { user } = useAuth();
+  const { query } = useRouter();
+  // console.log(query)
 
   const [filters, setFilters] = useState({
     cefr: user && user.cefr,
@@ -21,7 +24,7 @@ const Activities: React.FC = () => {
     topics: [],
     contentTypes: [],
     isInProgress: undefined,
-    isComplete: undefined
+    isComplete: undefined,
   });
 
   const {
@@ -39,6 +42,9 @@ const Activities: React.FC = () => {
     mutate: refreshActivities
   } = getActivities({
     ...filters, 
+    thisInstructorOnly: query.thisInstructorOnly,
+    isComplete: query.isComplete,
+    isInProgress: query.isInProgress,
     topics: `${filters.topics.map(t => t.value)}`,
     cefr: filters.cefr && `${filters.cefr.value}`,
   });

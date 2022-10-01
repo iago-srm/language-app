@@ -14,12 +14,12 @@ export const GoogleSignInControllerFactory = ({
   const fn: IHTTPController = async (_, body) => {
 
     const {
-      id,
-    } = controllerSerializer(body, ['id']);
+      email,
+    } = controllerSerializer(body, ['email']);
 
     return {
       response: await googleSignInUseCase.execute({
-        id,
+        email,
       }),
       statusCode: 201,
     };

@@ -100,14 +100,18 @@ export const useApiBuilder = () => {
     topics,
     contentTypes,
     isInProgress,
-    isComplete
+    isComplete,
+    thisInstructorOnly
   }) => useApiCallSWR<IGetActivitiesResponse>(
     tokenHeaderSet && `${GetActivitiesHTTPDefinition.path}`, 
     (url) => domainFetcher[GetActivitiesHTTPDefinition.method].bind(domainFetcher)(url, {
       title,
       cefr,
       topics,
-      contentTypes: `${contentTypes}` // turns array into ITEM,ITEM format
+      contentTypes: `${contentTypes}`, // turns array into ITEM,ITEM format,
+      isInProgress,
+      isComplete,
+      thisInstructorOnly
     })
   );
 

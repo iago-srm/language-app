@@ -76,7 +76,6 @@ export function AuthProvider({ children }) {
       return {
         error: undefined
       };
-      // router.push('/dashboard');
     }
     return {
       error: error.message || "Algo deu errado",
@@ -92,8 +91,13 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     if(session) {
-      // handleAuthToken((session.token as { auth_token: string}).auth_token);
-      handleAuthToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Nzk2NzkxMDYsImRhdGEiOnsiaWQiOiJiNGY1NDllZi0zYTc4LTQ5ZTEtOTgwNC02ZWZlZjcwZjJhMzEiLCJ0b2tlblZlcnNpb24iOjV9LCJpYXQiOjE2NjQxMjcxMDZ9.fkY259IYJNC5VNmSrQ0dcAWv3_a58oK2rk8Prta04VU")
+      handleAuthToken((session.token as { auth_token: string}).auth_token);
+      
+      // instructor token:
+      // handleAuthToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Nzk2NzkxMDYsImRhdGEiOnsiaWQiOiJiNGY1NDllZi0zYTc4LTQ5ZTEtOTgwNC02ZWZlZjcwZjJhMzEiLCJ0b2tlblZlcnNpb24iOjV9LCJpYXQiOjE2NjQxMjcxMDZ9.fkY259IYJNC5VNmSrQ0dcAWv3_a58oK2rk8Prta04VU");
+      
+      // student token:
+      // handleAuthToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Nzk4NzcxNDMsImRhdGEiOnsiaWQiOiI0YmY0M2I2My02NDVlLTQzY2ItYmUzMy1lZDU1MGFiNWM3NTIiLCJ0b2tlblZlcnNpb24iOjB9LCJpYXQiOjE2NjQzMjUxNDN9.jVlCDlO6VoUBaTmCVQ3ZS9cK-HwJMuDoMJrH8er6qao");
       setTokenHeaderSet(true);
       setIsAuthenticated(true);
     }
@@ -101,6 +105,7 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const token = localStorage.getRefreshToken();
+    console.log(token)
     if(token) {
       setTokenHeaderSet(true);
       handleAuthToken(token);

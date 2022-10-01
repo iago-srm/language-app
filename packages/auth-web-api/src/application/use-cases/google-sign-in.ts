@@ -25,14 +25,15 @@ import {
       private tokenService: ITokenService,
     ) {}
   
-    async execute({ id }) {
+    async execute({ email }) {
       let userDTO: UserDTO;
   
-    userDTO = await this.userRepository.getUserById(id);
+    userDTO = await this.userRepository.getUserByEmail(email);
     if(!userDTO) throw new InvalidCredentialsError();
 
       const token = this.tokenService.generate({
         id: userDTO.id || '',
+        // role: userDTO.role,
         tokenVersion: userDTO.tokenVersion,
       });
   

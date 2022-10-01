@@ -13,17 +13,20 @@ export class AuthEventQueue implements IAuthEventQueue {
 
   }
 
-  async publishNewUser({ id, role, name, email, tokenVersion }) {
+  async publishNewUser({ id, role, name, email, tokenVersion, image }) {
     try {
       await axios[NewUserHTTPDefinition.method](`${this._domain_url}/${NewUserHTTPDefinition.path}`, {
         authApiId: id,
         role,
         name,
         email,
-        tokenVersion
+        tokenVersion,
+        image
       });
+      // console.log({id, role, name, email, tokenVersion, image })
+
     } catch(e) {
-      throw new Error(e.response.data.message);
+      throw new Error(e.response ? e.response.data.message : e);
     }
     
   }
@@ -35,7 +38,8 @@ export class AuthEventQueue implements IAuthEventQueue {
         authApiId 
       });
     } catch(e) {
-      throw new Error(e.response.data.message);
+      console.log({e})
+      throw new Error(e.response ? e.response.data.message : e);
     }
   }
 }

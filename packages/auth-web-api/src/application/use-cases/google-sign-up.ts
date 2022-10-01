@@ -23,7 +23,7 @@ import {
       private profileImageRepository: IProfileImageRepository
     ){}
   
-    async execute({ id, email, name, image }) {
+    async execute({ id, email, name, image, provider }) {
   
       const existingUser = await this.userRepository.getUserByEmail(email);
   
@@ -36,7 +36,7 @@ import {
         image,
         emailVerified: true,
         tokenVersion: 0,
-        provider: "google"
+        provider
       };
   
       await this.userRepository.insertUser(userDTO);

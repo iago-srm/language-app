@@ -17,15 +17,17 @@ export const GoogleSignUpControllerFactory = ({
       id,
       name,
       email,
-      image
-    } = controllerSerializer(body, ['name', 'email', 'id', 'image']);
+      image,
+      provider
+    } = controllerSerializer(body, ['name', 'email', 'id', 'image', 'provider']);
     
     return {
       response: await googleSignUpUseCase.execute({
         id,
         name,
         email,
-        image
+        image,
+        provider
       }),
       statusCode: 201,
     };

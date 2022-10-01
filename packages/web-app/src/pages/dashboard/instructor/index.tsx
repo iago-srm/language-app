@@ -17,7 +17,7 @@ const Home: React.FC = () => {
       <h3>Área do Instrutor</h3>
       <ButtonsContainer>
         <DashboardButton label={"Nova Atividade"} path="/activities/new" icon={<Icons.PLUS/>}/>
-        <DashboardButton label={"Minhas Atividades"} path="/activities" icon={<Icons.IN_PROGRESS/>}/>
+        <DashboardButton label={"Minhas Atividades"} path="/activities" query={{ thisInstructorOnly: true }} icon={<Icons.IN_PROGRESS/>}/>
       </ButtonsContainer>
     </Container>
   )
