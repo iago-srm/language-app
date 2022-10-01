@@ -9,7 +9,7 @@ import { ValidationSchemas } from '@services/validations';
 import { useLanguage, useAuth, useColorTheme } from '@contexts';
 import {
   Form,
-  Input,
+  NameInput,
   EmailInput,
   PasswordInput,
   ConfirmPasswordInput,
@@ -48,6 +48,7 @@ const Page: React.FC = () => {
     password,
     confirmPassword,
   }) => {
+    setError(undefined);
     const { error } = await credentialsSignUp({
       name,
       email,
@@ -78,8 +79,8 @@ const Page: React.FC = () => {
               <ErrorAlert error={error} onClose={() => setError(undefined)}/>
               <SuccessAlert response={response} onClose={() => setResponse(undefined)}/>
               <Form onSubmit={handleSubmit} schema={schema} error={error}>
-                <Input name='name' label={Translations[language][Labels.NAME]} />
-                <EmailInput name='email' />
+                <NameInput name="name"/>
+                <EmailInput name='email'/>
                 <PasswordInput name="password" />
                 <ConfirmPasswordInput name="confirmPassword" />
                 <Button loading={signUpLoading}>{Translations[language][Labels.SIGNUP]}</Button>

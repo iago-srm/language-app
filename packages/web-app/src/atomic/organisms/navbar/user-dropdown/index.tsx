@@ -46,7 +46,7 @@ export const NavbarDropDown: React.FC<{
                 <NavImg src={user?.image}/>
               </PanelImageContainer>
               <PanelNameContainer>{user ? `Olá, ${user.name}` : "Olá!"}</PanelNameContainer>
-              <Dropdown.Item as={'button'}>
+              <Dropdown.Item as={'button'} className="profile">
                 <NextLink href={'/profile'}>
                   Perfil
                 </NextLink>

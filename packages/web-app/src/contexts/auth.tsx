@@ -105,7 +105,7 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const token = localStorage.getRefreshToken();
-    console.log(token)
+    // console.log(token)
     if(token) {
       setTokenHeaderSet(true);
       handleAuthToken(token);
