@@ -9,14 +9,22 @@ export type IGetActivitiesResponse = {
     topics: string[];
   }[]
 }
-export interface GetActivityParams {
-  id: number;
+export interface IGetActivity {
+  params: {
+    id: number;
+  }
+  response: {
+    activity: {
+      title: string;
+      description: string;
+      content: string;
+      startTime?: number;
+      endTime?: number;
+      topics: string[];
+      cefr: string;
+    }
+  }
 }
-
-export interface GetActivityResponse {}
-
-// export interface PostActivityParams {}
-// export interface PostActivityResponse {}
 
 interface Option {
   text: string;
@@ -46,6 +54,19 @@ export interface PostActivityInstructionResponse {}
 export interface SignOutUser {
   params: {
     tokenVersion: number;
+    authApiId: string;
   }
+  response: void;
+}
+
+export interface NewUser {
+  params: {
+    authApiId: string,
+    role: string,
+    name: string,
+    email: string,
+    tokenVersion: string,
+    image: string
+  },
   response: void;
 }

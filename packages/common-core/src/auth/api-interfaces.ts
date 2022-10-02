@@ -11,7 +11,7 @@ export interface ISignInAPIResponse {
 
 export interface IGoogleSignInAPI {
   params: {
-    id: string;
+    email: string;
   }
   response: {
     token: string;
@@ -35,6 +35,7 @@ export interface IGoogleSignUpAPI {
     name: string;
     email: string;
     image: string;
+    provider: string;
   }
   response: void;
 }

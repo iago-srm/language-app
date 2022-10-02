@@ -41,7 +41,7 @@ const responsiveBreakpoint = 550;
 const contentSectionHeight = 500;
 
 
-const Activities: React.FC = () => {
+export default () => {
 
   const { language } = useLanguage();
   const [showNewInstructionModal, setShowNewInstructionModal] = useState(false);
@@ -248,4 +248,3 @@ const Activities: React.FC = () => {
   )
 }
 
-export default Activities

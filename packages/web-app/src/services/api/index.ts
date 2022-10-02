@@ -27,13 +27,15 @@ import {
   IResetPasswordParams,
   IResetPasswordResponse,
   ResetPasswordHTTPDefinition,
+  GetActivityHTTPDefinition
 } from '@language-app/common-core';
 import {
   GetActivitiesHTTPDefinition,
   IGetActivitiesParams,
   IGetActivitiesResponse,
   NewActivityHTTPDefinition,
-  IPostActivity
+  IPostActivity,
+  IGetActivity
 } from '@language-app/common-core';
 import { useLanguage, handleAuthToken,useAuth } from '@contexts';
 import { useEffect } from 'react';
@@ -91,9 +93,6 @@ export const useApiBuilder = () => {
   const resetPassword = useApiCall<IResetPasswordParams,IResetPasswordResponse>
     ((args) => authFetcher[ResetPasswordHTTPDefinition.method](ResetPasswordHTTPDefinition.path, args));
 
-  // const getActivities = useApiCall<IGetActivitiesParams, IGetActivitiesResponse>
-  //   (({ title, cefr, topics }) => domainFetcher[GetActivitiesHTTPDefinition.method](`${GetActivitiesHTTPDefinition.path}?title=${title}&cefr=${cefr}&topics=${topics}`));
-
   const getActivities = ({ 
     title, 
     cefr, 
@@ -118,6 +117,12 @@ export const useApiBuilder = () => {
   const postActivity = useApiCall<IPostActivity["params"], IPostActivity["response"]>
     ((args) => domainFetcher[NewActivityHTTPDefinition.method](NewActivityHTTPDefinition.path, args));
 
+  const getActivity = useApiCall<IGetActivity["params"], IGetActivity["response"]>
+    (({ id }) => {
+      console.log(`${GetActivityHTTPDefinition.path.split('/')[0]}/${id}`)
+      return domainFetcher[GetActivityHTTPDefinition.method](`${GetActivityHTTPDefinition.path.split('/')[0]}/${id}`)
+    })
+
   return {
     signUp,
     signIn,
@@ -129,7 +134,8 @@ export const useApiBuilder = () => {
     forgotPasswordRequest,
     resetPassword,
     getActivities,
-    postActivity
+    postActivity,
+    getActivity
   }
 }
 

@@ -74,8 +74,10 @@ const Activities: React.FC = () => {
         <LoadingErrorData.NoData>
           <h3>Não há atividades com esses filtros</h3>
         </LoadingErrorData.NoData>
-        {data && data.activities && data.activities.map(activity => (
+        {data && data.activities && data.activities.map((activity) => (
           <ActivityCard 
+            key={activity.id}
+            id={activity.id}
             topics={activity.topics} 
             cefr={activity.cefr}
             description={activity.description}

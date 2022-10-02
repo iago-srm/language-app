@@ -20,8 +20,8 @@ export const NewActivityInstructionHTTPDefinition: HTTPDefinition = {
   method: 'post'
 }
 
-export const ActivityProgressStatusHTTPDefinition: HTTPDefinition = {
-  path: 'activities/progress-status',
+export const InsertActivityIntoStudentListHTTPDefinition: HTTPDefinition = {
+  path: 'activities/student-list',
   method: 'post'
 }
 
