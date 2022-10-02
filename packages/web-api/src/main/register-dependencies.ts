@@ -1,6 +1,7 @@
 import * as awilix from "awilix";
 import {
   GetActivitiesUseCase,
+  GetActivityUseCase,
   GetStudentOutputUseCase,
   GetStudentOutputsUseCase,
   NewActivityInstructionUseCase,
@@ -12,13 +13,14 @@ import {
 } from '@application/use-cases';
 import {
   GetActivitiesControllerFactory,
+  GetActivityControllerFactory,
   GetStudentOutputControllerFactory,
   GetStudentOutputsControllerFactory,
   NewActivityControllerFactory,
   NewActivityInstructionControllerFactory,
   NewStudentOutputControllerFactory,
   NewUserControllerFactory,
-  ChangeActivityProgressStatusControllerFactory,
+  InsertActivityListControllerFactory,
   SignOutUserControllerFactory
 } from '@adapters/REST-controllers';
 import {
@@ -43,6 +45,7 @@ export const registerDependencies = (container: awilix.AwilixContainer) => {
   container.register({
     // controllers
     [Dependencies.GETACTIVITIESCONTROLLER]: awilix.asFunction(GetActivitiesControllerFactory),
+    "getActivityController": awilix.asFunction(GetActivityControllerFactory),
     [Dependencies.GETSTUDENTOUTPUTCONTROLLER]: awilix.asFunction(GetStudentOutputControllerFactory),
     [Dependencies.GETSTUDENTOUTPUTSCONTROLLER]: awilix.asFunction(GetStudentOutputsControllerFactory),
     [Dependencies.NEWACTIVITYCONTROLLER]: awilix.asFunction(NewActivityControllerFactory),
@@ -50,7 +53,7 @@ export const registerDependencies = (container: awilix.AwilixContainer) => {
     [Dependencies.NEWSTUDENTOUTPUTCONTROLLER]: awilix.asFunction(NewStudentOutputControllerFactory),
     [Dependencies.NEWUSERCONTROLLER]: awilix.asFunction(GetStudentOutputControllerFactory),
     [Dependencies.NEWUSERCONTROLLER]: awilix.asFunction(NewUserControllerFactory),
-    "changeActivityProgressStatusControllerFactory": awilix.asFunction(ChangeActivityProgressStatusControllerFactory),
+    "insertActivityListUseCaseControllerFactory": awilix.asFunction(InsertActivityListControllerFactory),
     "SignOutUserControllerFactory": awilix.asFunction(SignOutUserControllerFactory),
 
     // services
@@ -65,13 +68,14 @@ export const registerDependencies = (container: awilix.AwilixContainer) => {
 
     // use cases
     'getActivitiesUseCase': awilix.asClass(GetActivitiesUseCase).classic(),
+    'getActivityUseCase': awilix.asClass(GetActivityUseCase).classic(),
     'getStudentOutputUseCase': awilix.asClass(GetStudentOutputUseCase).classic(),
     'getStudentOutputsUseCase': awilix.asClass(GetStudentOutputsUseCase).classic(),
     'newActivityInstructionUseCase': awilix.asClass(NewActivityInstructionUseCase).classic(),
     'newActivityUseCase': awilix.asClass(NewActivityUseCase).classic(),
     'newStudentOutputUseCase': awilix.asClass(NewStudentOutputUseCase).classic(),
     [Dependencies.NEWUSERUSECASE]: awilix.asClass(NewUserUseCase).classic(),
-    'changeActivityProgressStatusUseCase': awilix.asClass(InsertActivityIntoStudentListUseCase).classic(),
+    'insertActivityListUseCase': awilix.asClass(InsertActivityIntoStudentListUseCase).classic(),
     'signOutUserUseCase': awilix.asClass(SignOutUserUseCase).classic(),
 
     // repositories

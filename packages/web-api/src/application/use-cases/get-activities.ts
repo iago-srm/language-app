@@ -7,7 +7,7 @@ import {
 import {
   IUseCase
 } from '@language-app/common-platform';
-import { DomainRules } from '@/../../common-core';
+import { DomainRules } from '@language-app/common-core';
 
 type InputParams = {
   userId: string;
