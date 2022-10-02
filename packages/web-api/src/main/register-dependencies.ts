@@ -7,7 +7,7 @@ import {
   NewActivityUseCase,
   NewStudentOutputUseCase,
   NewUserUseCase,
-  ChangeActivityProgressStatusUseCase,
+  InsertActivityIntoStudentListUseCase,
   SignOutUserUseCase
 } from '@application/use-cases';
 import {
@@ -23,7 +23,6 @@ import {
 } from '@adapters/REST-controllers';
 import {
   ActivityRepository,
-  StudentOutputRepository,
   UserRepository,
   InstructorRepository,
   StudentRepository
@@ -72,13 +71,13 @@ export const registerDependencies = (container: awilix.AwilixContainer) => {
     'newActivityUseCase': awilix.asClass(NewActivityUseCase).classic(),
     'newStudentOutputUseCase': awilix.asClass(NewStudentOutputUseCase).classic(),
     [Dependencies.NEWUSERUSECASE]: awilix.asClass(NewUserUseCase).classic(),
-    'changeActivityProgressStatusUseCase': awilix.asClass(ChangeActivityProgressStatusUseCase).classic(),
+    'changeActivityProgressStatusUseCase': awilix.asClass(InsertActivityIntoStudentListUseCase).classic(),
     'signOutUserUseCase': awilix.asClass(SignOutUserUseCase).classic(),
 
     // repositories
     [Dependencies.ACTIVITYREPOSITORY]: awilix.asClass(ActivityRepository),
     [Dependencies.USERREPOSITORY]: awilix.asClass(UserRepository),
-    'studentOutputRepository': awilix.asClass(StudentOutputRepository),
+    // 'studentOutputRepository': awilix.asClass(StudentOutputRepository),
     'instructorRepository': awilix.asClass(InstructorRepository),
     'studentRepository': awilix.asClass(StudentRepository),
   })

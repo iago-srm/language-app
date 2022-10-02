@@ -15,11 +15,13 @@ export class UserRepository implements IUserRepository {
   insertUserAndStudent(user: UserDTO, newId: string) {
     return this.prisma.user.create({
       data: {
+        id: newId,
         authApiId: user.authApiId,
         email: user.email,
         name: user.name,
         role: user.role,
         tokenVersion: user.tokenVersion,
+        image: user.image,
         student: {
           create: {
             id: newId
@@ -32,11 +34,13 @@ export class UserRepository implements IUserRepository {
   insertUserAndInstructor(user: UserDTO, newId: string) {
     return this.prisma.user.create({
       data: {
+        id: newId,
         authApiId: user.authApiId,
         email: user.email,
         name: user.name,
         role: user.role,
         tokenVersion: user.tokenVersion,
+        image: user.image,
         instructor: {
           create: {
             id: newId,

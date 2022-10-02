@@ -1,6 +1,6 @@
 import {
     StudentOutputDTO,
-    IStudentOutputRepository
+    IActivityRepository
   } from '../ports';
   import {
     IUseCase
@@ -16,11 +16,11 @@ import {
   class UseCase implements IGetStudentOutputUseCase {
   
     constructor(
-      private studentOutputRepository: IStudentOutputRepository
+      private activityRepository: IActivityRepository
     ){}
   
     async execute ({ studentOutputId }) {
-      return this.studentOutputRepository.getStudentOutputById(studentOutputId);
+      return this.activityRepository.getStudentOutputById(studentOutputId);
     }
   
   };

@@ -12,6 +12,7 @@ type InputParams = {
   email: string;
   role: string;
   tokenVersion: number;
+  image: string;
 };
 type Return = void;
 
@@ -24,16 +25,17 @@ class UseCase implements INewUserUseCase {
     private idService: IIdGenerator
   ){}
 
-  async execute ({ authApiId, role, name, email, tokenVersion }) {
+  async execute ({ authApiId, role, name, email, tokenVersion, image }) {
 
-    // const newId = this.idService.getId();
+    // console.log({authApiId, role, email, name, tokenVersion, image})
 
     const newUser = { 
       role, 
       name, 
       email, 
       tokenVersion,
-      authApiId
+      authApiId,
+      image
     };
 
     if(role === 'STUDENT') 

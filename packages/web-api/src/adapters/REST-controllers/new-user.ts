@@ -20,8 +20,9 @@ export const NewUserControllerFactory = ({
       name,
       email,
       role,
-      tokenVersion
-    } = controllerSerializer(body, ['authApiId', 'name', 'email', 'role', 'tokenVersion']);
+      tokenVersion,
+      image
+    } = controllerSerializer(body, ['authApiId', 'name', 'email', 'role', 'tokenVersion', 'image']);
 
     if(isNaN(Number(tokenVersion)))   
       throw new Error(`Invalid Token Version: ${tokenVersion}`);
@@ -31,7 +32,8 @@ export const NewUserControllerFactory = ({
       name, 
       email, 
       role, 
-      tokenVersion: Number(tokenVersion) 
+      tokenVersion: Number(tokenVersion),
+      image 
     });
 
     return {

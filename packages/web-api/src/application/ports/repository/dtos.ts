@@ -5,31 +5,36 @@ export interface UserDTO {
   role?: string;
   tokenVersion?: number;
   authApiId: string;
+  image: string;
 }
 
 export interface StudentOutputDTO {
-  answers: ActivityInstructionStudentAnswerDTO[];
-  feedback?: {
-    grade?: number;
-    message?: string;
-  }
+  outputs: InstructionStudentOutputDTO[];
+  feedbackGiven: boolean;
+}
+
+export interface FeedbackToInstructionStudentOutputDTO {
+  message: string;
 }
 
 export interface InstructorDTO {
   id: string;
   userId: string;
+  user?: UserDTO;
 }
 
 export interface StudentDTO {
   id: string;
   userId: string;
   cefr: CEFR;
+  user?: UserDTO;
 }
 
-export interface ActivityInstructionStudentAnswerDTO {
+export interface InstructionStudentOutputDTO {
   id?: string;
-  optionsAnswers?: ActivityInstructionOptionDTO[];
-  textAnswer?: string;
+  optionsSelections?: ActivityInstructionOptionDTO[];
+  textOutput?: string;
+  feedback?: FeedbackToInstructionStudentOutputDTO;
 }
 
 export interface ActivityInstructionOptionDTO {

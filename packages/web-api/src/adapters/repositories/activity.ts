@@ -1,8 +1,7 @@
 import {
+  IActivityRepository,
   ActivityDTO,
-  ActivityInstructionDTO,
-  CEFR,
-  IActivityRepository
+  StudentOutputDTO
 } from '@application/ports';
 import { PrismaClient } from '@prisma-client';
 
@@ -50,19 +49,27 @@ export class ActivityRepository implements IActivityRepository {
         id: true,
         title: true,
         description: true,
-        timeToComplete: true,
         contentType: true,
         topics: true,
-        cefr: true
+        cefr: true,
+        instructor: {
+          include: {
+            user: {
+              select: {
+                name: true, 
+                image: true
+              }
+            }
+          }
+        }
       }
     })
   }
 
-  async getActivityIdsByStudentProgress(studentId: string, completed: boolean) {
-    return (await this.prisma.activitiesInProgress.findMany({
+  async getActivityIdsByStudentList(studentId: string) {
+    return (await this.prisma.studentActivityList.findMany({
       where: {
         studentId,
-        completed
       },
       select: {
         activityId: true
@@ -70,8 +77,8 @@ export class ActivityRepository implements IActivityRepository {
     })).map(({ activityId }) => activityId);
   }
 
-  async insertActivityProgress(studentId: string, activityId: number, completed: boolean) {
-    await this.prisma.activitiesInProgress.create({
+  async insertActivityIntoStudentList(studentId: string, activityId: number) {
+    await this.prisma.studentActivityList.create({
       data: {
         student: {
           connect: {
@@ -82,8 +89,7 @@ export class ActivityRepository implements IActivityRepository {
           connect: {
             id: activityId
           }
-        },
-        completed
+        }
       }
     })
   }
@@ -130,7 +136,9 @@ export class ActivityRepository implements IActivityRepository {
         instructions: {
           create: [
             ...instructions.map(instruction => ({
-              ...instruction,
+              text: instruction.text,
+              textAnswer: instruction.textAnswer,
+              type:instruction.type,
               options: {
                 create: instruction.options
               },
@@ -152,6 +160,50 @@ export class ActivityRepository implements IActivityRepository {
     })
   }
 
+  getStudentOutputById (id: number) {
+    return this.prisma.studentOutput.findUnique({
+      where: {
+        id
+      },
+      include: {
+        outputs: true,
+      }
+    })
+  }
+
+  getStudentOutputsByStudentId (id: string) {
+    return this.prisma.studentOutput.findMany({
+      where: {
+        studentId: id
+      }, 
+      include: {
+        activity: {
+          select: {
+            cefr: true,
+            timeToComplete: true,
+            topics: true,
+            contentType: true
+          }
+        }
+      }
+    })
+  }
+
+  insertStudentOutput ({
+    outputs,
+  }: StudentOutputDTO) {
+    return this.prisma.studentOutput.create({
+      data: {
+        feedbackGiven: false,
+        outputs: {
+          create: {
+
+          }
+        }
+      }
+    })
+  }
+  
   // async insertNewInstructions(activityId: number, instructions: ActivityInstructionDTO[]) {
   //   return (await this.prisma.activity.update({
   //     where: { id: activityId },
