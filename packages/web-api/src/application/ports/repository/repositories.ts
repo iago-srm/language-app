@@ -27,7 +27,7 @@ export interface IActivityRepository {
   // insertStudentOutputFeedbacks: (studentOutputId: number, feedbacks: { instructionOutputId: string, feedback: string }) => Promise<any>;
   getStudentOutputById: (outputId: number) => Promise<StudentOutputDTO>;
   getStudentOutputsByStudentId: (studentId: string) => Promise<(Partial<StudentOutputDTO> & Partial<ActivityDTO>)[]>;
-  insertStudentOutput: (output: StudentOutputDTO) => Promise<Partial<StudentOutputDTO>>;
+  insertStudentOutput: (output: Partial<StudentOutputDTO>) => Promise<Partial<StudentOutputDTO>>;
   // insertNewInstructions: (activityId: number, instructions: ActivityInstructionDTO[]) => Promise<Partial<ActivityInstructionDTO>[]>;
 }
 

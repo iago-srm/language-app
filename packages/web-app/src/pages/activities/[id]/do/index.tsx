@@ -28,9 +28,10 @@ import { useRouter } from 'next/router';
 
 export default () => {
 
-    const { getActivity } = useApiBuilder();
+    const { getActivity, postStudentOutput } = useApiBuilder();
     type Return = Awaited<ReturnType<typeof getActivity.apiCall>>;
     const [activity, setActivity] = useState<Return["response"]["activity"]>(undefined);
+    const [instructions, setInstructions] = useState({});
     const [getActivityError, setGetActivityError] = useState<Return["error"]>();
     const { query } = useRouter();
 
@@ -45,23 +46,76 @@ export default () => {
         (async () => {
             const { response, error } = await getActivity.apiCall({ id });
             if(error) setGetActivityError(error);
-            else setActivity(response.activity);
+            else {
+                setActivity(response.activity);
+                setGetActivityError(undefined)
+            }
         })()
     }, [query]);
 
+    useEffect(() => {
+        if(activity) {
+            let instructions = {};
+            activity.instructions.forEach(inst => {
+                instructions = { ...instructions, [inst.id]: {
+                    ...inst,
+                    answer: inst.isMultiCorrect ? [] : "",
+                    onChange: (instructionId, newValues) => {
+                        setInstructions(insts => ({...insts, [instructionId]: { ...insts[instructionId], answer: newValues }}))
+                    }
+                }}
+            })
+            setInstructions(instructions);
+        }
+    }, [activity]);
+
+    const onClickSubmitOutput = () => {
+        console.log({instructions})
+        const outputs = Object.keys(instructions).map(id => {
+            const thisInstruction = instructions[id];
+            return {
+                instructionId: id,
+                textOutput: thisInstruction.type === "TEXT" && thisInstruction.answer,
+                optionsSelectionsIds: thisInstruction.type === "OPTIONS" && (thisInstruction.isMultiCorrect ? thisInstruction.answer : [thisInstruction.answer])
+            }
+        })
+        postStudentOutput.apiCall({
+            activityId: activity.id,
+            outputs
+        })
+    };
+
     return (
         <Container>
-        <LoadingErrorData loading={getActivity.loading} error={false} data={activity}>
-          {activity && <TitleAndDetails 
+        <LoadingErrorData loading={getActivity.loading} error={getActivityError} data={activity}>
+          {activity && 
+          <><TitleAndDetails 
             title={activity.title} 
             cefr={activity.cefr} 
             topics={getLabeledTopics(language).filter(topic => {
                 return activity.topics.includes(topic.value)
             })}
-          />}
+          />
+            {activity.description}
+            {activity.contentType === "TEXT" ? <TextContent text={activity.content}/> :               
+                <VideoContent 
+                youtubeId={activity.content}
+                start={activity.startTime} 
+                end={activity.endTime} 
+              />}
+              <Instructions instructions={instructions} />
+            </>
+          }
         </LoadingErrorData>
-
+          <FormButton onClick={onClickSubmitOutput} loading={postStudentOutput.loading}>
+            Salvar
+          </FormButton>
         </Container>
     )
 }
 
+// export async function getStaticProps() {
+//     const { getActivity } = useApiBuilder();
+
+    
+// }

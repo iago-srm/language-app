@@ -2,16 +2,20 @@ import { CheckboxFormStyled } from './styles';
 
 interface ICheckboxProps {
     values: string[];
-    onChange: (args?: any) => any;
+    onChange: (args?: any[]) => any;
     options: { value: string, label: string }[];
     vertical?: boolean;
     label?: string;
 }
 
-
+// passes ALL THE SELECTED VALUES to the onChange funcion
 export const CheckboxMenu = ({ values, onChange, options, vertical, label }: ICheckboxProps) => {
     const onClick = (e) => {
         const { value } = e.target;
+        // if(!values) {
+        //     console.log({values, options})
+        //     return;
+        // }
         if(values.includes(value)) {
             const newValues = [...values];
             newValues.splice(values.findIndex(v => v === value),1);

@@ -27,15 +27,16 @@ import {
   IResetPasswordParams,
   IResetPasswordResponse,
   ResetPasswordHTTPDefinition,
-  GetActivityHTTPDefinition
+  GetActivityHTTPDefinition,
+  PostStudentOutputHTTPDefinition
 } from '@language-app/common-core';
 import {
   GetActivitiesHTTPDefinition,
-  IGetActivitiesParams,
-  IGetActivitiesResponse,
+  IGetActivities,
   NewActivityHTTPDefinition,
   IPostActivity,
-  IGetActivity
+  IGetActivity,
+  IPostStudentOutput
 } from '@language-app/common-core';
 import { useLanguage, handleAuthToken,useAuth } from '@contexts';
 import { useEffect } from 'react';
@@ -101,7 +102,7 @@ export const useApiBuilder = () => {
     isInProgress,
     isComplete,
     thisInstructorOnly
-  }) => useApiCallSWR<IGetActivitiesResponse>(
+  }) => useApiCallSWR<IGetActivities["response"]>(
     tokenHeaderSet && `${GetActivitiesHTTPDefinition.path}`, 
     (url) => domainFetcher[GetActivitiesHTTPDefinition.method].bind(domainFetcher)(url, {
       title,
@@ -119,10 +120,13 @@ export const useApiBuilder = () => {
 
   const getActivity = useApiCall<IGetActivity["params"], IGetActivity["response"]>
     (({ id }) => {
-      console.log(`${GetActivityHTTPDefinition.path.split('/')[0]}/${id}`)
       return domainFetcher[GetActivityHTTPDefinition.method](`${GetActivityHTTPDefinition.path.split('/')[0]}/${id}`)
     })
 
+  const postStudentOutput = useApiCall<IPostStudentOutput["params"],IPostStudentOutput["response"]>
+    ((args) => {
+      return domainFetcher[PostStudentOutputHTTPDefinition.method](PostStudentOutputHTTPDefinition.path, args)
+    })
   return {
     signUp,
     signIn,
@@ -135,7 +139,8 @@ export const useApiBuilder = () => {
     resetPassword,
     getActivities,
     postActivity,
-    getActivity
+    getActivity,
+    postStudentOutput
   }
 }
 

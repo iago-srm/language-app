@@ -101,6 +101,7 @@ model ActivityInstruction {
   updatedAt DateTime @updatedAt
 
   text    String
+  isMultiCorrect Boolean
 
   options ActivityInstructionOption[] @relation(name: "option")
   optionsAnswers ActivityInstructionOption[] @relation(name: "answer")

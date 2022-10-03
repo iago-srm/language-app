@@ -9,6 +9,8 @@ export interface UserDTO {
 }
 
 export interface StudentOutputDTO {
+  activityId: number,
+  studentId: string,
   outputs: InstructionStudentOutputDTO[];
   feedbackGiven: boolean;
 }
@@ -32,7 +34,7 @@ export interface StudentDTO {
 
 export interface InstructionStudentOutputDTO {
   id?: string;
-  optionsSelections?: ActivityInstructionOptionDTO[];
+  optionsSelectionsIds?: ActivityInstructionOptionDTO[];
   textOutput?: string;
   feedback?: FeedbackToInstructionStudentOutputDTO;
 }
@@ -46,6 +48,7 @@ export interface ActivityInstructionDTO {
   id?: string;
   text: string;
   optionsAnswers?: { id: string }[];
+  isMultiCorrect?: boolean;
   textAnswer?: string;
   options?: ActivityInstructionOptionDTO[];
   type: INSTRUCTIONTYPE;

@@ -24,7 +24,7 @@ export class UserRepository implements IUserRepository {
         image: user.image,
         student: {
           create: {
-            id: newId
+            id: newId //this one doesnt have to be the same id as the auth API
           }
         }
       }

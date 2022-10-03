@@ -12,7 +12,7 @@ export const RadioMenuFormStyled = styled.div<{vertical: boolean}>`
 
 interface IRadioMenuProps {
     value: string;
-    onChange: () => any;
+    onChange: (args) => any;
     options: { value: string, label: string }[];
     vertical?: boolean;
 }
@@ -25,7 +25,7 @@ export const RadioMenu = ({ value, onChange, options, vertical }: IRadioMenuProp
                 type="radio"
                 value={option.value}
                 checked={value === option.value}
-                onChange={onChange}
+                onChange={(e) => onChange(e.target.value)}
                 />
                 {option.label}
             </label>

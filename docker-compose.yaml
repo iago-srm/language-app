@@ -48,8 +48,8 @@ services:
   #     context: .
   #     dockerfile: packages/auth-web-api/Dockerfile
   #   container_name: language-app-auth-web-api
-  #   entrypoint: "npm run dev"
-  #   # entrypoint: "tail -f /dev/null"
+  #   # entrypoint: "npm run dev"
+  #   entrypoint: "tail -f /dev/null"
   #   ports:
   #     - "${AUTH_PORT}:${AUTH_PORT}"
   #     - 5555:5555 # prisma studio

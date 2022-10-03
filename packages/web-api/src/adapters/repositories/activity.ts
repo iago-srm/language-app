@@ -100,7 +100,22 @@ export class ActivityRepository implements IActivityRepository {
         id
       },
       include: {
-        instructions: true
+        instructions: {
+          include: {
+            options: {
+              select: {
+                id: true,
+                text: true
+              }
+            },
+            optionsAnswers: {
+              select: {
+                id: true,
+                text: true
+              },
+            }
+          }
+        }
       }
     })
   }
@@ -118,15 +133,14 @@ export class ActivityRepository implements IActivityRepository {
       instructions,
       description
     } = activity;
-    console.log(instructions[0]);
     return this.prisma.activity.create({
       data: {
         title,
         contentType,
         content,
         topics,
-        // startTime,
-        // endTime,
+        startTime,
+        endTime,
         cefr,
         timeToComplete,
         description,
@@ -139,6 +153,7 @@ export class ActivityRepository implements IActivityRepository {
               text: instruction.text,
               textAnswer: instruction.textAnswer,
               type:instruction.type,
+              isMultiCorrect: instruction.isMultiCorrect,
               options: {
                 create: instruction.options
               },
@@ -191,15 +206,30 @@ export class ActivityRepository implements IActivityRepository {
 
   insertStudentOutput ({
     outputs,
-  }: StudentOutputDTO) {
+    activityId,
+    studentId
+  }) {
     return this.prisma.studentOutput.create({
       data: {
         feedbackGiven: false,
-        outputs: {
-          create: {
-
+        activity: {
+          connect: {
+            id: activityId
           }
-        }
+        },
+        student: {
+          connect: {
+            id: studentId
+          }
+        },
+        outputs: {
+          create: outputs.map(output => ({
+            textOutput: output.textOutput || null,
+            optionsSelections: output.optionsSelectionsIds ? {
+              connect: output.optionsSelectionsIds.map(id => ({ id }))
+            } : undefined
+          }))
+        } 
       }
     })
   }

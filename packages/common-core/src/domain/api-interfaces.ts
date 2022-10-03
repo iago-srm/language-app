@@ -1,12 +1,28 @@
-export interface IGetActivitiesParams {}
-export type IGetActivitiesResponse = {
-  cursor: number;
-  activities: {
+export type IGetActivities = {
+  response: {
+    cursor: number;
+    activities: {
+      id: string;
+      title: string;
+      description?: string;
+      cefr: string;
+      topics: string[];
+    }[]
+  }
+}
+
+interface IInstructions {
+  id: string;
+  text: string;
+  type: string;
+  isMultiCorrect: boolean;
+  optionsAnswers?: {
     id: string;
-    title: string;
-    description?: string;
-    cefr: string;
-    topics: string[];
+  }[]
+  textAnswer?: string;
+  options: {
+    id: string;
+    text: string;
   }[]
 }
 export interface IGetActivity {
@@ -15,6 +31,7 @@ export interface IGetActivity {
   }
   response: {
     activity: {
+      id: string;
       title: string;
       description: string;
       content: string;
@@ -22,6 +39,8 @@ export interface IGetActivity {
       endTime?: number;
       topics: string[];
       cefr: string;
+      contentType: string;
+      instructions: IInstructions[];
     }
   }
 }
@@ -48,9 +67,17 @@ export interface IPostActivity {
   response: void;
 }
 
-export interface PostActivityInstructionParams {}
-export interface PostActivityInstructionResponse {}
-
+export interface IPostStudentOutput {
+  params: {
+    activityId: string;
+    outputs: {
+      instructionId: string;
+      optionsSelectionsIds?: string[];
+      textOutput?: string;
+    }[]
+  };
+  response: {};
+}
 export interface SignOutUser {
   params: {
     tokenVersion: number;

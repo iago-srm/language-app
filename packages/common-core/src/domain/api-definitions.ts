@@ -35,7 +35,7 @@ export const SignOutUserHTTPDefinition: HTTPDefinition = {
   method: 'patch'
 }
 
-export const NewStudentOutputHTTPDefinition: HTTPDefinition = {
+export const PostStudentOutputHTTPDefinition: HTTPDefinition = {
   path: 'student-outputs',
   method: 'post'
 }

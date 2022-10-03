@@ -28,7 +28,7 @@ import {
   Section,
   FormButton,
   VideoIdInput,
-  ActivityCard
+  Description
 } from '@atomic';
 import { useMediaQuery } from 'react-responsive';
 import {
@@ -96,7 +96,7 @@ export default () => {
   } = useApiBuilder();
   const isBigScreen = useMediaQuery({ minWidth: responsiveBreakpoint });
 
-  const onChangeContentType = (e) => setActivity(s => ({...s, contentType: e.target.value}));
+  const onChangeContentType = (e) => setActivity(s => ({...s, contentType: e}));
   const onChangeTitle = (e) => setActivity(s => ({...s, title: e.target.value}));
   const onChangeCEFR = (e) => setActivity(s => ({...s, cefr: e.value}));
   const onChangeTopics = (e) => setActivity(s =>  ({...s, topics: e}));
@@ -165,7 +165,7 @@ export default () => {
           </DescriptionTextAreaContainer>
         </Section.Left>
         <Section.Right>
-            {activity.description}
+          <Description text={activity.description} />
         </Section.Right>
       </Section>
       <Section 

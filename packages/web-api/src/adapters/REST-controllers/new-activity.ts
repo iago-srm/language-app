@@ -15,7 +15,7 @@ import {
   }): IHTTPControllerDescriptor<IHTTPController> => {
     const fn: IHTTPController = async (_, body, __, { user }) => {
   
-      const activity = controllerSerializer(body, [
+      const { startTime, endTime, ...activity} = controllerSerializer(body, [
         'content', 
         { name: 'startTime', optional: true },
         { name: 'endTime', optional: true },
@@ -39,7 +39,11 @@ import {
       return {
         response: await newActivityUseCase.execute({
           userId: id,
-          activity
+          activity: {
+            startTime: Number(startTime),
+            endTime: Number(endTime),
+            ...activity
+          }
         }),
         statusCode: 200,
       };

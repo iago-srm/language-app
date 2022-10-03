@@ -36,6 +36,7 @@ import { InvalidInstructionOptionSetError } from '@/domain/errors';
       activity.instructions = activity.instructions.map(inst => {
         const instruction = {
           ...inst,
+          isMultiCorrect: (inst.optionsAnswers && inst.optionsAnswers.length > 1) || false,
           id: this.idService.getId()
         };
         
