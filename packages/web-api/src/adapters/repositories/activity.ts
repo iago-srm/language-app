@@ -186,16 +186,16 @@ export class ActivityRepository implements IActivityRepository {
     })
   }
 
-  getStudentOutputsByStudentId (id: string) {
+  getStudentOutputsByStudentIds (ids: string[]) {
     return this.prisma.studentOutput.findMany({
       where: {
-        studentId: id
+        studentId: { in: ids }
       }, 
       include: {
         activity: {
           select: {
             cefr: true,
-            timeToComplete: true,
+            // timeToComplete: true,
             topics: true,
             contentType: true
           }

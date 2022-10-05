@@ -26,7 +26,7 @@ export interface IActivityRepository {
   insertActivity: (instructorId: string, activity: ActivityDTO) => Promise<ActivityDTO>;
   // insertStudentOutputFeedbacks: (studentOutputId: number, feedbacks: { instructionOutputId: string, feedback: string }) => Promise<any>;
   getStudentOutputById: (outputId: number) => Promise<StudentOutputDTO>;
-  getStudentOutputsByStudentId: (studentId: string) => Promise<(Partial<StudentOutputDTO> & Partial<ActivityDTO>)[]>;
+  getStudentOutputsByStudentIds: (studentId: string[]) => Promise<(Partial<StudentOutputDTO> & Partial<ActivityDTO>)[]>;
   insertStudentOutput: (output: Partial<StudentOutputDTO>) => Promise<Partial<StudentOutputDTO>>;
   // insertNewInstructions: (activityId: number, instructions: ActivityInstructionDTO[]) => Promise<Partial<ActivityInstructionDTO>[]>;
 }
@@ -40,7 +40,8 @@ export interface IUserRepository {
 }
 
 export interface IInstructorRepository {
-  getInstructorByUserId: (userId:string) => Promise<InstructorDTO>;
+  getInstructorByUserId: (userId: string) => Promise<InstructorDTO>;
+  getThisInstructorStudentIds: (instructorId: string) => Promise<string[]>;
 }
 
 export interface IStudentRepository {
