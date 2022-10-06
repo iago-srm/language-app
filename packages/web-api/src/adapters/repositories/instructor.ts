@@ -16,6 +16,13 @@ import {
         return this.prisma.instructor.findUnique({
             where: {
                 userId
+            },
+            include: {
+              user: {
+                select: {
+                  name: true
+                }
+              }
             }
         })
     };
@@ -28,7 +35,7 @@ import {
         include: {
           students: {
             select: {
-              id: true
+              id: true,
             }
           }
         }

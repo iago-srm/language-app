@@ -26,7 +26,7 @@ import {
       const { id, role } = user;
   
       if(role !== "STUDENT") {
-        // throw new Error("Must be a student to insert output")
+        throw new Error("Must be a student to insert output")
       }
   
       return {

@@ -17,5 +17,30 @@ import {
             }
         })
     };
+
+    async getStudentByUserEmail (email: string) {
+      return (await this.prisma.student.findMany({
+        where: {
+          user: {
+            email
+          }
+        }
+      }))[0]
+    }
+
+    assignInstructor (studentId: string, instructorId: string) {
+      return this.prisma.student.update({
+        where: {
+          id: studentId
+        },
+        data: {
+          instructor: {
+            connect: {
+              id: instructorId
+            }
+          }
+        }
+      })
+    };
   }
   

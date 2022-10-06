@@ -74,4 +74,10 @@ export interface ActivityDTO {
   description?: string;
 }
 
-
+export interface AssociationInvitationTokenDTO {
+  id?: string;
+  studentId: string;
+  instructorId: string;
+  accepted: boolean;
+  token: string;
+}

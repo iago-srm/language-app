@@ -1,7 +1,7 @@
 import { 
   EnglishErrorMessages as CommonEnglishErrorMessages 
 } from '@language-app/common-utils';
-import { ErrorMessagesLabels } from './labels';
+import { ErrorMessagesLabels, EmailStringsLabels } from './labels';
 import { DomainRules } from '@language-app/common-core';
 
 
@@ -22,4 +22,8 @@ export const EnglishErrorMessages = {
 };
 
 export const EnglishEmailStrings = {
+  [EmailStringsLabels.ASSOCIATION_INVITATION]: (url: string, instructorName: string) => `
+  <p>Click the link to associate to instructor ${instructorName}: ${url}</p>,
+`,
+  [EmailStringsLabels.ASSOCIATION_INVITATION_SUBJECT]: (instructorName: string) => `You've just been invited to join ${instructorName}'s students!`
 }

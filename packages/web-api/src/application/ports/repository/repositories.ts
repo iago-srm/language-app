@@ -5,7 +5,8 @@ import {
   UserDTO,
   StudentOutputDTO,
   InstructorDTO,
-  StudentDTO
+  StudentDTO,
+  AssociationInvitationTokenDTO
 } from '.';
 
 type GetActivitiesInput = {
@@ -40,16 +41,24 @@ export interface IUserRepository {
 }
 
 export interface IInstructorRepository {
-  getInstructorByUserId: (userId: string) => Promise<InstructorDTO>;
+  getInstructorByUserId: (userId: string) => Promise<{ id: string, user: { name: string}}>;
   getThisInstructorStudentIds: (instructorId: string) => Promise<string[]>;
 }
 
 export interface IStudentRepository {
   getStudentByUserId: (userId:string) => Promise<StudentDTO>;
+  getStudentByUserEmail: (email: string) => Promise<StudentDTO>;
+  assignInstructor: (studentId: string, instructorId: string) => Promise<any>;
 }
 
 export interface IStudentOutputRepository {
   getStudentOutputById: (outputId: number) => Promise<StudentOutputDTO>;
   getStudentOutputsByStudentId: (studentId: string) => Promise<(Partial<StudentOutputDTO> & Partial<ActivityDTO>)[]>;
   insertStudentOutput: (output: StudentOutputDTO) => Promise<StudentOutputDTO>;
+}
+
+export interface IAssociationInvitationTokenRepository {
+  getTokenByTokenValue: (token: string) => Promise<AssociationInvitationTokenDTO | null>;
+  insertToken: (token: AssociationInvitationTokenDTO) => Promise<AssociationInvitationTokenDTO>;
+  updateToken: (tokenId: string, data: Partial<AssociationInvitationTokenDTO>) => Promise<AssociationInvitationTokenDTO>;
 }

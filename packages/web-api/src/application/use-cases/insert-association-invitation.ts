@@ -1,0 +1,65 @@
+import {
+    IStudentRepository,
+    IAssociationInvitationTokenRepository,
+    IInvitationEmailService,
+    IIdGenerator,
+    IInstructorRepository,
+  } from '../ports';
+  import {
+    UserNotFoundError,
+  } from '@common/errors';
+  import {
+    IForgotPasswordParams,
+    IForgotPasswordResponse,
+  } from '@language-app/common-core';
+  import { IUseCase } from '@language-app/common-platform';
+  
+  type InputParams = {
+    language: string;
+    userId: string;
+    studentEmail: string;
+  };
+  type Return = void;
+  
+  export type INewAssociationInvitationUseCase = IUseCase<InputParams, Return>;
+  
+  class UseCase implements INewAssociationInvitationUseCase {
+  
+    constructor (
+      private studentRepository: IStudentRepository,
+      private associationInvitationTokenRepository: IAssociationInvitationTokenRepository,
+      private invitationEmailService: IInvitationEmailService,
+      private idService: IIdGenerator,
+      private instructorRepository: IInstructorRepository
+    ){}
+  
+    async execute({ userId, studentEmail, language }) {
+  
+      const student = await this.studentRepository.getStudentByUserEmail(studentEmail);
+      if(!student) throw new UserNotFoundError();
+  
+      const instructor = await this.instructorRepository.getInstructorByUserId(userId);
+      if(!instructor) throw new UserNotFoundError();
+
+      const token = this.idService.getId();
+  
+      await this.associationInvitationTokenRepository.insertToken({
+        token,
+        studentId: student.id,
+        instructorId: instructor.id,
+        accepted: false
+      });
+  
+      await this.invitationEmailService.sendInvitationEmailToStudent({
+        destination: studentEmail,
+        language,
+        url: `${process.env.WEB_APP_URL}/invitation-association?token=${token}`,
+        instructorName: instructor.user.name
+      });
+  
+    }
+  
+  }
+  
+  export default UseCase;
+  

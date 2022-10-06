@@ -49,3 +49,13 @@ export const GetStudentOutputsHTTPDefinition: HTTPDefinition = {
   path: 'student-outputs',
   method: 'get'
 }
+
+export const InsertAssociationInvitationHTTPDefinition: HTTPDefinition = {
+  path: 'association-invitation',
+  method: 'post'
+}
+
+export const EditAssociationInvitationHTTPDefinition: HTTPDefinition = {
+  path: 'association-invitation/:token',
+  method: 'patch'
+}

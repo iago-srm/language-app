@@ -97,3 +97,5 @@ export interface NewUser {
   },
   response: void;
 }
+
+export interface IAssociationInvitation {}

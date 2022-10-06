@@ -8,9 +8,11 @@ import NewActivityUseCase, { INewActivityUseCase } from './new-activity';
 import NewStudentOutputUseCase, { INewStudentOutputUseCase } from './new-student-output';
 import NewUserUseCase, { INewUserUseCase } from './new-user';
 import SignOutUserUseCase, { ISignOutUserUseCase } from './signout-user';
-
-
+import NewAssociationInvitationUseCase, { INewAssociationInvitationUseCase } from './insert-association-invitation';
+import AcceptAssociationInvitationUseCase, { IAcceptAssociationInvitationUseCase } from './accept-association-invitation';
 export {
+  AcceptAssociationInvitationUseCase,
+  IAcceptAssociationInvitationUseCase,
   GetActivitiesUseCase,
   IGetActivitiesUseCase,
   GetActivityUseCase,
@@ -19,6 +21,10 @@ export {
   IGetStudentOutputUseCase,
   GetStudentOutputsUseCase,
   IGetStudentOutputsUseCase,
+  InsertActivityIntoStudentListUseCase,
+  IInsertActivityIntoStudentListUseCase,
+  NewAssociationInvitationUseCase,
+  INewAssociationInvitationUseCase,
   NewActivityInstructionUseCase,
   INewActivityInstructionUseCase,
   NewActivityUseCase,
@@ -27,8 +33,6 @@ export {
   INewStudentOutputUseCase,
   NewUserUseCase,
   INewUserUseCase,
-  InsertActivityIntoStudentListUseCase,
-  IInsertActivityIntoStudentListUseCase,
   SignOutUserUseCase,
   ISignOutUserUseCase
 }

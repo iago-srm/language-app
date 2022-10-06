@@ -75,9 +75,9 @@ model Student {
 }
 
 model StudentInstructorAssociationInvitation {
-  id        String   @id
+  id        String   @id @default(uuid())
 
-  token String
+  token String @unique
   accepted Boolean
 
   student Student @relation(fields: [studentId], references: [id])

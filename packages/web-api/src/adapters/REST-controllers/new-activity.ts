@@ -40,8 +40,8 @@ import {
         response: await newActivityUseCase.execute({
           userId: id,
           activity: {
-            startTime: Number(startTime),
-            endTime: Number(endTime),
+            startTime: startTime && Number(startTime),
+            endTime: endTime && Number(endTime),
             ...activity
           }
         }),

@@ -129,7 +129,7 @@ export class ActivityRepository implements IActivityRepository {
       startTime,
       endTime,
       cefr,
-      timeToComplete,
+      // timeToComplete,
       instructions,
       description
     } = activity;
@@ -142,7 +142,7 @@ export class ActivityRepository implements IActivityRepository {
         startTime,
         endTime,
         cefr,
-        timeToComplete,
+        // timeToComplete,
         description,
         instructor: {
           connect: {id: instructorId}
