@@ -1,6 +1,6 @@
 import {
     StudentOutputDTO,
-    IActivityRepository,
+    IStudentOutputRepository,
     IStudentRepository
   } from '../ports';
   import {
@@ -20,7 +20,7 @@ import {
   class UseCase implements INewStudentOutputUseCase {
   
     constructor(
-      private activityRepository: IActivityRepository,
+      private studentOutputRepository: IStudentOutputRepository,
       private studentRepository: IStudentRepository,
     ){}
   
@@ -30,7 +30,7 @@ import {
 
       const student = await this.studentRepository.getStudentByUserId(userId);
 
-      return this.activityRepository.insertStudentOutput({
+      return this.studentOutputRepository.insertStudentOutput({
         activityId,
         studentId: student.id,
         outputs

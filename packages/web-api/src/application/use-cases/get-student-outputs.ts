@@ -1,7 +1,7 @@
 import {
     StudentOutputDTO,
     ActivityDTO,
-    IActivityRepository,
+    IStudentOutputRepository,
     IStudentRepository,
     IInstructorRepository
   } from '../ports';
@@ -21,7 +21,7 @@ import {
   class UseCase implements IGetStudentOutputsUseCase {
   
     constructor(
-      private activityRepository: IActivityRepository,
+      private studentOutputRepository: IStudentOutputRepository,
       private instructorRepository: IInstructorRepository,
       private studentRepository: IStudentRepository
     ){}
@@ -32,14 +32,14 @@ import {
         const student = await this.studentRepository.getStudentByUserId(userId);
         if(!student) throw new Error("Student not found");
 
-        return this.activityRepository.getStudentOutputsByStudentIds([student.id]);
+        return this.studentOutputRepository.getStudentOutputsByStudentIds([student.id]);
       } else {
         const instructor = await this.instructorRepository.getInstructorByUserId(userId);
         if(!instructor) throw new Error("Instructor not found");
 
         const studentIds = await this.instructorRepository.getThisInstructorStudentIds(instructor.id);
         console.log({studentIds});
-        return this.activityRepository.getStudentOutputsByStudentIds(studentIds);
+        return this.studentOutputRepository.getStudentOutputsByStudentIds(studentIds);
 
       }
       

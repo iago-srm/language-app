@@ -32,7 +32,8 @@ import {
   ActivityRepository,
   UserRepository,
   InstructorRepository,
-  StudentRepository
+  StudentRepository,
+  StudentOutputRepository
 } from '@adapters/repositories';
 import {
   AssociationInvitationEmail,
@@ -93,7 +94,7 @@ export const registerDependencies = (container: awilix.AwilixContainer) => {
     "associationInvitationTokenRepository": awilix.asClass(AssociationInvitationTokenRepository),
     [Dependencies.ACTIVITYREPOSITORY]: awilix.asClass(ActivityRepository),
     [Dependencies.USERREPOSITORY]: awilix.asClass(UserRepository),
-    // 'studentOutputRepository': awilix.asClass(StudentOutputRepository),
+    'studentOutputRepository': awilix.asClass(StudentOutputRepository),
     'instructorRepository': awilix.asClass(InstructorRepository),
     'studentRepository': awilix.asClass(StudentRepository),
   })

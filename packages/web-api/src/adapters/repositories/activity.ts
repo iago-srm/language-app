@@ -174,65 +174,6 @@ export class ActivityRepository implements IActivityRepository {
       }
     })
   }
-
-  getStudentOutputById (id: number) {
-    return this.prisma.studentOutput.findUnique({
-      where: {
-        id
-      },
-      include: {
-        outputs: true,
-      }
-    })
-  }
-
-  getStudentOutputsByStudentIds (ids: string[]) {
-    return this.prisma.studentOutput.findMany({
-      where: {
-        studentId: { in: ids }
-      }, 
-      include: {
-        activity: {
-          select: {
-            cefr: true,
-            // timeToComplete: true,
-            topics: true,
-            contentType: true
-          }
-        }
-      }
-    })
-  }
-
-  insertStudentOutput ({
-    outputs,
-    activityId,
-    studentId
-  }) {
-    return this.prisma.studentOutput.create({
-      data: {
-        feedbackGiven: false,
-        activity: {
-          connect: {
-            id: activityId
-          }
-        },
-        student: {
-          connect: {
-            id: studentId
-          }
-        },
-        outputs: {
-          create: outputs.map(output => ({
-            textOutput: output.textOutput || null,
-            optionsSelections: output.optionsSelectionsIds ? {
-              connect: output.optionsSelectionsIds.map(id => ({ id }))
-            } : undefined
-          }))
-        } 
-      }
-    })
-  }
   
   // async insertNewInstructions(activityId: number, instructions: ActivityInstructionDTO[]) {
   //   return (await this.prisma.activity.update({
