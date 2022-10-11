@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const FlexCentered = styled.div`
   display: flex;
@@ -11,5 +11,12 @@ export const PageContainer = styled.div`
   display: flex;
   align-items: center;
 `
+
+export const cardHoverAnimationCss = css`
+  transition: 0.5s ease-in-out;
+  :hover {
+    transform: scale(1.03);
+  }
+`;
 
 

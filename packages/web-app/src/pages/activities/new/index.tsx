@@ -22,7 +22,8 @@ import {
   TextContent,
   VideoTimeInput,
   VideoContent,
-  Instructions,
+  InstructionsContainer,
+  Instruction,
   EditableOptions,
   InstructionModal,
   Section,
@@ -32,10 +33,8 @@ import {
 } from '@atomic';
 import { useMediaQuery } from 'react-responsive';
 import {
-  InstructionType,
-  Instruction
+  Instruction as InstructionModel,
 } from '@model';
-import { DomainRules } from '@language-app/common-core';
 
 const responsiveBreakpoint = 550;
 const contentSectionHeight = 500;
@@ -222,7 +221,7 @@ export default () => {
       </Section>
       <Section name="Instructions" tooltipText='Explicações'>
         <Section.Left>
-          <EditableOptions<Instruction> 
+          <EditableOptions<InstructionModel> 
             onClickRemove={(instruction) => removeInstruction(instruction.id)}
             onClickEdit={(instruction) => setInstructionUnderEdit(instruction)}
             options={activity.instructions}
@@ -230,7 +229,15 @@ export default () => {
           />
         </Section.Left>
         <Section.Right>
-          <Instructions instructions={activity.instructions} />
+          <InstructionsContainer>
+            {activity.instructions.map(instruction => (
+              <Instruction instruction={{
+                ...instruction, 
+                answer: instruction.type === "TEXT" ? instruction.textAnswer : instruction.optionsAnswers.length > 1 ? instruction.optionsAnswers : instruction.optionsAnswers[0],
+                onChange: () => {}
+              }}/>)
+            )}
+          </InstructionsContainer>
         </Section.Right>
       </Section>
       {showNewInstructionModal && 

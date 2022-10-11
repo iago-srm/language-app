@@ -148,7 +148,10 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider value={{
-      user,
+      user: {
+        name: "Iago",
+        role: "INSTRUCTOR"
+      },
       // : {
       //   id: '7eb14bc7-26cb-468e-86c0-fad7c8af0619',
       //   tokenVersion: 0,

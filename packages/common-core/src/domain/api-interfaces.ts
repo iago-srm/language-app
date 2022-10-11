@@ -25,23 +25,26 @@ interface IInstructions {
     text: string;
   }[]
 }
+
+interface IActivity {
+  id: string;
+  title: string;
+  description: string;
+  content: string;
+  startTime?: number;
+  endTime?: number;
+  topics: string[];
+  cefr: string;
+  contentType: string;
+  instructions: IInstructions[];
+}
+
 export interface IGetActivity {
   params: {
     id: number;
   }
   response: {
-    activity: {
-      id: string;
-      title: string;
-      description: string;
-      content: string;
-      startTime?: number;
-      endTime?: number;
-      topics: string[];
-      cefr: string;
-      contentType: string;
-      instructions: IInstructions[];
-    }
+    activity: IActivity;
   }
 }
 
@@ -78,7 +81,7 @@ export interface IPostStudentOutput {
   };
   response: {};
 }
-export interface SignOutUser {
+export interface ISignOutUser {
   params: {
     tokenVersion: number;
     authApiId: string;
@@ -86,7 +89,7 @@ export interface SignOutUser {
   response: void;
 }
 
-export interface NewUser {
+export interface IPostNewUser {
   params: {
     authApiId: string,
     role: string,
@@ -99,3 +102,75 @@ export interface NewUser {
 }
 
 export interface IAssociationInvitation {}
+export interface IGetStudentOutputs {
+  params: void;
+  response: {
+    id: string;
+    activity: {
+      cefr: string;
+      title: string;
+      topics: string[];
+      contentType: string;
+      instructor: {
+        user: {
+          name: string;
+          image: string;
+        }
+
+      }
+    },
+    createdAt: string;
+    feedbackGiven: boolean;
+  }[]
+}
+
+interface IActivityWithOutput extends IActivity {
+  instructor: {
+    user: {
+      name: string;
+      image: string;
+    }
+  },
+  outputs: {
+    instructionId: string;
+    textAnswer: string;
+    optionsSelectionsIds: string[];
+  }
+}
+export interface IGetStudentOutput {
+  params: {
+    id: number
+  };
+  response: {
+    id: string;
+    activity: IActivityWithOutput,
+    student: {
+      user: {
+        name: string;
+      }
+    }
+    createdAt: string;
+    feedbackGiven: boolean;
+    outputs: {
+      id: string;
+      textOutput: string;
+      optionsSelections: {
+        id: string;
+      }[]
+      instructionId: string;
+      feedback: {
+        message: string;
+      }
+    }[]
+  }
+}
+
+export interface IPostFeedbackToOutput {
+  params: {
+    outputId: string;
+    feedbacks: {
+      instructionOutputId: string;
+      feedback: string;
+    }[]
+  }
+}

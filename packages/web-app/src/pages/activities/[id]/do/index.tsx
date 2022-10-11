@@ -10,7 +10,8 @@ import {
     TextContent,
     VideoTimeInput,
     VideoContent,
-    Instructions,
+    Instruction,
+    InstructionsContainer,
     EditableOptions,
     InstructionModal,
     Section,
@@ -20,7 +21,7 @@ import {
   } from '@atomic';
 import {
     getLabeledTopics,
-    Instruction
+    Instruction as InstructionModel
 } from '@model';
 import { useApiBuilder } from '@services/api';
 import { useLanguage } from '@contexts';
@@ -103,7 +104,9 @@ export default () => {
                 start={activity.startTime} 
                 end={activity.endTime} 
               />}
-              <Instructions instructions={instructions} />
+              <InstructionsContainer> 
+                {Object.keys(instructions).map(instructionId => <Instruction key={instructionId} instruction={instructions[instructionId]} />)}
+              </InstructionsContainer>
             </>
           }
         </LoadingErrorData>

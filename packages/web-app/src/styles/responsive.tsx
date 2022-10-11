@@ -15,3 +15,15 @@ export const ResponsiveCenteredPageContent = ({ children }) => {
     </Container>
   )
 }
+
+export const TwoColumns = ({ children }) => {
+  return (
+    <Container fluid="sm" style={{marginTop: '20px'}}>
+      <Row>
+        <Col lg={{ span: 6, offset: 3 }}>
+          {children}
+        </Col>
+      </Row>
+    </Container>
+  )
+}

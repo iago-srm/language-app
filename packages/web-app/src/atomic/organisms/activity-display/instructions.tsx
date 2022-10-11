@@ -8,51 +8,20 @@ const ResponseTextArea = styled.textarea`
     width: 100%;
 `;
 
-interface IInstructionProps extends Instruction {
-    answer: string | string[];
-    onChange: (instructionId: string, newValue: string | string[]) => any;
-}
+// interface IInstructionWithHandler extends Instruction {
+//     answer: string | string[];
+//     onChange: (instructionId: string, newValue: string | string[]) => any;
+// }
+// interface IInstructionProps {
+//     instructions: {
+//         [id: string]: IInstructionWithHandler
+//     }
+// }
 
-export const Instructions = ({ instructions }: { instructions: { [id: string]: IInstructionProps } }) => {
+export const InstructionsContainer = ({ children }) => {
     return (
         <Accordion alwaysOpen>
-        {Object.keys(instructions).map((id) => {
-            const instruction = instructions[id];
-            // console.log(instruction)
-            return <Accordion.Item key={id} eventKey={`${id}`}>
-                <Accordion.Header>{instruction.text}</Accordion.Header>
-                <Accordion.Body>
-                    {instruction.type === "OPTIONS"
-                    ? 
-                    instruction.optionsAnswers.length === 1 ? 
-                    <RadioMenu 
-                        value={instruction.answer as string}
-                        onChange={(e) => instruction.onChange(instruction.id, e)}
-                        options={instruction.options.map(option => ({ value: option.id, label: option.text}))}
-                        vertical={true}
-                    />
-                    :
-                    <CheckboxMenu 
-                        values={instruction.answer as string[]}
-                        onChange={(e) => instruction.onChange(instruction.id, e)}
-                        options={instruction.options.map(option => ({ value: option.id, label: option.text}))}
-                        vertical={true}
-                    />
-                    // instruction.options.map((option, i) => (
-                    //     <label>
-                    //         {option.text}
-                    //         <input type="radio" key={i}/>
-                    //     </label>
-                    // ))
-                    : 
-                    <ResponseTextArea 
-                        value={instruction.answer}
-                        onChange={(e) => instruction.onChange(instruction.id,e.target.value)}
-                    />
-                    }
-                </Accordion.Body>
-            </Accordion.Item>
-        })}
+       {children}
       </Accordion>
     )
 }

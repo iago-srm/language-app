@@ -50,6 +50,11 @@ export const GetStudentOutputsHTTPDefinition: HTTPDefinition = {
   method: 'get'
 }
 
+export const InsertFeedbackToActivityHTTPDefinition: HTTPDefinition = {
+  path: 'student-outputs/:outputId/feedback',
+  method: 'post'
+}
+
 export const InsertAssociationInvitationHTTPDefinition: HTTPDefinition = {
   path: 'association-invitation',
   method: 'post'

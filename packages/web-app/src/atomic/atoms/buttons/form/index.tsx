@@ -7,10 +7,11 @@ interface IFormButtonProps {
   onClick?: any;
   children: any;
   variant?: string;
+  disabled?: boolean;
 }
-export const FormButton = ({ loading, children, ...rest}: IFormButtonProps) => {
+export const FormButton = ({ loading, children, disabled, ...rest}: IFormButtonProps) => {
   return (
-      <ButtonStyled type="submit" {...rest} disabled={loading}>
+      <ButtonStyled type="submit" {...rest} disabled={loading || disabled}>
       {loading ?
       <div className="spinner-border" role="status">
         <span className="sr-only">Loading...</span>

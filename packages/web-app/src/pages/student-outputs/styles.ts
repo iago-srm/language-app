@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { PageContainer } from '@styles';
 
-export const Container = styled(PageContainer)`
+export const Container = styled.div`
 
 `
 

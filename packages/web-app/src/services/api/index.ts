@@ -27,16 +27,24 @@ import {
   IResetPasswordParams,
   IResetPasswordResponse,
   ResetPasswordHTTPDefinition,
-  GetActivityHTTPDefinition,
-  PostStudentOutputHTTPDefinition
+  
 } from '@language-app/common-core';
 import {
   GetActivitiesHTTPDefinition,
   IGetActivities,
   NewActivityHTTPDefinition,
   IPostActivity,
+  GetActivityHTTPDefinition,
   IGetActivity,
-  IPostStudentOutput
+  PostStudentOutputHTTPDefinition,
+  IPostStudentOutput,
+  GetStudentOutputsHTTPDefinition,
+  IGetStudentOutputs,
+  GetStudentOutputHTTPDefinition,
+  IGetStudentOutput,
+  InsertFeedbackToActivityHTTPDefinition,
+  IPostFeedbackToOutput,
+  IAssociationInvitation
 } from '@language-app/common-core';
 import { useLanguage, handleAuthToken,useAuth } from '@contexts';
 import { useEffect } from 'react';
@@ -127,6 +135,21 @@ export const useApiBuilder = () => {
     ((args) => {
       return domainFetcher[PostStudentOutputHTTPDefinition.method](PostStudentOutputHTTPDefinition.path, args)
     })
+
+  const getStudentOutputs = () => useApiCallSWR<IGetStudentOutputs["response"]>
+    (tokenHeaderSet && `${GetStudentOutputsHTTPDefinition.path}`, (url) => domainFetcher[GetStudentOutputsHTTPDefinition.method](url));
+
+  const getStudentOutput = useApiCall<IGetStudentOutput["params"], IGetStudentOutput["response"]>
+    (({ id }) => {
+      return domainFetcher[GetStudentOutputHTTPDefinition.method](`${GetStudentOutputHTTPDefinition.path.split('/')[0]}/${id}`)
+    })
+
+  const postFeedbackToOutput = useApiCall<IPostFeedbackToOutput["params"], void>
+    (({ outputId, ...rest}) => {
+      const urlParts = InsertFeedbackToActivityHTTPDefinition.path.split('/');
+      return domainFetcher[InsertFeedbackToActivityHTTPDefinition.method](`${urlParts[0]}/${outputId}/${urlParts[2]}`, {...rest})
+    })
+    
   return {
     signUp,
     signIn,
@@ -140,7 +163,10 @@ export const useApiBuilder = () => {
     getActivities,
     postActivity,
     getActivity,
-    postStudentOutput
+    postStudentOutput,
+    getStudentOutputs,
+    getStudentOutput,
+    postFeedbackToOutput
   }
 }
 
