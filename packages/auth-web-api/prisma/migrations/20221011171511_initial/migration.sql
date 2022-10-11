@@ -10,6 +10,7 @@ CREATE TABLE "User" (
     "image" TEXT,
     "role" TEXT,
     "tokenVersion" INTEGER NOT NULL DEFAULT 0,
+    "provider" TEXT,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
