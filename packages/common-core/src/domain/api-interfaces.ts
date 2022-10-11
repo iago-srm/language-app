@@ -1,22 +1,52 @@
-export interface IGetActivitiesParams {}
-export type IGetActivitiesResponse = {
-  cursor: number;
-  activities: {
+export type IGetActivities = {
+  response: {
+    cursor: number;
+    activities: {
+      id: string;
+      title: string;
+      description?: string;
+      cefr: string;
+      topics: string[];
+    }[]
+  }
+}
+
+interface IInstructions {
+  id: string;
+  text: string;
+  type: string;
+  isMultiCorrect: boolean;
+  optionsAnswers?: {
     id: string;
-    title: string;
-    description?: string;
-    cefr: string;
-    topics: string[];
+  }[]
+  textAnswer?: string;
+  options: {
+    id: string;
+    text: string;
   }[]
 }
-export interface GetActivityParams {
-  id: number;
+
+interface IActivity {
+  id: string;
+  title: string;
+  description: string;
+  content: string;
+  startTime?: number;
+  endTime?: number;
+  topics: string[];
+  cefr: string;
+  contentType: string;
+  instructions: IInstructions[];
 }
 
-export interface GetActivityResponse {}
-
-// export interface PostActivityParams {}
-// export interface PostActivityResponse {}
+export interface IGetActivity {
+  params: {
+    id: number;
+  }
+  response: {
+    activity: IActivity;
+  }
+}
 
 interface Option {
   text: string;
@@ -40,12 +70,107 @@ export interface IPostActivity {
   response: void;
 }
 
-export interface PostActivityInstructionParams {}
-export interface PostActivityInstructionResponse {}
-
-export interface SignOutUser {
+export interface IPostStudentOutput {
+  params: {
+    activityId: string;
+    outputs: {
+      instructionId: string;
+      optionsSelectionsIds?: string[];
+      textOutput?: string;
+    }[]
+  };
+  response: {};
+}
+export interface ISignOutUser {
   params: {
     tokenVersion: number;
+    authApiId: string;
   }
   response: void;
+}
+
+export interface IPostNewUser {
+  params: {
+    authApiId: string,
+    role: string,
+    name: string,
+    email: string,
+    tokenVersion: string,
+    image: string
+  },
+  response: void;
+}
+
+export interface IAssociationInvitation {}
+export interface IGetStudentOutputs {
+  params: void;
+  response: {
+    id: string;
+    activity: {
+      cefr: string;
+      title: string;
+      topics: string[];
+      contentType: string;
+      instructor: {
+        user: {
+          name: string;
+          image: string;
+        }
+
+      }
+    },
+    createdAt: string;
+    feedbackGiven: boolean;
+  }[]
+}
+
+interface IActivityWithOutput extends IActivity {
+  instructor: {
+    user: {
+      name: string;
+      image: string;
+    }
+  },
+  outputs: {
+    instructionId: string;
+    textAnswer: string;
+    optionsSelectionsIds: string[];
+  }
+}
+export interface IGetStudentOutput {
+  params: {
+    id: number
+  };
+  response: {
+    id: string;
+    activity: IActivityWithOutput,
+    student: {
+      user: {
+        name: string;
+      }
+    }
+    createdAt: string;
+    feedbackGiven: boolean;
+    outputs: {
+      id: string;
+      textOutput: string;
+      optionsSelections: {
+        id: string;
+      }[]
+      instructionId: string;
+      feedback: {
+        message: string;
+      }
+    }[]
+  }
+}
+
+export interface IPostFeedbackToOutput {
+  params: {
+    outputId: string;
+    feedbacks: {
+      instructionOutputId: string;
+      feedback: string;
+    }[]
+  }
 }

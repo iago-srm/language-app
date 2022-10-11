@@ -8,27 +8,26 @@ import {
   type InputParams = {
     userId: string;
     activityId: number;
-    completed: boolean;
   }
   type Return = void;
   
-  export type IChangeActivityProgressStatusUseCase = IUseCase<InputParams, Return>;
+  export type IInsertActivityIntoStudentListUseCase = IUseCase<InputParams, Return>;
   
-  class UseCase implements IChangeActivityProgressStatusUseCase {
+  class UseCase implements IInsertActivityIntoStudentListUseCase {
   
     constructor(
       private activityRepository: IActivityRepository,
       private studentRepository: IStudentRepository
     ){}
   
-    async execute ({ userId, activityId, completed }) {
+    async execute ({ userId, activityId }: InputParams) {
         const student = await this.studentRepository.getStudentByUserId(userId);
 
         if(!student) {
             throw new Error("Student not found");
         }
 
-        await this.activityRepository.insertActivityProgress(student.id, activityId, completed);
+        await this.activityRepository.insertActivityIntoStudentList(student.id, activityId);
     }
   
   };

@@ -16,8 +16,30 @@ import {
         return this.prisma.instructor.findUnique({
             where: {
                 userId
+            },
+            include: {
+              user: {
+                select: {
+                  name: true
+                }
+              }
             }
         })
     };
+
+    async getThisInstructorStudentIds (instructorId: string) {
+      return (await this.prisma.instructor.findUnique({
+        where: {
+          id: instructorId
+        },
+        include: {
+          students: {
+            select: {
+              id: true,
+            }
+          }
+        }
+      })).students.map(std => std.id)
+    }
   }
   

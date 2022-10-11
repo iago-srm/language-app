@@ -47,11 +47,12 @@ export const InstructionModal = ({
         if(instructionUnderEdit) setInstruction(instructionUnderEdit);
     }, [instructionUnderEdit]);
 
+    // TODO: currently allows no correct alternatives
     const saveChanges = () => {
-        // if(instruction.type === InstructionType.OPTIONS && instruction.options.length < 2) {
-        //     alert("Instruções de alternativas devem conter pelo menos duas alternativas");
-        //     return;
-        // }
+        if(instruction.type === InstructionType.OPTIONS && instruction.options.length < 2) {
+            alert("Instruções de alternativas devem conter pelo menos duas alternativas");
+            return;
+        }
         if(instructionUnderEdit && !instruction.text) {
             alert("Instrução não pode ter texto vazio. Se deseja removê-la, clique no botão de remover.");
             return;
@@ -138,7 +139,7 @@ export const InstructionModal = ({
                 Tipo de Instrução
                 <InstructionTypeSelectionForm 
                     value={instruction.type} 
-                    onChange={(e) => onChangeInstructionType(e.target.value)}
+                    onChange={(e) => onChangeInstructionType(e)}
                 />
                 {instruction.type === InstructionType.OPTIONS 
                 ? 

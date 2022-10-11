@@ -8,3 +8,4 @@ export * from './filters';
 export * from './form';
 export * from './navbar';
 export * from './radio-menu';
+export * from './student-output-card';

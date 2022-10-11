@@ -1,10 +1,16 @@
 import Link from "next/link";
 import { DashboardButtonStyled } from "./styles";
 
-export const DashboardButton = ({ path, icon, label }) => {
+interface DashboardButton {
+    path: string;
+    icon: any;
+    label: string;
+    query?: {[k: string]: any};
+}
+export const DashboardButton = ({ path, icon, label, query }: DashboardButton) => {
     return (
         <DashboardButtonStyled>
-            <Link href={path}>
+            <Link href={{ pathname: path, query}}>
                 <a>
                     {icon}
                     <p>{label}</p>

@@ -35,6 +35,7 @@ export const AuthenticationMiddlewareControllerFactory = ({
     try {
       tokenPayload = await tokenService.verify(token);
     } catch(e) {
+      console.log("token verification error:",e)
       throw new CouldNotVerifyTokenError();
     }
 

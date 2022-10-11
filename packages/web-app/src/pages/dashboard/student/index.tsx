@@ -17,8 +17,8 @@ const Home: React.FC = () => {
       <h3>Área do Estudante</h3>
       <ButtonsContainer>
         <DashboardButton label={"Procurar Atividades"} path="/activities" icon={<Icons.SEARCH/>}/>
-        <DashboardButton label={"Atividades em Progresso"} path="/activities" icon={<Icons.IN_PROGRESS/>}/>
-        <DashboardButton label={"Atividades Completas"} path="/activities" icon={<Icons.CHECK/>}/>
+        <DashboardButton label={"Atividades em Minha Lista"} path="/activities" query={{ isMyList: true }} icon={<Icons.IN_PROGRESS/>}/>
+        <DashboardButton label={"Atividades Realizadas"} path="/student-outputs" icon={<Icons.CHECK/>}/>
       </ButtonsContainer>
     </Container>
   )

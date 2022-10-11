@@ -1,9 +1,9 @@
 type SendEmailArgs = {
   destination: string,
   language: string,
-  url: string
+  url: string,
+  instructorName: string
 }
-export interface IAuthEmailService {
-  sendForgotPasswordEmail: (args: SendEmailArgs) => Promise<any>;
-  sendVerifyAccountEmail: (args: SendEmailArgs) => Promise<any>;
+export interface IInvitationEmailService {
+  sendInvitationEmailToStudent: (args: SendEmailArgs) => Promise<any>;
 }

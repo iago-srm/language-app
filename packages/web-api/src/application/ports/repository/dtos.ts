@@ -5,31 +5,38 @@ export interface UserDTO {
   role?: string;
   tokenVersion?: number;
   authApiId: string;
+  image: string;
 }
 
 export interface StudentOutputDTO {
-  answers: ActivityInstructionStudentAnswerDTO[];
-  feedback?: {
-    grade?: number;
-    message?: string;
-  }
+  activityId: number,
+  studentId: string,
+  outputs: InstructionStudentOutputDTO[];
+  feedbackGiven: boolean;
+}
+
+export interface FeedbackToInstructionStudentOutputDTO {
+  message: string;
 }
 
 export interface InstructorDTO {
   id: string;
   userId: string;
+  user?: UserDTO;
 }
 
 export interface StudentDTO {
   id: string;
   userId: string;
   cefr: CEFR;
+  user?: UserDTO;
 }
 
-export interface ActivityInstructionStudentAnswerDTO {
+export interface InstructionStudentOutputDTO {
   id?: string;
-  optionsAnswers?: ActivityInstructionOptionDTO[];
-  textAnswer?: string;
+  optionsSelectionsIds?: ActivityInstructionOptionDTO[];
+  textOutput?: string;
+  feedback?: FeedbackToInstructionStudentOutputDTO;
 }
 
 export interface ActivityInstructionOptionDTO {
@@ -41,6 +48,7 @@ export interface ActivityInstructionDTO {
   id?: string;
   text: string;
   optionsAnswers?: { id: string }[];
+  isMultiCorrect?: boolean;
   textAnswer?: string;
   options?: ActivityInstructionOptionDTO[];
   type: INSTRUCTIONTYPE;
@@ -66,4 +74,10 @@ export interface ActivityDTO {
   description?: string;
 }
 
-
+export interface AssociationInvitationTokenDTO {
+  id?: string;
+  studentId: string;
+  instructorId: string;
+  accepted: boolean;
+  token: string;
+}

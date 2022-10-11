@@ -20,8 +20,7 @@ export const GetActivitiesControllerFactory = ({
       cefr,
       topics,
       contentTypes,
-      isInProgress,
-      isComplete,
+      isMyList,
       cursor,
       thisInstructorOnly
     } = controllerSerializer(query, [
@@ -30,8 +29,7 @@ export const GetActivitiesControllerFactory = ({
       { name: 'cursor', optional: true },
       { name: 'topics', optional: true, type: "array" },
       { name: 'contentTypes', optional: true, type: "array" },
-      { name: 'isInProgress', optional: true },
-      { name: 'isComplete', optional: true },
+      { name: 'isMyList', optional: true },
       { name: 'thisInstructorOnly', optional: true },
     ]);
 
@@ -47,8 +45,7 @@ export const GetActivitiesControllerFactory = ({
         cefr,
         topics,
         contentTypes,
-        isInProgress: role === "STUDENT" && isInProgress === "true",
-        isComplete: role === "STUDENT" && isComplete === "true",
+        isMyList: role === "STUDENT" && isMyList === "true",
         thisInstructorOnly: role === "INSTRUCTOR" && thisInstructorOnly === "true"
       }),
       statusCode: 200,

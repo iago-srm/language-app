@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { cardHoverAnimationCss } from '@styles';
 
 export const ActivityCardContainer = styled.div`
     min-width: 80%;
@@ -11,8 +12,7 @@ export const ActivityCardContainer = styled.div`
     padding: 10px;
     cursor: pointer;
     :hover {
-        transition: 0.5s ease-in-out;
-        transform: scale(1.1);
+        ${cardHoverAnimationCss}
     }
     h3{}
     p{}

@@ -26,12 +26,17 @@ import { InvalidInstructionOptionSetError } from '@/domain/errors';
   
     async execute ({ userId, activity }) {
 
+      // console.log({
+      //   instructionsOptions: activity.instructions[0].options,
+      //   instructionsOptionsAnswers: activity.instructions[0].optionsAnswers,
+      // });
       activity.instructions.forEach(instruction => new ActivityInstruction({...instruction}))
       new Activity({...activity});
 
       activity.instructions = activity.instructions.map(inst => {
         const instruction = {
           ...inst,
+          isMultiCorrect: (inst.optionsAnswers && inst.optionsAnswers.length > 1) || false,
           id: this.idService.getId()
         };
         

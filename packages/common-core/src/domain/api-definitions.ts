@@ -20,8 +20,8 @@ export const NewActivityInstructionHTTPDefinition: HTTPDefinition = {
   method: 'post'
 }
 
-export const ActivityProgressStatusHTTPDefinition: HTTPDefinition = {
-  path: 'activities/progress-status',
+export const InsertActivityIntoStudentListHTTPDefinition: HTTPDefinition = {
+  path: 'activities/student-list',
   method: 'post'
 }
 
@@ -35,7 +35,7 @@ export const SignOutUserHTTPDefinition: HTTPDefinition = {
   method: 'patch'
 }
 
-export const NewStudentOutputHTTPDefinition: HTTPDefinition = {
+export const PostStudentOutputHTTPDefinition: HTTPDefinition = {
   path: 'student-outputs',
   method: 'post'
 }
@@ -48,4 +48,19 @@ export const GetStudentOutputHTTPDefinition: HTTPDefinition = {
 export const GetStudentOutputsHTTPDefinition: HTTPDefinition = {
   path: 'student-outputs',
   method: 'get'
+}
+
+export const InsertFeedbackToActivityHTTPDefinition: HTTPDefinition = {
+  path: 'student-outputs/:outputId/feedback',
+  method: 'post'
+}
+
+export const InsertAssociationInvitationHTTPDefinition: HTTPDefinition = {
+  path: 'association-invitation',
+  method: 'post'
+}
+
+export const EditAssociationInvitationHTTPDefinition: HTTPDefinition = {
+  path: 'association-invitation/:token',
+  method: 'patch'
 }

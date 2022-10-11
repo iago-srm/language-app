@@ -17,15 +17,18 @@ import {
   
       const {
         cursor
-      } = controllerSerializer(query, ['cursor']);
-      if(isNaN(Number(cursor))) throw new Error('cursor is not a number');
+      } = controllerSerializer(query, [
+        { name: 'cursor', optional: true }
+      ]);
+      if(cursor && isNaN(Number(cursor))) throw new Error('cursor is not a number');
 
-      const { id } = user;
+      const { id, role } = user;
   
       return {
         response: await getStudentOutputsUseCase.execute({
           cursor: Number(cursor),
-          studentId: id
+          userId: id,
+          role
         }),
         statusCode: 200,
       };

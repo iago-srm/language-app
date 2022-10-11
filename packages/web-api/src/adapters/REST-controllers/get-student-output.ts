@@ -19,9 +19,10 @@ import {
         id
       } = controllerSerializer(params, ['id']);
   
+      if(isNaN(Number(id))) throw new Error("student output id must be an int");
       return {
         response: await getStudentOutputUseCase.execute({
-          studentOutputId: id
+          studentOutputId: Number(id)
         }),
         statusCode: 200,
       };

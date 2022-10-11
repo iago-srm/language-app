@@ -5,7 +5,8 @@ import {
   UserDTO,
   StudentOutputDTO,
   InstructorDTO,
-  StudentDTO
+  StudentDTO,
+  AssociationInvitationTokenDTO
 } from '.';
 
 type GetActivitiesInput = {
@@ -20,8 +21,8 @@ type GetActivitiesInput = {
 
 export interface IActivityRepository {
   getActivities: (args: GetActivitiesInput) => Promise<Partial<ActivityDTO>[]>;
-  getActivityIdsByStudentProgress: (studentId: string, completed: boolean) => Promise<number[]>;
-  insertActivityProgress: (studentId: string, activityId: number, completed: boolean) => Promise<void>;
+  getActivityIdsByStudentList: (studentId: string) => Promise<number[]>;
+  insertActivityIntoStudentList: (studentId: string, activityId: number) => Promise<void>;
   getActivityById: (id: number) => Promise<ActivityDTO & { instructions: ActivityInstructionDTO[] }>;
   insertActivity: (instructorId: string, activity: ActivityDTO) => Promise<ActivityDTO>;
   // insertNewInstructions: (activityId: number, instructions: ActivityInstructionDTO[]) => Promise<Partial<ActivityInstructionDTO>[]>;
@@ -36,15 +37,26 @@ export interface IUserRepository {
 }
 
 export interface IInstructorRepository {
-  getInstructorByUserId: (userId:string) => Promise<InstructorDTO>;
+  getInstructorByUserId: (userId: string) => Promise<{ id: string, user: { name: string}}>;
+  getThisInstructorStudentIds: (instructorId: string) => Promise<string[]>;
 }
 
 export interface IStudentRepository {
   getStudentByUserId: (userId:string) => Promise<StudentDTO>;
+  getStudentByUserEmail: (email: string) => Promise<StudentDTO>;
+  assignInstructor: (studentId: string, instructorId: string) => Promise<any>;
 }
 
 export interface IStudentOutputRepository {
   getStudentOutputById: (outputId: number) => Promise<StudentOutputDTO>;
-  getStudentOutputsByStudentId: (studentId: string) => Promise<(Partial<StudentOutputDTO> & Partial<ActivityDTO>)[]>;
-  insertStudentOutput: (output: StudentOutputDTO) => Promise<StudentOutputDTO>;
+  getStudentOutputsByStudentIds: (studentId: string[]) => Promise<(Partial<StudentOutputDTO> & Partial<ActivityDTO>)[]>;
+  insertStudentOutput: (output: Partial<StudentOutputDTO>) => Promise<Partial<StudentOutputDTO>>;
+  // insertStudentOutputFeedbacks: (studentOutputId: number, feedbacks: { instructionOutputId: string, feedback: string }) => Promise<any>;
+
+}
+
+export interface IAssociationInvitationTokenRepository {
+  getTokenByTokenValue: (token: string) => Promise<AssociationInvitationTokenDTO | null>;
+  insertToken: (token: AssociationInvitationTokenDTO) => Promise<AssociationInvitationTokenDTO>;
+  updateToken: (tokenId: string, data: Partial<AssociationInvitationTokenDTO>) => Promise<AssociationInvitationTokenDTO>;
 }

@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import { Modal, Button, Toast, successToast, errorToast } from '@atomic';
+import { Modal, FormButton, Toast, successToast, errorToast } from '@atomic';
 import styled from 'styled-components';
 import { useApiBuilder } from '@services/api';
 import { useAuth } from '@contexts';
@@ -45,18 +45,17 @@ export const ProfileImageModal = ({ onClose, image }) => {
   }, [selectedFile]);
 
   return (
-    <Modal onClose={onClose}>
+    <Modal header="Escolha uma foto de perfil" onClose={onClose}>
       <ModalContentStyled>
-        <h4>Escolha uma foto de perfil</h4>
         <div className='img-container'>
           <img src={(selectedFile && URL.createObjectURL(selectedFile)) || image}/>
         </div>
         <br/>
         <input type="file" onChange={onFileChange} accept="image/png, image/jpeg"/>
         <hr/>
-        <Button onClick={onFileUpload} loading={uploadProfileImage.loading}>
+        <FormButton onClick={onFileUpload} loading={uploadProfileImage.loading}>
           Salvar
-        </Button>
+        </FormButton>
       </ModalContentStyled>
     </Modal>
   )

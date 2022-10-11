@@ -22,26 +22,25 @@ import {
   TextContent,
   VideoTimeInput,
   VideoContent,
-  Instructions,
+  InstructionsContainer,
+  Instruction,
   EditableOptions,
   InstructionModal,
   Section,
   FormButton,
   VideoIdInput,
-  ActivityCard
+  Description
 } from '@atomic';
 import { useMediaQuery } from 'react-responsive';
 import {
-  InstructionType,
-  Instruction
+  Instruction as InstructionModel,
 } from '@model';
-import { DomainRules } from '@language-app/common-core';
 
 const responsiveBreakpoint = 550;
 const contentSectionHeight = 500;
 
 
-const Activities: React.FC = () => {
+export default () => {
 
   const { language } = useLanguage();
   const [showNewInstructionModal, setShowNewInstructionModal] = useState(false);
@@ -96,7 +95,7 @@ const Activities: React.FC = () => {
   } = useApiBuilder();
   const isBigScreen = useMediaQuery({ minWidth: responsiveBreakpoint });
 
-  const onChangeContentType = (e) => setActivity(s => ({...s, contentType: e.target.value}));
+  const onChangeContentType = (e) => setActivity(s => ({...s, contentType: e}));
   const onChangeTitle = (e) => setActivity(s => ({...s, title: e.target.value}));
   const onChangeCEFR = (e) => setActivity(s => ({...s, cefr: e.value}));
   const onChangeTopics = (e) => setActivity(s =>  ({...s, topics: e}));
@@ -165,7 +164,7 @@ const Activities: React.FC = () => {
           </DescriptionTextAreaContainer>
         </Section.Left>
         <Section.Right>
-            {activity.description}
+          <Description text={activity.description} />
         </Section.Right>
       </Section>
       <Section 
@@ -222,7 +221,7 @@ const Activities: React.FC = () => {
       </Section>
       <Section name="Instructions" tooltipText='Explicações'>
         <Section.Left>
-          <EditableOptions<Instruction> 
+          <EditableOptions<InstructionModel> 
             onClickRemove={(instruction) => removeInstruction(instruction.id)}
             onClickEdit={(instruction) => setInstructionUnderEdit(instruction)}
             options={activity.instructions}
@@ -230,7 +229,15 @@ const Activities: React.FC = () => {
           />
         </Section.Left>
         <Section.Right>
-          <Instructions instructions={activity.instructions} />
+          <InstructionsContainer>
+            {activity.instructions.map(instruction => (
+              <Instruction instruction={{
+                ...instruction, 
+                answer: instruction.type === "TEXT" ? instruction.textAnswer : instruction.optionsAnswers.length > 1 ? instruction.optionsAnswers : instruction.optionsAnswers[0],
+                onChange: () => {}
+              }}/>)
+            )}
+          </InstructionsContainer>
         </Section.Right>
       </Section>
       {showNewInstructionModal && 
@@ -248,4 +255,3 @@ const Activities: React.FC = () => {
   )
 }
 
-export default Activities

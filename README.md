@@ -1,3 +1,5 @@
+# Overview
+# Techonologies
 # Development
 - When npm i is run (do it at project root), all package.json files are inspected and its dependencies are installed in the root node_modules
 - When postgres is started with a volume, its boot time is shorter, but it inherits the volume's database. To force it to create new databases, remove the volumes first.

@@ -7,7 +7,7 @@ import {
 import {
   IUseCase
 } from '@language-app/common-platform';
-import { DomainRules } from '@/../../common-core';
+import { DomainRules } from '@language-app/common-core';
 
 type InputParams = {
   userId: string;
@@ -16,8 +16,7 @@ type InputParams = {
   cefr?: string;
   topics?: string[],
   contentTypes?: string,
-  isInProgress?: boolean,
-  isComplete?: boolean,
+  isMyList?: boolean;
   thisInstructorOnly: boolean
 };
 type Return = { cursor: number, activities: Partial<ActivityDTO>[] };
@@ -32,37 +31,29 @@ class UseCase implements IGetActivitiesUseCase {
     private activityRepository: IActivityRepository
   ){}
 
-  async execute ({ cursor, title, cefr, topics, contentTypes, isInProgress, isComplete, userId, thisInstructorOnly }) {
+  async execute ({ cursor, title, cefr, topics, contentTypes, isMyList, userId, thisInstructorOnly }) {
 
-    console.log({
-      cursor, title, cefr, topics, contentTypes, isInProgress, isComplete, thisInstructorOnly
-    });
+    // console.log({
+    //   cursor, title, cefr, topics, contentTypes, isInProgress, isComplete, thisInstructorOnly
+    // });
 
     let instructorId;
 
     if(thisInstructorOnly) {
-      instructorId = (await this.instructorRepository.getInstructorByUserId(userId)).id;
+      // console.log("filtering by instructor author");
+      instructorId = (await this.instructorRepository.getInstructorByUserId(userId)).id;        
     }
 
-    // starts undefined so that, if nor isInProgress nor isComplete are applied, there is no restriction on ids.
     let studentActivitiesIds;
 
-    if(isInProgress || isComplete) {
+    if(isMyList) {
       const student = await this.studentRepository.getStudentByUserId(userId);
 
-      if(isInProgress) {
-        const incompleteActivitiesIds = await this.activityRepository.getActivityIdsByStudentProgress(student.id, false);
+      if(student) {
+        const incompleteActivitiesIds = await this.activityRepository.getActivityIdsByStudentList(student.id);
         studentActivitiesIds = incompleteActivitiesIds;
       }
-  
-      if(isComplete) {
-        const completeActivitiesIds = await this.activityRepository.getActivityIdsByStudentProgress(student.id, true);
-        if(studentActivitiesIds?.length) {
-          studentActivitiesIds.push(...completeActivitiesIds);
-        } else {
-          studentActivitiesIds = completeActivitiesIds;
-        }
-      }
+      
     }
 
 

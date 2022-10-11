@@ -1,79 +1,126 @@
 import {
-    ActivityDTO,
-    ActivityInstructionDTO,
-    CEFR,
     IStudentOutputRepository,
+    ActivityDTO,
     StudentOutputDTO
   } from '@application/ports';
   import { PrismaClient } from '@prisma-client';
   
   export class StudentOutputRepository implements IStudentOutputRepository {
     prisma: PrismaClient;
-    private _pageSize = 10;
+    private _pageSize = 20;
   
     constructor() {
       this.prisma = new PrismaClient();
+    }
+  
+    _paginate(id) {
+      return id ? {
+        skip: 1,
+        cursor: {
+          id
+        }
+      } : undefined
     }
 
     getStudentOutputById (id: number) {
       return this.prisma.studentOutput.findUnique({
         where: {
           id
-        }, include: {
-          answers: true
+        },
+        include: {
+          outputs: {
+            include: {
+              optionsSelections: true,
+              feedback: true
+            }
+          },
+          activity: {
+            include: {
+              instructions: {
+                include: {
+                  options: true,
+                  optionsAnswers: true
+                  // studentOutputs: true
+                }
+              }
+            }
+          }
         }
       })
     }
-
-    getStudentOutputsByStudentId (id: string) {
+  
+    getStudentOutputsByStudentIds (ids: string[]) {
       return this.prisma.studentOutput.findMany({
         where: {
-          studentId: id
+          studentId: { in: ids }
         }, 
         include: {
+          student: {
+            include: {
+              user: {
+                select: {
+                  name: true
+                }
+              }
+            }
+          },
           activity: {
             select: {
               cefr: true,
-              timeToComplete: true,
+              title: true,
+              // timeToComplete: true,
               topics: true,
-              contentType: true
+              contentType: true,
+              instructor: {
+                include: {
+                  user: {
+                    select: {
+                      name: true,
+                      image: true
+                    }
+                  }
+                }
+              }
             }
           }
         }
       })
     }
-
+  
     insertStudentOutput ({
-      answers,
-      feedback: {
-        grade,
-        message
-      }
-    }: StudentOutputDTO) {
+      outputs,
+      activityId,
+      studentId
+    }) {
       return this.prisma.studentOutput.create({
         data: {
-          answers: {
-            create: 
-            // [
-            //   {answer: '', instruction: { connect: {id: ''}}}
-            // ]
-            answers.map(answer => ({
-              // textAnswer: answer,
-              // instruction: {
-              //   connect: { id: answer.instructionId }
-              // } 
-            }))
-          },
-          feedback: {
-            create: {
-              grade,
-              message
+          feedbackGiven: false,
+          activity: {
+            connect: {
+              id: activityId
             }
-          }
-        },
-        include: {
-          answers: true
+          },
+          student: {
+            connect: {
+              id: studentId
+            }
+          },
+          outputs: {
+            create: outputs.map(output => ({
+              textOutput: output.textOutput || null,
+              optionsSelections: output.optionsSelectionsIds ? {
+                connect: output.optionsSelectionsIds.map(id => ({ id }))
+              } : undefined,
+              instruction: {
+                connect: {
+                  id: output.instructionId
+                }
+              }
+            }))
+          } 
         }
       })
     }
-}
+  
+  }
+  

@@ -6,7 +6,7 @@ const SelectablePanelStyled = styled.button<{selected: boolean}>`
   margin: 50px auto;
   width: 100%;
   border: 2px solid black;
-  background-color: ${({selected, theme}) => selected ? theme.colors.primary : 'inherit'};
+  background-color: ${({selected, theme}) => selected ? theme.colors.secondary : 'inherit'};
   color: ${({selected, theme}) => selected ? theme.colors.text : 'inherit'};
   border-radius: 5px;
 `;

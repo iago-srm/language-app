@@ -10,7 +10,8 @@ export const contentValidator = {
     throw new InvalidTextLengthError();
   },
   VIDEO: (url: string) => {
-    if(url.startsWith('https://')) return true; //TODO
-    throw new InvalidVideoUrlError();
+    return true;
+    // if(url.startsWith('https://')) return true; //TODO
+    // throw new InvalidVideoUrlError();
   }
 }

@@ -19,6 +19,9 @@ services:
       - TOKEN_SECRET=${TOKEN_SECRET}
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - SENDGRID_API_KEY=${SENDGRID_API_KEY}
+      - WEB_APP_URL=http://localhost:3000
+
     tty: true
     volumes:
       - ./packages/common-core:/app/packages/common-core
@@ -48,8 +51,8 @@ services:
   #     context: .
   #     dockerfile: packages/auth-web-api/Dockerfile
   #   container_name: language-app-auth-web-api
-  #   entrypoint: "npm run dev"
-  #   # entrypoint: "tail -f /dev/null"
+  #   # entrypoint: "npm run dev"
+  #   entrypoint: "tail -f /dev/null"
   #   ports:
   #     - "${AUTH_PORT}:${AUTH_PORT}"
   #     - 5555:5555 # prisma studio

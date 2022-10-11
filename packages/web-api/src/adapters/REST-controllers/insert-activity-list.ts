@@ -1,26 +1,24 @@
 import {
-    IChangeActivityProgressStatusUseCase,
+  InsertActivityIntoStudentListUseCase,
   } from '@application/use-cases';
-  import { ActivityProgressStatusHTTPDefinition } from '@language-app/common-core';
+  import { InsertActivityIntoStudentListHTTPDefinition } from '@language-app/common-core';
   import {
     IHTTPController,
     IHTTPControllerDescriptor,
     controllerSerializer
   } from '@language-app/common-platform';
   
-  export const ChangeActivityProgressStatusControllerFactory = ({
-    changeActivityProgressStatusUseCase,
+  export const InsertActivityListControllerFactory = ({
+    insertActivityListUseCase,
   }: {
-    changeActivityProgressStatusUseCase: IChangeActivityProgressStatusUseCase;
+    insertActivityListUseCase: InsertActivityIntoStudentListUseCase;
   }): IHTTPControllerDescriptor<IHTTPController> => {
     const fn: IHTTPController = async (_, body, __, { user }) => {
   
       const {
         activityId,
-        completed
       } = controllerSerializer(body, [
         'activityId',
-        'completed' 
       ]) as any;
 
       const { id, role } = user;
@@ -30,10 +28,9 @@ import {
       }
   
       return {
-        response: await changeActivityProgressStatusUseCase.execute({
+        response: await insertActivityListUseCase.execute({
           userId: id,
           activityId,
-          completed
         }),
         statusCode: 200,
       };
@@ -41,7 +38,7 @@ import {
   
     return {
       controller: fn,
-      ...ActivityProgressStatusHTTPDefinition,
+      ...InsertActivityIntoStudentListHTTPDefinition,
       middlewares: ['auth']
     };
   };

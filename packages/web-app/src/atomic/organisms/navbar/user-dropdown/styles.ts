@@ -24,6 +24,17 @@ export const PanelNameContainer = styled.div`
 export const DropdownMenuContainer = styled.div`
   color: ${({theme}) => theme.colors.text};
   button {
+    padding: 0;
+  }
+  button.profile {
+    padding: 0;
+  }
+  button.profile a {
+    padding: 0.25rem 1rem;
+    display: inline-block;
+    width: 100%;
+  }
+  button {
     padding: 0.25rem 1rem;
     display: inline-block;
     width: 100%;
