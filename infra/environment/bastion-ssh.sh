@@ -1,0 +1,1 @@
+ssh -i "language-app-bastion.pem" ec2-user@$(terraform output --raw bastion_dns)

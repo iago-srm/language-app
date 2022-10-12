@@ -154,7 +154,7 @@ export default () => {
           />
         </Section.Right>
       </Section>
-      <Section name="Description" tooltipText='Explicações'>
+      <Section name="Descripion" tooltipText='Explicações'>
         <Section.Left>
           <DescriptionTextAreaContainer>
             <textarea 
@@ -234,7 +234,7 @@ export default () => {
               <Instruction instruction={{
                 ...instruction, 
                 answer: instruction.type === "TEXT" ? instruction.textAnswer : instruction.optionsAnswers.length > 1 ? instruction.optionsAnswers : instruction.optionsAnswers[0],
-                onChange: () => {}
+                onChange: () => alert("The answers on this page will not show to students doing the activity. They are the answers you've set as the correct ones for each question.")
               }}/>)
             )}
           </InstructionsContainer>

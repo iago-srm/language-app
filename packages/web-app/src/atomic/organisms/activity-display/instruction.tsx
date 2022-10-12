@@ -1,6 +1,6 @@
 import Accordion from 'react-bootstrap/Accordion';
 import { TopicsColors, CEFRColors, Instruction as InstructionModel } from '@model';
-import { RadioMenu, BreadCrumb, CheckboxMenu } from '@atomic';
+import { RadioMenu, CheckboxMenu } from '@atomic';
 import styled from 'styled-components';
 import { IGetActivity } from '@language-app/common-core';
 
@@ -13,11 +13,12 @@ interface IInstructionWithHandler extends InstructionModel {
     onChange: (instructionId: string, newValue: string | string[]) => any;
 }
 interface IInstructionProps {
-    instruction: IInstructionWithHandler
+    instruction: IInstructionWithHandler;
+    index: number;
 }
 
-export const Instruction = ({ instruction }: IInstructionProps) => {
-    return ( <Accordion.Item eventKey={`${instruction.id}`}>
+export const Instruction = ({ instruction, index }: IInstructionProps) => {
+    return ( <Accordion.Item eventKey={`${index}`}>
                 <Accordion.Header>{instruction.text}</Accordion.Header>
                 <Accordion.Body>
                     {instruction.type === "OPTIONS"

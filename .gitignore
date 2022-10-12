@@ -37,3 +37,5 @@ function.zip
 *.out
 terraform.tfplan
 terraform.tfstate
+*.tfvars
+*.pem

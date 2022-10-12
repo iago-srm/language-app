@@ -97,7 +97,8 @@ export default () => {
                 return activity.topics.includes(topic.value)
             })}
           />
-            {activity.description}
+            <p>{activity.description}</p>
+            <hr/>
             {activity.contentType === "TEXT" ? <TextContent text={activity.content}/> :               
                 <VideoContent 
                 youtubeId={activity.content}
@@ -105,7 +106,7 @@ export default () => {
                 end={activity.endTime} 
               />}
               <InstructionsContainer> 
-                {Object.keys(instructions).map(instructionId => <Instruction key={instructionId} instruction={instructions[instructionId]} />)}
+                {Object.keys(instructions).map((instructionId,i) => <Instruction index={i} key={instructionId} instruction={instructions[instructionId]} />)}
               </InstructionsContainer>
             </>
           }

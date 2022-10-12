@@ -94,10 +94,10 @@ export function AuthProvider({ children }) {
       handleAuthToken((session.token as { auth_token: string}).auth_token);
       
       // instructor token:
-      // handleAuthToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Nzk2NzkxMDYsImRhdGEiOnsiaWQiOiJiNGY1NDllZi0zYTc4LTQ5ZTEtOTgwNC02ZWZlZjcwZjJhMzEiLCJ0b2tlblZlcnNpb24iOjV9LCJpYXQiOjE2NjQxMjcxMDZ9.fkY259IYJNC5VNmSrQ0dcAWv3_a58oK2rk8Prta04VU");
+      // handleAuthToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODAxODIzNzIsImRhdGEiOnsiaWQiOiJhODVlNDVhMS1lZjk4LTQwZTAtOWQ2NC1mNGNlNDU0ZTQ0YjYiLCJ0b2tlblZlcnNpb24iOjB9LCJpYXQiOjE2NjQ2MzAzNzJ9.BlnT0r56OnlHkvf1DZrAINo40a7HaDWmAPxqbh68LYQ");
       
       // student token:
-      // handleAuthToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Nzk4NzcxNDMsImRhdGEiOnsiaWQiOiI0YmY0M2I2My02NDVlLTQzY2ItYmUzMy1lZDU1MGFiNWM3NTIiLCJ0b2tlblZlcnNpb24iOjB9LCJpYXQiOjE2NjQzMjUxNDN9.jVlCDlO6VoUBaTmCVQ3ZS9cK-HwJMuDoMJrH8er6qao");
+      // handleAuthToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODAzOTExOTAsImRhdGEiOnsiaWQiOiIxMDUyOTg1ODEwMjQzOTE2OTMxMjIiLCJ0b2tlblZlcnNpb24iOjd9LCJpYXQiOjE2NjQ4MzkxOTB9.GgPGt61lFPLUwecLO-VglJYWi19Beoso9EWpMY4CADk");
       setTokenHeaderSet(true);
       setIsAuthenticated(true);
     }
