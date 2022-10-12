@@ -145,9 +145,9 @@ export const useApiBuilder = () => {
     })
 
   const postFeedbackToOutput = useApiCall<IPostFeedbackToOutput["params"], void>
-    (({ outputId, ...rest}) => {
-      const urlParts = InsertFeedbackToActivityHTTPDefinition.path.split('/');
-      return domainFetcher[InsertFeedbackToActivityHTTPDefinition.method](`${urlParts[0]}/${outputId}/${urlParts[2]}`, {...rest})
+    (({ feedbacks }) => {
+      // const urlParts = InsertFeedbackToActivityHTTPDefinition.path.split('/');
+      return domainFetcher[InsertFeedbackToActivityHTTPDefinition.method](InsertFeedbackToActivityHTTPDefinition.path, { feedbacks })
     })
     
   return {

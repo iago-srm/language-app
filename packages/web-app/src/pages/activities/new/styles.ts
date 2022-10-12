@@ -15,16 +15,16 @@ export const DescriptionTextAreaContainer = styled.div`
     }
 `;
 
-export const CefrSelectContainer = styled.section`
+export const CefrSelectContainer = styled.div`
     width: 150px;
     padding-top: 10px;
 `;
 
-export const TopicsSelectContainer = styled.section`
+export const TopicsSelectContainer = styled.div`
     padding-top: 10px;
 `;
 
-export const TitleInputContainer = styled.section`
+export const TitleInputContainer = styled.div`
     width: 80%;
 `;
 

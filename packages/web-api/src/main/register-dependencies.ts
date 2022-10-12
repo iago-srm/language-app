@@ -6,6 +6,7 @@ import {
   GetStudentOutputUseCase,
   GetStudentOutputsUseCase,
   InsertActivityIntoStudentListUseCase,
+  InsertFeedbackToActivityUseCase,
   NewAssociationInvitationUseCase,
   NewActivityInstructionUseCase,
   NewActivityUseCase,
@@ -25,6 +26,7 @@ import {
   NewUserControllerFactory,
   InsertActivityListControllerFactory,
   InsertAssociationInvitationControllerFactory,
+  InsertFeedbackToActivityControllerFactory,
   SignOutUserControllerFactory
 } from '@adapters/REST-controllers';
 import {
@@ -58,6 +60,7 @@ export const registerDependencies = (container: awilix.AwilixContainer) => {
     [Dependencies.GETSTUDENTOUTPUTSCONTROLLER]: awilix.asFunction(GetStudentOutputsControllerFactory),
     "insertActivityListControllerFactory": awilix.asFunction(InsertActivityListControllerFactory),
     "insertAssociationInvitationControllerFactory": awilix.asFunction(InsertAssociationInvitationControllerFactory),
+    "insertFeedbackToActivityControllerFactory": awilix.asFunction(InsertFeedbackToActivityControllerFactory),
     [Dependencies.NEWACTIVITYCONTROLLER]: awilix.asFunction(NewActivityControllerFactory),
     "newActivityInstructionController": awilix.asFunction(NewActivityInstructionControllerFactory),
     [Dependencies.NEWSTUDENTOUTPUTCONTROLLER]: awilix.asFunction(NewStudentOutputControllerFactory),
@@ -84,6 +87,7 @@ export const registerDependencies = (container: awilix.AwilixContainer) => {
     'getStudentOutputsUseCase': awilix.asClass(GetStudentOutputsUseCase).classic(),
     'insertActivityListUseCase': awilix.asClass(InsertActivityIntoStudentListUseCase).classic(),
     'insertAssociationInvitationUseCase': awilix.asClass(NewAssociationInvitationUseCase).classic(),
+    'insertFeedbackToActivityUseCase': awilix.asClass(InsertFeedbackToActivityUseCase).classic(),
     'newActivityInstructionUseCase': awilix.asClass(NewActivityInstructionUseCase).classic(),
     'newActivityUseCase': awilix.asClass(NewActivityUseCase).classic(),
     'newStudentOutputUseCase': awilix.asClass(NewStudentOutputUseCase).classic(),

@@ -122,5 +122,25 @@ import {
       })
     }
   
+    insertStudentOutputFeedbacks(
+      feedbacks
+    ) {
+      const promises = [];
+      for(let feedback of feedbacks) {
+        promises.push(this.prisma.instructionStudentOutput.update({
+          where: {
+            id: feedback.instructionOutputId
+          },
+          data: {
+            feedback: {
+              create:{
+                message: feedback.feedback
+              }
+            }
+          }
+        }))
+      }
+      return Promise.all(promises);
+    }
   }
   

@@ -51,7 +51,7 @@ export const GetStudentOutputsHTTPDefinition: HTTPDefinition = {
 }
 
 export const InsertFeedbackToActivityHTTPDefinition: HTTPDefinition = {
-  path: 'student-outputs/:outputId/feedback',
+  path: 'student-outputs/feedback',
   method: 'post'
 }
 

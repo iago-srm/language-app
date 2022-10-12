@@ -1,14 +1,5 @@
-data "aws_s3_bucket" "state" {
-  bucket = "language-app-terraform-state"
-}
-
-data "aws_dynamodb_table" "locks" {
-  name = "terraform-locks-language-app"
-}
-
-
 terraform {
-  required_version = "1.2.4"
+  required_version = "1.3.2"
 
   required_providers {
     aws = {
@@ -18,10 +9,10 @@ terraform {
   }
 
   backend "s3" {
-    bucket = aws_s3_bucket.state.bucket
+    bucket = "language-app-terraform-state"
     key            = "global/s3/staging.tfstate"
     region         = "us-east-1"
-    dynamodb_table = aws_dynamodb_table.locks.name
+    dynamodb_table = "terraform-locks-language-app"
     encrypt        = false
   }
 }

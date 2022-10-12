@@ -4,7 +4,7 @@ import MediaQuery, { useMediaQuery } from 'react-responsive';
 import { useState, useEffect } from 'react';
 import { QuestionTooltip } from '@atomic';
 
-const PanelStyled = styled.section`
+const PanelStyled = styled.div`
     padding: 10px;
 `;
 
@@ -15,9 +15,9 @@ const LeftStyled = styled(PanelStyled)``;
 
 const RightStyled = styled(PanelStyled)``;
 
-const SectionStyled = styled.section<{isBigScreen?: boolean, height: string}>`
+const SectionStyled = styled.div<{isBigScreen?: boolean, height: string}>`
     width: 100%;
-    ${ContentContainer} {
+    div.content {
         display: flex;
         flex-direction: row;
     }
@@ -71,14 +71,14 @@ export const Section = ({ children, name, height, tooltipText }: ISectionProps) 
         <SectionStyled isBigScreen={hasMounted && isBigScreen} height={height}>
             <h6>{name}</h6><span className="tooltip-button">{tooltipText && <QuestionTooltip content={tooltipText}/>}</span>
             {header}
-            <ContentContainer>
+            <div className="content">
                 <LeftStyled >
                     {left}
                 </LeftStyled>
                 {isBigScreen && <RightStyled>
                     {right}
                 </RightStyled>}
-            </ContentContainer>
+            </div>
         </SectionStyled>
     )
 }

@@ -5,6 +5,7 @@ export * from './get-student-output';
 export * from './get-student-outputs';
 export * from './insert-activity-list';
 export * from './insert-association-invitation';
+export * from './insert-feedback-to-activity';
 export * from './new-activity-instruction';
 export * from './new-activity';
 export * from './new-student-output';

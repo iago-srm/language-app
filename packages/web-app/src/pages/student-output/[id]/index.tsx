@@ -60,20 +60,29 @@ export default () => {
     useEffect(() => {
         if(output?.activity) {
             let instructions = {};
+            // console.log(output)
             output.activity.instructions.forEach(inst => {
                 const thisInstructionOutput = output.outputs.find(output => output.instructionId === inst.id);
                 instructions = { ...instructions, [inst.id]: {
                     ...inst,
+                    outputId: thisInstructionOutput.id,
                     answer: inst.type === "TEXT" ? thisInstructionOutput.textOutput : inst.isMultiCorrect ? thisInstructionOutput.optionsSelections.map(option => option.id) : thisInstructionOutput.optionsSelections.map(option => option.id)[0],
-                    onChange: () => {}
+                    onChange: () => alert("Não é possível alterar a resposta de uma atividade já realizada.")
                 }}
             })
             setInstructions(instructions);
         }
     }, [output]);
 
-    const onClickSubmitFeedback = () => {
-        console.log({feedbacks})
+    const onClickSubmitFeedback = async () => {
+        // console.log({feedbacks, instructions, output})
+      
+        const resp = await postFeedbackToOutput.apiCall({ 
+            feedbacks : Object.keys(feedbacks).map(outputId => ({ instructionOutputId: outputId, feedback: feedbacks[outputId]}))
+        });
+        console.log({resp})
+        
+
         // const outputs = Object.keys(instructions).map(id => {
         //     const thisInstruction = instructions[id];
         //     return {
@@ -107,11 +116,11 @@ export default () => {
                 end={output.activity.endTime} 
               />}
                 <InstructionsContainer>
-                    {Object.keys(instructions).map(instructionId => (
+                    {Object.keys(instructions).map((instructionId,i) => (
                         <InstructionsContainerStyled>
-                        <Instruction key={instructionId} instruction={instructions[instructionId]} />
+                        <Instruction index={i} key={instructionId} instruction={instructions[instructionId]} />
                         {!output.feedbackGiven && user?.role === "INSTRUCTOR" && (
-                            <textarea value={feedbacks[instructionId]} onChange={e => setFeedbacks(f => ({...f, [instructionId]: e.target.value }))}/>
+                            <textarea value={feedbacks[instructions[instructionId].outputId]} onChange={e => setFeedbacks(f => ({...f, [instructions[instructionId].outputId]: e.target.value }))}/>
                         )}
                         </InstructionsContainerStyled>
                     ))}

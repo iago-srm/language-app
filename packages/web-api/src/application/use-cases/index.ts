@@ -10,6 +10,8 @@ import NewUserUseCase, { INewUserUseCase } from './new-user';
 import SignOutUserUseCase, { ISignOutUserUseCase } from './signout-user';
 import NewAssociationInvitationUseCase, { INewAssociationInvitationUseCase } from './insert-association-invitation';
 import AcceptAssociationInvitationUseCase, { IAcceptAssociationInvitationUseCase } from './accept-association-invitation';
+import InsertFeedbackToActivityUseCase, { IInsertFeedbackToActivityUseCase } from './insert-feedback-to-activity';
+
 export {
   AcceptAssociationInvitationUseCase,
   IAcceptAssociationInvitationUseCase,
@@ -34,6 +36,8 @@ export {
   NewUserUseCase,
   INewUserUseCase,
   SignOutUserUseCase,
-  ISignOutUserUseCase
+  ISignOutUserUseCase,
+  InsertFeedbackToActivityUseCase,
+  IInsertFeedbackToActivityUseCase
 }
 
