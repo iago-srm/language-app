@@ -142,5 +142,16 @@ import {
       }
       return Promise.all(promises);
     }
+
+    updateStudentOutputById(outputId: number, args: Partial<StudentOutputDTO>) {
+      return this.prisma.studentOutput.update({
+        where: {
+          id: outputId
+        },
+        data: {
+          feedbackGiven: args.feedbackGiven
+        }
+      })
+    }
   }
   

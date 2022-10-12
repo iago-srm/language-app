@@ -7,7 +7,7 @@ IUseCase
 
 type InputParams = {
     userId: string;
-    // studentOutputId: number,
+    studentOutputId: number,
     feedbacks: {
         instructionOutputId: string;
         feedback: string;
@@ -24,7 +24,7 @@ constructor(
     private studentOutputRepository: IStudentOutputRepository
 ){}
 
-async execute ({ userId, feedbacks }: InputParams) {
+async execute ({ userId, studentOutputId, feedbacks }: InputParams) {
     // do something with this, like associate feedback given or send e-mail to student
     const instructor = await this.instructorRepository.getInstructorByUserId(userId);
 
@@ -33,6 +33,7 @@ async execute ({ userId, feedbacks }: InputParams) {
     }
 
     await this.studentOutputRepository.insertStudentOutputFeedbacks(feedbacks);
+    await this.studentOutputRepository.updateStudentOutputById(studentOutputId, { feedbackGiven: true });
 }
 
 };

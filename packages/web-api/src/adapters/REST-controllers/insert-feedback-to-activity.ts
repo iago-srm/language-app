@@ -13,7 +13,12 @@ export const InsertFeedbackToActivityControllerFactory = ({
 }: {
     insertFeedbackToActivityUseCase: IInsertFeedbackToActivityUseCase;
 }): IHTTPControllerDescriptor<IHTTPController> => {
-const fn: IHTTPController = async (__, body, _, { user }) => {
+const fn: IHTTPController = async (params, body, _, { user }) => {
+    const {
+        outputId,
+    } = controllerSerializer(params, ['outputId']);
+    if(isNaN(Number(outputId))) throw new Error("outputId must be a valid number")
+
     const {
         feedbacks
     } = controllerSerializer(body, ['feedbacks']);
@@ -22,7 +27,8 @@ const fn: IHTTPController = async (__, body, _, { user }) => {
 
     const response = await insertFeedbackToActivityUseCase.execute({
         userId: id,
-        feedbacks
+        feedbacks,
+        studentOutputId: Number(outputId)
     })
 
     return {

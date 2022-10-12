@@ -167,7 +167,7 @@ export interface IGetStudentOutput {
 
 export interface IPostFeedbackToOutput {
   params: {
-    // outputId: number;
+    outputId: number;
     feedbacks: {
       instructionOutputId: string;
       feedback: string;

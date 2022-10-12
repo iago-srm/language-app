@@ -52,7 +52,7 @@ export interface IStudentOutputRepository {
   getStudentOutputsByStudentIds: (studentId: string[]) => Promise<(Partial<StudentOutputDTO> & Partial<ActivityDTO>)[]>;
   insertStudentOutput: (output: Partial<StudentOutputDTO>) => Promise<Partial<StudentOutputDTO>>;
   insertStudentOutputFeedbacks: (feedbacks: { instructionOutputId: string, feedback: string }[]) => Promise<any>;
-
+  updateStudentOutputById: (outputId: number, args: Partial<StudentOutputDTO>) => Promise<any>;
 }
 
 export interface IAssociationInvitationTokenRepository {

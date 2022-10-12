@@ -78,6 +78,7 @@ export default () => {
         // console.log({feedbacks, instructions, output})
       
         const resp = await postFeedbackToOutput.apiCall({ 
+            outputId: Number(query.id),
             feedbacks : Object.keys(feedbacks).map(outputId => ({ instructionOutputId: outputId, feedback: feedbacks[outputId]}))
         });
         console.log({resp})
@@ -121,6 +122,12 @@ export default () => {
                         <Instruction index={i} key={instructionId} instruction={instructions[instructionId]} />
                         {!output.feedbackGiven && user?.role === "INSTRUCTOR" && (
                             <textarea value={feedbacks[instructions[instructionId].outputId]} onChange={e => setFeedbacks(f => ({...f, [instructions[instructionId].outputId]: e.target.value }))}/>
+                        )}
+                        {!output.feedbackGiven && user?.role === "STUDENT" && (
+                            <p>Um feedback para esta pergunta será dado em breve</p>
+                        )}
+                        {output.feedbackGiven && (
+                            <p>{output.outputs.find(output => output.instructionId === instructionId).feedback.message}</p>
                         )}
                         </InstructionsContainerStyled>
                     ))}
