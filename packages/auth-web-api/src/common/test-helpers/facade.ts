@@ -63,6 +63,7 @@ export class TestDataFacade {
     mockEncryptionService,
     mockUserRepository ,
     mockTokenService,
+    // mockAuthEventQueue,
     mockIdGenerator,
     mockEmailService,
     mockProfileImageRepository,
@@ -130,7 +131,8 @@ export class TestDataFacade {
         this.mockProfileImageRepository
       ),
       signOut: new SignOutUseCase(
-        this.mockUserRepository
+        this.mockUserRepository,
+        this.mockAuthEventQueue,
       ),
       updateUser: new UpdateUserUseCase(
         this.mockUserRepository,
