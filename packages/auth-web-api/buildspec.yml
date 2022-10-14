@@ -21,7 +21,7 @@ phases:
       - printf '[{"name":"auth-web-api","imageUri":"%s"}]' $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:latest > imagedefinitions.json
 artifacts:
   files: 
-    - imagedefinitions.json
+    - packages/auth-web-api/imagedefinitions.json
     
 cache:
   paths:
