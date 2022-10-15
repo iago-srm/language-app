@@ -26,6 +26,7 @@ export class AuthEventQueue implements IAuthEventQueue {
     //   throw new Error(e.response ? e.response.data.message : e);
     // }
     // how to select destination endpoint?
+    console.log({ id, role, email })
     return this.queueService.sendMessage({
       authApiId: id,
       role,
