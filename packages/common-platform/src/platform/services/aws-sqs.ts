@@ -18,7 +18,7 @@ export class SQSService implements IQueueService {
     await sendMessage({
       // Remove DelaySeconds parameter and value for FIFO queues
       DelaySeconds: 10,
-      MessageBody: message,
+      MessageBody: JSON.stringify(message),
       QueueUrl: queueUrl
     });
 
