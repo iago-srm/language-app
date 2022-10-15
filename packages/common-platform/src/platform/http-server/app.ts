@@ -79,6 +79,11 @@ export class ExpressServer extends AbstractServer {
       }
     });
 
+    // healthcheck
+    this._app.get('/', (_, res) => {
+      res.sendStatus(200);
+    });
+
     this._app.all('*', () => {
       throw new RouteNotFoundError();
     });
