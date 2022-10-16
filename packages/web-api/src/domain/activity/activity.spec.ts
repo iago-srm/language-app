@@ -4,9 +4,9 @@ import { ErrorMessagesLabels } from '@common/locale';
 
 describe('Unit Tests for Activity Entity', () => {
   it('Should throw an error if invalid activity topic is passed to constructor.', () => {
-    expect(() => new Activity({ topics: ['fdsfdsfs'], timeToComplete: 5 })).toThrow();
+    expect(() => new Activity({ topics: ['fdsfdsfs']})).toThrow();
     try {
-      new Activity({ topics: ['fdsfdsfs'], timeToComplete: 5 });
+      new Activity({ topics: ['fdsfdsfs']});
     } catch (e) {
       expect(e).toMatchObject({ errorName: ErrorMessagesLabels.ACTIVITY_TOPIC });
     }
@@ -15,12 +15,12 @@ describe('Unit Tests for Activity Entity', () => {
   it('Should throw an error if time to complete is over max.', () => {
     expect(() => new Activity({
       topics: DomainRules.ACTIVITY.TOPICS,
-      timeToComplete: DomainRules.ACTIVITY.MAX_TIME_TO_COMPLETE + 1,
+      // timeToComplete: DomainRules.ACTIVITY.MAX_TIME_TO_COMPLETE + 1,
     })).toThrow();
     try {
       new Activity({
         topics: DomainRules.ACTIVITY.TOPICS,
-        timeToComplete: DomainRules.ACTIVITY.MAX_TIME_TO_COMPLETE + 1,
+        // timeToComplete: DomainRules.ACTIVITY.MAX_TIME_TO_COMPLETE + 1,
       });
     } catch (e) {
       expect(e).toMatchObject({
@@ -32,7 +32,7 @@ describe('Unit Tests for Activity Entity', () => {
   it('Should not throw an error if valid parameters are passed.', () => {
     const activity = new Activity({
       topics: DomainRules.ACTIVITY.TOPICS,
-      timeToComplete: DomainRules.ACTIVITY.MAX_TIME_TO_COMPLETE - 1,
+      // timeToComplete: DomainRules.ACTIVITY.MAX_TIME_TO_COMPLETE - 1,
     });
     expect(activity.topics).toEqual(DomainRules.ACTIVITY.TOPICS);
     expect(activity.timeToComplete).toEqual(

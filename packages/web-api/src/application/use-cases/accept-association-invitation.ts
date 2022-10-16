@@ -1,5 +1,5 @@
 import {
-  IAssociationInvitationTokenRepository,
+  IAssociationInvitationRepository,
   IStudentRepository
 } from '../ports';
 import {
@@ -23,7 +23,7 @@ export type IAcceptAssociationInvitationUseCase = IUseCase<InputParams, Return>;
 class UseCase implements IAcceptAssociationInvitationUseCase {
   constructor (
     private studentRepository: IStudentRepository,
-    private associationInvitationTokenRepository: IAssociationInvitationTokenRepository
+    private associationInvitationTokenRepository: IAssociationInvitationRepository
   ){}
   async execute({ token, userId }) {
 

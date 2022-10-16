@@ -1,6 +1,6 @@
 import {
     IStudentRepository,
-    IAssociationInvitationTokenRepository,
+    IAssociationInvitationRepository,
     IInvitationEmailService,
     IIdGenerator,
     IInstructorRepository,
@@ -27,7 +27,7 @@ import {
   
     constructor (
       private studentRepository: IStudentRepository,
-      private associationInvitationTokenRepository: IAssociationInvitationTokenRepository,
+      private associationInvitationTokenRepository: IAssociationInvitationRepository,
       private invitationEmailService: IInvitationEmailService,
       private idService: IIdGenerator,
       private instructorRepository: IInstructorRepository
