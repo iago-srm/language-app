@@ -3,6 +3,7 @@ import {
   AcceptAssociationInvitationUseCase,
   GetActivitiesUseCase,
   GetActivityUseCase,
+  GetAssociationInvitationUseCase,
   GetStudentOutputUseCase,
   GetStudentOutputsUseCase,
   InsertActivityIntoStudentListUseCase,
@@ -18,6 +19,7 @@ import {
   AcceptAssociationInvitationControllerFactory,
   GetActivitiesControllerFactory,
   GetActivityControllerFactory,
+  GetAssociationInvitationControllerFactory,
   GetStudentOutputControllerFactory,
   GetStudentOutputsControllerFactory,
   NewActivityControllerFactory,
@@ -30,7 +32,7 @@ import {
   SignOutUserControllerFactory
 } from '@adapters/REST-controllers';
 import {
-  AssociationInvitationTokenRepository,
+  AssociationInvitationRepository,
   ActivityRepository,
   UserRepository,
   InstructorRepository,
@@ -56,6 +58,7 @@ export const registerDependencies = (container: awilix.AwilixContainer) => {
     "acceptAssociationInvitationController": awilix.asFunction(AcceptAssociationInvitationControllerFactory),
     [Dependencies.GETACTIVITIESCONTROLLER]: awilix.asFunction(GetActivitiesControllerFactory),
     "getActivityController": awilix.asFunction(GetActivityControllerFactory),
+    "getAssociationInvitationController": awilix.asFunction(GetAssociationInvitationControllerFactory),
     [Dependencies.GETSTUDENTOUTPUTCONTROLLER]: awilix.asFunction(GetStudentOutputControllerFactory),
     [Dependencies.GETSTUDENTOUTPUTSCONTROLLER]: awilix.asFunction(GetStudentOutputsControllerFactory),
     "insertActivityListControllerFactory": awilix.asFunction(InsertActivityListControllerFactory),
@@ -83,6 +86,7 @@ export const registerDependencies = (container: awilix.AwilixContainer) => {
     'acceptAssociationInvitationUseCase': awilix.asClass(AcceptAssociationInvitationUseCase).classic(),
     'getActivitiesUseCase': awilix.asClass(GetActivitiesUseCase).classic(),
     'getActivityUseCase': awilix.asClass(GetActivityUseCase).classic(),
+    'getAssociationInvitationUseCase': awilix.asClass(GetAssociationInvitationUseCase).classic(),
     'getStudentOutputUseCase': awilix.asClass(GetStudentOutputUseCase).classic(),
     'getStudentOutputsUseCase': awilix.asClass(GetStudentOutputsUseCase).classic(),
     'insertActivityListUseCase': awilix.asClass(InsertActivityIntoStudentListUseCase).classic(),
@@ -95,7 +99,7 @@ export const registerDependencies = (container: awilix.AwilixContainer) => {
     'signOutUserUseCase': awilix.asClass(SignOutUserUseCase).classic(),
 
     // repositories
-    "associationInvitationTokenRepository": awilix.asClass(AssociationInvitationTokenRepository),
+    "associationInvitationTokenRepository": awilix.asClass(AssociationInvitationRepository),
     [Dependencies.ACTIVITYREPOSITORY]: awilix.asClass(ActivityRepository),
     [Dependencies.USERREPOSITORY]: awilix.asClass(UserRepository),
     'studentOutputRepository': awilix.asClass(StudentOutputRepository),

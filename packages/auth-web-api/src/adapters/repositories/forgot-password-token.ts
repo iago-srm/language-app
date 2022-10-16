@@ -2,7 +2,7 @@ import {
   IForgotPasswordTokenRepository,
   ForgotPasswordTokenDTO
 } from '@application/ports';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma-client';
 
 export class ForgotPasswordTokenRepository implements IForgotPasswordTokenRepository {
   prisma: PrismaClient;

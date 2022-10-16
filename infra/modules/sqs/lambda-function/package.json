@@ -1,0 +1,15 @@
+{
+  "name": "lambda-function",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lambda-handler.js",
+  "scripts": {
+    "zip": "zip -r function.zip ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2"
+  }
+}

@@ -101,7 +101,24 @@ export interface IPostNewUser {
   response: void;
 }
 
-export interface IAssociationInvitation {}
+export interface INewAssociationInvitation {
+  params: {
+    email: string;
+  }
+}
+
+export interface IGetAssociationInvitation {
+  params: {
+    token: string;
+  }
+  response: {
+    instructor: {
+      image: string;
+      name: string;
+    }
+  }
+}
+
 export interface IGetStudentOutputs {
   params: void;
   response: {

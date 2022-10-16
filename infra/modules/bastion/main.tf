@@ -25,8 +25,8 @@ resource "aws_launch_template" "this" {
 }
 
 resource "aws_security_group" "this" {
-  name        = "allow_ssh"
-  description = "Allow SSH inbound traffic"
+  name        = "bastion_host"
+  description = "Allow SSH inbound traffic and Prisma dashboard"
   vpc_id      = var.vpc_id
 
   ingress {
@@ -36,6 +36,15 @@ resource "aws_security_group" "this" {
     protocol         = "tcp"
     cidr_blocks      = ["${var.allowed_ip}/32"]
   }
+
+  ingress {
+    description      = "Prisma dashboard"
+    from_port        = 5555
+    to_port          = 5555
+    protocol         = "tcp"
+    cidr_blocks      = ["${var.allowed_ip}/32"]
+  }
+
 
   egress {
     from_port        = 0

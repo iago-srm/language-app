@@ -60,6 +60,11 @@ export const InsertAssociationInvitationHTTPDefinition: HTTPDefinition = {
   method: 'post'
 }
 
+export const GetAssociationInvitationHTTPDefinition: HTTPDefinition = {
+  path: 'association-invitation/:token',
+  method: 'get'
+}
+
 export const EditAssociationInvitationHTTPDefinition: HTTPDefinition = {
   path: 'association-invitation/:token',
   method: 'patch'

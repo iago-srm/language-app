@@ -1,5 +1,5 @@
 import { IVerificationTokenRepository } from '@application/ports';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma-client';
 
 export class VerificationTokenRepository implements IVerificationTokenRepository {
   prisma: PrismaClient;

@@ -44,7 +44,10 @@ import {
   IGetStudentOutput,
   InsertFeedbackToActivityHTTPDefinition,
   IPostFeedbackToOutput,
-  IAssociationInvitation
+  InsertAssociationInvitationHTTPDefinition,
+  INewAssociationInvitation,
+  GetAssociationInvitationHTTPDefinition,
+  IGetAssociationInvitation
 } from '@language-app/common-core';
 import { useLanguage, handleAuthToken,useAuth } from '@contexts';
 import { useEffect } from 'react';
@@ -150,6 +153,15 @@ export const useApiBuilder = () => {
       return domainFetcher[InsertFeedbackToActivityHTTPDefinition.method](`${urlParts[0]}/${outputId}/${urlParts[2]}`, {...rest})
     })
     
+  const inviteStudent = useApiCall<INewAssociationInvitation["params"]>
+    (({ email }) => authFetcher[InsertAssociationInvitationHTTPDefinition.method](InsertAssociationInvitationHTTPDefinition.path, { email }))
+
+  const getAssociationInvitation = useApiCall<IGetAssociationInvitation["params"], IGetAssociationInvitation["response"]>
+    (({token}) => authFetcher[GetAssociationInvitationHTTPDefinition.method](`${GetAssociationInvitationHTTPDefinition.path.split('/')[0]}/${token}`));
+
+  const acceptAssociationInvitation = useApiCall<void,void>
+    (() => authFetcher[VerifyAccountHTTPDefinition.method](VerifyAccountHTTPDefinition.path));
+
   return {
     signUp,
     signIn,
@@ -166,7 +178,10 @@ export const useApiBuilder = () => {
     postStudentOutput,
     getStudentOutputs,
     getStudentOutput,
-    postFeedbackToOutput
+    postFeedbackToOutput,
+    inviteStudent,
+    getAssociationInvitation,
+    acceptAssociationInvitation
   }
 }
 
