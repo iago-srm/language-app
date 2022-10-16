@@ -6,7 +6,7 @@
     "echo": "echo \"Hello from web-app\" ",
     "dev": "next dev",
     "build": "next build",
-    "postinstall": "node ../../web-app-postinstall.js",
+    "postinstall": "node ./postinstall.js",
     "start": "npm run postinstall && next start"
   },
   "dependencies": {
