@@ -6,7 +6,8 @@
     "echo": "echo \"Hello from web-app\" ",
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "postinstall": "node ../../web-app-postinstall.js",
+    "start": "npm run postinstall && next start"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
