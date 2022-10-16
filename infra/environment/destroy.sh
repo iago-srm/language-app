@@ -1,2 +1,2 @@
 #!/bin/bash
-terraform destroy -var-file=environment.tfvars
+terraform destroy -lock=false -var-file=environment.tfvars
