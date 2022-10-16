@@ -33,7 +33,6 @@ class UseCase implements IUpdateUserUseCase {
 
     new User({ role })
 
-    console.log({ userId, role });
     await this.userRepository.updateUser(userId, { role });
 
     await this.authEventQueue.publishNewUser({

@@ -50,6 +50,12 @@ export class ValidationSchemas {
     })
   }
 
+  getInviteStudentSchema() {
+    return yup.object().shape({
+      email: this.getEmailValidation(),
+    })
+  }
+
   getResetPasswordSchema() {
     return yup.object().shape({
       password: this.getPasswordValidation(),

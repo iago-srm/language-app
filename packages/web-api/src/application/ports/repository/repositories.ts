@@ -55,8 +55,9 @@ export interface IStudentOutputRepository {
   updateStudentOutputById: (outputId: number, args: Partial<StudentOutputDTO>) => Promise<any>;
 }
 
-export interface IAssociationInvitationTokenRepository {
+export interface IAssociationInvitationRepository {
   getTokenByTokenValue: (token: string) => Promise<AssociationInvitationTokenDTO | null>;
+  getInstructorByTokenValue: (token: string) => Promise<Partial<InstructorDTO>>;
   insertToken: (token: AssociationInvitationTokenDTO) => Promise<AssociationInvitationTokenDTO>;
   updateToken: (tokenId: string, data: Partial<AssociationInvitationTokenDTO>) => Promise<AssociationInvitationTokenDTO>;
 }

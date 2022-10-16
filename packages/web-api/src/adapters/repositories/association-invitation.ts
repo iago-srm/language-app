@@ -1,9 +1,9 @@
 import {
-    IAssociationInvitationTokenRepository,
+    IAssociationInvitationRepository,
     AssociationInvitationTokenDTO
   } from '@application/ports';
 import { PrismaClient } from '@prisma-client';  
-  export class AssociationInvitationTokenRepository implements IAssociationInvitationTokenRepository {
+  export class AssociationInvitationRepository implements IAssociationInvitationRepository {
     prisma: PrismaClient;
   
     constructor() {
@@ -14,6 +14,27 @@ import { PrismaClient } from '@prisma-client';
       return this.prisma.studentInstructorAssociationInvitation.findUnique({
         where: {
           token
+        }
+      })
+    }
+
+    getInstructorByTokenValue(token: string) {
+      return this.prisma.studentInstructorAssociationInvitation.findUnique({
+        where: {
+          token
+        },
+        include: {
+          instructor: {
+            include: {
+              user: {
+                select: {
+                  name: true,
+                  image: true
+                }
+              }
+            },
+          
+          }
         }
       })
     }
