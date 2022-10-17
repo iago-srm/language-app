@@ -85,7 +85,7 @@ resource "aws_iam_role_policy_attachment" "ecs-task-role-policy-attachment_sqs" 
 
 
 resource "aws_iam_policy" "s3" {
-  name        = "task-policy-s3"
+  name        = "${var.server-name}-task-policy-s3"
   description = "Policy that allows access to S3"
 
   policy = <<EOF
@@ -110,7 +110,7 @@ resource "aws_iam_role_policy_attachment" "ecs-task-role-policy-attachment_s3" {
 }
 
 resource "aws_iam_policy" "ssm" {
-  name        = "task-policy-ssm"
+  name        = "${var.server-name}-task-policy-ssm"
   description = "Policy that allows access to SSM"
 
   policy = <<EOF

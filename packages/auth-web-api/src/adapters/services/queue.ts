@@ -34,7 +34,7 @@ export class AuthEventQueue implements IAuthEventQueue {
       email,
       tokenVersion,
       image
-    }, this._queue_url);
+    }, this._queue_url, NewUserHTTPDefinition);
     
   }
 
@@ -42,7 +42,7 @@ export class AuthEventQueue implements IAuthEventQueue {
     return this.queueService.sendMessage({
       tokenVersion,
       authApiId
-    }, this._queue_url);
+    }, this._queue_url, SignOutUserHTTPDefinition);
     // try {
     //   await axios[SignOutUserHTTPDefinition.method](`${this._domain_url}/${SignOutUserHTTPDefinition.path}`, { 
     //     tokenVersion,

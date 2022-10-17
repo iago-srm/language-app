@@ -1,10 +1,10 @@
 resource "aws_s3_bucket" "codepipeline_bucket" {
-  bucket = "language-app-codepipeline-artifacts"
+  bucket = "language-app-${var.server-name}-codepipeline-artifacts"
   force_destroy = true
 }
 
 resource "aws_codepipeline" "this" {
-  name     = "language-app-codepipeline"
+  name     = "language-app-${var.server-name}-codepipeline"
   role_arn = "${aws_iam_role.codepipeline_role.arn}"
 
   artifact_store {

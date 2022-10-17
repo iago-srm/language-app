@@ -1,3 +1,5 @@
+import { HTTPDefinition } from '@language-app/common-core'
+
 export interface ITokenService {
   generate: (payload: any) => string;
   verify: (token: string) => Promise<any>;
@@ -26,5 +28,5 @@ export interface IStorageService {
 }
 
 export interface IQueueService {
-  sendMessage: (message: any, queueUrl: string) => Promise<boolean>;
+  sendMessage: (message: any, queueUrl: string, destinationEndpoint?: HTTPDefinition) => Promise<boolean>;
 }
