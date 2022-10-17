@@ -34,8 +34,8 @@ resource "aws_ecs_task_definition" "this" {
       portMappings = [
         {
           protocol      = "tcp"
-          containerPort = "${var.container_port}"
-          hostPort      = "${var.container_port}"
+          containerPort = "${tonumber(var.container_port)}"
+          hostPort      = "${tonumber(var.container_port)}"
         }
       ]
     }
@@ -94,7 +94,7 @@ resource "aws_ecs_service" "this" {
   network_configuration {
     security_groups  = [aws_security_group.ecs_security_group.id]
     subnets          = [var.subnet_id]
-    assign_public_ip = false
+    assign_public_ip = true
   }
 
   load_balancer {
