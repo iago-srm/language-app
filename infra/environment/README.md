@@ -13,3 +13,4 @@
 - - Get postgre connection string from db_url parameter `aws ssm get-parameter     --name "db_url"`
 - - `psql <db_url>`
 - - `CREATE DATABASE "<server_name>";` for each server
+- - Set DATABASE_URL as psql:.../server-name for each server to run migrations `export DATABASE_URL=...`. Go into the application folder (packages/application) and run `npm run db:migrate:prod` to run migration.
