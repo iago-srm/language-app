@@ -51,8 +51,8 @@ services:
       context: .
       dockerfile: packages/auth-web-api/Dockerfile
     container_name: language-app-auth-web-api
-    # entrypoint: "npm run dev"
-    entrypoint: "tail -f /dev/null"
+    # entrypoint: "npm run start"
+    # entrypoint: "tail -f /dev/null"
     ports:
       - "${AUTH_PORT}:${AUTH_PORT}"
       - 5555:5555 # prisma studio
@@ -67,9 +67,9 @@ services:
       - DOMAIN_IP=domain
       - QUEUE_URL=https://sqs.us-east-1.amazonaws.com/553239741950/auth-domain-queue
     tty: true
-    volumes:
-      - ./packages/common-core:/app/packages/common-core
-      - ./packages/common-platform:/app/packages/common-platform
-      - ./packages/common-utils:/app/packages/common-utils
-      - ./packages/auth-web-api:/app/packages/auth-web-api
+    # volumes:
+      # - ./packages/common-core:/app/packages/common-core
+      # - ./packages/common-platform:/app/packages/common-platform
+      # - ./packages/common-utils:/app/packages/common-utils
+      # - ./packages/auth-web-api:/app/packages/auth-web-api
     
