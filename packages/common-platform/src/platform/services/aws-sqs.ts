@@ -16,7 +16,7 @@ export class SQSService implements IQueueService {
 
     const sendMessage = promisify(this._sqs.sendMessage.bind(this._sqs));
 
-    console.log("platform code",{queueUrl, message});
+    console.log("platform code",{queueUrl, message, destinationEndpoint});
     await sendMessage({
       // Remove DelaySeconds parameter and value for FIFO queues
       DelaySeconds: 10,
@@ -24,11 +24,11 @@ export class SQSService implements IQueueService {
       QueueUrl: queueUrl,
       MessageAttributes:  {
         httpPath: {
-          DataType: 'STRING_VALUE',
+          DataType: 'String',
           StringValue: destinationEndpoint.path
         },
         httpMethod: {
-          DataType: 'STRING_VALUE',
+          DataType: 'String',
           StringValue: destinationEndpoint.method
         }
       }
