@@ -8,8 +8,10 @@ exports.handler = async function(event) {
     try {
       const { body, messageAttributes } = record;
       console.log({body, messageAttributes});
-      // await axios[messageAttributes.httpMethod](`${process.env.API_URL}/${messageAttributes.httpPath}`, body)
+      await axios[messageAttributes.httpMethod.stringValue](`https://${process.env.API_URL}/${messageAttributes.httpPath.stringValue}`, JSON.parse(body))
+
     } catch (e) {
+      console.log("error",e);
       response.batchItemFailures.push({ itemIdentifier: record.messageId });
     }
   });
