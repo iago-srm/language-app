@@ -55,6 +55,19 @@ resource "aws_s3_bucket" "profile_image_bucket" {
   force_destroy = true
 }
 
+resource "aws_s3_bucket_acl" "bucket_acl" {
+  bucket = aws_s3_bucket.profile_image_bucket.id
+  acl    = "public-read"
+}
+
+resource "aws_s3_bucket_object" "object" {
+  bucket = aws_s3_bucket.profile_image_bucket.bucket
+  key    = "generic-avatar-1.jpg"
+  source = "./generic-avatar-1.jpg"
+  acl = "public-read"
+  etag = filemd5("./generic-avatar-1.jpg")
+}
+
 module "server" {
   source = "../modules/server"
 

@@ -12,7 +12,7 @@ resource "aws_ecs_task_definition" "this" {
       image     = "${var.container_image}"
       environment = [
         { "Name" = "DATABASE_URL", "Value" = "${var.env_database_url}" },
-        { "Name" = "BUCKET_NAME", "Value" = "${var.env_profile_image_bucket}" },  
+        { "Name" = "PROFILE_IMAGE_BUCKET", "Value" = "${var.env_profile_image_bucket}" },  
         { "Name" = "TOKEN_SECRET", "Value" = "${var.env_token_secret}" },
         { "Name" = "WEB_APP_URL", "Value" = "isrm.link" },
         { "Name" = "PORT", "Value" = "${var.container_port}" },

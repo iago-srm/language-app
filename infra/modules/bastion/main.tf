@@ -38,9 +38,17 @@ resource "aws_security_group" "this" {
   }
 
   ingress {
-    description      = "Prisma dashboard"
+    description      = "Prisma dashboard 1"
     from_port        = 5555
     to_port          = 5555
+    protocol         = "tcp"
+    cidr_blocks      = ["${var.allowed_ip}/32"]
+  }
+
+    ingress {
+    description      = "Prisma dashboard 2"
+    from_port        = 5556
+    to_port          = 5556
     protocol         = "tcp"
     cidr_blocks      = ["${var.allowed_ip}/32"]
   }
