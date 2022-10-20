@@ -39,7 +39,9 @@ resource "aws_lambda_function" "this" {
   tags = var.tags
 }
 
+// it waits visibilityTimeout to try again, and tries DLQ's maxReceiveCount times
 resource "aws_lambda_event_source_mapping" "sqs-consumer_lambda" {
   event_source_arn = aws_sqs_queue.auth-domain-queue.arn
   function_name    = aws_lambda_function.this.arn
+  function_response_types = ["ReportBatchItemFailures"]
 }

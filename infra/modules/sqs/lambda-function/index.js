@@ -11,12 +11,12 @@ exports.handler = async function(event) {
       await axios[messageAttributes.httpMethod.stringValue](`https://${process.env.API_URL}/${messageAttributes.httpPath.stringValue}`, JSON.parse(body))
 
     } catch (e) {
-      console.log("error",e);
+      console.error("error",e);
       response.batchItemFailures.push({ itemIdentifier: record.messageId });
     }
   });
-  console.log("API_URL",process.env.API_URL);
 
   await Promise.all(promises);
+  console.log("response",JSON.stringify(response))
   return response;
 }
