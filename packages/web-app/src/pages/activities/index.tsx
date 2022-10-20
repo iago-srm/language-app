@@ -82,7 +82,7 @@ const Activities: React.FC = () => {
             cefr={activity.cefr}
             description={activity.description}
             title={activity.title}
-            contentType={"TEXT"}
+            contentType={activity.contentType}
           />
         ))}
 

@@ -2,10 +2,25 @@ import Accordion from 'react-bootstrap/Accordion';
 import { TopicsColors, CEFRColors, Instruction as InstructionModel } from '@model';
 import { RadioMenu, CheckboxMenu } from '@atomic';
 import styled from 'styled-components';
-import { IGetActivity } from '@language-app/common-core';
 
 const ResponseTextArea = styled.textarea`
     width: 100%;
+`;
+
+const StyledHeader = styled(Accordion.Header)`
+    .accordion-button {
+        background-color: ${({theme}) => theme.colors.secondary};
+        color: ${({theme}) => theme.colors.text};
+    }
+    
+    .accordion-button:focus {
+        box-shadow: none;
+    }  
+`;
+
+const StyledBody = styled(Accordion.Body)`
+    background-color: ${({theme}) => theme.colors.primary};
+    color: ${({theme}) => theme.colors.text};
 `;
 
 interface IInstructionWithHandler extends InstructionModel {
@@ -18,9 +33,11 @@ interface IInstructionProps {
 }
 
 export const Instruction = ({ instruction, index }: IInstructionProps) => {
-    return ( <Accordion.Item eventKey={`${index}`}>
-                <Accordion.Header>{instruction.text}</Accordion.Header>
-                <Accordion.Body>
+    
+    return ( 
+        <Accordion.Item eventKey={`${index}`}>
+                <StyledHeader>{instruction.text}</StyledHeader>
+                <StyledBody >
                     {instruction.type === "OPTIONS"
                     ? 
                     instruction.optionsAnswers.length === 1 ? 
@@ -37,19 +54,14 @@ export const Instruction = ({ instruction, index }: IInstructionProps) => {
                         options={instruction.options.map(option => ({ value: option.id, label: option.text}))}
                         vertical={true}
                     />
-                    // instruction.options.map((option, i) => (
-                    //     <label>
-                    //         {option.text}
-                    //         <input type="radio" key={i}/>
-                    //     </label>
-                    // ))
                     : 
                     <ResponseTextArea 
                         value={instruction.answer}
                         onChange={(e) => instruction.onChange(instruction.id,e.target.value)}
                     />
                     }
-                </Accordion.Body>
+                </StyledBody>
             </Accordion.Item>
+
     )
 }

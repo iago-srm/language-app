@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head';
-import Link from "next/link";
-import { useRouter } from 'next/router';
+import { ResponsiveCenteredPageContent } from '@styles';
 
 import { Container as PageContainer } from './styles'
 import { getPageTitle } from '@services/browser';
@@ -45,14 +44,10 @@ const VerifyAccount: React.FC<IVerifyAccountProps> = ({ verificationToken }) => 
       <Head>
         <title>{getPageTitle(Translations[language][Labels.VERIFYACCOUNT])}</title>
       </Head>
-      <Container fluid="sm" >
-        <Row>
-          <Col lg={{ span: 6, offset: 3 }}>
-            <SuccessAlert dismissible={false} response={success && <p>Conta verificada com sucesso! <AlertLink href='/signin'>Entrar</AlertLink></p>}/>
-            <ErrorAlert dismissible={false} error={error}/>
-          </Col>
-        </Row>
-      </Container>
+        <ResponsiveCenteredPageContent>
+          <SuccessAlert dismissible={false} response={success && <p>Conta verificada com sucesso! <AlertLink href='/signin'>Entrar</AlertLink></p>}/>
+          <ErrorAlert dismissible={false} error={error}/>
+        </ResponsiveCenteredPageContent>
     </PageContainer>
   )
 }

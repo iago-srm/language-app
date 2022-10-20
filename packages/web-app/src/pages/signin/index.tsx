@@ -39,7 +39,6 @@ const LoginPage: React.FC = () => {
     email,
     password,
   }) => {
-    console.log("submit",{email, password})
     const { error } = await credentialsSignIn.signIn({
       email,
       password,
@@ -61,7 +60,7 @@ const LoginPage: React.FC = () => {
       </Head>
       <ResponsiveCenteredPageContent>
         <Frame>
-          <ErrorAlert error={error} onClose={() => setError(undefined)}/>
+          <ErrorAlert error={error} onClose={() => setError(undefined)} dismissible/>
           <Form onSubmit={handleSubmit} schema={loginSchema}>
             <EmailInput name='email' />
             <PasswordInput name="password" />

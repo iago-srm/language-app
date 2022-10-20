@@ -71,7 +71,6 @@ export default () => {
     }, [activity]);
 
     const onClickSubmitOutput = () => {
-        console.log({instructions})
         const outputs = Object.keys(instructions).map(id => {
             const thisInstruction = instructions[id];
             return {
@@ -105,6 +104,8 @@ export default () => {
                 start={activity.startTime} 
                 end={activity.endTime} 
               />}
+                <hr/>
+            <p>Responda às perguntas a seguir sobre o conteúdo</p>
               <InstructionsContainer> 
                 {Object.keys(instructions).map((instructionId,i) => <Instruction index={i} key={instructionId} instruction={instructions[instructionId]} />)}
               </InstructionsContainer>

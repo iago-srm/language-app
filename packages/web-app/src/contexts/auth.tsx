@@ -73,6 +73,8 @@ export function AuthProvider({ children }) {
     const { error } = await signIn.apiCall({ email, password });
     if(!error) {
       setTokenHeaderSet(true);
+      refreshUser();
+      setIsAuthenticated(true);
       return {
         error: undefined
       };
@@ -138,20 +140,17 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const token = localStorage.getRefreshToken();
     if(userError && token) {
-      // console.log({userError,token});
+      console.log({userError,token});
     }
   },[userError]);
 
-  // useEffect(() => {
-  //   if(user) setIsAuthenticated(1);
-  // }, [user]);
-
   return (
     <AuthContext.Provider value={{
-      user: {
-        name: "Iago",
-        role: "INSTRUCTOR"
-      },
+      user, 
+      // {
+      //   name: "Iago",
+      //   role: "INSTRUCTOR"
+      // },
       // : {
       //   id: '7eb14bc7-26cb-468e-86c0-fad7c8af0619',
       //   tokenVersion: 0,
