@@ -13,7 +13,7 @@ export class ProfileImageRepository implements IProfileImageRepository {
 
   async uploadProfileImage(file: any, userId: string) {
     const imageName = this._getImageName(userId)
-    await this.storageService.uploadFile(file, imageName);
+    await this.storageService.uploadFile(file, imageName, process.env.PROFILE_IMAGE_BUCKET);
     return `${process.env.PROFILE_IMAGE_BUCKET}/${imageName}`;
   }
 

@@ -24,7 +24,7 @@ export interface IEmailService {
 }
 
 export interface IStorageService {
-  uploadFile: (file: any, fileName: string) => Promise<boolean>;
+  uploadFile: (file: any, fileName: string, bucketName: string) => Promise<boolean>;
 }
 
 export interface IQueueService {
