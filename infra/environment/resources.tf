@@ -50,22 +50,8 @@ module "ecs" {
   default_tg_arn  = module.server["web-api"].tg_arn
 }
 
-resource "aws_s3_bucket" "profile_image_bucket" {
-  bucket = "language-app-auth-web-api-profile-image"
-  force_destroy = true
-}
-
-resource "aws_s3_bucket_acl" "bucket_acl" {
-  bucket = aws_s3_bucket.profile_image_bucket.id
-  acl    = "public-read"
-}
-
-resource "aws_s3_bucket_object" "object" {
-  bucket = aws_s3_bucket.profile_image_bucket.bucket
-  key    = "generic-avatar-1.jpg"
-  source = "./generic-avatar-1.jpg"
-  acl = "public-read"
-  etag = filemd5("./generic-avatar-1.jpg")
+module "profile_image_bucket" {
+  source = "../modules/s3"
 }
 
 module "server" {
@@ -84,7 +70,7 @@ module "server" {
   subnet_id        = module.vpc.public_subnet_ids[0]
 
   env_database_url = "postgres://${module.db.rds_username}:${module.db.rds_password}@${module.db.rds_hostname}:${module.db.rds_port}/${each.value}"
-  env_profile_image_bucket = "https://${aws_s3_bucket.profile_image_bucket.bucket}.s3.amazonaws.com"
+  env_profile_image_bucket = module.profile_image_bucket.bucket
   env_token_secret = var.auth_token_secret
   env_queue_url = module.sqs.queue_url
   env_sendgrid_api_key = var.sendgrid_api_key

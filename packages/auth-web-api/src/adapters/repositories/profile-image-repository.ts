@@ -7,18 +7,26 @@ export class ProfileImageRepository implements IProfileImageRepository {
     private storageService: IStorageService
   ) {}
 
+  _getBucketUrl(bucketName: string) {
+    return `https://${process.env.PROFILE_IMAGE_BUCKET}.s3.amazonaws.com`;
+  }
   _getImageName(userId: string) {
     return `${userId}-${Date.now()}`;
   }
 
   async uploadProfileImage(file: any, userId: string) {
-    const imageName = this._getImageName(userId)
-    await this.storageService.uploadFile(file, imageName, process.env.PROFILE_IMAGE_BUCKET);
-    return `${process.env.PROFILE_IMAGE_BUCKET}/${imageName}`;
+    const imageName = this._getImageName(userId);
+    try {
+      await this.storageService.uploadFile(file, imageName, process.env.PROFILE_IMAGE_BUCKET);
+    } catch(e) {
+      console.log("s3 error", e);
+      throw new Error("S3 error");
+    }
+    return this._getBucketUrl(process.env.PROFILE_IMAGE_BUCKET)+"/"+imageName;
   }
 
   getGenericImageUrl() {
-    return `${process.env.PROFILE_IMAGE_BUCKET}/generic-avatar-1.jpg`;
+    return this._getBucketUrl(process.env.PROFILE_IMAGE_BUCKET)+"/generic-avatar-1.jpg";
   }
   // getProfileImageUrl(userId?: string) {
   //   return userId ? `${process.env.PROFILE_IMAGE_BUCKET}/${this._getImageName(userId)}` : `${process.env.PROFILE_IMAGE_BUCKET}/generic-avatar-1.jpg`;

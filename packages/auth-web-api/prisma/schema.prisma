@@ -2,10 +2,15 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+generator studio-client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native"]
 
+}
 generator client {
   provider        = "prisma-client-js"
   output   = "../generated/client"
+
 }
 
 model User {
