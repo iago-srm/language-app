@@ -1,7 +1,7 @@
 import { 
   PortugueseErrorMessages as CommonPortugueseErrorMessages 
 } from '@language-app/common-utils';
-import { ErrorMessagesLabels } from './labels';
+import { ErrorMessagesLabels, EmailStringsLabels } from './labels';
 
 export const PortugueseErrorMessages = {
   ...CommonPortugueseErrorMessages,
@@ -10,4 +10,8 @@ export const PortugueseErrorMessages = {
 };
 
 export const PortugueseEmailStrings = {
+  [EmailStringsLabels.ASSOCIATION_INVITATION]: (url: string, instructorName: string) => `
+  <p>Clique no link para se associar ao instrutor ${instructorName}: ${url}</p>,
+`,
+  [EmailStringsLabels.ASSOCIATION_INVITATION_SUBJECT]: (instructorName: string) => `Você acaba de ser convidado para se juntar aos estudantes de ${instructorName}!`
 }

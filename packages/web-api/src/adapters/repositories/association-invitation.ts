@@ -63,5 +63,13 @@ import { PrismaClient } from '@prisma-client';
       })
     }
   
+    getTokenByStudentAndInstructorIds(instructorId: string, studentId: string) {
+      return this.prisma.studentInstructorAssociationInvitation.findFirst({
+        where: {
+          instructorId,
+          studentId
+        }
+      })
+    }
   }
   
