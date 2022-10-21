@@ -60,4 +60,5 @@ export interface IAssociationInvitationRepository {
   getInstructorByTokenValue: (token: string) => Promise<Partial<InstructorDTO>>;
   insertToken: (token: AssociationInvitationTokenDTO) => Promise<AssociationInvitationTokenDTO>;
   updateToken: (tokenId: string, data: Partial<AssociationInvitationTokenDTO>) => Promise<AssociationInvitationTokenDTO>;
+  getTokenByStudentAndInstructorIds: (instructorId: string, studentId: string) => Promise<any>;
 }

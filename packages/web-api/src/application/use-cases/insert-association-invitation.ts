@@ -43,6 +43,9 @@ import {
 
       const token = this.idService.getId();
   
+      const existingInvitation = await this.associationInvitationTokenRepository.getTokenByStudentAndInstructorIds(instructor.id, student.id);
+      if(existingInvitation) throw new Error ("An invitation to this student has already been sent.");
+
       await this.associationInvitationTokenRepository.insertToken({
         token,
         studentId: student.id,
