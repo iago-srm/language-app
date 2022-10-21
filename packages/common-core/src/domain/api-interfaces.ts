@@ -7,6 +7,7 @@ export type IGetActivities = {
       description?: string;
       cefr: string;
       topics: string[];
+      contentType: string;
     }[]
   }
 }

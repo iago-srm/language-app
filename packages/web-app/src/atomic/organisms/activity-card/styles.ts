@@ -11,9 +11,7 @@ export const ActivityCardContainer = styled.div`
     margin: 10px auto;
     padding: 10px;
     cursor: pointer;
-    :hover {
-        ${cardHoverAnimationCss}
-    }
+    ${cardHoverAnimationCss}
     h3{}
     p{}
     

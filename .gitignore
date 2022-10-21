@@ -32,7 +32,7 @@ tinymce.min.js
 tinymce/
 
 # terraform
-function.zip
+*.zip
 .terraform/
 *.out
 terraform.tfplan

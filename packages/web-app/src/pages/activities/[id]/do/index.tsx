@@ -17,7 +17,10 @@ import {
     Section,
     FormButton,
     VideoIdInput,
-    ActivityCard
+    ActivityCard,
+  Toast,
+  errorToast,
+  successToast
   } from '@atomic';
 import {
     getLabeledTopics,
@@ -70,8 +73,7 @@ export default () => {
         }
     }, [activity]);
 
-    const onClickSubmitOutput = () => {
-        console.log({instructions})
+    const onClickSubmitOutput = async () => {
         const outputs = Object.keys(instructions).map(id => {
             const thisInstruction = instructions[id];
             return {
@@ -80,10 +82,12 @@ export default () => {
                 optionsSelectionsIds: thisInstruction.type === "OPTIONS" && (thisInstruction.isMultiCorrect ? thisInstruction.answer : [thisInstruction.answer])
             }
         })
-        postStudentOutput.apiCall({
+        const { error } = await postStudentOutput.apiCall({
             activityId: activity.id,
             outputs
-        })
+        });
+        if(error) errorToast(error.message);
+        else successToast("Atividade realizada com sucesso!");
     };
 
     return (
@@ -105,6 +109,8 @@ export default () => {
                 start={activity.startTime} 
                 end={activity.endTime} 
               />}
+                <hr/>
+            <p>Responda às perguntas a seguir sobre o conteúdo</p>
               <InstructionsContainer> 
                 {Object.keys(instructions).map((instructionId,i) => <Instruction index={i} key={instructionId} instruction={instructions[instructionId]} />)}
               </InstructionsContainer>
@@ -114,6 +120,8 @@ export default () => {
           <FormButton onClick={onClickSubmitOutput} loading={postStudentOutput.loading}>
             Salvar
           </FormButton>
+      <Toast/>
+
         </Container>
     )
 }

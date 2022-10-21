@@ -1,38 +1,35 @@
 import { Icons } from '@atomic/atoms';
 import styled from 'styled-components';
+import { cardHoverAnimationCss } from '@styles';
 
-const ProfileImgStyled = styled.div`
-  position: relative;
-  width: 80%;
+const ProfileImgContainerStyled = styled.div`
   margin: 0 auto;
 
   img {
-    max-width: 500px;
-    border-radius: 10px;
+    width: 100%;
     max-height: 400px;
+    border-radius: 10px;
+    object-fit: cover;
   }
 
   div {
-    background-color: white;
+    width: 80%;
+    padding: 10px;
+    border-radius: 3px;
+    background-color: ${({theme}) => theme.colors.secondary};
+    display: flex;
+    justify-content: space-between;
     cursor: pointer;
-    padding: 15px;
-    border-radius: 50%;
-    position: absolute;
-    top: 83%;
-    left: 85%;
-    border: 1px solid black;
-    svg {
-      color: black;
-    }
+    margin: 10px auto;
+    ${cardHoverAnimationCss}
   }
-
 `;
 
 export const ProfileImg = ({ src, onClick }) => {
   return (
-    <ProfileImgStyled>
+    <ProfileImgContainerStyled>
       <img src={src}/>
-      <div onClick={onClick}><Icons.EDIT/></div>
-    </ProfileImgStyled>
+      <div onClick={onClick}><span>Editar</span><Icons.EDIT/></div>
+    </ProfileImgContainerStyled>
   )
 }

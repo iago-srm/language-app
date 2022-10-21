@@ -25,7 +25,6 @@ export const AuthenticationMiddlewareControllerFactory = ({
 }: Dependencies): IHTTPControllerDescriptor<IHTTPMiddleware> => {
   const fn: IHTTPMiddleware = async (req, headers) => {
 
-    // console.log(headers.authorization)
     if (!headers.authorization) throw new MissingTokenError();
 
     const [header, token] = headers.authorization.split(' ');

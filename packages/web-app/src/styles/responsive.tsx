@@ -6,7 +6,7 @@ import {
 
 export const ResponsiveCenteredPageContent = ({ children }) => {
   return (
-    <Container fluid="sm" style={{marginTop: '20px'}}>
+    <Container fluid="sm" className='responsive-container'>
       <Row>
         <Col lg={{ span: 6, offset: 3 }}>
           {children}

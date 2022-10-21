@@ -249,7 +249,7 @@ export default () => {
           setUpstreamInstruction={setInstruction}
         />}
       <SubmitButtonContainer>
-        <FormButton onClick={() => onSubmitActivity()}>
+        <FormButton onClick={() => onSubmitActivity()} loading={postActivity.loading}>
           Salvar
         </FormButton>
       </SubmitButtonContainer>

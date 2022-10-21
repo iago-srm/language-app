@@ -12,12 +12,12 @@ export class S3Service implements IStorageService {
     this._s3 = new AWS.S3({apiVersion: '2006-03-01'});
   }
 
-  async uploadFile(file: any, fileName: string) {
+  async uploadFile(file: any, fileName: string, bucketName: string) {
 
     const upload = promisify(this._s3.upload.bind(this._s3));
 
     await upload ({
-      Bucket: 'language-app-profile-image',
+      Bucket: bucketName,
       Key: fileName,
       Body: fs.createReadStream(file.path)
     });
