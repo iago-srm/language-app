@@ -15,9 +15,16 @@ export class AssociationInvitationEmail implements IInvitationEmailService {
   }) {
     const strings = new Strings();
     strings.setLanguage(language);
+    // console.log({strings: JSON.stringify(strings.email.ASSOCIATION_INVITATION_SUBJECT)});
+    console.log(strings);
+    console.log(strings.email);
+    console.log(strings.email.ASSOCIATION_INVITATION_SUBJECT);
+    const subject = strings.email.ASSOCIATION_INVITATION_SUBJECT(instructorName);
+    console.log({subject})
     return this.emailService.sendEmail(
       destination,
-      strings.email.ASSOCIATION_INVITATION_SUBJECT(instructorName),
+      subject,
+      // "teste",
       { html: strings.email.ASSOCIATION_INVITATION(url, instructorName) },
     )
   }

@@ -23,7 +23,7 @@ export class Strings {
   setLanguage(l: string) {
     const language = Strings.GetLanguage(l);
     this.error = ErrorStrings[language];
-    this.email = EmailStrings[language]
+    this.email = EmailStrings[language];
   }
 
   static GetLanguage(language: string) {
