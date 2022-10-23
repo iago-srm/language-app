@@ -113,9 +113,13 @@ export interface IGetAssociationInvitation {
     token: string;
   }
   response: {
-    instructor: {
-      image: string;
-      name: string;
+    instructor: { 
+      instructor: {
+        user: {
+          image: string;
+          name: string;
+        }
+      }
     }
   }
 }

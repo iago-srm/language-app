@@ -52,7 +52,7 @@ export default () => {
             if(error) setGetOutputError(error);
             else {
                 setOutput(response);
-                setGetOutputError(undefined)
+                setGetOutputError(undefined);
             }
         })()
     }, [query]);

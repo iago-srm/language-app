@@ -47,10 +47,12 @@ import {
   InsertAssociationInvitationHTTPDefinition,
   INewAssociationInvitation,
   GetAssociationInvitationHTTPDefinition,
-  IGetAssociationInvitation
+  IGetAssociationInvitation,
+  EditAssociationInvitationHTTPDefinition
 } from '@language-app/common-core';
 import { useLanguage, handleAuthToken,useAuth } from '@contexts';
 import { useEffect } from 'react';
+import { insertPathParam } from './helpers';
 
 export const AUTH_BASE_URL = `${process.env.NEXT_PUBLIC_AUTH_URL}`;
 export const DOMAIN_BASE_URL = `${process.env.NEXT_PUBLIC_DOMAIN_URL}`;
@@ -131,7 +133,7 @@ export const useApiBuilder = () => {
 
   const getActivity = useApiCall<IGetActivity["params"], IGetActivity["response"]>
     (({ id }) => {
-      return domainFetcher[GetActivityHTTPDefinition.method](`${GetActivityHTTPDefinition.path.split('/')[0]}/${id}`)
+      return domainFetcher[GetActivityHTTPDefinition.method](insertPathParam(GetActivityHTTPDefinition.path,0,id))
     })
 
   const postStudentOutput = useApiCall<IPostStudentOutput["params"],IPostStudentOutput["response"]>
@@ -144,23 +146,22 @@ export const useApiBuilder = () => {
 
   const getStudentOutput = useApiCall<IGetStudentOutput["params"], IGetStudentOutput["response"]>
     (({ id }) => {
-      return domainFetcher[GetStudentOutputHTTPDefinition.method](`${GetStudentOutputHTTPDefinition.path.split('/')[0]}/${id}`)
+      return domainFetcher[GetStudentOutputHTTPDefinition.method](insertPathParam(GetStudentOutputHTTPDefinition.path,0,id))
     })
 
   const postFeedbackToOutput = useApiCall<IPostFeedbackToOutput["params"], void>
     (({ outputId, ...rest}) => {
-      const urlParts = InsertFeedbackToActivityHTTPDefinition.path.split('/');
-      return domainFetcher[InsertFeedbackToActivityHTTPDefinition.method](`${urlParts[0]}/${outputId}/${urlParts[2]}`, {...rest})
+      return domainFetcher[InsertFeedbackToActivityHTTPDefinition.method](insertPathParam(InsertFeedbackToActivityHTTPDefinition.path,1,outputId), {...rest})
     })
     
   const inviteStudent = useApiCall<INewAssociationInvitation["params"]>
     (({ email }) => domainFetcher[InsertAssociationInvitationHTTPDefinition.method](InsertAssociationInvitationHTTPDefinition.path, { email }))
 
   const getAssociationInvitation = useApiCall<IGetAssociationInvitation["params"], IGetAssociationInvitation["response"]>
-    (({token}) => domainFetcher[GetAssociationInvitationHTTPDefinition.method](`${GetAssociationInvitationHTTPDefinition.path.split('/')[0]}/${token}`));
+    (({token}) => domainFetcher[GetAssociationInvitationHTTPDefinition.method](insertPathParam(GetAssociationInvitationHTTPDefinition.path,1,token)));
 
-  const acceptAssociationInvitation = useApiCall<void,void>
-    (() => domainFetcher[VerifyAccountHTTPDefinition.method](VerifyAccountHTTPDefinition.path));
+  const acceptAssociationInvitation = useApiCall<{token: string},void>
+    (({ token }) => domainFetcher[EditAssociationInvitationHTTPDefinition.method](insertPathParam(EditAssociationInvitationHTTPDefinition.path,1,token)));
 
   return {
     signUp,
