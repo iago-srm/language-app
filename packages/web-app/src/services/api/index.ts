@@ -154,13 +154,13 @@ export const useApiBuilder = () => {
     })
     
   const inviteStudent = useApiCall<INewAssociationInvitation["params"]>
-    (({ email }) => authFetcher[InsertAssociationInvitationHTTPDefinition.method](InsertAssociationInvitationHTTPDefinition.path, { email }))
+    (({ email }) => domainFetcher[InsertAssociationInvitationHTTPDefinition.method](InsertAssociationInvitationHTTPDefinition.path, { email }))
 
   const getAssociationInvitation = useApiCall<IGetAssociationInvitation["params"], IGetAssociationInvitation["response"]>
-    (({token}) => authFetcher[GetAssociationInvitationHTTPDefinition.method](`${GetAssociationInvitationHTTPDefinition.path.split('/')[0]}/${token}`));
+    (({token}) => domainFetcher[GetAssociationInvitationHTTPDefinition.method](`${GetAssociationInvitationHTTPDefinition.path.split('/')[0]}/${token}`));
 
   const acceptAssociationInvitation = useApiCall<void,void>
-    (() => authFetcher[VerifyAccountHTTPDefinition.method](VerifyAccountHTTPDefinition.path));
+    (() => domainFetcher[VerifyAccountHTTPDefinition.method](VerifyAccountHTTPDefinition.path));
 
   return {
     signUp,

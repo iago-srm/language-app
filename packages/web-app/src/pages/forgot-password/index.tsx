@@ -14,7 +14,8 @@ import {
   FormButton as Button,
   Frame,
   ErrorAlert,
-  SuccessAlert
+  SuccessAlert,
+  EmailInput
 } from '@atomic';
 import { ResponsiveCenteredPageContent } from '@styles';
 
@@ -57,7 +58,7 @@ const Page: React.FC = () => {
           <ErrorAlert error={error} onClose={() => setError(undefined)} dismissible/>
           <SuccessAlert response={response && `Um email será enviado para ${response}`} dismissible={false}/>
           <Form onSubmit={handleSubmit} schema={schema}>
-            <Input name='email' label={Translations[language][Labels.EMAIL]} />
+            <EmailInput name='email' />
             <Button loading={forgotPasswordRequest.loading}>{Translations[language][Labels.SEND]}</Button>
           </Form>
         </Frame>
