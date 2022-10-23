@@ -1,8 +1,10 @@
 import BootstrapAlert from 'react-bootstrap/Alert';
 import { getChildrenOnDisplayName } from 'atomic/utils';
 import {
-  P
+  P,
+  Heading as TypographyHeading
 } from '@atomic/atoms';
+import { useColorTheme } from "@contexts";
 
 type Variant = 'success' | 'danger';
 
@@ -24,13 +26,19 @@ export const Alert: React.FC<AlertProps> & SubComponents = ({
   dismissible
 }) => {
 
+  const { theme } = useColorTheme();
+
   const heading = getChildrenOnDisplayName(children, 'Heading');
   const content = getChildrenOnDisplayName(children, 'Content');
 
   return (
-    <BootstrapAlert dismissible={dismissible} variant={variant} onClose={onClose}>
-      <BootstrapAlert.Heading>{heading}</BootstrapAlert.Heading>
-      <P>
+    <BootstrapAlert  dismissible={dismissible} variant={variant} onClose={onClose}>
+      <BootstrapAlert.Heading>
+        <TypographyHeading level={3} >
+          {heading}
+        </TypographyHeading>
+      </BootstrapAlert.Heading>
+      <P fontWeight='light'>
         {content}
       </P>
     </BootstrapAlert>

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { cardHoverAnimationCss } from '@styles';
 
 export const DashboardButtonStyled = styled.button`
     border: none;
@@ -11,15 +12,13 @@ export const DashboardButtonStyled = styled.button`
             margin: 0 auto;
             padding: 20px;
         }
-        p {
+        h3 {
             padding: 10px 20px 20px 20px;
             margin: 0;
+            text-align: center;
         }
     }
-    :hover {
-        transition: 0.5s ease-in-out;
-        transform: scale(1.1);
-    }
+    ${cardHoverAnimationCss}
 
 
 `;  

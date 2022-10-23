@@ -11,7 +11,7 @@ export const P = styled.p<PProps>`${({
     fontWeight, 
     theme,
 }) => css`
-        fontWeight: ${TypographyWeights[fontWeight] || TypographyWeights.normal}
-        color: ${theme.colors.accent};
+        font-weight: ${TypographyWeights[fontWeight] || TypographyWeights.normal};
+        color: ${theme.colors.text};
     `}
 `;

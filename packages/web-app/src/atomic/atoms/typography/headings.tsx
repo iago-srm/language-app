@@ -6,21 +6,23 @@ import {
 
 type HeadingProps = {
     // color?: keyof Colors
+    color?: string;
     size?: keyof typeof TypographySizes
     fontWeight?: keyof typeof TypographyWeights
     level?: 1 | 2 | 3 | 4 | 5 | 6
   }
 
 export const Heading = styled.h1.attrs<HeadingProps>(({level}) => ({
-    as: `h${level}`
+    as: level ? `h${level}` : "h1"
 }))<HeadingProps>`${({ 
     // color, 
     size, 
     fontWeight, 
-    theme
+    theme,
+    color
 }) => css`
-        color: ${theme.colors.accent};
+        color: ${color || theme.colors.text};
         size: ${TypographySizes[size] || TypographySizes.medium};
-        fontWeight: ${TypographyWeights[fontWeight] || TypographyWeights.normal}
+        font-weight: ${TypographyWeights[fontWeight] || TypographyWeights.bold};
     `}
 `;

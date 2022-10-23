@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { DashboardButtonStyled } from "./styles";
+import { Heading } from '@atomic';
 
 interface DashboardButton {
     path: string;
@@ -13,7 +14,7 @@ export const DashboardButton = ({ path, icon, label, query }: DashboardButton) =
             <Link href={{ pathname: path, query}}>
                 <a>
                     {icon}
-                    <p>{label}</p>
+                    <Heading level={3} fontWeight="bold">{label}</Heading>
                 </a>
             </Link>
         </DashboardButtonStyled>
