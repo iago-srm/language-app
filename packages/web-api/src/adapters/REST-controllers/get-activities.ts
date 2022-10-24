@@ -22,11 +22,13 @@ export const GetActivitiesControllerFactory = ({
       contentTypes,
       isMyList,
       cursor,
-      thisInstructorOnly
+      thisInstructorOnly,
+      pageSize
     } = controllerSerializer(query, [
       { name: 'title', optional: true }, 
       { name: 'cefr', optional: true }, 
       { name: 'cursor', optional: true },
+      { name: 'pageSize', optional: true },
       { name: 'topics', optional: true, type: "array" },
       { name: 'contentTypes', optional: true, type: "array" },
       { name: 'isMyList', optional: true },
@@ -36,11 +38,13 @@ export const GetActivitiesControllerFactory = ({
     const { id, role } = user;
 
     if(cursor && isNaN(Number(cursor))) throw new Error('cursor must be a number');
+    if(pageSize && isNaN(Number(pageSize))) throw new Error('pageSize must be a number');
 
     return {
       response: await getActivitiesUseCase.execute({
         userId: id,
         cursor: cursor && Number(cursor),
+        pageSize: pageSize && Number(pageSize),
         title,
         cefr,
         topics,

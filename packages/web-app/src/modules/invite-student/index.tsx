@@ -26,7 +26,7 @@ export const Page: React.FC = () => {
   const { theme } = useColorTheme();
   const { inviteStudent } = useApiBuilder();
   const [error, setError] = useState("");
-  const [response, setResponse] = useState("");
+  const [response, setResponse] = useState(false);
 
   const schema = React.useMemo(() => {
     return new ValidationSchemas(language).getInviteStudentSchema()
@@ -44,7 +44,7 @@ export const Page: React.FC = () => {
     }
     else {
       setError(undefined);
-      setResponse(response.email);
+      setResponse(true);
     }
   }
 

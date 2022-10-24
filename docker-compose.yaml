@@ -2,31 +2,31 @@ version: "3"
 
 services:
 
-  # domain:
-  #   image: language-app/web-api
-  #   build:
-  #     context: .
-  #     dockerfile: packages/web-api/Dockerfile
-  #   container_name: language-app-web-api
-  #   # entrypoint: "npm run dev"
-  #   entrypoint: "tail -f /dev/null"
-  #   ports:
-  #     - "${DOMAIN_PORT}:${DOMAIN_PORT}"
-  #     - 5556:5555 # prisma studio
-  #   environment:
-  #     - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${DOMAIN_POSTGRES_SCHEMA}
-  #     - PORT=${DOMAIN_PORT}
-  #     - TOKEN_SECRET=${TOKEN_SECRET}
-  #     - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-  #     - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-  #     - SENDGRID_API_KEY=${SENDGRID_API_KEY}
-  #     - WEB_APP_URL=http://localhost:3000
-  #   tty: true
-  #   volumes:
-  #     - ./packages/common-core:/app/packages/common-core
-  #     - ./packages/common-platform:/app/packages/common-platform
-  #     - ./packages/common-utils:/app/packages/common-utils
-  #     - ./packages/web-api:/app/packages/web-api
+  domain:
+    image: language-app/web-api
+    build:
+      context: .
+      dockerfile: packages/web-api/Dockerfile
+    container_name: language-app-web-api
+    # entrypoint: "npm run dev"
+    entrypoint: "tail -f /dev/null"
+    ports:
+      - "${DOMAIN_PORT}:${DOMAIN_PORT}"
+      - 5556:5555 # prisma studio
+    environment:
+      - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${DOMAIN_POSTGRES_SCHEMA}
+      - PORT=${DOMAIN_PORT}
+      - TOKEN_SECRET=${TOKEN_SECRET}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - SENDGRID_API_KEY=${SENDGRID_API_KEY}
+      - WEB_APP_URL=http://localhost:3000
+    tty: true
+    volumes:
+      - ./packages/common-core:/app/packages/common-core
+      - ./packages/common-platform:/app/packages/common-platform
+      - ./packages/common-utils:/app/packages/common-utils
+      - ./packages/web-api:/app/packages/web-api
 
   postgres:
     image: postgres
@@ -44,31 +44,31 @@ services:
       timeout: 5s
       retries: 5
 
-  auth:
-    image: language-app/auth-web-api
-    build:
-      context: .
-      dockerfile: packages/auth-web-api/Dockerfile
-    container_name: language-app-auth-web-api
-    # entrypoint: "npm run start"
-    entrypoint: "tail -f /dev/null"
-    ports:
-      - "${AUTH_PORT}:${AUTH_PORT}"
-      - 5555:5555 # prisma studio
-    environment:
-      - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${AUTH_POSTGRES_SCHEMA}
-      - PORT=${AUTH_PORT}
-      - TOKEN_SECRET=${TOKEN_SECRET}
-      - SENDGRID_API_KEY=${SENDGRID_API_KEY}
-      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-      - WEB_APP_URL=http://localhost:3000
-      - DOMAIN_IP=domain
-      - QUEUE_URL=https://sqs.us-east-1.amazonaws.com/553239741950/auth-domain-queue
-    tty: true
-    volumes:
-      - ./packages/common-core:/app/packages/common-core
-      - ./packages/common-platform:/app/packages/common-platform
-      - ./packages/common-utils:/app/packages/common-utils
-      - ./packages/auth-web-api:/app/packages/auth-web-api
+  # auth:
+  #   image: language-app/auth-web-api
+  #   build:
+  #     context: .
+  #     dockerfile: packages/auth-web-api/Dockerfile
+  #   container_name: language-app-auth-web-api
+  #   # entrypoint: "npm run start"
+  #   entrypoint: "tail -f /dev/null"
+  #   ports:
+  #     - "${AUTH_PORT}:${AUTH_PORT}"
+  #     - 5555:5555 # prisma studio
+  #   environment:
+  #     - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${AUTH_POSTGRES_SCHEMA}
+  #     - PORT=${AUTH_PORT}
+  #     - TOKEN_SECRET=${TOKEN_SECRET}
+  #     - SENDGRID_API_KEY=${SENDGRID_API_KEY}
+  #     - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+  #     - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+  #     - WEB_APP_URL=http://localhost:3000
+  #     - DOMAIN_IP=domain
+  #     - QUEUE_URL=https://sqs.us-east-1.amazonaws.com/553239741950/auth-domain-queue
+  #   tty: true
+  #   volumes:
+  #     - ./packages/common-core:/app/packages/common-core
+  #     - ./packages/common-platform:/app/packages/common-platform
+  #     - ./packages/common-utils:/app/packages/common-utils
+  #     - ./packages/auth-web-api:/app/packages/auth-web-api
     

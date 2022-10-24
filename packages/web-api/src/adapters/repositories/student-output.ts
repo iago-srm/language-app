@@ -7,7 +7,7 @@ import {
   
   export class StudentOutputRepository implements IStudentOutputRepository {
     prisma: PrismaClient;
-    private _pageSize = 20;
+    private _pageSize = 1;
   
     constructor() {
       this.prisma = new PrismaClient();
@@ -49,10 +49,16 @@ import {
       })
     }
   
-    getStudentOutputsByStudentIds (ids: string[]) {
+    getStudentOutputsByStudentIds ({ 
+      studentIds, 
+      cursor, 
+      pageSize
+    }) {
       return this.prisma.studentOutput.findMany({
+        take: pageSize || this._pageSize,
+        ...this._paginate(cursor),
         where: {
-          studentId: { in: ids }
+          studentId: { in: studentIds }
         }, 
         include: {
           student: {

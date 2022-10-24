@@ -6,15 +6,16 @@ import {
     IInstructorRepository
   } from '../ports';
   import {
-    IUseCase
+    IUseCase,
+    IPaginatedParams,
+    IPaginatedResponse
   } from '@language-app/common-platform';
   
-  type InputParams = {
-    cursor?: number,
+  interface InputParams extends IPaginatedParams{
     userId: string;
     role: string;
   };
-  type Return = (Partial<StudentOutputDTO> & Partial<ActivityDTO>)[];
+  interface Return extends IPaginatedResponse<(Partial<StudentOutputDTO> & Partial<ActivityDTO>)> {}
   
   export type IGetStudentOutputsUseCase = IUseCase<InputParams, Return>;
   
@@ -26,23 +27,37 @@ import {
       private studentRepository: IStudentRepository
     ){}
   
-    async execute ({ userId, role, cursor }) {
+    async execute ({ userId, role, cursor, pageSize }) {
+
+      let studentOutputs;
 
       if(role === "STUDENT") {
         const student = await this.studentRepository.getStudentByUserId(userId);
         if(!student) throw new Error("Student not found");
 
-        return this.studentOutputRepository.getStudentOutputsByStudentIds([student.id]);
+        studentOutputs = await this.studentOutputRepository.getStudentOutputsByStudentIds({
+          studentIds: [student.id], 
+          cursor,
+          pageSize
+        });
       } else {
         const instructor = await this.instructorRepository.getInstructorByUserId(userId);
         if(!instructor) throw new Error("Instructor not found");
 
         const studentIds = await this.instructorRepository.getThisInstructorStudentIds(instructor.id);
-        console.log({studentIds});
-        return this.studentOutputRepository.getStudentOutputsByStudentIds(studentIds);
+        // console.log({studentIds});
 
+        studentOutputs = await this.studentOutputRepository.getStudentOutputsByStudentIds({
+          studentIds, 
+          cursor,
+          pageSize
+        });
       }
-      
+
+      return {
+        data: studentOutputs,
+        cursor: studentOutputs[studentOutputs.length - 1]?.id || undefined
+      }      
     }
   
   };
