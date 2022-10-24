@@ -144,7 +144,8 @@ export class TestDataFacade {
       ),
       updateProfileImage: new UpdateProfileImageUseCase(
         this.mockUserRepository,
-        this.mockProfileImageRepository
+        this.mockProfileImageRepository,
+        this.mockAuthEventQueue
       ),
       resetPassword: new ResetPasswordUseCase(
         this.mockUserRepository,

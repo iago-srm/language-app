@@ -5,13 +5,14 @@ import {
   IInstructorRepository
 } from '../ports';
 import {
+  IPaginatedParams,
+  IPaginatedResponse,
   IUseCase
 } from '@language-app/common-platform';
 import { DomainRules } from '@language-app/common-core';
 
-type InputParams = {
+interface InputParams extends IPaginatedParams {
   userId: string;
-  cursor?: number;
   title?: string;
   cefr?: string;
   topics?: string[],
@@ -19,7 +20,7 @@ type InputParams = {
   isMyList?: boolean;
   thisInstructorOnly: boolean
 };
-type Return = { cursor: number, activities: Partial<ActivityDTO>[] };
+interface Return extends IPaginatedResponse<Partial<ActivityDTO>> {}
 
 export type IGetActivitiesUseCase = IUseCase<InputParams, Return>;
 
@@ -31,7 +32,17 @@ class UseCase implements IGetActivitiesUseCase {
     private activityRepository: IActivityRepository
   ){}
 
-  async execute ({ cursor, title, cefr, topics, contentTypes, isMyList, userId, thisInstructorOnly }) {
+  async execute ({ 
+    cursor, 
+    pageSize,
+    title, 
+    cefr, 
+    topics, 
+    contentTypes, 
+    isMyList, 
+    userId, 
+    thisInstructorOnly 
+  }) {
 
     // console.log({
     //   cursor, title, cefr, topics, contentTypes, isInProgress, isComplete, thisInstructorOnly
@@ -56,11 +67,10 @@ class UseCase implements IGetActivitiesUseCase {
       
     }
 
-
-    // console.log({studentActivitiesIds}, studentActivitiesIds.length)
     const activities = await this.activityRepository.getActivities({
       instructorId,
       cursor,
+      pageSize,
       title,
       cefr,
       topics: topics || DomainRules.ACTIVITY.TOPICS,
@@ -69,7 +79,7 @@ class UseCase implements IGetActivitiesUseCase {
     });
 
     return {
-      activities,
+      data: activities,
       cursor: activities[activities.length - 1]?.id || undefined
     }
   }

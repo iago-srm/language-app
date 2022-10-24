@@ -8,10 +8,12 @@ import {
   StudentDTO,
   AssociationInvitationTokenDTO
 } from '.';
+import {
+  IPaginatedParams
+} from '@language-app/common-platform';
 
-type GetActivitiesInput = {
+interface IGetActivitiesInput extends IPaginatedParams {
   instructorId?: string,
-  cursor?: number,
   title?: string,
   cefr?: CEFR,
   topics?: string[],
@@ -20,7 +22,7 @@ type GetActivitiesInput = {
 }
 
 export interface IActivityRepository {
-  getActivities: (args: GetActivitiesInput) => Promise<Partial<ActivityDTO>[]>;
+  getActivities: (args: IGetActivitiesInput) => Promise<Partial<ActivityDTO>[]>;
   getActivityIdsByStudentList: (studentId: string) => Promise<number[]>;
   insertActivityIntoStudentList: (studentId: string, activityId: number) => Promise<void>;
   getActivityById: (id: number) => Promise<ActivityDTO & { instructions: ActivityInstructionDTO[] }>;
@@ -47,9 +49,12 @@ export interface IStudentRepository {
   assignInstructor: (studentId: string, instructorId: string) => Promise<any>;
 }
 
+interface IGetStudentOutputParams extends IPaginatedParams {
+  studentIds: string[]
+}
 export interface IStudentOutputRepository {
   getStudentOutputById: (outputId: number) => Promise<StudentOutputDTO>;
-  getStudentOutputsByStudentIds: (studentId: string[]) => Promise<(Partial<StudentOutputDTO> & Partial<ActivityDTO>)[]>;
+  getStudentOutputsByStudentIds: (args: IGetStudentOutputParams) => Promise<(Partial<StudentOutputDTO> & Partial<ActivityDTO>)[]>;
   insertStudentOutput: (output: Partial<StudentOutputDTO>) => Promise<Partial<StudentOutputDTO>>;
   insertStudentOutputFeedbacks: (feedbacks: { instructionOutputId: string, feedback: string }[]) => Promise<any>;
   updateStudentOutputById: (outputId: number, args: Partial<StudentOutputDTO>) => Promise<any>;

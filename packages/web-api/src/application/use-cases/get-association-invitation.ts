@@ -26,8 +26,11 @@ constructor (
 ){}
 
 async execute({ token }) {
+    const instructor = await this.associationInvitationTokenRepository.getInstructorByTokenValue(token);
+    if (!instructor) throw new Error("No instructor associated to token was found.");
+    
     return {
-        instructor: await this.associationInvitationTokenRepository.getInstructorByTokenValue(token)
+        instructor
     }
 
 }

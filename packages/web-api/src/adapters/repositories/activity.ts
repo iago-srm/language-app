@@ -7,7 +7,7 @@ import { PrismaClient } from '@prisma-client';
 
 export class ActivityRepository implements IActivityRepository {
   prisma: PrismaClient;
-  private _pageSize = 20;
+  private _pageSize = 1;
 
   constructor() {
     this.prisma = new PrismaClient();
@@ -25,6 +25,7 @@ export class ActivityRepository implements IActivityRepository {
   getActivities({
     instructorId,
     cursor,
+    pageSize,
     title,
     topics,
     cefr,
@@ -33,7 +34,7 @@ export class ActivityRepository implements IActivityRepository {
   }) {
     // console.log(ids)
     return this.prisma.activity.findMany({
-      take: this._pageSize,
+      take: pageSize || this._pageSize,
       ...this._paginate(cursor),
       where: {
         AND: [

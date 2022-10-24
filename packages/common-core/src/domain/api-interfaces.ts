@@ -1,7 +1,7 @@
 export type IGetActivities = {
   response: {
     cursor: number;
-    activities: {
+    data: {
       id: string;
       title: string;
       description?: string;
@@ -82,10 +82,11 @@ export interface IPostStudentOutput {
   };
   response: {};
 }
-export interface ISignOutUser {
+export interface IUpdateUser {
   params: {
     tokenVersion: number;
     authApiId: string;
+    image: string;
   }
   response: void;
 }
@@ -127,23 +128,26 @@ export interface IGetAssociationInvitation {
 export interface IGetStudentOutputs {
   params: void;
   response: {
-    id: string;
-    activity: {
-      cefr: string;
-      title: string;
-      topics: string[];
-      contentType: string;
-      instructor: {
-        user: {
-          name: string;
-          image: string;
+    cursor: number;
+    data: {
+      id: string;
+      activity: {
+        cefr: string;
+        title: string;
+        topics: string[];
+        contentType: string;
+        instructor: {
+          user: {
+            name: string;
+            image: string;
+          }
         }
-
-      }
-    },
-    createdAt: string;
-    feedbackGiven: boolean;
-  }[]
+      },
+      createdAt: string;
+      feedbackGiven: boolean;
+    }[]
+  }
+    
 }
 
 interface IActivityWithOutput extends IActivity {

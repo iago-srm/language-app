@@ -16,17 +16,22 @@ import {
     const fn: IHTTPController = async (_, __, query, { user }) => {
   
       const {
-        cursor
+        cursor,
+        pageSize
       } = controllerSerializer(query, [
-        { name: 'cursor', optional: true }
+        { name: 'cursor', optional: true },
+        { name: 'pageSize', optional: true }
       ]);
+
       if(cursor && isNaN(Number(cursor))) throw new Error('cursor is not a number');
+      if(pageSize && isNaN(Number(pageSize))) throw new Error('pageSize is not a number');
 
       const { id, role } = user;
   
       return {
         response: await getStudentOutputsUseCase.execute({
-          cursor: Number(cursor),
+          cursor: cursor && Number(cursor),
+          pageSize: pageSize && Number(pageSize),
           userId: id,
           role
         }),

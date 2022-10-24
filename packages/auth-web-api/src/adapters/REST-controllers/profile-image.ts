@@ -27,8 +27,7 @@ export const UpdateProfileImageControllerFactory = ({
 
   return {
     controller: fn,
-    method: UpdateProfileImageHTTPDefinition.method,
-    path: UpdateProfileImageHTTPDefinition.path,
+    ...UpdateProfileImageHTTPDefinition,
     middlewares: ['file', 'auth']
   };
 };

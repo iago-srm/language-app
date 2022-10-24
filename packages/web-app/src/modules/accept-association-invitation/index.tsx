@@ -54,7 +54,7 @@ export const Page = () => {
         token: query.token as string,
       });
       if(error) setError(error.message);
-      else {
+      else if (response.instructor){
         setInstructor(response.instructor.instructor);
         setError(undefined);
       }
