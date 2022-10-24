@@ -4,8 +4,12 @@ export const ButtonsContainer = styled.div`
     display: flex;
     margin: 10px auto;
     width: 80%;
+    flex-wrap: wrap;
     justify-content: space-around;
-    //calc(${({theme}) => theme.responsiveBreakpoint}px + 30px)
+    button {
+      min-width: 30%;
+      margin: 10px;
+    }
     @media (max-width: 780px) {
         flex-direction: column;
         align-items: center;
@@ -27,25 +31,25 @@ export const Container = styled.div`
 
 `;
 
-export const ContainerWhatFor = styled.div`
-  width: 100vw;
+// export const ContainerWhatFor = styled.div`
+//   width: 100vw;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   flex-direction: column;
 
-  h1 {
-    font-size: 54px;
-    margin-top: 40px;
-  }
+//   h1 {
+//     font-size: 54px;
+//     margin-top: 40px;
+//   }
 
-  p {
-    margin-top: 24px;
-    font-size: 24px;
-    line-height: 32px;
-  }
+//   p {
+//     margin-top: 24px;
+//     font-size: 24px;
+//     line-height: 32px;
+//   }
 
-  img {
-  }
-`
+//   img {
+//   }
+// `

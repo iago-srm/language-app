@@ -1,36 +1,10 @@
-import React, { useEffect } from 'react'
-import Head from 'next/head'
 import { parseCookies } from 'nookies';
 import jwt from 'jsonwebtoken';
-import { useRouter } from 'next/router';
-
-import { getPageTitle } from '@services/browser';
-import { useLanguage, useAuth } from '@contexts';
-import { Translations, Labels } from '@locale';
 import { GetServerSideProps } from 'next'
 
+import { MainPage } from "@modules/dashboard";
 
-const Dashboard: React.FC = () => {
-  const { language } = useLanguage();
-  const { user, isUserLoading } = useAuth();
-  const router = useRouter();
-
-  useEffect(() => {
-    if(user) {
-      !user?.role && router.push('/dashboard/set-role')
-      user?.role === 'INSTRUCTOR' && router.push('/dashboard/instructor')
-      user?.role === 'STUDENT' && router.push('/dashboard/student')
-    }
-  }, [user]);
-
-  return (
-    <>
-      <Head>
-        <title>{getPageTitle(Translations[language][Labels.HOME])}</title>
-      </Head>
-    </>
-  )
-}
+export default MainPage;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
@@ -49,6 +23,3 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     props: {}
   }
 }
-
-
-export default Dashboard

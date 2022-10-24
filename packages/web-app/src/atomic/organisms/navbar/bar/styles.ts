@@ -14,6 +14,7 @@ export const Container = styled.nav`
 export const BarButtonContainer = styled(FlexCentered)`
   flex-direction: row;
   margin: 0 5px;
+  justify-content: end;
 `;
 
 export const BarAuthenticatedSectionContainer = styled.div`
@@ -41,7 +42,13 @@ export const HamburguerButtonContainer = styled(FlexCentered)`
   cursor: pointer;
 `;
 
-export const LogoImageContainer = styled.div`
-  margin: 10px;
-  cursor: pointer;
+export const LogoImageContainer = styled(FlexCentered)`
+  flex-direction: row;
+  margin: 0 5px;
+  justify-content: start;
+  img {
+    margin: 10px;
+    cursor: pointer;
+  }
 `;
+

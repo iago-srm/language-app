@@ -27,7 +27,7 @@
       "@atomic/molecules": ["atomic/molecules/index.ts"],
       "@atomic/organisms": ["atomic/organisms/index.ts"],
       "@atomic": ["atomic/index.ts"],
-      "@modules/*": ["modules/*/index.tsx"]
+      "@modules/*": ["modules/*/index.tsx", "modules/*/index.ts"]
     },
     "allowJs": true,
     "strict": false,

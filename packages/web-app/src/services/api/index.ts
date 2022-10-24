@@ -133,7 +133,7 @@ export const useApiBuilder = () => {
 
   const getActivity = useApiCall<IGetActivity["params"], IGetActivity["response"]>
     (({ id }) => {
-      return domainFetcher[GetActivityHTTPDefinition.method](insertPathParam(GetActivityHTTPDefinition.path,0,id))
+      return domainFetcher[GetActivityHTTPDefinition.method](insertPathParam(GetActivityHTTPDefinition.path,1,id))
     })
 
   const postStudentOutput = useApiCall<IPostStudentOutput["params"],IPostStudentOutput["response"]>

@@ -11,7 +11,7 @@ export const NavImageContainer = styled.div`
 export const PanelImageContainer = styled.div`
   img {
     height: 200px;
-    border-radius: 50%;
+    border-radius: 100vmax;
   }
   text-align: center;
   padding: 20px;
@@ -55,6 +55,6 @@ export const DrawerContainer = styled.div`
     margin: 0 auto;
     display: inline-block;
     height: 100px;
-    border-radius: 50%;
+    border-radius: 100vmax;
   }
 `;

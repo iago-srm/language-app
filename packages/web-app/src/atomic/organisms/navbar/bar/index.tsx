@@ -4,7 +4,6 @@ import React, {
 } from 'react';
 import { useRouter } from 'next/router'
 import Link from "next/link";
-import Image from 'next/image'
 import MediaQuery, { useMediaQuery } from 'react-responsive';
 import { useLanguage, useColorTheme, useAuth } from '@contexts';
 import {
@@ -13,7 +12,7 @@ import {
   HamburguerButtonContainer,
   BarAuthenticatedSectionContainer,
   DrawerAuthenticatedSectionContainer,
-  LogoImageContainer
+  LogoImageContainer,
 } from './styles';
 import { NavbarButton } from '../buttons';
 import {
@@ -23,6 +22,7 @@ import {
   LanguageSelect 
 } from '@atomic/molecules';
 import { HamburguerButton, DrawerMenu, ModeToggle, Separator } from '@atomic';
+import Image from 'next/image'
 
 export const Navbar = () => {
 
@@ -76,11 +76,11 @@ export const Navbar = () => {
   return (
     <>
       <Container>
-        <BarButtonContainer>
+        <LogoImageContainer>
           <Link href={'/'}>
-            <LogoImageContainer ><Image src='/images/logo.png' width={50} height={50}/></LogoImageContainer>
+            <Image src='/images/logo.png' width={50} height={50}/>
           </Link>
-        </BarButtonContainer>
+        </LogoImageContainer>
         <MediaQuery maxWidth={responsiveBreakpoint}> {/** Small screen */}
           <HamburguerButtonContainer>
             <HamburguerButton open={burguerOpen} onClick={() => setBurguerOpen(open => !open)}/>
