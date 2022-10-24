@@ -1,6 +1,7 @@
 import {
   IProfileImageRepository,
   IUserRepository,
+  IAuthEventQueue
 } from '../ports';
 import {
   UserNotFoundError,
@@ -8,7 +9,6 @@ import {
 import {
   IUseCase
 } from '@language-app/common-platform';
-
 
 type InputParams = {
   file: any;
@@ -21,7 +21,8 @@ export type IUpdateProfileImageUseCase = IUseCase<InputParams, Return>;
 class UseCase implements IUpdateProfileImageUseCase {
   constructor (
     private userRepository: IUserRepository,
-    private profileImageRepository: IProfileImageRepository
+    private profileImageRepository: IProfileImageRepository,
+    private authEventQueue: IAuthEventQueue
   ){}
   async execute({ file, userId }) {
 
@@ -30,8 +31,13 @@ class UseCase implements IUpdateProfileImageUseCase {
     if (!user) throw new UserNotFoundError();
 
     const imageUrl = await this.profileImageRepository.uploadProfileImage(file, userId);
-
+    
     await this.userRepository.updateUser(userId, {
+      image: imageUrl
+    });
+
+    await this.authEventQueue.updateUser({
+      authApiId: user.id,
       image: imageUrl
     });
   }

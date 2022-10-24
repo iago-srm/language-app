@@ -29,7 +29,7 @@ class UseCase implements ISignOutUseCase {
       })
     }
 
-    await this.authEventQueue.signOutUser({
+    await this.authEventQueue.updateUser({
       authApiId: id,
       tokenVersion: newTokenVersion
     });

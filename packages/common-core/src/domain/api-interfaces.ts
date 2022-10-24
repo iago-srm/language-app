@@ -82,10 +82,11 @@ export interface IPostStudentOutput {
   };
   response: {};
 }
-export interface ISignOutUser {
+export interface IUpdateUser {
   params: {
     tokenVersion: number;
     authApiId: string;
+    image: string;
   }
   response: void;
 }

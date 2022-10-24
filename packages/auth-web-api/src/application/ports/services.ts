@@ -25,5 +25,5 @@ export interface IAuthEmailService {
 
 export interface IAuthEventQueue {
   publishNewUser: (args: Partial<UserDTO>) => Promise<any>;
-  signOutUser: (args: { authApiId: string, tokenVersion: string }) => Promise<any>;
+  updateUser: (args: { authApiId: string, tokenVersion?: string, image?: string }) => Promise<any>;
 }

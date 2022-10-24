@@ -1,7 +1,7 @@
 import { IAuthEventQueue } from "@application/ports";
 import { IQueueService } from '@language-app/common-platform';
 import axios from 'axios';
-import { NewUserHTTPDefinition, SignOutUserHTTPDefinition } from '@language-app/common-core';
+import { NewUserHTTPDefinition, DomainUpdateUserHTTPDefinition } from '@language-app/common-core';
 
 export class AuthEventQueue implements IAuthEventQueue {
 
@@ -25,8 +25,7 @@ export class AuthEventQueue implements IAuthEventQueue {
     // } catch(e) {
     //   throw new Error(e.response ? e.response.data.message : e);
     // }
-    // how to select destination endpoint?
-    console.log({ id, role, email })
+
     return this.queueService.sendMessage({
       authApiId: id,
       role,
@@ -38,11 +37,12 @@ export class AuthEventQueue implements IAuthEventQueue {
     
   }
 
-  async signOutUser({ authApiId, tokenVersion }) {
+  async updateUser({ authApiId, tokenVersion, image }) {
     return this.queueService.sendMessage({
       tokenVersion,
-      authApiId
-    }, this._queue_url, SignOutUserHTTPDefinition);
+      authApiId,
+      image
+    }, this._queue_url, DomainUpdateUserHTTPDefinition);
     // try {
     //   await axios[SignOutUserHTTPDefinition.method](`${this._domain_url}/${SignOutUserHTTPDefinition.path}`, { 
     //     tokenVersion,
