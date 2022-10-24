@@ -1,7 +1,7 @@
 import {
   IUpdateUserUseCase
 } from '@application/use-cases';
-import { UpdateUserHTTPDefinition } from '@language-app/common-core';
+import { AuthUpdateUserHTTPDefinition } from '@language-app/common-core';
 import {
   IHTTPController,
   IHTTPControllerDescriptor,
@@ -37,8 +37,7 @@ export const UpdateUserControllerFactory = ({
 
   return {
     controller: fn,
-    method: UpdateUserHTTPDefinition.method,
-    path: UpdateUserHTTPDefinition.path,
+    ...AuthUpdateUserHTTPDefinition,
     middlewares: ['auth']
   };
 };

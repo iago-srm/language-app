@@ -10,7 +10,7 @@ export const GoogleSignUpHTTPDefinition: HTTPDefinition = {
   method: 'post'
 }
 
-export const UpdateUserHTTPDefinition: HTTPDefinition = {
+export const AuthUpdateUserHTTPDefinition: HTTPDefinition = {
   path: 'users',
   method: 'patch'
 }
