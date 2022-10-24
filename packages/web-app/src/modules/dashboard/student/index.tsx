@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import Head from 'next/head'
-import { DashboardButton, Icons } from '@atomic';
+import { Icons } from '@atomic';
+import { DashboardButton } from '../components';
 import { Container, ButtonsContainer } from '../styles.common'
 import { getPageTitle } from '@services/browser';
 import { useLanguage } from '@contexts';

@@ -1,5 +1,4 @@
 export * from './buttons';
-export * from './dashboard-button';
 export * from './drawer-menu';
 export * from './error-loading-data';
 export * from './icons';
@@ -7,7 +6,6 @@ export * from './input';
 export * from './input-icon';
 export * from './frame';
 export * from './layout';
-export * from './mode-toggle';
 export * from './select';
 export * from './selectable-panel';
 export * from './separator';

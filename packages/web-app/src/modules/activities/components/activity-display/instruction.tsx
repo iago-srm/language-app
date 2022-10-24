@@ -1,5 +1,5 @@
 import Accordion from 'react-bootstrap/Accordion';
-import { TopicsColors, CEFRColors, Instruction as InstructionModel } from '@model';
+import { Instruction as InstructionModel } from '@model';
 import { RadioMenu, CheckboxMenu } from '@atomic';
 import styled from 'styled-components';
 

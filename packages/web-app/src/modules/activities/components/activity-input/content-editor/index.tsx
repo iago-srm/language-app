@@ -2,7 +2,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import { getProps } from "./props";
 import { useColorTheme } from "@contexts";
 
-export const CustomEditor = ({ text, onChange }) => {
+export const ContentEditor = ({ text, onChange }) => {
 
   const { theme } = useColorTheme();
   let contenido: string = text || "";

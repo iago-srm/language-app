@@ -19,9 +19,10 @@ import {
   NavbarDropDown
 } from '../user-dropdown';
 import { 
-  LanguageSelect 
-} from '@atomic/molecules';
-import { HamburguerButton, DrawerMenu, ModeToggle, Separator } from '@atomic';
+  LanguageSelect,
+  ModeToggle 
+} from '../../index';
+import { HamburguerButton, DrawerMenu } from '@atomic';
 import Image from 'next/image'
 
 export const Navbar = () => {

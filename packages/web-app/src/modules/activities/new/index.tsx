@@ -13,24 +13,28 @@ import { useLanguage } from '@contexts';
 import { Translations, Labels } from '@locale';
 import { useApiBuilder } from '@services/api';
 import { 
-  TitleInput, 
-  CustomEditor, 
-  TitleAndDetails, 
+  EditableOptions,
+  FormButton,
+} from '@atomic';
+import {
+  Section,
   CEFRSelect,
   TopicsSelect,
+} from '../components';
+import { 
+  VideoIdInput,
+  Description,
   ContentTypeSelectionForm,
   TextContent,
   VideoTimeInput,
   VideoContent,
   InstructionsContainer,
   Instruction,
-  EditableOptions,
   InstructionModal,
-  Section,
-  FormButton,
-  VideoIdInput,
-  Description
-} from '@atomic';
+  TitleInput, 
+  ContentEditor, 
+  TitleAndDetails, 
+} from "../components";
 import { useMediaQuery } from 'react-responsive';
 import {
   Instruction as InstructionModel,
@@ -181,7 +185,7 @@ export const NewActivity = () => {
         {activity.contentType === "TEXT" ? 
           <Section.Content>
             <Section.Left>
-              <CustomEditor 
+              <ContentEditor 
                 text={activity.content.text} 
                 onChange={onChangeTextContent}
               />

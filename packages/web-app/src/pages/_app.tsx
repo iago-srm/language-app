@@ -6,7 +6,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { SessionProvider } from "next-auth/react";
 
-import { LocalStorage } from '@services/browser';
 import {
   AuthProvider,
   LanguageProvider,
@@ -17,7 +16,7 @@ import {
 } from '@styles';
 import {
   Navbar
-} from '@atomic';
+} from '@components';
 
 const App: React.FC<AppProps> = ({
   Component,

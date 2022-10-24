@@ -6,7 +6,8 @@ import {
 } from './styles';
 import { useEffect, useState } from 'react';
 import MediaQuery, { useMediaQuery } from 'react-responsive';
-import { TopicsSelect, CEFRSelect, Input, CheckboxMenu } from '@atomic';
+import { Input, CheckboxMenu } from '@atomic';
+import { TopicsSelect, CEFRSelect } from '../index';
 import { 
   Icons,
   Toggle

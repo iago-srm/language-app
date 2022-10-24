@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import Head from 'next/head'
-import { DashboardButton, Icons } from '@atomic';
+import { Icons } from '@atomic';
+import { DashboardButton } from '../components';
 import { Container, ButtonsContainer } from '../styles.common'
 import { getPageTitle } from '@services/browser';
 import { useLanguage } from '@contexts';
@@ -19,8 +20,6 @@ export const InstructorPage: React.FC = () => {
         <DashboardButton label={"Nova Atividade"} path="/activities/new" icon={<Icons.PLUS/>}/>
         <DashboardButton label={"Minhas Atividades"} path="/activities" query={{ thisInstructorOnly: true }} icon={<Icons.IN_PROGRESS/>}/>
         <DashboardButton label={"Convidar estudante"} path="/invite-student" icon={<Icons.USER_PLUS/>}/>
-        
-
       </ButtonsContainer>
     </Container>
   )

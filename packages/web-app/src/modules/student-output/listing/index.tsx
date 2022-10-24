@@ -8,8 +8,8 @@ import { getPageTitle } from '@services/browser';
 import { useLanguage, useAuth } from '@contexts';
 import { Translations, Labels } from '@locale';
 import { useApiBuilder } from '@services/api';
-import { LoadingErrorData, ActivityFilters as Filters } from '@atomic';
-import { StudentOutputCard } from '@atomic';
+import { LoadingErrorData } from '@atomic';
+import { StudentOutputCard } from '../components';
 
 export const ListingPage: React.FC = () => {
 

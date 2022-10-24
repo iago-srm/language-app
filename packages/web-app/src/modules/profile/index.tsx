@@ -9,12 +9,14 @@ import { getPageTitle } from '@services/browser';
 import { useLanguage, useAuth } from '@contexts';
 import { Translations, Labels } from '@locale';
 import {
-  ProfileImg,
   LoadingErrorData,
-  ProfileImageModal,
   Anchor,
   Toast
 } from '@atomic';
+import {
+  ProfileImageModal,
+  ProfileImg,
+} from './components';
 import { ResponsiveCenteredPageContent } from '@styles';
 
 export const Page: React.FC = () => {

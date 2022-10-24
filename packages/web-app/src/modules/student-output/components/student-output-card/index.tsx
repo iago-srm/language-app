@@ -1,5 +1,5 @@
 import { ActivityCardContainer } from "./styles";
-import { CEFRDisplay } from "../activity-display/cefr";
+import { CEFRDisplay } from "../../../activities/components";
 import { useRouter } from 'next/router';
 import { Tooltip, Icons } from '@atomic';
 

@@ -8,8 +8,8 @@ import { getPageTitle } from '@services/browser';
 import { useLanguage, useAuth } from '@contexts';
 import { Translations, Labels } from '@locale';
 import { useApiBuilder } from '@services/api';
-import { LoadingErrorData, ActivityFilters as Filters } from '@atomic';
-import { ActivityCard } from '@atomic';
+import { LoadingErrorData } from '@atomic';
+import { ActivityCard, ActivityFilters as Filters } from '../components';
 
 export const ActivitiesListing: React.FC = () => {
 

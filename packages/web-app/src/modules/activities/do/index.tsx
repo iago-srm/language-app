@@ -2,26 +2,18 @@ import { useState, useEffect } from 'react';
 import { Container } from './styles';
 import { 
     LoadingErrorData, 
-    CustomEditor, 
-    TitleAndDetails, 
-    CEFRSelect,
-    TopicsSelect,
-    ContentTypeSelectionForm,
-    TextContent,
-    VideoTimeInput,
-    VideoContent,
-    Instruction,
-    InstructionsContainer,
-    EditableOptions,
-    InstructionModal,
-    Section,
     FormButton,
-    VideoIdInput,
-    ActivityCard,
   Toast,
   errorToast,
   successToast
-  } from '@atomic';
+} from '@atomic';
+import {
+    VideoContent,
+    TextContent,
+    Instruction,
+    InstructionsContainer,
+    TitleAndDetails, 
+} from "../components";
 import {
     getLabeledTopics,
     Instruction as InstructionModel

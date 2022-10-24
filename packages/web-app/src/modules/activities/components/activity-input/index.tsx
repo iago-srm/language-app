@@ -5,6 +5,7 @@ import {
     QuestionTooltip
 } from '@atomic';
 export * from './instruction';
+export * from './content-editor';
 
 export const TitleInput = ({ value, onChange }) => {
     return (
