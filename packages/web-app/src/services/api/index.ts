@@ -17,7 +17,7 @@ import {
   GetUserHTTPDefinition,
   IUpdateUserParams,
   IUpdateUserResponse,
-  UpdateUserHTTPDefinition,
+  AuthUpdateUserHTTPDefinition,
   IVerifyAccountParams,
   VerifyAccountHTTPDefinition,
   UpdateProfileImageHTTPDefinition,
@@ -91,7 +91,7 @@ export const useApiBuilder = () => {
     ((args) => authFetcher[SignOutHTTPDefinition.method](SignOutHTTPDefinition.path, args));
 
   const updateUser = useApiCall<IUpdateUserParams,IUpdateUserResponse>
-    ((args) => authFetcher[UpdateUserHTTPDefinition.method](UpdateUserHTTPDefinition.path, args));
+    ((args) => authFetcher[AuthUpdateUserHTTPDefinition.method](AuthUpdateUserHTTPDefinition.path, args));
 
   const verifyAccount = useApiCall<IVerifyAccountParams, void>
     (({token}) => authFetcher[VerifyAccountHTTPDefinition.method](`${VerifyAccountHTTPDefinition.path.split('/')[0]}/${token}`));

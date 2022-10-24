@@ -30,7 +30,7 @@ export const NewUserHTTPDefinition: HTTPDefinition = {
   method: 'post'
 }
 
-export const SignOutUserHTTPDefinition: HTTPDefinition = {
+export const DomainUpdateUserHTTPDefinition: HTTPDefinition = {
   path: 'users',
   method: 'patch'
 }

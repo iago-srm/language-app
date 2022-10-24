@@ -11,4 +11,4 @@ export * from './new-activity-instruction';
 export * from './new-activity';
 export * from './new-student-output';
 export * from './new-user';
-export * from './signout-user';
+export * from './update-user';

@@ -7,7 +7,7 @@ import NewActivityInstructionUseCase, { INewActivityInstructionUseCase } from '.
 import NewActivityUseCase, { INewActivityUseCase } from './new-activity';
 import NewStudentOutputUseCase, { INewStudentOutputUseCase } from './new-student-output';
 import NewUserUseCase, { INewUserUseCase } from './new-user';
-import SignOutUserUseCase, { ISignOutUserUseCase } from './signout-user';
+import UpdateUserUseCase, { IUpdateUserUseCase } from './update-user';
 import NewAssociationInvitationUseCase, { INewAssociationInvitationUseCase } from './insert-association-invitation';
 import GetAssociationInvitationUseCase, { IGetAssociationInvitationUseCase } from './get-association-invitation';
 import AcceptAssociationInvitationUseCase, { IAcceptAssociationInvitationUseCase } from './accept-association-invitation';
@@ -36,8 +36,8 @@ export {
   INewStudentOutputUseCase,
   NewUserUseCase,
   INewUserUseCase,
-  SignOutUserUseCase,
-  ISignOutUserUseCase,
+  UpdateUserUseCase,
+  IUpdateUserUseCase,
   InsertFeedbackToActivityUseCase,
   IInsertFeedbackToActivityUseCase,
   GetAssociationInvitationUseCase,

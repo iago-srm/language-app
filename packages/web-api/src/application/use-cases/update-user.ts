@@ -7,26 +7,28 @@ import {
   
   type InputParams = {
     authApiId: string;
-    tokenVersion: number;
+    tokenVersion?: number;
+    image?: string;
   };
   type Return = void;
   
-  export type ISignOutUserUseCase = IUseCase<InputParams, Return>;
+  export type IUpdateUserUseCase = IUseCase<InputParams, Return>;
   
-  class UseCase implements ISignOutUserUseCase {
+  class UseCase implements IUpdateUserUseCase {
   
     constructor(
       private userRepository: IUserRepository,
     ){}
   
     // new tokenVersion comes from auth API
-    async execute ({ authApiId, tokenVersion }) {
+    async execute ({ authApiId, tokenVersion, image }) {
   
       const user = await this.userRepository.getUserByAuthApiId(authApiId);
       if(!user) throw new Error(`User with authApiId ${authApiId} does not exist`);
   
       await this.userRepository.updateUser({
-        tokenVersion
+        tokenVersion: tokenVersion || undefined,
+        image
       }, authApiId);
     }
   
