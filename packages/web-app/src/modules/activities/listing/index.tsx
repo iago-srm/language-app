@@ -5,18 +5,18 @@ import {
   Container,
 } from './styles';
 import { getPageTitle } from '@services/browser';
-import { useLanguage, useAuth } from '@contexts';
+import { useLanguage,useAuth } from '@contexts';
 import { Translations, Labels } from '@locale';
 import { useApiBuilder } from '@services/api';
 import { LoadingErrorData } from '@atomic';
 import { ActivityCard, ActivityFilters as Filters } from '../components';
+
 
 export const ActivitiesListing: React.FC = () => {
 
   const { language } = useLanguage();
   const { user } = useAuth();
   const { query } = useRouter();
-  // console.log(query)
 
   const [filters, setFilters] = useState({
     cefr: user && user.cefr,
@@ -32,14 +32,15 @@ export const ActivitiesListing: React.FC = () => {
   } = useApiBuilder();
   
   useEffect(() => {
-    refreshActivities();
+    setSize(1);
   }, [filters]);
 
   const {
     data,
     loading,
     error,
-    mutate: refreshActivities
+    setSize,
+    hasNoMore
   } = getActivities({
     ...filters, 
     thisInstructorOnly: query.thisInstructorOnly,
@@ -47,6 +48,7 @@ export const ActivitiesListing: React.FC = () => {
     isInProgress: query.isInProgress,
     topics: `${filters.topics.map(t => t.value)}`,
     cefr: filters.cefr && `${filters.cefr.value}`,
+    pageSize: 2
   });
 
   const clearAllFilters = () => {
@@ -67,14 +69,16 @@ export const ActivitiesListing: React.FC = () => {
       </Head>
       <Filters setFilters={setFilters} filters={filters} clearAll={clearAllFilters}/>
       <LoadingErrorData
-        loading={loading}
+        // loading={loading}
+        loading={false}
         error={error}
-        data={data?.activities?.length}
+        data={!!data?.length}
+        // data={true}
       >
         <LoadingErrorData.NoData>
           <h3>Não há atividades com esses filtros</h3>
         </LoadingErrorData.NoData>
-        {data && data.activities && data.activities.map((activity) => (
+        {data && data.map((activity) => (
           <ActivityCard 
             key={activity.id}
             id={activity.id}
@@ -85,6 +89,10 @@ export const ActivitiesListing: React.FC = () => {
             contentType={activity.contentType}
           />
         ))}
+        <button disabled={hasNoMore} onClick={() => {
+          // setCursor(data.cursor);
+          setSize(size => size + 1)
+        }}>{loading ? "..." : "More results"}</button>
 
       </LoadingErrorData>
     </Container>
