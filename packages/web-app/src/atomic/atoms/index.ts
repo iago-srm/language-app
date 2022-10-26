@@ -1,3 +1,4 @@
+export * from './accordion';
 export * from './buttons';
 export * from './drawer-menu';
 export * from './error-loading-data';
