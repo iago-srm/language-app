@@ -36,6 +36,9 @@ export class ActivityRepository implements IActivityRepository {
     return this.prisma.activity.findMany({
       take: pageSize || this._pageSize,
       ...this._paginate(cursor),
+      orderBy: {
+        createdAt: 'desc'
+      },
       where: {
         AND: [
           { title: { contains: title }},

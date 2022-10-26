@@ -44,7 +44,11 @@ import {
       const token = this.idService.getId();
   
       const existingInvitation = await this.associationInvitationTokenRepository.getTokenByStudentAndInstructorIds(instructor.id, student.id);
-      if(existingInvitation) throw new Error ("An invitation to this student has already been sent.");
+      if(existingInvitation) throw new Error ("An invitation to this student has already been sent by you.");
+
+      //TODO: allow student to dissociate from current instructor
+      const otherInvitationToThisStudent = await this.associationInvitationTokenRepository.getTokenByStudentId(student.id);
+      if(otherInvitationToThisStudent && otherInvitationToThisStudent.accepted) throw new Error("This student is already associated to another instructor. Please ask them to remove that association.");
 
       await this.associationInvitationTokenRepository.insertToken({
         token,
@@ -56,7 +60,7 @@ import {
       await this.invitationEmailService.sendInvitationEmailToStudent({
         destination: studentEmail,
         language,
-        url: `${process.env.WEB_APP_URL}/invitation-association?token=${token}`,
+        url: `${process.env.WEB_APP_URL}/accept-association-invitation/${token}`,
         instructorName: instructor.user.name
       });
   

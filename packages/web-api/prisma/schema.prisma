@@ -48,11 +48,10 @@ model Instructor {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  associationInvitation StudentInstructorAssociationInvitation?
-
   user User @relation(fields: [userId], references: [id])
   userId String @unique
 
+  associationInvitations StudentInstructorAssociationInvitation[]
   activities Activity[]
   students Student[]
 }
@@ -66,7 +65,7 @@ model Student {
 
   outputs StudentOutput[]
   activityList StudentActivityList[]
-  associationInvitation StudentInstructorAssociationInvitation?
+  associationInvitations StudentInstructorAssociationInvitation[]
 
   user User @relation(fields: [userId], references: [id])
   userId String @unique
@@ -81,9 +80,9 @@ model StudentInstructorAssociationInvitation {
   accepted Boolean
 
   student Student @relation(fields: [studentId], references: [id])
-  studentId String @unique
+  studentId String 
   instructor   Instructor @relation(fields: [instructorId], references: [id])
-  instructorId String @unique
+  instructorId String 
 }
 
 model InstructionStudentOutput {

@@ -165,7 +165,7 @@ export const useApiBuilder = () => {
 
   const getStudentOutput = useApiCall<IGetStudentOutput["params"], IGetStudentOutput["response"]>
     (({ id }) => {
-      return domainFetcher[GetStudentOutputHTTPDefinition.method](insertPathParam(GetStudentOutputHTTPDefinition.path,0,id))
+      return domainFetcher[GetStudentOutputHTTPDefinition.method](insertPathParam(GetStudentOutputHTTPDefinition.path,1,id))
     })
 
   const postFeedbackToOutput = useApiCall<IPostFeedbackToOutput["params"], void>
