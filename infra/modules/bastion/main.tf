@@ -29,28 +29,37 @@ resource "aws_security_group" "this" {
   description = "Allow SSH inbound traffic and Prisma dashboard"
   vpc_id      = var.vpc_id
 
-  ingress {
-    description      = "SSH from admin machine"
-    from_port        = 22
-    to_port          = 22
-    protocol         = "tcp"
-    cidr_blocks      = ["${var.allowed_ip}/32"]
+  dynamic "ingress" {
+    for_each = var.allowed_ips
+    content {
+      description      = "SSH from admin machine"
+      from_port        = 22
+      to_port          = 22
+      protocol         = "tcp"
+      cidr_blocks      = ["${ingress.value}/32"]
+    }
   }
 
-  ingress {
-    description      = "Prisma dashboard 1"
-    from_port        = 5555
-    to_port          = 5555
-    protocol         = "tcp"
-    cidr_blocks      = ["${var.allowed_ip}/32"]
+  dynamic "ingress" {
+    for_each = var.allowed_ips
+    content {
+      description      = "Prisma dashboard 1"
+      from_port        = 5555
+      to_port          = 5555
+      protocol         = "tcp"
+      cidr_blocks      = ["${ingress.value}/32"]
+    }
   }
 
-    ingress {
-    description      = "Prisma dashboard 2"
-    from_port        = 5556
-    to_port          = 5556
-    protocol         = "tcp"
-    cidr_blocks      = ["${var.allowed_ip}/32"]
+  dynamic "ingress" {
+    for_each = var.allowed_ips
+    content {
+      description      = "Prisma dashboard 2"
+      from_port        = 5556
+      to_port          = 5556
+      protocol         = "tcp"
+      cidr_blocks      = ["${ingress.value}/32"]
+    }
   }
 
 

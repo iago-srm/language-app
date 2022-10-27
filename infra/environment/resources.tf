@@ -31,7 +31,7 @@ module "bastion" {
   
   tags        = var.tags
   vpc_id = module.vpc.vpc_id
-  allowed_ip = var.admin_ip
+  allowed_ips = var.admin_ips
   db_id = module.db.rds_id
   subnet_id = module.vpc.public_subnet_ids[0]
   key_pair_name = var.key_pair_name
