@@ -19,8 +19,8 @@ export const useApiCallSWR = <R>(key: any, fetcher: (url: string) => Promise<any
   }
 }
 
-export const useApiCallSWRPaginated = <R>(key: any, fetcher: (url: string) => Promise<any>, pageSize: number) => {
-  const { data, error, isValidating, mutate, size, setSize } = useSWRInfinite(key, fetcher, { revalidateOnFocus: false});
+export const useApiCallSWRPaginated = <R>(key: any, fetcher: (url: string) => Promise<any>, pageSize: number, options?: any) => {
+  const { data, error, isValidating, mutate, size, setSize } = useSWRInfinite(key, fetcher, options);
   // console.log({data}) // an array, each position a page. 
   // page has data and cursor. data is an array with items
   return {

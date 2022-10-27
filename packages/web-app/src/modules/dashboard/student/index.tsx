@@ -17,9 +17,25 @@ export const StudentPage: React.FC = () => {
       </Head>
       <h3>Área do Estudante</h3>
       <ButtonsContainer>
-        <DashboardButton label={"Procurar Atividades"} path="/activities" icon={<Icons.SEARCH/>}/>
-        <DashboardButton label={"Atividades em Minha Lista"} path="/activities" query={{ isMyList: true }} icon={<Icons.IN_PROGRESS/>}/>
-        <DashboardButton label={"Atividades Realizadas"} path="/student-outputs" icon={<Icons.CHECK/>}/>
+        <DashboardButton 
+          description={"Browse through all the activities in the platform"}
+          label={"Procurar Atividades"} 
+          path="/activities" 
+          icon={<Icons.SEARCH/>}
+        />
+        <DashboardButton 
+          description={"Browse through the activities you've saved in your list"}
+          label={"Atividades em Minha Lista"} 
+          path="/activities" 
+          query={{ isMyList: true }} 
+          icon={<Icons.IN_PROGRESS/>}
+        />
+        <DashboardButton 
+          description={"See feedback give to activities you've done in the past"}
+          label={"Atividades Realizadas"} 
+          path="/student-outputs" 
+          icon={<Icons.CHECK/>}
+        />
         
       </ButtonsContainer>
     </Container>

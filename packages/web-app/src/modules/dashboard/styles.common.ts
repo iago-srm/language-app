@@ -4,31 +4,24 @@ export const ButtonsContainer = styled.div`
     display: flex;
     margin: 10px auto;
     width: 80%;
-    flex-wrap: wrap;
     justify-content: space-around;
+    flex-direction: column;
     button {
       min-width: 30%;
       margin: 10px;
-    }
-    @media (max-width: 780px) {
-        flex-direction: column;
-        align-items: center;
-        button {
-            min-width: 60%;
-            margin: 20px;
-        }
     }
 `;
 
 export const Container = styled.div`
     width: 100%;
-
     h3 {
         text-align: left;
         padding: 10px;
     }
-
-
+    p.page-description {
+        font-style: italic;
+        padding: 5px 25px;
+    }
 `;
 
 // export const ContainerWhatFor = styled.div`

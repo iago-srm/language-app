@@ -13,7 +13,8 @@ import {
     faHourglassHalf,
     faPlus,
     faList,
-    faUserPlus 
+    faUserPlus,
+    faFolderOpen 
 } from '@fortawesome/free-solid-svg-icons';
 
 export const Icons = {
@@ -61,5 +62,8 @@ export const Icons = {
     ),
     USER_PLUS: () => (
         <FontAwesomeIcon icon={faUserPlus} />
+    ),
+    FOLDER: () => (
+        <FontAwesomeIcon icon={faFolderOpen} />
     )
 }

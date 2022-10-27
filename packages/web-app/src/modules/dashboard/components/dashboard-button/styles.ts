@@ -6,19 +6,38 @@ export const DashboardButtonStyled = styled.button`
     background-color: ${({theme}) => theme.colors.secondary};
     color: ${({theme}) => theme.colors.text};
     a {
-        svg {
-            font-size: 3rem;
-            display: block;
-            margin: 0 auto;
-            padding: 20px;
+        width: 100%;
+
+        .icon-name {
+            display: flex;
+            flex-direction: row;
+            justify-content: start;
+            // display: block;
+            svg {
+                font-size: 3rem;
+                // display: block;
+                // margin: 0 auto;
+                padding: 20px;
+            }
+            .heading-container {
+                display: flex;
+                align-items: center;
+                h3 {
+                    padding: 10px 20px 10px 20px;
+                    margin: 0;
+                    text-align: center;
+                }
+            }
+
         }
-        h3 {
-            padding: 10px 20px 20px 20px;
-            margin: 0;
-            text-align: center;
+        p {
+            // background-color: pink;
+            text-align: start;
+            padding: 5px 25px;
+            font-style: italic;
         }
     }
     ${cardHoverAnimationCss}
-
+    width: 100%;
 
 `;  
