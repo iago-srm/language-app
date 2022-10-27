@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { 
@@ -14,6 +14,7 @@ import { ActivityCard, ActivityFilters as Filters } from '../components';
 
 export const ActivitiesListing: React.FC = () => {
 
+  const listInnerRef = useRef();
   const { language } = useLanguage();
   const { user } = useAuth();
   const { query } = useRouter();
@@ -33,7 +34,7 @@ export const ActivitiesListing: React.FC = () => {
   
   useEffect(() => {
     setSize(1);
-  }, [filters]);
+  }, [filters, query]);
 
   const {
     data,
@@ -48,7 +49,7 @@ export const ActivitiesListing: React.FC = () => {
     isInProgress: query.isInProgress,
     topics: `${filters.topics.map(t => t.value)}`,
     cefr: filters.cefr && `${filters.cefr.value}`,
-    pageSize: 2
+    pageSize: 4
   });
 
   const clearAllFilters = () => {
@@ -62,13 +63,33 @@ export const ActivitiesListing: React.FC = () => {
     });
   };
 
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  })
+
+  const handleScroll = (e) => {
+    // console.log(e)
+    const { scrollTop, scrollHeight, clientHeight, offsetTop } = e.target;
+      console.log(scrollHeight,scrollTop,clientHeight)
+    
+    // if (listInnerRef.current) {
+    //   const { scrollTop, scrollHeight, clientHeight, offsetTop } = listInnerRef.current;
+    //   console.log(scrollHeight,offsetTop,clientHeight)
+    //   if (scrollTop + clientHeight === scrollHeight) {
+    //     // TO SOMETHING HERE
+    //     console.log('Reached bottom')
+    //   }
+    // }
+  }
   return (
-    <Container>
+    <Container onScroll={handleScroll} ref={listInnerRef}>
       <Head>
         <title>{getPageTitle(Translations[language][Labels.DASHBOARD])}</title>
       </Head>
       <Filters setFilters={setFilters} filters={filters} clearAll={clearAllFilters}/>
       <LoadingErrorData
+        
         // loading={loading}
         loading={false}
         error={error}
@@ -89,11 +110,12 @@ export const ActivitiesListing: React.FC = () => {
             contentType={activity.contentType}
           />
         ))}
+        <div className="button-container">
         <button disabled={hasNoMore} onClick={() => {
           // setCursor(data.cursor);
           setSize(size => size + 1)
-        }}>{loading ? "..." : "More results"}</button>
-
+        }}>{loading ? "..." : "Show More"}</button>
+        </div>
       </LoadingErrorData>
     </Container>
   )

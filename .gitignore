@@ -30,6 +30,7 @@ prisma-client/
 generated/
 tinymce.min.js
 tinymce/
+tokens.txt
 
 # terraform
 *.zip
