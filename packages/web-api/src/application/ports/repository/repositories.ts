@@ -25,6 +25,7 @@ export interface IActivityRepository {
   getActivities: (args: IGetActivitiesInput) => Promise<Partial<ActivityDTO>[]>;
   getStudentListActivityIdsByStudentId: (studentId: string) => Promise<number[]>;
   insertActivityIntoStudentList: (studentId: string, activityId: number) => Promise<void>;
+  deleteActivityFromStudentList: (studentId: string, activityId: number) => Promise<void>;
   getActivityById: (id: number) => Promise<ActivityDTO & { instructions: ActivityInstructionDTO[] }>;
   insertActivity: (instructorId: string, activity: ActivityDTO) => Promise<ActivityDTO>;
   // insertNewInstructions: (activityId: number, instructions: ActivityInstructionDTO[]) => Promise<Partial<ActivityInstructionDTO>[]>;

@@ -1,6 +1,7 @@
 import * as awilix from "awilix";
 import {
   AcceptAssociationInvitationUseCase,
+  DeleteActivityFromStudentListUseCase,
   GetActivitiesUseCase,
   GetActivityUseCase,
   GetAssociationInvitationUseCase,
@@ -18,6 +19,7 @@ import {
 } from '@application/use-cases';
 import {
   AcceptAssociationInvitationControllerFactory,
+  DeleteActivityFromStudentListControllerFactory,
   GetActivitiesControllerFactory,
   GetActivityControllerFactory,
   GetAssociationInvitationControllerFactory,
@@ -58,6 +60,7 @@ export const registerDependencies = (container: awilix.AwilixContainer) => {
   container.register({
     // controllers
     "acceptAssociationInvitationController": awilix.asFunction(AcceptAssociationInvitationControllerFactory),
+    "deleteActivityListControllerFactory": awilix.asFunction(DeleteActivityFromStudentListControllerFactory),
     [Dependencies.GETACTIVITIESCONTROLLER]: awilix.asFunction(GetActivitiesControllerFactory),
     "getActivityController": awilix.asFunction(GetActivityControllerFactory),
     "getAssociationInvitationController": awilix.asFunction(GetAssociationInvitationControllerFactory),
@@ -87,13 +90,14 @@ export const registerDependencies = (container: awilix.AwilixContainer) => {
 
     // use cases
     'acceptAssociationInvitationUseCase': awilix.asClass(AcceptAssociationInvitationUseCase).classic(),
+    'insertActivityListUseCase': awilix.asClass(InsertActivityIntoStudentListUseCase).classic(),
     'getActivitiesUseCase': awilix.asClass(GetActivitiesUseCase).classic(),
     'getActivityUseCase': awilix.asClass(GetActivityUseCase).classic(),
     'getAssociationInvitationUseCase': awilix.asClass(GetAssociationInvitationUseCase).classic(),
     'getInstructorStudentsUseCase': awilix.asClass(GetInstructorStudentsUseCase).classic(),
     'getStudentOutputUseCase': awilix.asClass(GetStudentOutputUseCase).classic(),
     'getStudentOutputsUseCase': awilix.asClass(GetStudentOutputsUseCase).classic(),
-    'insertActivityListUseCase': awilix.asClass(InsertActivityIntoStudentListUseCase).classic(),
+    'deleteActivityFromStudentListUseCase': awilix.asClass(DeleteActivityFromStudentListUseCase).classic(),
     'insertAssociationInvitationUseCase': awilix.asClass(NewAssociationInvitationUseCase).classic(),
     'insertFeedbackToActivityUseCase': awilix.asClass(InsertFeedbackToActivityUseCase).classic(),
     'newActivityInstructionUseCase': awilix.asClass(NewActivityInstructionUseCase).classic(),

@@ -189,6 +189,7 @@ model StudentActivityList {
   studentId         String?
   activity   Activity? @relation(fields: [activityId], references: [id])
   activityId Int?
+  @@unique([studentId, activityId])
 }
 //writing "version ActivityVersion" autocompletes the id, the @s and the one-to-many in the other table
 

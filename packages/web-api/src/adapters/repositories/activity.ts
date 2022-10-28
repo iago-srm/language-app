@@ -98,6 +98,15 @@ export class ActivityRepository implements IActivityRepository {
     })
   }
 
+  async deleteActivityFromStudentList(studentId: string, activityId: number) {
+    await this.prisma.studentActivityList.deleteMany({ // only "delete" should work, but it doesn't
+      where: {
+        activityId,
+        studentId
+      }
+    })
+  }
+
   getActivityById(id: number) {
     return this.prisma.activity.findUnique({
       where: {

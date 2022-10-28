@@ -1,3 +1,5 @@
+import AcceptAssociationInvitationUseCase, { IAcceptAssociationInvitationUseCase } from './accept-association-invitation';
+import DeleteActivityFromStudentListUseCase, { IDeleteActivityFromStudentListUseCase } from './delete-activity-from-student-list';
 import GetActivitiesUseCase, { IGetActivitiesUseCase } from './get-activities';
 import GetActivityUseCase, { IGetActivityUseCase } from './get-activity';
 import GetAssociationInvitationUseCase, { IGetAssociationInvitationUseCase } from './get-association-invitation';
@@ -11,12 +13,13 @@ import NewStudentOutputUseCase, { INewStudentOutputUseCase } from './new-student
 import NewUserUseCase, { INewUserUseCase } from './new-user';
 import UpdateUserUseCase, { IUpdateUserUseCase } from './update-user';
 import NewAssociationInvitationUseCase, { INewAssociationInvitationUseCase } from './insert-association-invitation';
-import AcceptAssociationInvitationUseCase, { IAcceptAssociationInvitationUseCase } from './accept-association-invitation';
 import InsertFeedbackToActivityUseCase, { IInsertFeedbackToActivityUseCase } from './insert-feedback-to-activity';
 
 export {
   AcceptAssociationInvitationUseCase,
   IAcceptAssociationInvitationUseCase,
+  DeleteActivityFromStudentListUseCase,
+  IDeleteActivityFromStudentListUseCase,
   GetActivitiesUseCase,
   IGetActivitiesUseCase,
   GetActivityUseCase,

@@ -27,6 +27,9 @@ import {
             throw new Error("Student not found");
         }
 
+        const studentList = await this.activityRepository.getStudentListActivityIdsByStudentId(student.id);
+        if(studentList.includes(activityId)) return; // Idempotency. Or perhaps HTTP 304 would be more appropriate?
+
         await this.activityRepository.insertActivityIntoStudentList(student.id, activityId);
     }
   

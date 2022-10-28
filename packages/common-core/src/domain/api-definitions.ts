@@ -27,7 +27,7 @@ export const InsertActivityIntoStudentListHTTPDefinition: HTTPDefinition = {
 
 export const DeleteActivityFromStudentListHTTPDefinition: HTTPDefinition = {
   path: 'activities/student-lists',
-  method: 'post'
+  method: 'delete'
 }
 
 export const NewUserHTTPDefinition: HTTPDefinition = {

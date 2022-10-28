@@ -1,4 +1,5 @@
 export * from './accept-association-invitation';
+export * from './delete-activity-from-list';
 export * from './get-activities';
 export * from './get-activity';
 export * from './get-association-invitation';
