@@ -26,7 +26,7 @@ export const ListingPage: React.FC = () => {
     data,
     loading,
     error,
-  } = getStudentOutputs();
+  } = getStudentOutputs(query.studentId); // select puts student id in url
 
   return (
     <Container>

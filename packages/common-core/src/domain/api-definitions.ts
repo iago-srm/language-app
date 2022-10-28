@@ -21,7 +21,12 @@ export const NewActivityInstructionHTTPDefinition: HTTPDefinition = {
 }
 
 export const InsertActivityIntoStudentListHTTPDefinition: HTTPDefinition = {
-  path: 'activities/student-list',
+  path: 'activities/student-lists',
+  method: 'post'
+}
+
+export const DeleteActivityFromStudentListHTTPDefinition: HTTPDefinition = {
+  path: 'activities/student-lists',
   method: 'post'
 }
 
@@ -68,4 +73,9 @@ export const GetAssociationInvitationHTTPDefinition: HTTPDefinition = {
 export const EditAssociationInvitationHTTPDefinition: HTTPDefinition = {
   path: 'association-invitation/:token',
   method: 'patch'
+}
+
+export const GetInstructorStudentsHTTPDefinition: HTTPDefinition = {
+  path: 'instructors/students',
+  method: 'get'
 }

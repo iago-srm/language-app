@@ -16,9 +16,11 @@ import {
     const fn: IHTTPController = async (_, __, query, { user }) => {
   
       const {
+        studentId,
         cursor,
         pageSize
       } = controllerSerializer(query, [
+        { name: 'studentId', optional: true }, //comes as query param
         { name: 'cursor', optional: true },
         { name: 'pageSize', optional: true }
       ]);
@@ -33,7 +35,8 @@ import {
           cursor: cursor && Number(cursor),
           pageSize: pageSize && Number(pageSize),
           userId: id,
-          role
+          role,
+          studentId //for instructor roles
         }),
         statusCode: 200,
       };

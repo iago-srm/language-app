@@ -23,7 +23,7 @@ interface IGetActivitiesInput extends IPaginatedParams {
 
 export interface IActivityRepository {
   getActivities: (args: IGetActivitiesInput) => Promise<Partial<ActivityDTO>[]>;
-  getActivityIdsByStudentList: (studentId: string) => Promise<number[]>;
+  getStudentListActivityIdsByStudentId: (studentId: string) => Promise<number[]>;
   insertActivityIntoStudentList: (studentId: string, activityId: number) => Promise<void>;
   getActivityById: (id: number) => Promise<ActivityDTO & { instructions: ActivityInstructionDTO[] }>;
   insertActivity: (instructorId: string, activity: ActivityDTO) => Promise<ActivityDTO>;
@@ -40,7 +40,9 @@ export interface IUserRepository {
 
 export interface IInstructorRepository {
   getInstructorByUserId: (userId: string) => Promise<{ id: string, user: { name: string}}>;
-  getThisInstructorStudentIds: (instructorId: string) => Promise<string[]>;
+  // getThisInstructorStudentIds: (instructorId: string) => Promise<string[]>;
+  getThisInstructorStudents: (instructorId: string) => Promise<{ id: string, name: string}[]>;
+
 }
 
 export interface IStudentRepository {

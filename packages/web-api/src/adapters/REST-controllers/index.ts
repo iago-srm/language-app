@@ -2,6 +2,7 @@ export * from './accept-association-invitation';
 export * from './get-activities';
 export * from './get-activity';
 export * from './get-association-invitation';
+export * from './get-instructor-students';
 export * from './get-student-output';
 export * from './get-student-outputs';
 export * from './insert-activity-list';

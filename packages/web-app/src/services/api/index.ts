@@ -158,9 +158,10 @@ export const useApiBuilder = () => {
       return domainFetcher[PostStudentOutputHTTPDefinition.method](PostStudentOutputHTTPDefinition.path, args)
     })
 
-  const getStudentOutputs = () => useApiCallSWR<IGetStudentOutputs["response"]>
+  const getStudentOutputs = (studentId: string) => useApiCallSWR<IGetStudentOutputs["response"]>
     (tokenHeaderSet && `${GetStudentOutputsHTTPDefinition.path}`, (url) => domainFetcher[GetStudentOutputsHTTPDefinition.method](url, {
-      pageSize: 10
+      pageSize: 10,
+      studentId
     }));
 
   const getStudentOutput = useApiCall<IGetStudentOutput["params"], IGetStudentOutput["response"]>

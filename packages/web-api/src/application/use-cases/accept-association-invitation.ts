@@ -34,7 +34,6 @@ class UseCase implements IAcceptAssociationInvitationUseCase {
     if (!student) throw new Error("There is no student associated to this authorization token");
 
     if(invitationToken.studentId !== student.id) {
-      console.log({ token, student });
       throw new Error("This invitation does not belong to this user");
     }
     await this.associationInvitationTokenRepository.updateToken(invitationToken.id, {

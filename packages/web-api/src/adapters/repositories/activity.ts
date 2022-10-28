@@ -70,7 +70,7 @@ export class ActivityRepository implements IActivityRepository {
     })
   }
 
-  async getActivityIdsByStudentList(studentId: string) {
+  async getStudentListActivityIdsByStudentId(studentId: string) {
     return (await this.prisma.studentActivityList.findMany({
       where: {
         studentId,
