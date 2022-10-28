@@ -26,7 +26,7 @@ export const ListingPage: React.FC = () => {
     data,
     loading,
     error,
-  } = getStudentOutputs();
+  } = getStudentOutputs(query.studentId); // select puts student id in url
 
   return (
     <Container>
@@ -36,12 +36,12 @@ export const ListingPage: React.FC = () => {
       <LoadingErrorData
         loading={loading}
         error={error}
-        data={data?.length}
+        data={data?.data.length}
       >
         <LoadingErrorData.NoData>
           Não foram encontradas atividades realizadas
         </LoadingErrorData.NoData>
-        {data && data.map((output) => (
+        {data && data.data.map((output) => (
           <StudentOutputCard 
             key={output.id}
             id={output.id}

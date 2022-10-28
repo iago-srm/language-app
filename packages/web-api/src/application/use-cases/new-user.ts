@@ -38,6 +38,9 @@ class UseCase implements INewUserUseCase {
       image
     };
 
+    const existingUser = await this.userRepository.getUserByAuthApiId(authApiId);
+    if(existingUser) throw new Error("User with that authApiId already exists");
+    
     if(role === 'STUDENT') 
       await this.userRepository.insertUserAndStudent(newUser, authApiId);
     else await this.userRepository.insertUserAndInstructor(newUser, authApiId);

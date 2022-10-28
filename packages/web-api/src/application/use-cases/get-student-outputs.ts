@@ -14,6 +14,7 @@ import {
   interface InputParams extends IPaginatedParams{
     userId: string;
     role: string;
+    studentId?: string;
   };
   interface Return extends IPaginatedResponse<(Partial<StudentOutputDTO> & Partial<ActivityDTO>)> {}
   
@@ -27,7 +28,7 @@ import {
       private studentRepository: IStudentRepository
     ){}
   
-    async execute ({ userId, role, cursor, pageSize }) {
+    async execute ({ userId, role, cursor, pageSize, studentId }) {
 
       let studentOutputs;
 
@@ -41,14 +42,12 @@ import {
           pageSize
         });
       } else {
-        const instructor = await this.instructorRepository.getInstructorByUserId(userId);
-        if(!instructor) throw new Error("Instructor not found");
+        // const instructor = await this.instructorRepository.getInstructorByUserId(userId);
+        // if(!instructor) throw new Error("Instructor not found");
 
-        const studentIds = await this.instructorRepository.getThisInstructorStudentIds(instructor.id);
-        // console.log({studentIds});
-
+        // allow any instructor to see any output
         studentOutputs = await this.studentOutputRepository.getStudentOutputsByStudentIds({
-          studentIds, 
+          studentIds: [studentId], 
           cursor,
           pageSize
         });

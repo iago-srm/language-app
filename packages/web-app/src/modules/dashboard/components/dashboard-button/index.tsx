@@ -7,14 +7,18 @@ interface DashboardButton {
     icon: any;
     label: string;
     query?: {[k: string]: any};
+    description: string;
 }
-export const DashboardButton = ({ path, icon, label, query }: DashboardButton) => {
+export const DashboardButton = ({ path, icon, label, query, description }: DashboardButton) => {
     return (
         <DashboardButtonStyled>
             <Link href={{ pathname: path, query}}>
                 <a>
-                    {icon}
-                    <Heading level={3} fontWeight="bold">{label}</Heading>
+                    <div className="icon-name">
+                        {icon}
+                        <div className="heading-container"><Heading level={3} fontWeight="bold">{label}</Heading></div>
+                    </div>
+                    <p>{description}</p>
                 </a>
             </Link>
         </DashboardButtonStyled>

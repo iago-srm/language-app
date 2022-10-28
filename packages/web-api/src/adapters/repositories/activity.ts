@@ -36,6 +36,9 @@ export class ActivityRepository implements IActivityRepository {
     return this.prisma.activity.findMany({
       take: pageSize || this._pageSize,
       ...this._paginate(cursor),
+      orderBy: {
+        createdAt: 'desc'
+      },
       where: {
         AND: [
           { title: { contains: title }},
@@ -67,7 +70,7 @@ export class ActivityRepository implements IActivityRepository {
     })
   }
 
-  async getActivityIdsByStudentList(studentId: string) {
+  async getStudentListActivityIdsByStudentId(studentId: string) {
     return (await this.prisma.studentActivityList.findMany({
       where: {
         studentId,
@@ -91,6 +94,15 @@ export class ActivityRepository implements IActivityRepository {
             id: activityId
           }
         }
+      }
+    })
+  }
+
+  async deleteActivityFromStudentList(studentId: string, activityId: number) {
+    await this.prisma.studentActivityList.deleteMany({ // only "delete" should work, but it doesn't
+      where: {
+        activityId,
+        studentId
       }
     })
   }

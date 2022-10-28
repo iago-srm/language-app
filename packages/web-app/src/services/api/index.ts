@@ -1,6 +1,7 @@
 import {
   useApiCall,
   useApiCallSWR,
+  useApiCallSWRPaginated
 } from './hooks';
 import {
   AxiosFetcher
@@ -107,16 +108,30 @@ export const useApiBuilder = () => {
   const resetPassword = useApiCall<IResetPasswordParams,IResetPasswordResponse>
     ((args) => authFetcher[ResetPasswordHTTPDefinition.method](ResetPasswordHTTPDefinition.path, args));
 
+  const getKey = (pageIndex, previousPageData) => {
+
+    // dont allow unauthenticated queries
+    if(!tokenHeaderSet) return null;
+
+    // reached the end
+    if (previousPageData && !previousPageData.data.length) return null
+  
+    const cursor = previousPageData && previousPageData.cursor
+    const url = cursor ? `${GetActivitiesHTTPDefinition.path}?cursor=${cursor}` : GetActivitiesHTTPDefinition.path;
+    return url;
+  }
+
   const getActivities = ({ 
     title, 
+    pageSize,
     cefr, 
     topics,
     contentTypes,
     isInProgress,
     isComplete,
     thisInstructorOnly
-  }) => useApiCallSWR<IGetActivities["response"]>(
-    tokenHeaderSet && `${GetActivitiesHTTPDefinition.path}`, 
+  }) => useApiCallSWRPaginated<IGetActivities["response"]>(
+    getKey, 
     (url) => domainFetcher[GetActivitiesHTTPDefinition.method].bind(domainFetcher)(url, {
       title,
       cefr,
@@ -124,8 +139,10 @@ export const useApiBuilder = () => {
       contentTypes: `${contentTypes}`, // turns array into ITEM,ITEM format,
       isInProgress,
       isComplete,
-      thisInstructorOnly
-    })
+      thisInstructorOnly,
+      pageSize,
+    }),
+    pageSize
   );
 
   const postActivity = useApiCall<IPostActivity["params"], IPostActivity["response"]>
@@ -141,12 +158,15 @@ export const useApiBuilder = () => {
       return domainFetcher[PostStudentOutputHTTPDefinition.method](PostStudentOutputHTTPDefinition.path, args)
     })
 
-  const getStudentOutputs = () => useApiCallSWR<IGetStudentOutputs["response"]>
-    (tokenHeaderSet && `${GetStudentOutputsHTTPDefinition.path}`, (url) => domainFetcher[GetStudentOutputsHTTPDefinition.method](url));
+  const getStudentOutputs = (studentId: string) => useApiCallSWR<IGetStudentOutputs["response"]>
+    (tokenHeaderSet && `${GetStudentOutputsHTTPDefinition.path}`, (url) => domainFetcher[GetStudentOutputsHTTPDefinition.method](url, {
+      pageSize: 10,
+      studentId
+    }));
 
   const getStudentOutput = useApiCall<IGetStudentOutput["params"], IGetStudentOutput["response"]>
     (({ id }) => {
-      return domainFetcher[GetStudentOutputHTTPDefinition.method](insertPathParam(GetStudentOutputHTTPDefinition.path,0,id))
+      return domainFetcher[GetStudentOutputHTTPDefinition.method](insertPathParam(GetStudentOutputHTTPDefinition.path,1,id))
     })
 
   const postFeedbackToOutput = useApiCall<IPostFeedbackToOutput["params"], void>
@@ -182,7 +202,8 @@ export const useApiBuilder = () => {
     postFeedbackToOutput,
     inviteStudent,
     getAssociationInvitation,
-    acceptAssociationInvitation
+    acceptAssociationInvitation,
+    domainFetcher
   }
 }
 

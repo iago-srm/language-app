@@ -10,8 +10,8 @@ variable "db_id" {
   type = string
 }
 
-variable "allowed_ip" {
-  type = string
+variable "allowed_ips" {
+  type = list(string)
 }
 
 variable "key_pair_name" {

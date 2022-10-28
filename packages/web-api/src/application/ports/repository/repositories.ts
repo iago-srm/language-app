@@ -23,8 +23,9 @@ interface IGetActivitiesInput extends IPaginatedParams {
 
 export interface IActivityRepository {
   getActivities: (args: IGetActivitiesInput) => Promise<Partial<ActivityDTO>[]>;
-  getActivityIdsByStudentList: (studentId: string) => Promise<number[]>;
+  getStudentListActivityIdsByStudentId: (studentId: string) => Promise<number[]>;
   insertActivityIntoStudentList: (studentId: string, activityId: number) => Promise<void>;
+  deleteActivityFromStudentList: (studentId: string, activityId: number) => Promise<void>;
   getActivityById: (id: number) => Promise<ActivityDTO & { instructions: ActivityInstructionDTO[] }>;
   insertActivity: (instructorId: string, activity: ActivityDTO) => Promise<ActivityDTO>;
   // insertNewInstructions: (activityId: number, instructions: ActivityInstructionDTO[]) => Promise<Partial<ActivityInstructionDTO>[]>;
@@ -40,7 +41,9 @@ export interface IUserRepository {
 
 export interface IInstructorRepository {
   getInstructorByUserId: (userId: string) => Promise<{ id: string, user: { name: string}}>;
-  getThisInstructorStudentIds: (instructorId: string) => Promise<string[]>;
+  // getThisInstructorStudentIds: (instructorId: string) => Promise<string[]>;
+  getThisInstructorStudents: (instructorId: string) => Promise<{ id: string, name: string}[]>;
+
 }
 
 export interface IStudentRepository {
@@ -65,5 +68,8 @@ export interface IAssociationInvitationRepository {
   getInstructorByTokenValue: (token: string) => Promise<Partial<InstructorDTO>>;
   insertToken: (token: AssociationInvitationTokenDTO) => Promise<AssociationInvitationTokenDTO>;
   updateToken: (tokenId: string, data: Partial<AssociationInvitationTokenDTO>) => Promise<AssociationInvitationTokenDTO>;
-  getTokenByStudentAndInstructorIds: (instructorId: string, studentId: string) => Promise<any>;
+  getTokenByStudentAndInstructorIds: (instructorId: string, studentId: string) => Promise<AssociationInvitationTokenDTO>;
+  getTokenByStudentId: (instructorId: string) => Promise<AssociationInvitationTokenDTO>;
+  removeAssociationByStudentId: (studentId: string) => Promise<any>;
+
 }

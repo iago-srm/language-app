@@ -27,19 +27,39 @@ import {
         })
     };
 
-    async getThisInstructorStudentIds (instructorId: string) {
-      return (await this.prisma.instructor.findUnique({
-        where: {
-          id: instructorId
-        },
-        include: {
-          students: {
-            select: {
-              id: true,
-            }
+    // async getThisInstructorStudentIds (instructorId: string) {
+    //   return (await this.prisma.instructor.findUnique({
+    //     where: {
+    //       id: instructorId
+    //     },
+    //     include: {
+    //       students: {
+    //         select: {
+    //           id: true,
+    //         }
+    //       }
+    //     }
+    //   })).students.map(std => std.id)
+    // }
+  
+
+  async getThisInstructorStudents (instructorId: string) {
+    return (await this.prisma.instructor.findUnique({
+      where: {
+        id: instructorId
+      },
+      include: {
+        students: {
+          include: {
+            user: {
+              select: {
+                name: true
+              }
+            },
           }
         }
-      })).students.map(std => std.id)
-    }
+      }
+    })).students.map(std => ({ id: std.id, name: std.user.name }))
   }
+}
   

@@ -21,16 +21,21 @@ import {
         { name: 'id' }, 
       ]);
   
-    //   const { id: userId, role } = user;
-    const id = Number(stringId);
-      if(isNaN(id)) throw new Error("activity id must be a number")
-      return {
-        response: await getActivityUseCase.execute({
-          id,
-        }),
-        statusCode: 200,
-      };
+    const { id: userId, role } = user;
+
+    const activityId = Number(stringId);
+
+    if(isNaN(activityId)) throw new Error("activity id must be a number");
+
+    return {
+      response: await getActivityUseCase.execute({
+        activityId,
+        userId,
+        role
+      }),
+      statusCode: 200,
     };
+  };
   
     return {
       controller: fn,

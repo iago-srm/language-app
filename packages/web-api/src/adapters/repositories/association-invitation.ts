@@ -71,5 +71,21 @@ import { PrismaClient } from '@prisma-client';
         }
       })
     }
+
+    getTokenByStudentId(studentId: string) {
+      return this.prisma.studentInstructorAssociationInvitation.findFirst({
+        where: {
+          studentId
+        }
+      })
+    }
+
+    removeAssociationByStudentId(studentId: string) {
+      return this.prisma.studentInstructorAssociationInvitation.deleteMany({
+        where: {
+          studentId
+        }
+      })
+    }
   }
   

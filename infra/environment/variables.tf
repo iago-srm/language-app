@@ -13,8 +13,8 @@ variable "key_pair_name" {
   type = string
 }
 
-variable "admin_ip" {
-  type = string
+variable "admin_ips" {
+  type = list(string)
 }
 
 variable "domain_name" {

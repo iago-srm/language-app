@@ -1,13 +1,16 @@
 import {
   ActivityDTO,
   IActivityRepository,
+  IStudentRepository,
 } from '../ports';
 import {
   IUseCase
 } from '@language-app/common-platform';
 
 type InputParams = {
-  id: number;
+  activityId: number;
+  userId: string;
+  role: string;
 };
 type Return = { activity: Partial<ActivityDTO> };
 
@@ -16,13 +19,31 @@ export type IGetActivityUseCase = IUseCase<InputParams, Return>;
 class UseCase implements IGetActivityUseCase {
 
   constructor(
+    private studentRepository: IStudentRepository,
     private activityRepository: IActivityRepository
   ){}
 
-  async execute ({ id }) {
+  async execute ({ activityId, userId, role }) {
 
+    const activity = await this.activityRepository.getActivityById(activityId)
+
+    if(role === "STUDENT") {
+      const student = await this.studentRepository.getStudentByUserId(userId);
+      const studentActivitiesList = await this.activityRepository.getStudentListActivityIdsByStudentId(student.id);
+      if(studentActivitiesList.includes(activityId)) {
+        return {
+          activity: {
+            ...activity,
+            isMyList: true
+          }
+        }
+      }
+    }
     return {
-      activity: await this.activityRepository.getActivityById(id)
+      activity: {
+        ...activity,
+        isMyList: false
+      }
     }
 
   }

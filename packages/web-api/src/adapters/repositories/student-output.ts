@@ -57,6 +57,9 @@ import {
       return this.prisma.studentOutput.findMany({
         take: pageSize || this._pageSize,
         ...this._paginate(cursor),
+        orderBy: {
+          createdAt: 'desc'
+        },
         where: {
           studentId: { in: studentIds }
         }, 
