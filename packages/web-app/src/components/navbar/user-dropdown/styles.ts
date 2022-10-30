@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const NavImageContainer = styled.div`
   height: 100%;
@@ -22,7 +22,7 @@ export const PanelNameContainer = styled.div`
 `;
 
 export const DropdownMenuContainer = styled.div`
-  color: ${({theme}) => theme.colors.text};
+  color: ${({ theme }) => theme.colors.text};
   button {
     padding: 0;
   }
@@ -38,13 +38,12 @@ export const DropdownMenuContainer = styled.div`
     padding: 0.25rem 1rem;
     display: inline-block;
     width: 100%;
-    color: ${({theme}) => theme.colors.text};
+    color: ${({ theme }) => theme.colors.text};
     &:hover {
-      background-color: ${({theme}) => theme.colors.secondary};
-      color: ${({theme}) => theme.colors.accent};
+      background-color: ${({ theme }) => theme.colors.secondary};
+      color: ${({ theme }) => theme.colors.accent};
     }
   }
-
 `;
 
 export const DrawerContainer = styled.div`

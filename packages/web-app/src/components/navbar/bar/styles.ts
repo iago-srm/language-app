@@ -1,14 +1,14 @@
-import styled from 'styled-components';
-import { FlexCentered } from '@styles';
+import styled from "styled-components";
+import { FlexCentered } from "@styles";
 
 export const Container = styled.nav`
   width: 100%;
-  background-color: ${p => p.theme.colors.primary};
+  background-color: ${(p) => p.theme.colors.primary};
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   height: 10vh;
-  border-bottom: 3px solid ${p => p.theme.colors.accent};
+  border-bottom: 3px solid ${(p) => p.theme.colors.accent};
 `;
 
 export const BarButtonContainer = styled(FlexCentered)`
@@ -31,11 +31,7 @@ export const DrawerButtonContainer = styled(FlexCentered)`
   margin: 0 5px;
 `;
 
-
-export const DrawerButtonStyled = styled.div`
-`;
-
-
+export const DrawerButtonStyled = styled.div``;
 
 export const HamburguerButtonContainer = styled(FlexCentered)`
   width: 55px;
@@ -51,4 +47,3 @@ export const LogoImageContainer = styled(FlexCentered)`
     cursor: pointer;
   }
 `;
-

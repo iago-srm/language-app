@@ -1,41 +1,40 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from "react";
 
-import { Languages } from '@language-app/common-utils';
+import { Languages } from "@language-app/common-utils";
 
-import { LocalStorage } from '@services/browser';
+import { LocalStorage } from "@services/browser";
 
 const initialState = {
-  language: 'pt',
-  setLanguage: (language: string) => {}
-}
+  language: "pt",
+  setLanguage: (language: string) => {},
+};
 
 const localStorage = new LocalStorage();
 
-const LanguageContext = React.createContext(initialState)
+const LanguageContext = React.createContext(initialState);
 
-export function LanguageProvider({children}) {
-
+export function LanguageProvider({ children }) {
   const [language, setLang] = React.useState<string>(initialState.language);
 
   const setLanguage = (language: string) => {
-    if(Languages.includes(language)) {
+    if (Languages.includes(language)) {
       setLang(language);
       localStorage.setLanguage(language);
     }
-  }
+  };
 
   useEffect(() => {
     const storedLanguage = localStorage.getLanguage();
-    if(storedLanguage) setLang(storedLanguage);
+    if (storedLanguage) setLang(storedLanguage);
   }, []);
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage }}>
       {children}
     </LanguageContext.Provider>
-  )
+  );
 }
 
 export const useLanguage = () => {
   return useContext(LanguageContext);
-}
+};

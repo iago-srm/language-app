@@ -1,1 +1,1 @@
-export { AxiosFetcher } from './axios';
+export { AxiosFetcher } from "./axios";

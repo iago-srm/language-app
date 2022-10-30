@@ -1,3 +1,3 @@
-export * from './anchor';
-export * from './headings';
-export * from './p';
+export * from "./anchor";
+export * from "./headings";
+export * from "./p";

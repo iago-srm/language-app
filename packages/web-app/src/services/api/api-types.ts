@@ -1,4 +1,4 @@
-import { UseApiCallResponse } from './hooks';
+import { UseApiCallResponse } from "./hooks";
 import {
   ISignUpAPIParams,
   ISignUpAPIResponse,
@@ -8,11 +8,17 @@ import {
   ISignOutAPIResponse,
   IGetUserAPIParams,
   IGetUserAPIResponse,
-} from '@language-app/common-core';
+} from "@language-app/common-core";
 
 export type SignIn = UseApiCallResponse<ISignInAPIParams, ISignInAPIResponse>;
 export type SignUp = UseApiCallResponse<ISignUpAPIParams, ISignUpAPIResponse>;
-export type SignOut = UseApiCallResponse<ISignOutAPIParams, ISignOutAPIResponse>;
-export type GetUser = UseApiCallResponse<IGetUserAPIParams, IGetUserAPIResponse>;
+export type SignOut = UseApiCallResponse<
+  ISignOutAPIParams,
+  ISignOutAPIResponse
+>;
+export type GetUser = UseApiCallResponse<
+  IGetUserAPIParams,
+  IGetUserAPIResponse
+>;
 
-// export type GetActivities = 
+// export type GetActivities =

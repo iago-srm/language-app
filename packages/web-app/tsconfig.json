@@ -1,11 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -16,7 +12,7 @@
     "jsx": "preserve",
     "baseUrl": "./src/",
     "paths": {
-      "@utils": [ "utils/index.ts" ],
+      "@utils": ["utils/index.ts"],
       "@components": ["components/index.ts"],
       "@locale": ["locale/index.ts"],
       "@contexts": ["contexts/index.ts"],
@@ -33,12 +29,6 @@
     "strict": false,
     "incremental": true
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }

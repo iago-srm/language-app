@@ -1,9 +1,9 @@
 /* eslint @typescript-eslint/no-empty-interface: "off" */
 
-import 'styled-components'
+import "styled-components";
 
-import { Theme } from '../contexts/color-mode-theme/types'
+import { Theme } from "../contexts/color-mode-theme/types";
 
-declare module 'styled-components' {
+declare module "styled-components" {
   export interface DefaultTheme extends Theme {}
 }

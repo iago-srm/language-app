@@ -1,27 +1,27 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const ButtonsContainer = styled.div`
-    display: flex;
-    margin: 10px auto;
-    width: 80%;
-    justify-content: space-around;
-    flex-direction: column;
-    button {
-      min-width: 30%;
-      margin: 10px;
-    }
+  display: flex;
+  margin: 10px auto;
+  width: 80%;
+  justify-content: space-around;
+  flex-direction: column;
+  button {
+    min-width: 30%;
+    margin: 10px;
+  }
 `;
 
 export const Container = styled.div`
-    width: 100%;
-    h3 {
-        text-align: left;
-        padding: 10px;
-    }
-    p.page-description {
-        font-style: italic;
-        padding: 5px 25px;
-    }
+  width: 100%;
+  h3 {
+    text-align: left;
+    padding: 10px;
+  }
+  p.page-description {
+    font-style: italic;
+    padding: 5px 25px;
+  }
 `;
 
 // export const ContainerWhatFor = styled.div`

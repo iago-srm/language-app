@@ -1,24 +1,24 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-export const Separator = styled.div<{margins?: string}>`
+export const Separator = styled.div<{ margins?: string }>`
   display: flex;
   align-items: center;
   text-align: center;
   width: 80%;
-  margin: 10px ${({margins}) => margins ? margins : "10%"};
+  margin: 10px ${({ margins }) => (margins ? margins : "10%")};
 
   :before,
   :after {
-    content: '';
+    content: "";
     flex: 1;
-    border-bottom: 1px solid ${({theme}) => theme.colors.accent};
+    border-bottom: 1px solid ${({ theme }) => theme.colors.accent};
   }
 
   :not(:empty)::before {
-    margin-right: .25em;
+    margin-right: 0.25em;
   }
 
   :not(:empty)::after {
-    margin-left: .25em;
+    margin-left: 0.25em;
   }
 `;

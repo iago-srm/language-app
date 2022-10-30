@@ -1,7 +1,4 @@
-import styled from 'styled-components';
-import { PageContainer } from '@styles';
+import styled from "styled-components";
+import { PageContainer } from "@styles";
 
-export const Container = styled.div`
-
-`
-
+export const Container = styled.div``;
