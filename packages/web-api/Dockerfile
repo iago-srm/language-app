@@ -21,5 +21,5 @@ RUN npm run build
 
 # EXPOSE 3006
 
-ENTRYPOINT ["tail", "-f", "/dev/null"]
-# ENTRYPOINT ["npm", "run", "dev"]
+# ENTRYPOINT ["tail", "-f", "/dev/null"]
+ENTRYPOINT ["npm", "run", "dev"]
