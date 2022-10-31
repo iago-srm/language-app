@@ -14,7 +14,10 @@ inline_policy {
         },
       ]
     })
+    
   }
+
+  
 
   assume_role_policy = <<EOF
 {
@@ -41,6 +44,25 @@ resource "aws_iam_role_policy_attachment" "ecs-task-execution-role-policy-attach
 resource "aws_iam_role" "ecs_task_role" {
   name = "${var.server-name}-ecsTaskRole"
 
+inline_policy {
+    name = "allow_execute_command"
+
+    policy = jsonencode({
+      Version = "2012-10-17"
+      Statement = [
+        {
+          Action   = [ "ssmmessages:CreateControlChannel",            
+      "ssmmessages:CreateDataChannel",            
+      "ssmmessages:OpenControlChannel",            
+      "ssmmessages:OpenDataChannel"  ]
+          Effect   = "Allow"
+          Resource = "*"
+        },
+      ]
+    })
+    
+  }
+  
   assume_role_policy = <<EOF
 {
  "Version": "2012-10-17",

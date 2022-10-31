@@ -17,8 +17,6 @@ resource "aws_ecs_task_definition" "this" {
         { "Name" = "WEB_APP_URL", "Value" = "isrm.link" },
         { "Name" = "PORT", "Value" = "${var.container_port}" },
         { "Name" = "SENDGRID_API_KEY", "Value" = "${var.env_sendgrid_api_key}" },
-        { "Name" = "AWS_ACCESS_KEY_ID", "Value" = "${var.aws_access_key_id}" },  
-        { "Name" = "AWS_SECRET_ACCESS_KEY", "Value" = "${var.aws_secret_access_key}" },  
         { "Name" = "QUEUE_URL", "Value" = "${var.env_queue_url}" },  
       ]
       logConfiguration = {
@@ -90,6 +88,7 @@ resource "aws_ecs_service" "this" {
   deployment_minimum_healthy_percent = 50
   deployment_maximum_percent         = 200
   scheduling_strategy                = "REPLICA"
+  enable_execute_command = true
   
   network_configuration {
     security_groups  = [aws_security_group.ecs_security_group.id]

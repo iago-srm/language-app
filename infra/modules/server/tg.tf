@@ -7,10 +7,10 @@ resource "aws_alb_target_group" "this" {
 
   health_check {
     healthy_threshold   = "2"
-    interval            = "10"
+    # interval            = "30"
     protocol            = "HTTP"
     matcher             = "200"
-    timeout             = "3"
+    timeout             = "20"
     path                = "/"
     unhealthy_threshold = "2"
   }
