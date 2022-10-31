@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import Head from 'next/head';
-import { ResponsiveCenteredPageContent } from '@styles';
+import React, { useEffect, useState } from "react";
+import Head from "next/head";
+import { ResponsiveCenteredPageContent } from "@styles";
 
-import { Container as PageContainer } from './styles'
-import { getPageTitle } from '@services/browser';
-import { useLanguage } from '@contexts';
-import { Translations, Labels } from '@locale';
+import { Container as PageContainer } from "./styles";
+import { getPageTitle } from "@services/browser";
+import { useLanguage } from "@contexts";
+import { Translations, Labels } from "@locale";
 import {
   Button,
   Container,
@@ -13,16 +13,15 @@ import {
   Col,
   ErrorAlert,
   SuccessAlert,
-  AlertLink
-} from '@atomic';
-import { useApiBuilder } from 'services/api';
+  AlertLink,
+} from "@atomic";
+import { useApiBuilder } from "services/api";
 
 interface IVerifyAccountProps {
   verificationToken: string;
 }
 
 export const Page: React.FC<IVerifyAccountProps> = ({ verificationToken }) => {
-
   const { language } = useLanguage();
   const { verifyAccount } = useApiBuilder();
   const [error, setError] = useState<string>();
@@ -33,7 +32,7 @@ export const Page: React.FC<IVerifyAccountProps> = ({ verificationToken }) => {
       const { error } = await verifyAccount.apiCall({
         token: verificationToken,
       });
-      if(error) setError(error.message);
+      if (error) setError(error.message);
       else setSuccess(true);
     };
     fetch();
@@ -42,13 +41,24 @@ export const Page: React.FC<IVerifyAccountProps> = ({ verificationToken }) => {
   return (
     <PageContainer>
       <Head>
-        <title>{getPageTitle(Translations[language][Labels.VERIFYACCOUNT])}</title>
+        <title>
+          {getPageTitle(Translations[language][Labels.VERIFYACCOUNT])}
+        </title>
       </Head>
-        <ResponsiveCenteredPageContent>
-          <SuccessAlert dismissible={false} response={success && <p>Conta verificada com sucesso! <AlertLink href='/signin'>Entrar</AlertLink></p>}/>
-          <ErrorAlert dismissible={false} error={error}/>
-        </ResponsiveCenteredPageContent>
+      <ResponsiveCenteredPageContent>
+        <SuccessAlert
+          dismissible={false}
+          response={
+            success && (
+              <p>
+                Conta verificada com sucesso!{" "}
+                <AlertLink href="/signin">Entrar</AlertLink>
+              </p>
+            )
+          }
+        />
+        <ErrorAlert dismissible={false} error={error} />
+      </ResponsiveCenteredPageContent>
     </PageContainer>
-  )
-}
-
+  );
+};

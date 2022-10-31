@@ -1,12 +1,9 @@
-import BootstrapAlert from 'react-bootstrap/Alert';
-import { getChildrenOnDisplayName } from 'atomic/utils';
-import {
-  P,
-  Heading as TypographyHeading
-} from '@atomic/atoms';
+import BootstrapAlert from "react-bootstrap/Alert";
+import { getChildrenOnDisplayName } from "atomic/utils";
+import { P, Heading as TypographyHeading } from "@atomic/atoms";
 import { useColorTheme } from "@contexts";
 
-type Variant = 'success' | 'danger';
+type Variant = "success" | "danger";
 
 export interface AlertProps {
   variant?: Variant;
@@ -23,34 +20,35 @@ export const Alert: React.FC<AlertProps> & SubComponents = ({
   onClose,
   children,
   variant,
-  dismissible
+  dismissible,
 }) => {
-
   const { theme } = useColorTheme();
 
-  const heading = getChildrenOnDisplayName(children, 'Heading');
-  const content = getChildrenOnDisplayName(children, 'Content');
+  const heading = getChildrenOnDisplayName(children, "Heading");
+  const content = getChildrenOnDisplayName(children, "Content");
 
   return (
-    <BootstrapAlert  dismissible={dismissible} variant={variant} onClose={onClose}>
+    <BootstrapAlert
+      dismissible={dismissible}
+      variant={variant}
+      onClose={onClose}
+    >
       <BootstrapAlert.Heading>
-        <TypographyHeading level={3} >
-          {heading}
-        </TypographyHeading>
+        <TypographyHeading level={3}>{heading}</TypographyHeading>
       </BootstrapAlert.Heading>
-      <P fontWeight='light'>
-        {content}
-      </P>
+      <P fontWeight="light">{content}</P>
     </BootstrapAlert>
   );
-}
+};
 
-const Heading = ({children}) => children;
-Heading.displayName = 'Heading';
+const Heading = ({ children }) => children;
+Heading.displayName = "Heading";
 Alert.Heading = Heading;
 
-const Content = ({children}) => children;
-Content.displayName = 'Content';
+const Content = ({ children }) => children;
+Content.displayName = "Content";
 Alert.Content = Content;
 
-export const AlertLink = ({ children, ...rest }) => <BootstrapAlert.Link {...rest}>{children}</BootstrapAlert.Link>
+export const AlertLink = ({ children, ...rest }) => (
+  <BootstrapAlert.Link {...rest}>{children}</BootstrapAlert.Link>
+);

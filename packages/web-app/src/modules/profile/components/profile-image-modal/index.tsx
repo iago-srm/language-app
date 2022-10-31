@@ -1,8 +1,8 @@
-import { useState, useCallback, useEffect } from 'react';
-import { Modal, FormButton, Toast, successToast, errorToast } from '@atomic';
-import styled from 'styled-components';
-import { useApiBuilder } from '@services/api';
-import { useAuth } from '@contexts';
+import { useState, useCallback, useEffect } from "react";
+import { Modal, FormButton, Toast, successToast, errorToast } from "@atomic";
+import styled from "styled-components";
+import { useApiBuilder } from "@services/api";
+import { useAuth } from "@contexts";
 
 const ModalContentStyled = styled.div`
   img {
@@ -17,29 +17,24 @@ const ModalContentStyled = styled.div`
     width: 400px;
     height: 400px;
   }
-
 `;
 
 export const ProfileImageModal = ({ onClose, image }) => {
-
   const [selectedFile, setSelectedFile] = useState();
   const { uploadProfileImage } = useApiBuilder();
   const { refreshUser } = useAuth();
 
   const onFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
-  }
+  };
 
   const onFileUpload = useCallback(async () => {
     const formData = new FormData();
-    formData.append(
-      'profile-image',
-      selectedFile,
-    );
+    formData.append("profile-image", selectedFile);
     const response = await uploadProfileImage.apiCall(formData);
-    if(response.error) errorToast(response.error.message);
+    if (response.error) errorToast(response.error.message);
     else {
-      setTimeout(() => successToast('Imagem alterada com sucesso'), 0);
+      setTimeout(() => successToast("Imagem alterada com sucesso"), 0);
       refreshUser();
     }
   }, [selectedFile]);
@@ -47,16 +42,22 @@ export const ProfileImageModal = ({ onClose, image }) => {
   return (
     <Modal header="Escolha uma foto de perfil" onClose={onClose}>
       <ModalContentStyled>
-        <div className='img-container'>
-          <img src={(selectedFile && URL.createObjectURL(selectedFile)) || image}/>
+        <div className="img-container">
+          <img
+            src={(selectedFile && URL.createObjectURL(selectedFile)) || image}
+          />
         </div>
-        <br/>
-        <input type="file" onChange={onFileChange} accept="image/png, image/jpeg"/>
-        <hr/>
+        <br />
+        <input
+          type="file"
+          onChange={onFileChange}
+          accept="image/png, image/jpeg"
+        />
+        <hr />
         <FormButton onClick={onFileUpload} loading={uploadProfileImage.loading}>
           Salvar
         </FormButton>
       </ModalContentStyled>
     </Modal>
-  )
-}
+  );
+};

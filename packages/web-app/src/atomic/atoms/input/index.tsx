@@ -1,9 +1,5 @@
 import React, { InputHTMLAttributes } from "react";
-import {
-  InputStyled,
-  ErrorMessageContainer,
-  InputLabelStyled
-} from './styles';
+import { InputStyled, ErrorMessageContainer, InputLabelStyled } from "./styles";
 
 interface IInput extends React.AllHTMLAttributes<InputHTMLAttributes<{}>> {
   register?: any;
@@ -13,27 +9,38 @@ interface IInput extends React.AllHTMLAttributes<InputHTMLAttributes<{}>> {
 }
 
 export function Input(args: IInput) {
-
   const { register, name, errors, label, icon, canHaveErrors, ...rest } = args;
-  
-  return ( label ? 
+
+  return label ? (
     <InputLabelStyled>
       {label}
       <InputStyled
-        {...register && register(name)}
+        {...(register && register(name))}
         {...rest}
         placeholder={label || rest.placeholder}
         error={errors && errors[name]}
       />
       {icon}
-      {canHaveErrors && <ErrorMessageContainer >{errors && errors[name]?.message}</ErrorMessageContainer>}
-    </InputLabelStyled> : <><InputStyled
-        {...register && register(name)}
+      {canHaveErrors && (
+        <ErrorMessageContainer>
+          {errors && errors[name]?.message}
+        </ErrorMessageContainer>
+      )}
+    </InputLabelStyled>
+  ) : (
+    <>
+      <InputStyled
+        {...(register && register(name))}
         {...rest}
         placeholder={label || rest.placeholder}
         error={errors && errors[name]}
       />
       {icon}
-      {canHaveErrors && <ErrorMessageContainer >{errors && errors[name]?.message}</ErrorMessageContainer>}</>
-  )
+      {canHaveErrors && (
+        <ErrorMessageContainer>
+          {errors && errors[name]?.message}
+        </ErrorMessageContainer>
+      )}
+    </>
+  );
 }

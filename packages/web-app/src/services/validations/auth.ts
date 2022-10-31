@@ -1,16 +1,15 @@
-import * as yup from 'yup'
-import { AuthRules } from '@language-app/common-core';
-import { Labels, Translations } from '@locale';
+import * as yup from "yup";
+import { AuthRules } from "@language-app/common-core";
+import { Labels, Translations } from "@locale";
 
 export class ValidationSchemas {
-
   constructor(private language: string) {}
 
   private getEmailValidation() {
     return yup
-    .string()
-    .required(Translations[this.language][Labels.REQUIRED_FIELD])
-    .email(Translations[this.language][Labels.INVALID_EMAIL]);
+      .string()
+      .required(Translations[this.language][Labels.REQUIRED_FIELD])
+      .email(Translations[this.language][Labels.INVALID_EMAIL]);
   }
 
   private getPasswordValidation() {
@@ -25,15 +24,18 @@ export class ValidationSchemas {
 
   private getConfirmPasswordValidation() {
     return yup
-    .string()
-    .oneOf([yup.ref('password'), null], Translations[this.language][Labels.PASSWORDS_DONT_MATCH])
+      .string()
+      .oneOf(
+        [yup.ref("password"), null],
+        Translations[this.language][Labels.PASSWORDS_DONT_MATCH]
+      );
   }
 
   getLoginSchema() {
     return yup.object().shape({
       email: this.getEmailValidation(),
-      password: this.getPasswordValidation()
-    })
+      password: this.getPasswordValidation(),
+    });
   }
 
   getSignupSchema() {
@@ -41,26 +43,25 @@ export class ValidationSchemas {
       email: this.getEmailValidation(),
       password: this.getPasswordValidation(),
       confirmPassword: this.getConfirmPasswordValidation(),
-    })
+    });
   }
 
   getForgotPasswordSchema() {
     return yup.object().shape({
       email: this.getEmailValidation(),
-    })
+    });
   }
 
   getInviteStudentSchema() {
     return yup.object().shape({
       email: this.getEmailValidation(),
-    })
+    });
   }
 
   getResetPasswordSchema() {
     return yup.object().shape({
       password: this.getPasswordValidation(),
       confirmPassword: this.getConfirmPasswordValidation(),
-    })
+    });
   }
 }
-

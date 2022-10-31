@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
-import Head from 'next/head'
-import Image from 'next/image'
+import React, { useEffect } from "react";
+import Head from "next/head";
+import Image from "next/image";
 
-import { Container } from './styles'
-import { getPageTitle } from '@services/browser';
-import { useLanguage } from '@contexts';
-import { Translations, Labels } from '@locale';
+import { Container } from "./styles";
+import { getPageTitle } from "@services/browser";
+import { useLanguage } from "@contexts";
+import { Translations, Labels } from "@locale";
 
 export const Page: React.FC = () => {
   const { language } = useLanguage();
@@ -19,5 +19,5 @@ export const Page: React.FC = () => {
       {/* <Image src="/images/logo.jpg" width={500} height={500}/> */}
       <h1>Language App</h1>
     </Container>
-  )
-}
+  );
+};

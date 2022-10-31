@@ -1,4 +1,4 @@
-import BootstrapButton from 'react-bootstrap/Button';
+import BootstrapButton from "react-bootstrap/Button";
 
 interface IButtonProps {
   loading?: boolean;
@@ -9,5 +9,5 @@ interface IButtonProps {
 }
 
 export const Button: React.FC<IButtonProps> = (props) => {
-  return <BootstrapButton {...props}/>
-}
+  return <BootstrapButton {...props} />;
+};

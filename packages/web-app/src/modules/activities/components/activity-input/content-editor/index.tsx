@@ -3,7 +3,6 @@ import { getProps } from "./props";
 import { useColorTheme } from "@contexts";
 
 export const ContentEditor = ({ text, onChange }) => {
-
   const { theme } = useColorTheme();
   let contenido: string = text || "";
   let inicioBody: number = -1;
@@ -29,4 +28,3 @@ export const ContentEditor = ({ text, onChange }) => {
     </>
   );
 };
-

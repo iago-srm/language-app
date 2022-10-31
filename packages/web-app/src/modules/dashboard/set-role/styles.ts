@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
@@ -11,9 +11,8 @@ export const Container = styled.div`
 
   p {
     margin-top: 20px;
-
   }
-`
+`;
 
 export const ButtonContainer = styled.div`
   display: inline-block;

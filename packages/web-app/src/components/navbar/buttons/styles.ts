@@ -1,13 +1,13 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
 interface NavbarButtonProps {
   highlighted: boolean;
 }
 export const NavbarButtonStyled = styled.div<NavbarButtonProps>`
-  color: ${p => p.theme.colors.text};
+  color: ${(p) => p.theme.colors.text};
 
   // large screens
-  @media (min-width: ${({theme}) => theme.responsiveBreakpoint}px) {
+  @media (min-width: ${({ theme }) => theme.responsiveBreakpoint}px) {
     margin: 0 auto;
     a {
       display: flex;
@@ -17,24 +17,25 @@ export const NavbarButtonStyled = styled.div<NavbarButtonProps>`
       text-align: center;
       background-color: inherit;
       &:hover {
-        background-color: ${p => p.theme.colors.secondary};
+        background-color: ${(p) => p.theme.colors.secondary};
         cursor: pointer;
       }
       justify-content: center;
-      ${p => p.highlighted ?
-        `font-weight: 900;
-        ` :
-        null}
+      ${(p) =>
+        p.highlighted
+          ? `font-weight: 900;
+        `
+          : null}
     }
   }
 
   // small screens:
-  @media (max-width: ${({theme}) => theme.responsiveBreakpoint}px) {
+  @media (max-width: ${({ theme }) => theme.responsiveBreakpoint}px) {
     width: 90%;
     margin: 0 auto;
     a {
       &:hover {
-        background-color: ${p => p.theme.colors.secondary};
+        background-color: ${(p) => p.theme.colors.secondary};
         cursor: pointer;
       }
       justify-content: start;
@@ -43,17 +44,14 @@ export const NavbarButtonStyled = styled.div<NavbarButtonProps>`
       width: 100%;
     }
   }
-
 `;
 
- 
-  
-  // export const BarButtonStyled = styled(ButtonStyled)<BarButtonProps>`
-  //   a {
+// export const BarButtonStyled = styled(ButtonStyled)<BarButtonProps>`
+//   a {
 
-  //   }
-  // `;
-  
-  // export const DrawerMenuButtonStyled = styled(ButtonStyled)`
+//   }
+// `;
 
-  // `;
+// export const DrawerMenuButtonStyled = styled(ButtonStyled)`
+
+// `;

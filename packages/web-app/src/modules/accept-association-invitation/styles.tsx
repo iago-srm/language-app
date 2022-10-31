@@ -1,10 +1,10 @@
-import styled from 'styled-components';
-import { Heading } from '@atomic';
-import { PageContainer, FlexCentered } from '@styles';
+import styled from "styled-components";
+import { Heading } from "@atomic";
+import { PageContainer, FlexCentered } from "@styles";
 
 export const Container = styled(PageContainer)`
   padding-top: 20px;
-`
+`;
 export const ErrorContainer = styled.p`
   color: red;
 `;
@@ -16,7 +16,6 @@ const InstructorImageContainer = styled(FlexCentered)`
     border-radius: 50%;
   }
   margin: 20px 0;
-
 `;
 
 const InstructorDetailsContainer = styled.div`
@@ -24,15 +23,15 @@ const InstructorDetailsContainer = styled.div`
     text-align: center;
   }
   margin: 30px;
-
 `;
 
 export const InstructorDetails = ({ instructor }) => {
   return (
-    <InstructorDetailsContainer>      
-    <InstructorImageContainer><img src={instructor.image} /> </InstructorImageContainer>
-    <Heading level={6}>{instructor.name}</Heading>
+    <InstructorDetailsContainer>
+      <InstructorImageContainer>
+        <img src={instructor.image} />{" "}
+      </InstructorImageContainer>
+      <Heading level={6}>{instructor.name}</Heading>
     </InstructorDetailsContainer>
-
-  )
-}
+  );
+};

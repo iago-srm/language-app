@@ -1,5 +1,6 @@
-export type Modes = 'dark' | 'light';
-export const validateMode = (mode: string) => mode === 'dark' || mode === 'light';
+export type Modes = "dark" | "light";
+export const validateMode = (mode: string) =>
+  mode === "dark" || mode === "light";
 
 export interface Colors {
   primary: string; // 60%
@@ -10,7 +11,6 @@ export interface Colors {
 }
 
 export interface Theme {
-  colors: Colors,
-  responsiveBreakpoint: number
+  colors: Colors;
+  responsiveBreakpoint: number;
 }
-

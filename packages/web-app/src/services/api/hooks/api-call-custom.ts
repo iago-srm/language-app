@@ -1,20 +1,17 @@
-import React from 'react'
-import { ServerError } from '@language-app/common-utils'
+import React from "react";
+import { ServerError } from "@language-app/common-utils";
 
-export type UseApiCallResponse<P,R> =
-//  = ReturnType<typeof useApiCall>
-{
-  apiCall: (args?: P) =>
-    Promise<{ response?: R; error?: ServerError }>,
-  loading: boolean
-}
+export type UseApiCallResponse<P, R> =
+  //  = ReturnType<typeof useApiCall>
+  {
+    apiCall: (args?: P) => Promise<{ response?: R; error?: ServerError }>;
+    loading: boolean;
+  };
 
 // type UseApiCall<P,R> = (args: (p: P) => Promise<R>) => UseApiCallResponse<P,R>
 
-export const useApiCall = <Params = any, Resp = any>(
-  usecase
-) => {
-  const [loading, setLoading] = React.useState(false)
+export const useApiCall = <Params = any, Resp = any>(usecase) => {
+  const [loading, setLoading] = React.useState(false);
 
   const apiCall = React.useCallback(
     async (args?: Params) => {
@@ -33,16 +30,14 @@ export const useApiCall = <Params = any, Resp = any>(
 
       return {
         response,
-        error
-      }
-
+        error,
+      };
     },
     [setLoading, usecase]
-  )
+  );
 
   return {
     apiCall,
     loading,
-  }
-}
-
+  };
+};

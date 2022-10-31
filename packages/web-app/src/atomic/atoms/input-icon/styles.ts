@@ -1,8 +1,8 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const ContainerStyled = styled.span`
   position: absolute;
   color: black;
-  transform: translate(-30px,10px);
+  transform: translate(-30px, 10px);
   cursor: pointer;
 `;

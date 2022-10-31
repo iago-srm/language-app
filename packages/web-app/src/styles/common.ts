@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
 export const FlexCentered = styled.div`
   display: flex;
@@ -11,7 +11,7 @@ export const PageContainer = styled.div`
   min-height: 70vh;
   display: flex;
   align-items: center;
-`
+`;
 
 export const cardHoverAnimationCss = css`
   transition: 0.5s ease-in-out;
@@ -19,5 +19,3 @@ export const cardHoverAnimationCss = css`
     transform: scale(1.03);
   }
 `;
-
-

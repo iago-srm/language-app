@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -8,10 +8,10 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    color: ${props => props.theme.colors.text};
+    color: ${(props) => props.theme.colors.text};
     box-sizing: border-box;
     font: 400 16px Roboto, sans-serif;
-    background-color: ${props => props.theme.colors.primary};
+    background-color: ${(props) => props.theme.colors.primary};
   }
 
   a {
@@ -21,4 +21,4 @@ export const GlobalStyle = createGlobalStyle`
       color: inherit;
     }
   }
-`
+`;
