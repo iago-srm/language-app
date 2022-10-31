@@ -22,6 +22,6 @@ RUN npm run build
 # EXPOSE 3006
 
 # ENTRYPOINT ["tail", "-f", "/dev/null"]
-ENTRYPOINT ["npm", "start"]
-# ENTRYPOINT ["node", "src/index2.js"]
+# ENTRYPOINT ["npm", "start"]
+ENTRYPOINT ["node", "src/index2.js"]
 
