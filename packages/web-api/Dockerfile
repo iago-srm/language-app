@@ -17,11 +17,11 @@ RUN npm i
 
 WORKDIR /app/packages/web-api
 
-# RUN npm run build
+RUN npm run build
 
 # EXPOSE 3006
 
 # ENTRYPOINT ["tail", "-f", "/dev/null"]
-# ENTRYPOINT ["npm", "start"]
-ENTRYPOINT ["node", "src/index2.js"]
+ENTRYPOINT ["npm", "start"]
+# ENTRYPOINT ["node", "src/index2.js"]
 
