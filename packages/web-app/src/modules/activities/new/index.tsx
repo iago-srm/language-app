@@ -243,6 +243,7 @@ export const NewActivity = () => {
           <InstructionsContainer>
             {activity.instructions.map((instruction) => (
               <Instruction
+                key={instruction.id}
                 index={instruction.id}
                 instruction={{
                   ...instruction,

@@ -148,7 +148,7 @@ export const useApiBuilder = () => {
     return url;
   };
 
-  const getActivities = ({
+  const useGetActivities = ({
     title,
     pageSize,
     cefr,
@@ -206,7 +206,7 @@ export const useApiBuilder = () => {
     );
   });
 
-  const getStudentOutputs = (studentId: string) =>
+  const useGetStudentOutputs = (studentId: string) =>
     useApiCallSWR<IGetStudentOutputs["response"]>(
       tokenHeaderSet && `${GetStudentOutputsHTTPDefinition.path}`,
       (url) =>
@@ -269,11 +269,11 @@ export const useApiBuilder = () => {
     uploadProfileImage,
     forgotPasswordRequest,
     resetPassword,
-    getActivities,
+    useGetActivities,
     postActivity,
     getActivity,
     postStudentOutput,
-    getStudentOutputs,
+    useGetStudentOutputs,
     getStudentOutput,
     postFeedbackToOutput,
     inviteStudent,

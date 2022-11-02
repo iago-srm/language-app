@@ -24,13 +24,13 @@ export const ActivitiesListing: React.FC = () => {
     isComplete: undefined,
   });
 
-  const { getActivities } = useApiBuilder();
+  const { useGetActivities } = useApiBuilder();
 
   useEffect(() => {
     setSize(1);
   }, [filters, query]);
 
-  const { data, loading, error, setSize, hasNoMore } = getActivities({
+  const { data, loading, error, setSize, hasNoMore } = useGetActivities({
     ...filters,
     thisInstructorOnly: query.thisInstructorOnly,
     isComplete: query.isComplete,

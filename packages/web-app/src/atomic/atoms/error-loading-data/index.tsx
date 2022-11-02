@@ -7,8 +7,8 @@ const defaultLoading = (
     <Spinner animation="border" role="status"></Spinner>
   </SpinnerContainer>
 );
-const defaultError = <h3>There's been an error!</h3>;
-const defaultNoData = <h3>There's no data!</h3>;
+const defaultError = <h3>There&apos;s been an error!</h3>;
+const defaultNoData = <h3>There&apos;s no data!</h3>;
 
 export const LoadingErrorData = ({ loading, error, data, children }) => {
   const parseChildren = () => {

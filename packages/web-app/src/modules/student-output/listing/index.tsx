@@ -14,10 +14,10 @@ export const ListingPage: React.FC = () => {
   const { user } = useAuth();
   const { query } = useRouter();
 
-  const { getStudentOutputs } = useApiBuilder();
+  const { useGetStudentOutputs } = useApiBuilder();
 
   // useEffect(() => {}, []);
-  const { data, loading, error } = getStudentOutputs(query.studentId); // select puts student id in url
+  const { data, loading, error } = useGetStudentOutputs(query.studentId as string); // select puts student id in url
 
   return (
     <Container>

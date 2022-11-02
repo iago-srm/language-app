@@ -135,10 +135,11 @@ export const DetailsPage = () => {
             )}
             <InstructionsContainer>
               {Object.keys(instructions).map((instructionId, i) => (
-                <InstructionsContainerStyled>
+                <InstructionsContainerStyled
+                  key={instructionId}
+                >
                   <Instruction
                     index={i}
-                    key={instructionId}
                     instruction={instructions[instructionId]}
                   />
                   {!output.feedbackGiven && user?.role === "INSTRUCTOR" && (
