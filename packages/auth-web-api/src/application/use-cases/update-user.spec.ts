@@ -4,7 +4,7 @@ import {
 import { UserDTOHelperBuilder } from '@common/test-helpers';
 import { ErrorMessagesLabels } from '@common/locale';
 
-describe('UpdateUser use case unit tests', () => {
+describe.skip('UpdateUser use case unit tests', () => {
 
   test('UpdateUser gets called with a valid id and a valid role, and doesn\'t throw', async () => {
 

@@ -1,6 +1,6 @@
 import { SignInControllerFactory } from './sign-in';
 
-describe("SignIn Controller Adapter", () => {
+describe.skip("SignIn Controller Adapter", () => {
   const { controller: sut } = SignInControllerFactory({
     signInUseCase: { execute: jest.fn() }
   });

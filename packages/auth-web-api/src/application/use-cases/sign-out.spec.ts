@@ -3,7 +3,7 @@ import {
 } from '@common/test-helpers';
 import { UserDTOHelperBuilder } from '@common/test-helpers';
 
-describe('SignOut use case unit tests', () => {
+describe.skip('SignOut use case unit tests', () => {
 
   [0,4,19].map(tokenVersion => it('White-box testing, different token versions', async () => {
 
