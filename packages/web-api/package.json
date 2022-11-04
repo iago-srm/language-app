@@ -10,7 +10,7 @@
     "test": "cross-env NODE_ENV=test jest --watchAll",
     "test2:ci": "cross-env NODE_ENV=test jest --no-cache --runInBand",
     "test:ci": "cross-env NODE_ENV=test echo \"Testing\"",
-    "install:ci": "cross-env NODE_ENV=test echo \"Installing CI\"",
+    "install:ci": "cross-env NODE_ENV=test npm i",
     "format": "npx prettier --write .",
     "format:ci": "npx prettier --check .",
     "db:sync": "npx prisma db push --accept-data-loss",

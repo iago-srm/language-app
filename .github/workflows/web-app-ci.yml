@@ -1,4 +1,4 @@
-name: STest webapp
+name: Test WebApp
 
 on:
   push:

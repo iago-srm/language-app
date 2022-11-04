@@ -9,7 +9,7 @@
     "test": "turbo run test",
     "lint": "turbo run lint",
     "dev": "turbo run dev",
-    "install:ci": "npm ci",
+    "install:ci": "npm i",
     "psql:local:db": "docker exec -ti language-app-postgres psql -U postgres -h localhost -p 5432"
   },
   "workspaces": [

@@ -27,12 +27,12 @@ jobs:
       #   working-directory: './packages/${{ inputs.package }}'
       #   run: npm run format:ci
 
+      - name: Install Dependencies
+        run: npm run install:ci
+
       - name: Build
         working-directory: 'packages/${{ inputs.package }}'
         run: npm run build
-
-      - name: Install Dependencies
-        run: npm run install:ci
 
       - name: Tests
         working-directory: './packages/${{ inputs.package }}'
