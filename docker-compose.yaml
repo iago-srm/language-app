@@ -9,7 +9,7 @@ services:
       dockerfile: packages/web-api/Dockerfile
     container_name: language-app-web-api
     # entrypoint: "npm run dev"
-    # entrypoint: "tail -f /dev/null"
+    entrypoint: "tail -f /dev/null"
     ports:
       - "${DOMAIN_PORT}:${DOMAIN_PORT}"
       - 5556:5555 # prisma studio

@@ -62,33 +62,3 @@ resource "aws_codebuild_project" "this" {
   tags = var.tags
 }
 
-# resource "aws_codebuild_webhook" "example" {
-#   project_name = aws_codebuild_project.this.name
-#   build_type   = "BUILD"
-#   filter_group {
-#     filter {
-#       type    = "EVENT"
-#       pattern = "PUSH"
-#     }
-
-#     filter {
-#       type    = "HEAD_REF"
-#       pattern = "main"
-#     }
-
-#     filter {
-#       type    = "FILE_PATH"
-#       pattern = "packages/${var.server-name}"
-#     }
-
-#     filter {
-#       type    = "FILE_PATH"
-#       pattern = "packages/common-core"
-#     }
-
-#     filter {
-#       type    = "FILE_PATH"
-#       pattern = "packages/common-platform"
-#     }
-#   }
-# }

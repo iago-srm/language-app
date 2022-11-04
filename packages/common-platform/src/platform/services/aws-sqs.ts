@@ -16,7 +16,6 @@ export class SQSService implements IQueueService {
 
     const sendMessage = promisify(this._sqs.sendMessage.bind(this._sqs));
 
-    console.log({message})
     await sendMessage({
       // Remove DelaySeconds parameter and value for FIFO queues
       DelaySeconds: 10,

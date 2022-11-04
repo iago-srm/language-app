@@ -63,6 +63,7 @@ class UseCase implements IGetActivitiesUseCase {
       if(student) {
         const myListActivityIds = await this.activityRepository.getStudentListActivityIdsByStudentId(student.id);
         studentActivitiesIds = myListActivityIds;
+        console.log({studentActivitiesIds});
       }
       
     }
