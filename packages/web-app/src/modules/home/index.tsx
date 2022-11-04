@@ -17,7 +17,7 @@ export const Page: React.FC = () => {
       </Head>
 
       {/* <Image src="/images/logo.jpg" width={500} height={500}/> */}
-      <h1>Language App</h1>
+      <h1>Language App-staging</h1>
     </Container>
   );
 };
