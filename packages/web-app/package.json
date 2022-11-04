@@ -7,6 +7,8 @@
     "dev": "next dev",
     "build": "next build",
     "postinstall": "node ./postinstall.js",
+    "test:ci": "cross-env NODE_ENV=test echo \"Testing\"",
+    "install:ci": "cross-env NODE_ENV=test echo \"Installing CI\"",
     "start": "npm run postinstall && next start",
     "lint": "next lint"
   },

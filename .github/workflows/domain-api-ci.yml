@@ -1,13 +1,13 @@
-name: Build & Test Domain API
+name: Test Domain API
 
 on:
   push:
     branches:
-      - feature/*
-      - bugfix/*
-      - hotfix/*
+      - develop
     paths:
       - 'packages/web-api/**'
+      - 'packages/common-platform'
+      - 'packages/common-core'
 
 jobs:
   build_and_test:

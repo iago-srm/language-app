@@ -1,13 +1,12 @@
-name: Build & Test webapp
+name: STest webapp
 
 on:
   push:
     branches:
-      - feature/*
-      - bugfix/*
-      - hotfix/*
+      - develop
     paths:
       - 'packages/web-app/**'
+      - 'packages/common-core'
 
 jobs:
   build_and_test:

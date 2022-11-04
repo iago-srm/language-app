@@ -1,0 +1,16 @@
+name: Test Auth API
+
+on:
+  push:
+    branches:
+      - develop
+    paths:
+      - 'packages/auth-web-api/**'
+      - 'packages/common-platform'
+      - 'packages/common-core'
+
+jobs:
+  build_and_test:
+    uses: 'iago-srm/language-app/.github/workflows/reusable-build-and-test.yml@main'
+    with:
+      package: 'auth-web-api'
