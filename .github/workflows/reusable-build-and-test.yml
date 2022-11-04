@@ -21,14 +21,14 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 18.x
 
       # - name: Ensure code formatting
       #   working-directory: './packages/${{ inputs.package }}'
       #   run: npm run format:ci
 
       - name: Install Dependencies
-        run: npm run install:ci
+        run: npm i
 
       - name: Build
         working-directory: 'packages/${{ inputs.package }}'
