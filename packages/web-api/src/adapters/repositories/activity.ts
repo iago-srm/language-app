@@ -51,6 +51,7 @@ export class ActivityRepository implements IActivityRepository {
       },
       select: {
         id: true,
+        createdAt: true,
         title: true,
         description: true,
         contentType: true,
