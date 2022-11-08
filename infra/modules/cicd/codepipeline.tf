@@ -12,43 +12,60 @@ resource "aws_codepipeline" "this" {
     type     = "S3"
   }
 
+  # stage {
+  #   name = "Source"
+
+  #   action {
+  #     name             = "Source"
+  #     category         = "Source"
+  #     owner            = "ThirdParty"
+  #     provider         = "GitHub"
+  #     version          = "1"
+  #     output_artifacts = ["source"]
+
+  #     configuration = {
+  #       Owner  = "iago-srm"
+  #       Repo   = "language-app"
+  #       Branch = "main"
+  #       OAuthToken = "${var.github_oauth_token}"
+  #     }
+  #   }
+  # }
+
   stage {
     name = "Source"
 
     action {
-      name             = "Source"
+      name             = "Image"
       category         = "Source"
-      owner            = "ThirdParty"
-      provider         = "GitHub"
-      version          = "1"
-      output_artifacts = ["source"]
-
-      configuration = {
-        Owner  = "iago-srm"
-        Repo   = "language-app"
-        Branch = "main"
-        OAuthToken = "${var.github_oauth_token}"
-      }
-    }
-  }
-
-  stage {
-    name = "Build"
-
-    action {
-      name             = "Build"
-      category         = "Build"
       owner            = "AWS"
-      provider         = "CodeBuild"
+      provider         = "ECR"
       version          = "1"
-      input_artifacts  = ["source"]
       output_artifacts = ["imagedefinitions"]
 
       configuration = {
-        ProjectName = "${var.server-name}"
+        RepositoryName = aws_ecr_repository.this.name
       }
     }
   }
+
+  # stage {
+  #   name = "Build"
+
+  #   action {
+  #     name             = "Build"
+  #     category         = "Build"
+  #     owner            = "AWS"
+  #     provider         = "CodeBuild"
+  #     version          = "1"
+  #     input_artifacts  = ["source"]
+  #     output_artifacts = ["imagedefinitions"]
+
+  #     configuration = {
+  #       ProjectName = "${var.server-name}"
+  #     }
+  #   }
+  # }
 
   stage {
     name = "Deploy"
