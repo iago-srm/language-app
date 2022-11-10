@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import { Container } from "./styles";
 import { getPageTitle } from "@services/browser";
 import { useLanguage, useAuth } from "@contexts";
 import { Translations, Labels } from "@locale";
 import { useApiBuilder } from "@services/api";
-import { LoadingErrorData } from "@atomic";
+import { LoadingErrorData, SingleSelect } from "@atomic";
 import { StudentOutputCard } from "../components";
 
 export const ListingPage: React.FC = () => {
@@ -14,26 +14,59 @@ export const ListingPage: React.FC = () => {
   const { user } = useAuth();
   const { query } = useRouter();
 
-  const { useGetStudentOutputs } = useApiBuilder();
+  const [selectedStudent, setSelectedStudent] = useState({ id: "", name: ""});
+
+  const { useGetStudentOutputs, useGetStudents } = useApiBuilder();
 
   // useEffect(() => {}, []);
-  const { data, loading, error } = useGetStudentOutputs(query.studentId as string); // select puts student id in url
+  const { 
+    data: studentOutputs, 
+    loading: studentOutputsLoading, 
+    error: studentOutputsError 
+  } = useGetStudentOutputs(query.studentId as string); // select puts student id in url
+  const { 
+    data: students, 
+    loading: studentsLoading, 
+    error: studentsError 
+  } = useGetStudents(); // select puts student id in url
+
+  useEffect(() => {
+    if(students) {
+      setSelectedStudent(students[0]);
+    }
+  }, [students]);
+
+  const onChangeStudentSelect = ({ label, value }) => {
+    setSelectedStudent({ name: label, id: value });
+    Router.push({
+      pathname: '/student-outputs',
+      query: { studentId: value }
+    }, 
+    undefined, { shallow: true }
+    )
+  }
 
   return (
     <Container>
       <Head>
         <title>{getPageTitle(Translations[language][Labels.DASHBOARD])}</title>
       </Head>
+      <SingleSelect 
+          options={(students || []).map(e => ({ label: e.name, value: e.id }))}
+          value={{ label: selectedStudent.name, value: selectedStudent.id }}
+          onChange={onChangeStudentSelect}
+        />
       <LoadingErrorData
-        loading={loading}
-        error={error}
-        data={data?.data.length}
+        loading={studentOutputsLoading}
+        error={studentOutputsError}
+        data={studentOutputs?.data.length}
       >
         <LoadingErrorData.NoData>
           Não foram encontradas atividades realizadas
         </LoadingErrorData.NoData>
-        {data &&
-          data.data.map((output) => (
+
+        {studentOutputs &&
+          studentOutputs.data.map((output) => (
             <StudentOutputCard
               key={output.id}
               id={output.id}

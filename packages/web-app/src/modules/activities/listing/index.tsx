@@ -50,27 +50,8 @@ export const ActivitiesListing: React.FC = () => {
     });
   };
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  });
-
-  const handleScroll = (e) => {
-    // console.log(e)
-    const { scrollTop, scrollHeight, clientHeight, offsetTop } = e.target;
-    console.log(scrollHeight, scrollTop, clientHeight);
-
-    // if (listInnerRef.current) {
-    //   const { scrollTop, scrollHeight, clientHeight, offsetTop } = listInnerRef.current;
-    //   console.log(scrollHeight,offsetTop,clientHeight)
-    //   if (scrollTop + clientHeight === scrollHeight) {
-    //     // TO SOMETHING HERE
-    //     console.log('Reached bottom')
-    //   }
-    // }
-  };
   return (
-    <Container onScroll={handleScroll} ref={listInnerRef}>
+    <Container >
       <Head>
         <title>{getPageTitle(Translations[language][Labels.DASHBOARD])}</title>
       </Head>

@@ -1,29 +1,19 @@
 import ReactSelect from "react-select";
-import { format, deFormat } from "./helpers";
 import {
   getStyles,
   SelectedOptionIconContainer,
   SelectedOptionLabelContainer,
 } from "./styles";
+import { ISelectProps } from './types';
 import { useColorTheme } from "@contexts";
 
-interface IOptionType {
-  label: string;
-  value: string;
-}
 
-interface ISingleSelectProps {
-  options: IOptionType[];
-  onChange: (args: any) => any;
-  value: IOptionType;
-  selectedIcon?: any;
-}
 export const SingleSelect = ({
   options,
   onChange,
   value,
   selectedIcon,
-}: ISingleSelectProps) => {
+}: ISelectProps) => {
   const { theme } = useColorTheme();
 
   return (

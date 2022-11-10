@@ -44,7 +44,8 @@ import {
   IGetAssociationInvitation,
   EditAssociationInvitationHTTPDefinition,
   InsertActivityIntoStudentListHTTPDefinition,
-  DeleteActivityFromStudentListHTTPDefinition
+  DeleteActivityFromStudentListHTTPDefinition,
+  GetInstructorStudentsHTTPDefinition
 } from "@language-app/common-core";
 import { useLanguage, handleAuthToken, useAuth } from "@contexts";
 import { useEffect } from "react";
@@ -208,11 +209,10 @@ export const useApiBuilder = () => {
 
   const useGetStudentOutputs = (studentId: string) =>
     useApiCallSWR<IGetStudentOutputs["response"]>(
-      tokenHeaderSet && `${GetStudentOutputsHTTPDefinition.path}`,
+      tokenHeaderSet && `${GetStudentOutputsHTTPDefinition.path}?studentId=${studentId}`,
       (url) =>
         domainFetcher[GetStudentOutputsHTTPDefinition.method](url, {
           pageSize: 10,
-          studentId,
         })
     );
 
@@ -272,8 +272,16 @@ export const useApiBuilder = () => {
         DeleteActivityFromStudentListHTTPDefinition.path, { activityId }
       )
     }
-  )
+  );
 
+  const useGetStudents = () =>
+    useApiCallSWR<any>(
+      tokenHeaderSet && `${GetInstructorStudentsHTTPDefinition.path}`,
+      (url) =>
+        domainFetcher[GetInstructorStudentsHTTPDefinition.method](url, {
+          pageSize: 1000,
+        })
+    );
   return {
     signUp,
     signIn,
@@ -295,7 +303,8 @@ export const useApiBuilder = () => {
     getAssociationInvitation,
     acceptAssociationInvitation,
     insertActivityIntoMyList,
-    deleteActivityFromMyList
+    deleteActivityFromMyList,
+    useGetStudents
   };
 };
 
