@@ -33,8 +33,7 @@ export const ActivitiesListing: React.FC = () => {
   const { data, loading, error, setSize, hasNoMore } = useGetActivities({
     ...filters,
     thisInstructorOnly: query.thisInstructorOnly,
-    isComplete: query.isComplete,
-    isInProgress: query.isInProgress,
+    isMyList: query.isMyList,
     topics: `${filters.topics.map((t) => t.value)}`,
     cefr: filters.cefr && `${filters.cefr.value}`,
     pageSize: 4,

@@ -30,7 +30,7 @@ export const StudentPage: React.FC = () => {
           label={"Atividades em Minha Lista"}
           path="/activities"
           query={{ isMyList: true }}
-          icon={<Icons.IN_PROGRESS />}
+          icon={<Icons.FULL_HEART />}
         />
         <DashboardButton
           description={

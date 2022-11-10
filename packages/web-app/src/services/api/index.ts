@@ -43,6 +43,8 @@ import {
   GetAssociationInvitationHTTPDefinition,
   IGetAssociationInvitation,
   EditAssociationInvitationHTTPDefinition,
+  InsertActivityIntoStudentListHTTPDefinition,
+  DeleteActivityFromStudentListHTTPDefinition
 } from "@language-app/common-core";
 import { useLanguage, handleAuthToken, useAuth } from "@contexts";
 import { useEffect } from "react";
@@ -94,7 +96,7 @@ export const useApiBuilder = () => {
       )
   );
 
-  const verifyAccount = useApiCall<IVerifyAccountParams, void>(({ token }) =>
+  const verifyAccount = useApiCall<IVerifyAccountParams, void>(({ token }) => 
     authFetcher[VerifyAccountHTTPDefinition.method](
       `${VerifyAccountHTTPDefinition.path.split("/")[0]}/${token}`
     )
@@ -154,8 +156,7 @@ export const useApiBuilder = () => {
     cefr,
     topics,
     contentTypes,
-    isInProgress,
-    isComplete,
+    isMyList,
     thisInstructorOnly,
   }) =>
     useApiCallSWRPaginated<IGetActivities["response"]>(
@@ -168,8 +169,7 @@ export const useApiBuilder = () => {
             cefr,
             topics,
             contentTypes: `${contentTypes}`, // turns array into ITEM,ITEM format,
-            isInProgress,
-            isComplete,
+            isMyList,
             thisInstructorOnly,
             pageSize,
           }
@@ -259,6 +259,21 @@ export const useApiBuilder = () => {
       )
   );
 
+  const insertActivityIntoMyList = useApiCall<{ activityId: number }, void>(
+    ({ activityId }) => 
+      domainFetcher[InsertActivityIntoStudentListHTTPDefinition.method](
+        InsertActivityIntoStudentListHTTPDefinition.path, { activityId }
+      )
+  )
+
+  const deleteActivityFromMyList = useApiCall<{ activityId: number }, void>(
+    ({ activityId }) => {
+      return domainFetcher.del(
+        DeleteActivityFromStudentListHTTPDefinition.path, { activityId }
+      )
+    }
+  )
+
   return {
     signUp,
     signIn,
@@ -279,7 +294,8 @@ export const useApiBuilder = () => {
     inviteStudent,
     getAssociationInvitation,
     acceptAssociationInvitation,
-    domainFetcher,
+    insertActivityIntoMyList,
+    deleteActivityFromMyList
   };
 };
 

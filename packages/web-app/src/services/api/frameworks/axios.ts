@@ -1,12 +1,20 @@
 import axios, { AxiosInstance } from "axios";
 
+interface IMethodArgs {
+  url: string,
+  body: any,
+  query?: { [k: string]: string }
+}
+
 export interface Fetcher {
   get: (url: string, query: { [k: string]: string }) => Promise<any>;
-  patch: (url: string, body: any, query: any) => any;
+  patch: (url: string, body: any, query?: any) => any;
+  post: (url: string, body: any, query?: any) => any;
+  // delete?: (url: string, body: any, query?: any) => any;
 }
 
 // export class Fetch implements Fetcher
-export class AxiosFetcher implements Fetcher {
+export class AxiosFetcher {
   private _instance: AxiosInstance;
 
   constructor(private baseUrl: string) {
@@ -41,6 +49,13 @@ export class AxiosFetcher implements Fetcher {
   post(url: string, body: any) {
     return this._instance
       .post(url, body)
+      .then(this._successHandler)
+      .catch(this._errorHandler);
+  }
+
+  del(url: string, body: any) {
+    return this._instance
+      .delete(url, { data: body })
       .then(this._successHandler)
       .catch(this._errorHandler);
   }

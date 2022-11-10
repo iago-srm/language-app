@@ -17,6 +17,7 @@ import {
   faFolderOpen,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
 
 export const Icons = {
   CLOSE: () => <FontAwesomeIcon icon={faTimes} />,
@@ -44,4 +45,6 @@ export const Icons = {
   USER_PLUS: () => <FontAwesomeIcon icon={faUserPlus} />,
   FOLDER: () => <FontAwesomeIcon icon={faFolderOpen} />,
   STAR: () => <FontAwesomeIcon icon={faStar} />,
+  EMPTY_HEART: () => <FaRegHeart />,
+  FULL_HEART: () => <FaHeart />,
 };

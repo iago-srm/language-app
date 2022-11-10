@@ -17,7 +17,11 @@ export const Container = styled.div`
     justify-content: space-between;
     svg {
       font-size: 2rem;
-      margin: 15px;
     }
+  }
+  .icon-container {
+    margin: 15px;
+
+    cursor: pointer;
   }
 `;
