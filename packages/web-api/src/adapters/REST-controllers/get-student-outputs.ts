@@ -1,52 +1,46 @@
+import { IGetStudentOutputsUseCase } from "@application/use-cases";
+import { GetStudentOutputsHTTPDefinition } from "@language-app/common-core";
 import {
-    IGetStudentOutputsUseCase,
-  } from '@application/use-cases';
-  import { GetStudentOutputsHTTPDefinition } from '@language-app/common-core';
-  import {
-    IHTTPController,
-    IHTTPControllerDescriptor,
-    controllerSerializer
-  } from '@language-app/common-platform';
-  
-  export const GetStudentOutputsControllerFactory = ({
-    getStudentOutputsUseCase,
-  }: {
-    getStudentOutputsUseCase: IGetStudentOutputsUseCase;
-  }): IHTTPControllerDescriptor<IHTTPController> => {
-    const fn: IHTTPController = async (_, __, query, { user }) => {
-  
-      const {
-        studentId,
-        cursor,
-        pageSize
-      } = controllerSerializer(query, [
-        { name: 'studentId', optional: true }, //comes as query param
-        { name: 'cursor', optional: true },
-        { name: 'pageSize', optional: true }
-      ]);
+  IHTTPController,
+  IHTTPControllerDescriptor,
+  controllerSerializer,
+} from "@language-app/common-platform";
 
-      if(cursor && isNaN(Number(cursor))) throw new Error('cursor is not a number');
-      if(pageSize && isNaN(Number(pageSize))) throw new Error('pageSize is not a number');
+export const GetStudentOutputsControllerFactory = ({
+  getStudentOutputsUseCase,
+}: {
+  getStudentOutputsUseCase: IGetStudentOutputsUseCase;
+}): IHTTPControllerDescriptor<IHTTPController> => {
+  const fn: IHTTPController = async (_, __, query, { user }) => {
+    const { studentId, cursor, pageSize } = controllerSerializer(query, [
+      { name: "studentId", optional: true }, //comes as query param
+      { name: "cursor", optional: true },
+      { name: "pageSize", optional: true },
+    ]);
 
-      const { id, role } = user;
-  
-      return {
-        response: await getStudentOutputsUseCase.execute({
-          cursor: cursor && Number(cursor),
-          pageSize: pageSize && Number(pageSize),
-          userId: id,
-          role,
-          studentId //for instructor roles
-        }),
-        statusCode: 200,
-      };
-    };
-  
+    if (cursor && isNaN(Number(cursor)))
+      throw new Error("cursor is not a number");
+    if (pageSize && isNaN(Number(pageSize)))
+      throw new Error("pageSize is not a number");
+
+    const { id, role } = user;
+
     return {
-      controller: fn,
-      method: GetStudentOutputsHTTPDefinition.method,
-      path: GetStudentOutputsHTTPDefinition.path,
-      middlewares: ['auth']
+      response: await getStudentOutputsUseCase.execute({
+        cursor: cursor && Number(cursor),
+        pageSize: pageSize && Number(pageSize),
+        userId: id,
+        role,
+        studentId, //for instructor roles
+      }),
+      statusCode: 200,
     };
   };
-  
+
+  return {
+    controller: fn,
+    method: GetStudentOutputsHTTPDefinition.method,
+    path: GetStudentOutputsHTTPDefinition.path,
+    middlewares: ["auth"],
+  };
+};

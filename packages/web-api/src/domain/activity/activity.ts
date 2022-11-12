@@ -1,5 +1,5 @@
-import { Instructor } from '..';
-import { DomainRules } from '@language-app/common-core';
+import { Instructor } from "..";
+import { DomainRules } from "@language-app/common-core";
 import {
   InvalidActivityTimeToCompleteError,
   InvalidActivityTopicError,
@@ -8,9 +8,9 @@ import {
   InvalidActivityDescriptionLengthError,
   InvalidVideoTimesError,
   InvalidVideoLengthError,
-  InvalidCEFRError
-} from '../errors';
-import { contentValidator } from '../helpers';
+  InvalidCEFRError,
+} from "../errors";
+import { contentValidator } from "../helpers";
 
 interface ActivityConstructorParams {
   topics: string[];
@@ -49,8 +49,8 @@ export class Activity {
   }
 
   setTopic(topics: string[]) {
-    for(let topic of topics) {
-      if(!DomainRules.ACTIVITY.TOPICS.includes(topic))
+    for (let topic of topics) {
+      if (!DomainRules.ACTIVITY.TOPICS.includes(topic))
         throw new InvalidActivityTopicError({ text: topic });
     }
     this.topics = topics;

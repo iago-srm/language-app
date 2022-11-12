@@ -1,18 +1,16 @@
-import {
-  ITokenService,
-} from '../ports';
+import { ITokenService } from "../ports";
 import {
   IHTTPMiddleware,
   IHTTPControllerDescriptor,
-} from '@language-app/common-platform';
+} from "@language-app/common-platform";
 import {
   MissingTokenError,
   MalformedTokenError,
   Forbidden,
   CouldNotVerifyTokenError,
   InsufficientTokenError,
-  UserNotFoundError
-} from '@language-app/common-utils';
+  UserNotFoundError,
+} from "@language-app/common-utils";
 
 type Dependencies = {
   userRepository: any; // TODO
@@ -21,33 +19,35 @@ type Dependencies = {
 
 export const AuthenticationMiddlewareControllerFactory = ({
   tokenService,
-  userRepository
+  userRepository,
 }: Dependencies): IHTTPControllerDescriptor<IHTTPMiddleware> => {
   const fn: IHTTPMiddleware = async (req, headers) => {
-
     if (!headers.authorization) throw new MissingTokenError();
 
-    const [header, token] = headers.authorization.split(' ');
-    if (header !== 'Bearer') throw new MalformedTokenError();
+    const [header, token] = headers.authorization.split(" ");
+    if (header !== "Bearer") throw new MalformedTokenError();
 
     let tokenPayload;
     try {
       tokenPayload = await tokenService.verify(token);
-    } catch(e) {
-      console.log("token verification error:",e)
+    } catch (e) {
+      console.log("token verification error:", e);
       throw new CouldNotVerifyTokenError();
     }
 
-    if(!Object.keys(tokenPayload).includes('id') ||
-      !Object.keys(tokenPayload).includes('tokenVersion') ||
-        isNaN(Number(tokenPayload.tokenVersion)))
-          throw new InsufficientTokenError();
+    if (
+      !Object.keys(tokenPayload).includes("id") ||
+      !Object.keys(tokenPayload).includes("tokenVersion") ||
+      isNaN(Number(tokenPayload.tokenVersion))
+    )
+      throw new InsufficientTokenError();
 
     const userDTO = await userRepository.getUserById(tokenPayload.id);
 
     if (!userDTO) throw new UserNotFoundError();
 
-    if (userDTO.tokenVersion !== tokenPayload.tokenVersion) throw new Forbidden();
+    if (userDTO.tokenVersion !== tokenPayload.tokenVersion)
+      throw new Forbidden();
 
     req.user = {
       id: userDTO.id,
@@ -55,7 +55,7 @@ export const AuthenticationMiddlewareControllerFactory = ({
       email: userDTO.email,
       name: userDTO.name,
       role: userDTO.role,
-      image: userDTO.image
+      image: userDTO.image,
     };
   };
 

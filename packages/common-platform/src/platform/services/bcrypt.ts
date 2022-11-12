@@ -1,5 +1,5 @@
-import { IEncryptionService } from '../ports';
-import bcrypt from 'bcryptjs';
+import { IEncryptionService } from "../ports";
+import bcrypt from "bcryptjs";
 
 export class BCryptEncryptionService implements IEncryptionService {
   _saltRounds = 10;
@@ -8,7 +8,7 @@ export class BCryptEncryptionService implements IEncryptionService {
     try {
       return bcrypt.hash(plain, this._saltRounds);
     } catch {
-      throw new Error('Error trying to encrypt password');
+      throw new Error("Error trying to encrypt password");
     }
   }
 

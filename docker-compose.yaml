@@ -1,7 +1,6 @@
 version: "3"
 
 services:
-
   domain:
     image: language-app/web-api
     build:
@@ -71,4 +70,3 @@ services:
   #     - ./packages/common-platform:/app/packages/common-platform
   #     - ./packages/common-utils:/app/packages/common-utils
   #     - ./packages/auth-web-api:/app/packages/auth-web-api
-    

@@ -1,10 +1,10 @@
-import { ISignInUseCase } from '@application/use-cases';
-import { SignInHTTPDefinition } from '@language-app/common-core';
+import { ISignInUseCase } from "@application/use-cases";
+import { SignInHTTPDefinition } from "@language-app/common-core";
 import {
   IHTTPController,
   IHTTPControllerDescriptor,
-  controllerSerializer
-} from '@language-app/common-platform';
+  controllerSerializer,
+} from "@language-app/common-platform";
 
 export const SignInControllerFactory = ({
   signInUseCase,
@@ -12,11 +12,10 @@ export const SignInControllerFactory = ({
   signInUseCase: ISignInUseCase;
 }): IHTTPControllerDescriptor<IHTTPController> => {
   const fn: IHTTPController = async (_, body) => {
-
-    const {
-      email,
-      password,
-    } = controllerSerializer(body, ['email', 'password']);
+    const { email, password } = controllerSerializer(body, [
+      "email",
+      "password",
+    ]);
 
     const resp = await signInUseCase.execute({
       email,

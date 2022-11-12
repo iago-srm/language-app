@@ -1,10 +1,10 @@
-import * as helpers from '@iagosrm/common';
-import { User } from '../domain';
+import * as helpers from "@iagosrm/common";
+import { User } from "../domain";
 
 export const getValidRandomPassword = () =>
-  'a'.repeat(Math.random() * 8 + 5) +
-  'A'.repeat(Math.random() * 8 + 5) +
-  '8787';
+  "a".repeat(Math.random() * 8 + 5) +
+  "A".repeat(Math.random() * 8 + 5) +
+  "8787";
 
 export const getMockUsersArray = (length: number) => {
   return [...Array(length)]

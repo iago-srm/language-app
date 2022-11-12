@@ -1,9 +1,6 @@
-import {
-  IHTTPErrorHandler,
-  IHTTPControllerDescriptor,
-} from '../ports';
-import { CustomError } from '@language-app/common-utils';
-import { handlePrismaError } from './prisma-error-handler';
+import { IHTTPErrorHandler, IHTTPControllerDescriptor } from "../ports";
+import { CustomError } from "@language-app/common-utils";
+import { handlePrismaError } from "./prisma-error-handler";
 
 export const ErrorHandlerControllerFactory =
   ({}): IHTTPControllerDescriptor<IHTTPErrorHandler> => {

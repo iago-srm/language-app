@@ -1,40 +1,37 @@
+import { IAssociationInvitationRepository, InstructorDTO } from "../ports";
+import { UserNotFoundError } from "@common/errors";
 import {
-IAssociationInvitationRepository, InstructorDTO,
-} from '../ports';
-import {
-UserNotFoundError,
-} from '@common/errors';
-import {
-IForgotPasswordParams,
-IForgotPasswordResponse,
-} from '@language-app/common-core';
-import { IUseCase } from '@language-app/common-platform';
+  IForgotPasswordParams,
+  IForgotPasswordResponse,
+} from "@language-app/common-core";
+import { IUseCase } from "@language-app/common-platform";
 
 type InputParams = {
-    token: string;
+  token: string;
 };
 type Return = {
-    instructor: Partial<InstructorDTO>
+  instructor: Partial<InstructorDTO>;
 };
 
 export type IGetAssociationInvitationUseCase = IUseCase<InputParams, Return>;
 
 class UseCase implements IGetAssociationInvitationUseCase {
+  constructor(
+    private associationInvitationTokenRepository: IAssociationInvitationRepository
+  ) {}
 
-constructor (
-    private associationInvitationTokenRepository: IAssociationInvitationRepository,
-){}
+  async execute({ token }) {
+    const instructor =
+      await this.associationInvitationTokenRepository.getInstructorByTokenValue(
+        token
+      );
+    if (!instructor)
+      throw new Error("No instructor associated to token was found.");
 
-async execute({ token }) {
-    const instructor = await this.associationInvitationTokenRepository.getInstructorByTokenValue(token);
-    if (!instructor) throw new Error("No instructor associated to token was found.");
-    
     return {
-        instructor
-    }
-
-}
-
+      instructor,
+    };
+  }
 }
 
 export default UseCase;

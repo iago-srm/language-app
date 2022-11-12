@@ -1,11 +1,7 @@
-import { Request, Response, NextFunction } from 'express';
-import {
-  IHTTPController,
-  IHTTPErrorHandler,
-  IHTTPMiddleware,
-} from '../ports';
-import { IHTTPFrameworkAdapter } from './server';
-import { HeaderParser } from './headers';
+import { Request, Response, NextFunction } from "express";
+import { IHTTPController, IHTTPErrorHandler, IHTTPMiddleware } from "../ports";
+import { IHTTPFrameworkAdapter } from "./server";
+import { HeaderParser } from "./headers";
 
 export class ExpressControllerAdapter implements IHTTPFrameworkAdapter {
   adaptControllerFunction(fn: IHTTPController) {
@@ -23,7 +19,7 @@ export class ExpressControllerAdapter implements IHTTPFrameworkAdapter {
           // for endpoints that receive files
           file: req.file,
           // for endpoints that need the client's language
-          language: HeaderParser.getPreferredLanguage(req)
+          language: HeaderParser.getPreferredLanguage(req),
         }
       );
       res.status(statusCode).json(response);

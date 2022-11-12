@@ -1,10 +1,10 @@
-import { EmailGenerator, PasswordGenerator } from '@language-app/common-utils';
-import { AbstractBuilder } from './abstract-builder';
+import { EmailGenerator, PasswordGenerator } from "@language-app/common-utils";
+import { AbstractBuilder } from "./abstract-builder";
 
 const emailGenerator = new EmailGenerator();
 const passwordGenerator = new PasswordGenerator();
 
-export class SignInUpInputBuilder extends AbstractBuilder{
+export class SignInUpInputBuilder extends AbstractBuilder {
   constructor() {
     super();
   }
@@ -13,7 +13,7 @@ export class SignInUpInputBuilder extends AbstractBuilder{
       password: passwordGenerator.getValidPassword(),
       email: emailGenerator.getValidEmail(),
       confirmPassword: passwordGenerator.getValidPassword(),
-      role: 'fsdfsd'
+      role: "fsdfsd",
     };
   }
   withoutPassword() {

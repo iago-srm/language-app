@@ -1,12 +1,12 @@
-import { ActivityInstruction } from './instruction';
-import { DomainRules } from '@language-app/common-core';
+import { ActivityInstruction } from "./instruction";
+import { DomainRules } from "@language-app/common-core";
 
-describe('Unit Tests for ActivityInstruction Entity', () => {
-  it('Should not throw an error if valid text length is passed to constructor.', () => {
-    const instructionMax = 'a'.repeat(
+describe("Unit Tests for ActivityInstruction Entity", () => {
+  it("Should not throw an error if valid text length is passed to constructor.", () => {
+    const instructionMax = "a".repeat(
       DomainRules.ACTIVITY.INSTRUCTION.MAX_LENGTH
     );
-    const instructionMin = 'a'.repeat(
+    const instructionMin = "a".repeat(
       DomainRules.ACTIVITY.INSTRUCTION.MIN_LENGTH
     );
     const sut1 = new ActivityInstruction({

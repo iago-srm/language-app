@@ -1,5 +1,5 @@
-import { DomainRules } from '@language-app/common-core';
-import { InvalidGradeError, InvalidFeedbackMessageError } from '../errors';
+import { DomainRules } from "@language-app/common-core";
+import { InvalidGradeError, InvalidFeedbackMessageError } from "../errors";
 
 interface FeedbackConstructorParams {
   grade: number;

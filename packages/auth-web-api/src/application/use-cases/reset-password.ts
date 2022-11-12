@@ -1,17 +1,15 @@
 import {
   IUserRepository,
   IForgotPasswordTokenRepository,
-  IEncryptionService
-} from '../ports';
+  IEncryptionService,
+} from "../ports";
 import {
   InvalidValidationTokenError,
-  InvalidPasswordError
-} from '@common/errors';
-import {
-  IResetPasswordParams,
-} from '@language-app/common-core';
-import { IUseCase } from '@language-app/common-platform';
-import { User } from '@domain';
+  InvalidPasswordError,
+} from "@common/errors";
+import { IResetPasswordParams } from "@language-app/common-core";
+import { IUseCase } from "@language-app/common-platform";
+import { User } from "@domain";
 
 type InputParams = IResetPasswordParams;
 type Return = void;
@@ -19,30 +17,31 @@ type Return = void;
 export type IResetPasswordUseCase = IUseCase<InputParams, Return>;
 
 class UseCase implements IResetPasswordUseCase {
-  constructor (
+  constructor(
     private userRepository: IUserRepository,
     private forgotPasswordTokenRepository: IForgotPasswordTokenRepository,
     private encryptionService: IEncryptionService
-  ){}
+  ) {}
   async execute({ token: t, password, confirmPassword }) {
+    const token = await this.forgotPasswordTokenRepository.getTokenByTokenValue(
+      t
+    );
 
-    const token = await this.forgotPasswordTokenRepository.getTokenByTokenValue(t);
-
-    if(!token || token.expiresAt.valueOf() < Date.now()) throw new InvalidValidationTokenError();
+    if (!token || token.expiresAt.valueOf() < Date.now())
+      throw new InvalidValidationTokenError();
 
     new User({ password });
 
-    if(password !== confirmPassword) throw new InvalidPasswordError();
+    if (password !== confirmPassword) throw new InvalidPasswordError();
 
     await this.userRepository.updateUser(token.userId, {
-      hashedPassword: await this.encryptionService.encrypt(password)
+      hashedPassword: await this.encryptionService.encrypt(password),
     });
 
     await this.forgotPasswordTokenRepository.updateToken(token.id, {
-      expiresAt: new Date(Date.now())
+      expiresAt: new Date(Date.now()),
     });
   }
-
 }
 
 export default UseCase;

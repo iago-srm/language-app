@@ -51,7 +51,7 @@ export const ActivitiesListing: React.FC = () => {
   };
 
   return (
-    <Container >
+    <Container>
       <Head>
         <title>{getPageTitle(Translations[language][Labels.DASHBOARD])}</title>
       </Head>

@@ -6,13 +6,13 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/ecr-public
       # - docker pull $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/ecr-public/bitnami/node:latest
-      - cd packages/auth-web-api         
+      - cd packages/auth-web-api
   build:
     commands:
       - echo Build started on `date`
-      - echo Building the Docker image... 
+      - echo Building the Docker image...
       - docker build -t $IMAGE_REPO_NAME -f ./Dockerfile ../..
-      - docker tag $IMAGE_REPO_NAME:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:latest      
+      - docker tag $IMAGE_REPO_NAME:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:latest
   post_build:
     commands:
       - echo Build completed on `date`
@@ -20,9 +20,9 @@ phases:
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:latest
       - printf '[{"name":"auth-web-api","imageUri":"%s"}]' $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:latest > imagedefinitions.json
 artifacts:
-  files: 
+  files:
     - packages/auth-web-api/imagedefinitions.json
-    
+
 cache:
   paths:
-    - 'packages/auth-web-api/node_modules/**/*'
+    - "packages/auth-web-api/node_modules/**/*"

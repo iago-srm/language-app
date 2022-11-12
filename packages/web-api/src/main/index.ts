@@ -1,2 +1,2 @@
-export * from './dependencies.enum';
-export * from './register-dependencies';
+export * from "./dependencies.enum";
+export * from "./register-dependencies";

@@ -1,1 +1,1 @@
-export * from './src/platform';
+export * from "./src/platform";

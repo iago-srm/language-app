@@ -32,10 +32,12 @@
   "compilerOptions": {
     "target": "es2017",
     "module": "commonjs",
-    // "noEmit": true,
+    "allowJs": true,
+    "strict": false,
+    "incremental": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
+    "forceConsistentCasingInFileNames": true
   }
 }

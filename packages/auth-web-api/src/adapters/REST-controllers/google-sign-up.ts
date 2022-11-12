@@ -1,10 +1,10 @@
-import { IGoogleSignUpUseCase } from '@application/use-cases';
-import { GoogleSignUpHTTPDefinition } from '@language-app/common-core';
+import { IGoogleSignUpUseCase } from "@application/use-cases";
+import { GoogleSignUpHTTPDefinition } from "@language-app/common-core";
 import {
   IHTTPController,
   IHTTPControllerDescriptor,
-  controllerSerializer
-} from '@language-app/common-platform';
+  controllerSerializer,
+} from "@language-app/common-platform";
 
 export const GoogleSignUpControllerFactory = ({
   googleSignUpUseCase,
@@ -12,22 +12,21 @@ export const GoogleSignUpControllerFactory = ({
   googleSignUpUseCase: IGoogleSignUpUseCase;
 }): IHTTPControllerDescriptor<IHTTPController> => {
   const fn: IHTTPController = async (_, body) => {
+    const { id, name, email, image, provider } = controllerSerializer(body, [
+      "name",
+      "email",
+      "id",
+      "image",
+      "provider",
+    ]);
 
-    const {
-      id,
-      name,
-      email,
-      image,
-      provider
-    } = controllerSerializer(body, ['name', 'email', 'id', 'image', 'provider']);
-    
     return {
       response: await googleSignUpUseCase.execute({
         id,
         name,
         email,
         image,
-        provider
+        provider,
       }),
       statusCode: 201,
     };
@@ -35,6 +34,6 @@ export const GoogleSignUpControllerFactory = ({
 
   return {
     controller: fn,
-    ...GoogleSignUpHTTPDefinition
+    ...GoogleSignUpHTTPDefinition,
   };
 };

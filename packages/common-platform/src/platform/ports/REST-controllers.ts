@@ -3,7 +3,7 @@ export type IHTTPController = (
   body: any,
   query: any,
   other: {
-    [key: string]: any,
+    [key: string]: any;
     user?: {
       id: string;
       tokenVersion: number;
@@ -12,9 +12,9 @@ export type IHTTPController = (
       role: string;
       image: string;
     };
-    req?: any,
-    file?: any,
-    language?: string
+    req?: any;
+    file?: any;
+    language?: string;
   }
 ) => Promise<{ response: any; statusCode: number }>;
 
@@ -31,7 +31,7 @@ export type IHTTPControllerPathDescriptor = {
   isOptional?: boolean;
 }[];
 
-export type IHTTPMethod = 'post' | 'get' | 'put' | 'delete' | 'patch';
+export type IHTTPMethod = "post" | "get" | "put" | "delete" | "patch";
 export interface IHTTPControllerDescriptor<
   Controller
   // Path = IHTTPControllerPathDescriptor

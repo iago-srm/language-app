@@ -1,12 +1,10 @@
-import {
-  IVerifyAccountUseCase,
-} from '@application/use-cases';
-import { VerifyAccountHTTPDefinition } from '@language-app/common-core';
+import { IVerifyAccountUseCase } from "@application/use-cases";
+import { VerifyAccountHTTPDefinition } from "@language-app/common-core";
 import {
   IHTTPController,
   IHTTPControllerDescriptor,
-  controllerSerializer
-} from '@language-app/common-platform';
+  controllerSerializer,
+} from "@language-app/common-platform";
 
 export const VerifyAccountControllerFactory = ({
   verifyAccountUseCase,
@@ -14,8 +12,7 @@ export const VerifyAccountControllerFactory = ({
   verifyAccountUseCase: IVerifyAccountUseCase;
 }): IHTTPControllerDescriptor<IHTTPController> => {
   const fn: IHTTPController = async (params) => {
-
-    const { token } = controllerSerializer(params, ['token']);
+    const { token } = controllerSerializer(params, ["token"]);
 
     await verifyAccountUseCase.execute({
       token,

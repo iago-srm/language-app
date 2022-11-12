@@ -1,29 +1,31 @@
-import { FlashCard } from '.';
-import { DomainRules } from '@language-app/common-core';
-import { ErrorMessagesLabels } from '@common/locale';
+import { FlashCard } from ".";
+import { DomainRules } from "@language-app/common-core";
+import { ErrorMessagesLabels } from "@common/locale";
 
-describe('Unit Tests for flashcard entity', () => {
+describe("Unit Tests for flashcard entity", () => {
   const testCasesBucketValue = [0, 8, 15];
   testCasesBucketValue.map((bucket) =>
-    it('Should throw if an invalid bucket value is passed.', () => {
+    it("Should throw if an invalid bucket value is passed.", () => {
       try {
         new FlashCard({
           bucket,
         });
       } catch (e) {
-        expect(e).toMatchObject({ errorName: ErrorMessagesLabels.BUCKET_VALUE });
+        expect(e).toMatchObject({
+          errorName: ErrorMessagesLabels.BUCKET_VALUE,
+        });
       }
     })
   );
 
   const testCasesTextLengths = [
-    { front: 'a'.repeat(DomainRules.FLASHCARD.TEXT.MAX_LENGTH + 1), back: 'b' },
-    { front: 'a'.repeat(DomainRules.FLASHCARD.TEXT.MIN_LENGTH - 1), back: 'b' },
-    { front: 'a', back: 'b'.repeat(DomainRules.FLASHCARD.TEXT.MAX_LENGTH + 1) },
-    { front: 'a', back: 'b'.repeat(DomainRules.FLASHCARD.TEXT.MIN_LENGTH - 1) },
+    { front: "a".repeat(DomainRules.FLASHCARD.TEXT.MAX_LENGTH + 1), back: "b" },
+    { front: "a".repeat(DomainRules.FLASHCARD.TEXT.MIN_LENGTH - 1), back: "b" },
+    { front: "a", back: "b".repeat(DomainRules.FLASHCARD.TEXT.MAX_LENGTH + 1) },
+    { front: "a", back: "b".repeat(DomainRules.FLASHCARD.TEXT.MIN_LENGTH - 1) },
   ];
   testCasesTextLengths.map(({ front, back }) =>
-    it('Should throw if invalid text lengths are passed.', () => {
+    it("Should throw if invalid text lengths are passed.", () => {
       try {
         new FlashCard({ front, back });
       } catch (e) {
@@ -35,7 +37,7 @@ describe('Unit Tests for flashcard entity', () => {
   );
 
   DomainRules.FLASHCARD.BUCKETS.map((bucket) =>
-    it('Should not throw if valid values are passed.', () => {
+    it("Should not throw if valid values are passed.", () => {
       const flashcard = new FlashCard({ bucket });
       expect(flashcard.bucket).toEqual(bucket);
     })
@@ -98,8 +100,8 @@ describe('Unit Tests for flashcard entity', () => {
   ];
 
   testCasesMoveBucket.map(({ currentTime, bucket, nextDue }) =>
-    it('Should move card to next bucket and set nextDue correctly.', () => {
-      jest.useFakeTimers('modern').setSystemTime(currentTime);
+    it("Should move card to next bucket and set nextDue correctly.", () => {
+      jest.useFakeTimers("modern").setSystemTime(currentTime);
       const sut = new FlashCard({ bucket });
       sut.move();
       expect(sut.bucket).toBe(bucket + 1);
@@ -127,8 +129,8 @@ describe('Unit Tests for flashcard entity', () => {
   ];
 
   testCasesReset.map(({ currentTime, bucket, nextDue }) =>
-    it('Should move card to next bucket and set nextDue correctly.', () => {
-      jest.useFakeTimers('modern').setSystemTime(currentTime);
+    it("Should move card to next bucket and set nextDue correctly.", () => {
+      jest.useFakeTimers("modern").setSystemTime(currentTime);
       const sut = new FlashCard({ bucket });
       sut.reset();
       expect(sut.bucket).toBe(1);

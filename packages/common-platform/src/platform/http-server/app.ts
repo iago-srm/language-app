@@ -1,15 +1,15 @@
-import express, { Express, RequestHandler, ErrorRequestHandler } from 'express';
-import 'express-async-errors';
-import { RouteNotFoundError } from '@language-app/common-utils';
-import helmet from 'helmet';
-import cors from 'cors';
-import { json } from 'body-parser';
-import { startPolyglot } from './polyglot-middleware';
+import express, { Express, RequestHandler, ErrorRequestHandler } from "express";
+import "express-async-errors";
+import { RouteNotFoundError } from "@language-app/common-utils";
+import helmet from "helmet";
+import cors from "cors";
+import { json } from "body-parser";
+import { startPolyglot } from "./polyglot-middleware";
 import {
   Server as AbstractServer,
   IHTTPServerConstructorParams,
-} from './server';
-import { IHTTPControllerDescriptor } from '../ports';
+} from "./server";
+import { IHTTPControllerDescriptor } from "../ports";
 
 interface IExpressConstructorParams extends IHTTPServerConstructorParams {
   controllers: IHTTPControllerDescriptor<RequestHandler>[];
@@ -30,7 +30,7 @@ export class ExpressServer extends AbstractServer {
     errorHandler,
     middlewares,
     baseUrn,
-    translationMiddleware
+    translationMiddleware,
   }: IExpressConstructorParams) {
     super({ logger });
     this._app = express();
@@ -38,14 +38,14 @@ export class ExpressServer extends AbstractServer {
     this.baseUrn = baseUrn;
 
     // CORS
-    const allowlist = process.env.CORS_ALLOW?.split(' ');
+    const allowlist = process.env.CORS_ALLOW?.split(" ");
     const corsOptionsDelegate = function (req, callback) {
       let corsOptions;
-      if (process.env.CORS_ALLOW === '*') {
+      if (process.env.CORS_ALLOW === "*") {
         callback(null, { origin: true });
         return;
       }
-      if (allowlist?.indexOf(req.header('Origin')) !== -1) {
+      if (allowlist?.indexOf(req.header("Origin")) !== -1) {
         corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
       } else {
         corsOptions = { origin: false }; // disable CORS for this request
@@ -60,7 +60,7 @@ export class ExpressServer extends AbstractServer {
 
     // Security
     this._app.use(helmet());
-    this._app.disable('x-powered-by');
+    this._app.disable("x-powered-by");
 
     const getPath = (path: string) => `${this.baseUrn}/${path}`;
 
@@ -68,7 +68,9 @@ export class ExpressServer extends AbstractServer {
       if (descriptor.middlewares) {
         this._app[descriptor.method!](
           getPath(descriptor.path!),
-          ...descriptor.middlewares.map(middleware => middlewares[middleware]),
+          ...descriptor.middlewares.map(
+            (middleware) => middlewares[middleware]
+          ),
           descriptor.controller
         );
       } else {
@@ -80,15 +82,14 @@ export class ExpressServer extends AbstractServer {
     });
 
     // healthcheck
-    this._app.get('/', (_, res) => {
+    this._app.get("/", (_, res) => {
       res.sendStatus(200);
     });
 
-    this._app.all('*', () => {
+    this._app.all("*", () => {
       throw new RouteNotFoundError();
     });
 
     this._app.use(errorHandler.controller);
-
   }
 }

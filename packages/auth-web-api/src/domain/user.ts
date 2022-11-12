@@ -1,10 +1,10 @@
-import { InvalidPasswordError, InvalidRoleError } from '@common/errors';
+import { InvalidPasswordError, InvalidRoleError } from "@common/errors";
 import {
   PersonId,
   validateEmail,
   DomainRules,
   AuthRules,
-} from '@language-app/common-core';
+} from "@language-app/common-core";
 
 interface UserConstructorParams {
   name?: string;
@@ -19,9 +19,9 @@ export class User {
   password: string;
 
   constructor(args: UserConstructorParams) {
-    if(args.email || args.name) this.setPersonId(args.email, args.name);
-    if(args.role) this.setRole(args.role);
-    if(args.password) this.setPassword(args.password);
+    if (args.email || args.name) this.setPersonId(args.email, args.name);
+    if (args.role) this.setRole(args.role);
+    if (args.password) this.setPassword(args.password);
   }
 
   setPersonId(email: string, name: string) {

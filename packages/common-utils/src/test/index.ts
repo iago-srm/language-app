@@ -1,8 +1,8 @@
-import { faker } from '@faker-js/faker';
+import { faker } from "@faker-js/faker";
 
 export class EmailGenerator {
   getInvalidEmails() {
-    return ['1234','eefdfsdfsfr','email invalido']
+    return ["1234", "eefdfsdfsfr", "email invalido"];
   }
 
   getValidEmail() {
@@ -12,15 +12,15 @@ export class EmailGenerator {
 
 export class NameGenerator {
   getName() {
-    return faker.name.findName()
+    return faker.name.findName();
   }
 }
 
 export class PasswordGenerator {
   getValidPassword() {
-    return 'afafdFDSFSD5353FDSxzsvs'
+    return "afafdFDSFSD5353FDSxzsvs";
   }
   getInvalidPassword() {
-    return 'a'
+    return "a";
   }
 }

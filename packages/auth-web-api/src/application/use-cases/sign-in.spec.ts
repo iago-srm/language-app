@@ -1,22 +1,18 @@
-import {
-  TestDataFacade
-} from '@common/test-helpers';
-import { UserDTOHelperBuilder } from '@common/test-helpers';
-import { ErrorMessagesLabels } from '@common/locale';
+import { TestDataFacade } from "@common/test-helpers";
+import { UserDTOHelperBuilder } from "@common/test-helpers";
+import { ErrorMessagesLabels } from "@common/locale";
 
-describe('SignIn in use case unit tests', () => {
-
-  it('White-box testing', async () => {
-
+describe("SignIn in use case unit tests", () => {
+  it("White-box testing", async () => {
     const user = new UserDTOHelperBuilder().getResult();
 
     const testData = new TestDataFacade({
       mockEncryptionService: {
-        compare: jest.fn().mockResolvedValue(true)
+        compare: jest.fn().mockResolvedValue(true),
       },
       mockUserRepository: {
-        getUserByEmail: jest.fn().mockResolvedValue(user)
-      }
+        getUserByEmail: jest.fn().mockResolvedValue(user),
+      },
     });
 
     await testData.sut.signIn.execute(testData.inputBuilder.getResult());
@@ -30,23 +26,27 @@ describe('SignIn in use case unit tests', () => {
     );
     expect(testData.mockTokenService.generate).toHaveBeenCalledWith({
       id: user.id,
-      tokenVersion: user.tokenVersion
-    })
+      tokenVersion: user.tokenVersion,
+    });
   });
 
   it("Should throw if user with that e-mail is not found", async () => {
     const testData = new TestDataFacade({
       mockUserRepository: {
-        getUserByEmail: jest.fn().mockResolvedValue(null)
-      }
+        getUserByEmail: jest.fn().mockResolvedValue(null),
+      },
     });
 
-    await expect(testData.sut.signIn.execute(testData.inputBuilder.getResult())).rejects.toThrow();
+    await expect(
+      testData.sut.signIn.execute(testData.inputBuilder.getResult())
+    ).rejects.toThrow();
 
     try {
       await testData.sut.signIn.execute(testData.inputBuilder.getResult());
-    } catch(e) {
-      expect(e).toMatchObject({ errorName: ErrorMessagesLabels.INVALID_CREDENTIALS })
+    } catch (e) {
+      expect(e).toMatchObject({
+        errorName: ErrorMessagesLabels.INVALID_CREDENTIALS,
+      });
     }
   });
 
@@ -55,11 +55,11 @@ describe('SignIn in use case unit tests', () => {
 
     const testData = new TestDataFacade({
       mockEncryptionService: {
-        compare: jest.fn().mockResolvedValue(false)
+        compare: jest.fn().mockResolvedValue(false),
       },
       mockUserRepository: {
-        getUserByEmail: jest.fn().mockResolvedValue(user)
-      }
+        getUserByEmail: jest.fn().mockResolvedValue(user),
+      },
     });
     const input = testData.inputBuilder.getResult();
 
@@ -71,9 +71,10 @@ describe('SignIn in use case unit tests', () => {
 
     try {
       await testData.sut.signIn.execute(testData.inputBuilder.getResult());
-    } catch(e) {
-      expect(e).toMatchObject({ errorName: ErrorMessagesLabels.INVALID_CREDENTIALS })
+    } catch (e) {
+      expect(e).toMatchObject({
+        errorName: ErrorMessagesLabels.INVALID_CREDENTIALS,
+      });
     }
   });
-
 });

@@ -1,8 +1,5 @@
-import { DomainRules } from '@language-app/common-core';
-import {
-  InvalidTextLengthError,
-  InvalidVideoUrlError
-} from './errors';
+import { DomainRules } from "@language-app/common-core";
+import { InvalidTextLengthError, InvalidVideoUrlError } from "./errors";
 
 export const contentValidator = {
   TEXT: (text: string) => {
@@ -13,5 +10,5 @@ export const contentValidator = {
     return true;
     // if(url.startsWith('https://')) return true; //TODO
     // throw new InvalidVideoUrlError();
-  }
-}
+  },
+};

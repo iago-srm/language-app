@@ -8,9 +8,9 @@ export type IGetActivities = {
       cefr: string;
       topics: string[];
       contentType: string;
-    }[]
-  }
-}
+    }[];
+  };
+};
 
 interface IInstructions {
   id: string;
@@ -19,12 +19,12 @@ interface IInstructions {
   isMultiCorrect: boolean;
   optionsAnswers?: {
     id: string;
-  }[]
+  }[];
   textAnswer?: string;
   options: {
     id: string;
     text: string;
-  }[]
+  }[];
 }
 
 interface IActivity {
@@ -38,15 +38,16 @@ interface IActivity {
   cefr: string;
   contentType: string;
   instructions: IInstructions[];
+  isMyList: boolean;
 }
 
 export interface IGetActivity {
   params: {
     id: number;
-  }
+  };
   response: {
     activity: IActivity;
-  }
+  };
 }
 
 interface Option {
@@ -66,8 +67,8 @@ export interface IPostActivity {
       optionsAnswers?: Option[];
       textAnswer: string;
       options?: Option[];
-    }[]
-  }
+    }[];
+  };
   response: void;
 }
 
@@ -78,7 +79,7 @@ export interface IPostStudentOutput {
       instructionId: string;
       optionsSelectionsIds?: string[];
       textOutput?: string;
-    }[]
+    }[];
   };
   response: {};
 }
@@ -87,42 +88,42 @@ export interface IUpdateUser {
     tokenVersion: number;
     authApiId: string;
     image: string;
-  }
+  };
   response: void;
 }
 
 export interface IPostNewUser {
   params: {
-    authApiId: string,
-    role: string,
-    name: string,
-    email: string,
-    tokenVersion: string,
-    image: string
-  },
+    authApiId: string;
+    role: string;
+    name: string;
+    email: string;
+    tokenVersion: string;
+    image: string;
+  };
   response: void;
 }
 
 export interface INewAssociationInvitation {
   params: {
     email: string;
-  }
+  };
 }
 
 export interface IGetAssociationInvitation {
   params: {
     token: string;
-  }
+  };
   response: {
-    instructor: { 
+    instructor: {
       instructor: {
         user: {
           image: string;
           name: string;
-        }
-      }
-    }
-  }
+        };
+      };
+    };
+  };
 }
 
 export interface IGetStudentOutputs {
@@ -140,14 +141,13 @@ export interface IGetStudentOutputs {
           user: {
             name: string;
             image: string;
-          }
-        }
-      },
+          };
+        };
+      };
       createdAt: string;
       feedbackGiven: boolean;
-    }[]
-  }
-    
+    }[];
+  };
 }
 
 interface IActivityWithOutput extends IActivity {
@@ -155,26 +155,26 @@ interface IActivityWithOutput extends IActivity {
     user: {
       name: string;
       image: string;
-    }
-  },
+    };
+  };
   outputs: {
     instructionId: string;
     textAnswer: string;
     optionsSelectionsIds: string[];
-  }
+  };
 }
 export interface IGetStudentOutput {
   params: {
-    id: number
+    id: number;
   };
   response: {
     id: string;
-    activity: IActivityWithOutput,
+    activity: IActivityWithOutput;
     student: {
       user: {
         name: string;
-      }
-    }
+      };
+    };
     createdAt: string;
     feedbackGiven: boolean;
     outputs: {
@@ -182,13 +182,13 @@ export interface IGetStudentOutput {
       textOutput: string;
       optionsSelections: {
         id: string;
-      }[]
+      }[];
       instructionId: string;
       feedback: {
         message: string;
-      }
-    }[]
-  }
+      };
+    }[];
+  };
 }
 
 export interface IPostFeedbackToOutput {
@@ -197,6 +197,6 @@ export interface IPostFeedbackToOutput {
     feedbacks: {
       instructionOutputId: string;
       feedback: string;
-    }[]
-  }
+    }[];
+  };
 }

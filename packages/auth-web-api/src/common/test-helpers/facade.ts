@@ -1,6 +1,4 @@
-import {
-  SignInUpInputBuilder
-} from '@common/test-helpers';
+import { SignInUpInputBuilder } from "@common/test-helpers";
 import {
   IUserRepository,
   IEncryptionService,
@@ -10,8 +8,8 @@ import {
   IProfileImageRepository,
   IVerificationTokenRepository,
   IForgotPasswordTokenRepository,
-  IAuthEventQueue
-} from '@application/ports';
+  IAuthEventQueue,
+} from "@application/ports";
 import {
   SignInUseCase,
   SignOutUseCase,
@@ -20,22 +18,21 @@ import {
   VerifyAccountUseCase,
   UpdateProfileImageUseCase,
   ForgotPasswordRequestUseCase,
-  ResetPasswordUseCase
-} from '@application/use-cases';
+  ResetPasswordUseCase,
+} from "@application/use-cases";
 
 interface ConstructorParams {
-  mockEncryptionService?: Partial<IEncryptionService>,
-  mockUserRepository?: Partial<IUserRepository>,
-  mockTokenService?: Partial<ITokenService>,
+  mockEncryptionService?: Partial<IEncryptionService>;
+  mockUserRepository?: Partial<IUserRepository>;
+  mockTokenService?: Partial<ITokenService>;
   mockEmailService?: Partial<IAuthEmailService>;
-  mockIdGenerator?: Partial<IIdGenerator>,
-  mockProfileImageRepository?: Partial<IProfileImageRepository>
+  mockIdGenerator?: Partial<IIdGenerator>;
+  mockProfileImageRepository?: Partial<IProfileImageRepository>;
   mockVerificationTokenRepository?: Partial<IVerificationTokenRepository>;
   mockForgotPasswordTokenRepository?: Partial<IForgotPasswordTokenRepository>;
 }
 
 export class TestDataFacade {
-
   public inputBuilder: SignInUpInputBuilder;
 
   public mockEncryptionService: IEncryptionService;
@@ -49,70 +46,74 @@ export class TestDataFacade {
   public mockAuthEventQueue: IAuthEventQueue;
 
   public sut: {
-    signIn: SignInUseCase,
-    signUp: SignUpUseCase,
-    signOut: SignOutUseCase,
-    updateUser: UpdateUserUseCase,
-    verifyAccount: VerifyAccountUseCase,
-    updateProfileImage: UpdateProfileImageUseCase,
-    forgotPasswordRequest: ForgotPasswordRequestUseCase,
-    resetPassword: ResetPasswordUseCase
-  }
+    signIn: SignInUseCase;
+    signUp: SignUpUseCase;
+    signOut: SignOutUseCase;
+    updateUser: UpdateUserUseCase;
+    verifyAccount: VerifyAccountUseCase;
+    updateProfileImage: UpdateProfileImageUseCase;
+    forgotPasswordRequest: ForgotPasswordRequestUseCase;
+    resetPassword: ResetPasswordUseCase;
+  };
 
   constructor({
     mockEncryptionService,
-    mockUserRepository ,
+    mockUserRepository,
     mockTokenService,
     // mockAuthEventQueue,
     mockIdGenerator,
     mockEmailService,
     mockProfileImageRepository,
     mockVerificationTokenRepository,
-    mockForgotPasswordTokenRepository
+    mockForgotPasswordTokenRepository,
   }: ConstructorParams) {
-
     this.mockUserRepository = {
       getUserByEmail: mockUserRepository?.getUserByEmail || jest.fn(),
       getUserById: mockUserRepository?.getUserById || jest.fn(),
       insertUser: mockUserRepository?.insertUser || jest.fn(),
-      updateUser: mockUserRepository?.updateUser || jest.fn()
-    }
+      updateUser: mockUserRepository?.updateUser || jest.fn(),
+    };
 
     this.mockEmailService = {
-      sendForgotPasswordEmail: mockEmailService?.sendForgotPasswordEmail || jest.fn(),
-      sendVerifyAccountEmail: mockEmailService?.sendVerifyAccountEmail || jest.fn()
-    }
+      sendForgotPasswordEmail:
+        mockEmailService?.sendForgotPasswordEmail || jest.fn(),
+      sendVerifyAccountEmail:
+        mockEmailService?.sendVerifyAccountEmail || jest.fn(),
+    };
 
     this.mockEncryptionService = {
       encrypt: mockEncryptionService?.encrypt || jest.fn(),
-      compare: mockEncryptionService?.compare || jest.fn()
-    }
+      compare: mockEncryptionService?.compare || jest.fn(),
+    };
 
     this.mockIdGenerator = {
-      getId: mockIdGenerator?.getId || jest.fn()
-    }
+      getId: mockIdGenerator?.getId || jest.fn(),
+    };
 
     this.mockProfileImageRepository = {
-      uploadProfileImage: mockProfileImageRepository?.uploadProfileImage || jest.fn(),
-      getGenericImageUrl: mockProfileImageRepository?.getGenericImageUrl || jest.fn()
-    }
+      uploadProfileImage:
+        mockProfileImageRepository?.uploadProfileImage || jest.fn(),
+      getGenericImageUrl:
+        mockProfileImageRepository?.getGenericImageUrl || jest.fn(),
+    };
 
     this.mockTokenService = {
       generate: mockTokenService?.generate || jest.fn(),
-      verify: mockTokenService?.verify || jest.fn()
-    }
+      verify: mockTokenService?.verify || jest.fn(),
+    };
 
     this.mockVerificationTokenRepository = {
-      getTokenByTokenValue: mockVerificationTokenRepository?.getTokenByTokenValue || jest.fn(),
-      insertToken: mockVerificationTokenRepository?.insertToken || jest.fn()
-    }
+      getTokenByTokenValue:
+        mockVerificationTokenRepository?.getTokenByTokenValue || jest.fn(),
+      insertToken: mockVerificationTokenRepository?.insertToken || jest.fn(),
+    };
 
     this.mockForgotPasswordTokenRepository = {
-      getTokenByTokenValue: mockForgotPasswordTokenRepository?.getTokenByTokenValue || jest.fn(),
+      getTokenByTokenValue:
+        mockForgotPasswordTokenRepository?.getTokenByTokenValue || jest.fn(),
       insertToken: mockForgotPasswordTokenRepository?.insertToken || jest.fn(),
-      updateToken: mockForgotPasswordTokenRepository?.updateToken || jest.fn()
-    }
-
+      updateToken: mockForgotPasswordTokenRepository?.updateToken || jest.fn(),
+    };
 
     this.inputBuilder = new SignInUpInputBuilder();
 
@@ -132,7 +133,7 @@ export class TestDataFacade {
       ),
       signOut: new SignOutUseCase(
         this.mockUserRepository,
-        this.mockAuthEventQueue,
+        this.mockAuthEventQueue
       ),
       updateUser: new UpdateUserUseCase(
         this.mockUserRepository,
@@ -157,7 +158,7 @@ export class TestDataFacade {
         this.mockForgotPasswordTokenRepository,
         this.mockEmailService,
         this.mockIdGenerator
-      )
-    }
+      ),
+    };
   }
 }

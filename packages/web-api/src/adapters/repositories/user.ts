@@ -1,8 +1,5 @@
-import {
-  IUserRepository,
-  UserDTO
-} from '@application/ports';
-import { PrismaClient } from '@prisma-client';
+import { IUserRepository, UserDTO } from "@application/ports";
+import { PrismaClient } from "@prisma-client";
 
 export class UserRepository implements IUserRepository {
   prisma: PrismaClient;
@@ -24,11 +21,11 @@ export class UserRepository implements IUserRepository {
         image: user.image,
         student: {
           create: {
-            id: newId //this one doesnt have to be the same id as the auth API
-          }
-        }
-      }
-    })
+            id: newId, //this one doesnt have to be the same id as the auth API
+          },
+        },
+      },
+    });
   }
 
   insertUserAndInstructor(user: UserDTO, newId: string) {
@@ -44,10 +41,10 @@ export class UserRepository implements IUserRepository {
         instructor: {
           create: {
             id: newId,
-          }
-        }
-      }
-    })
+          },
+        },
+      },
+    });
   }
 
   getUserById(id: string) {
@@ -69,11 +66,11 @@ export class UserRepository implements IUserRepository {
   updateUser(user: Partial<UserDTO>, authApiId: string) {
     return this.prisma.user.update({
       data: {
-        ...user
+        ...user,
       },
       where: {
-        authApiId
-      }
-    })
+        authApiId,
+      },
+    });
   }
 }

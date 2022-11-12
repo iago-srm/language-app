@@ -1,14 +1,10 @@
-import http, { Server as HttpServer, RequestListener } from 'http';
-import https, { Server as HttpsServer } from 'https';
-import fs from 'fs';
-import { AddressInfo } from 'net';
-import { IDatabase } from '../ports';
-import { ILogger } from './logger';
-import {
-  IHTTPController,
-  IHTTPErrorHandler,
-  IHTTPMiddleware,
-} from '../ports';
+import http, { Server as HttpServer, RequestListener } from "http";
+import https, { Server as HttpsServer } from "https";
+import fs from "fs";
+import { AddressInfo } from "net";
+import { IDatabase } from "../ports";
+import { ILogger } from "./logger";
+import { IHTTPController, IHTTPErrorHandler, IHTTPMiddleware } from "../ports";
 
 export interface IHTTPServerConstructorParams {
   // db: IDatabase;
@@ -30,15 +26,15 @@ export abstract class Server {
   setupServer(app: RequestListener) {
     try {
       this._localHostSSL = {
-        key: fs.readFileSync('./certificates/key.pem'),
-        cert: fs.readFileSync('./certificates/cert.pem'),
+        key: fs.readFileSync("./certificates/key.pem"),
+        cert: fs.readFileSync("./certificates/cert.pem"),
       };
       this._server = https.createServer(this._localHostSSL, app);
       this._hasHTTPS = true;
-      this._logger.info('Successfully created HTTPS server');
+      this._logger.info("Successfully created HTTPS server");
     } catch {
       this._server = http.createServer(app);
-      this._logger.error('Failed to create HTTPS server');
+      this._logger.error("Failed to create HTTPS server");
       this._hasHTTPS = false;
     }
   }
@@ -50,7 +46,7 @@ export abstract class Server {
     // } catch {
     //     this._logger.error('Failed to connect to database');
     // }
-    const alternativePort = this._hasHTTPS ? '443' : '3000';
+    const alternativePort = this._hasHTTPS ? "443" : "3000";
     this._server.listen(parseInt(process.env.PORT || alternativePort), () => {
       const { address, port } = this._server.address() as AddressInfo;
       this._logger.info(`App running at ${address}:${port}`);

@@ -1,5 +1,5 @@
-import Polyglot from 'node-polyglot';
-import { HeaderParser } from './headers';
+import Polyglot from "node-polyglot";
+import { HeaderParser } from "./headers";
 
 export const startPolyglot = (strings: any) => {
   return (req, _, next) => {

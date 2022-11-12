@@ -1,9 +1,9 @@
 import {
   IActivityRepository,
   ActivityDTO,
-  StudentOutputDTO
-} from '@application/ports';
-import { PrismaClient } from '@prisma-client';
+  StudentOutputDTO,
+} from "@application/ports";
+import { PrismaClient } from "@prisma-client";
 
 export class ActivityRepository implements IActivityRepository {
   prisma: PrismaClient;
@@ -14,12 +14,14 @@ export class ActivityRepository implements IActivityRepository {
   }
 
   _paginate(id) {
-    return id ? {
-      skip: 1,
-      cursor: {
-        id
-      }
-    } : undefined
+    return id
+      ? {
+          skip: 1,
+          cursor: {
+            id,
+          },
+        }
+      : undefined;
   }
 
   getActivities({
@@ -30,24 +32,24 @@ export class ActivityRepository implements IActivityRepository {
     topics,
     cefr,
     contentTypes,
-    ids
+    ids,
   }) {
     // console.log(ids)
     return this.prisma.activity.findMany({
       take: pageSize || this._pageSize,
       ...this._paginate(cursor),
       orderBy: {
-        createdAt: 'desc'
+        createdAt: "desc",
       },
       where: {
         AND: [
-          { title: { contains: title }},
+          { title: { contains: title } },
           { cefr },
           { instructorId },
-          { topics: { hasSome: topics }},
-          { contentType: { in: contentTypes }},
-          ids ? { id: { in: ids }} : undefined
-        ]
+          { topics: { hasSome: topics } },
+          { contentType: { in: contentTypes } },
+          ids ? { id: { in: ids } } : undefined,
+        ],
       },
       select: {
         id: true,
@@ -61,25 +63,27 @@ export class ActivityRepository implements IActivityRepository {
           include: {
             user: {
               select: {
-                name: true, 
-                image: true
-              }
-            }
-          }
-        }
-      }
-    })
+                name: true,
+                image: true,
+              },
+            },
+          },
+        },
+      },
+    });
   }
 
   async getStudentListActivityIdsByStudentId(studentId: string) {
-    return (await this.prisma.studentActivityList.findMany({
-      where: {
-        studentId,
-      },
-      select: {
-        activityId: true
-      }
-    })).map(({ activityId }) => activityId);
+    return (
+      await this.prisma.studentActivityList.findMany({
+        where: {
+          studentId,
+        },
+        select: {
+          activityId: true,
+        },
+      })
+    ).map(({ activityId }) => activityId);
   }
 
   async insertActivityIntoStudentList(studentId: string, activityId: number) {
@@ -87,31 +91,32 @@ export class ActivityRepository implements IActivityRepository {
       data: {
         student: {
           connect: {
-            id: studentId
-          }
+            id: studentId,
+          },
         },
         activity: {
           connect: {
-            id: activityId
-          }
-        }
-      }
-    })
+            id: activityId,
+          },
+        },
+      },
+    });
   }
 
   async deleteActivityFromStudentList(studentId: string, activityId: number) {
-    await this.prisma.studentActivityList.deleteMany({ // only "delete" should work, but it doesn't
+    await this.prisma.studentActivityList.deleteMany({
+      // only "delete" should work, but it doesn't
       where: {
         activityId,
-        studentId
-      }
-    })
+        studentId,
+      },
+    });
   }
 
   getActivityById(id: number) {
     return this.prisma.activity.findUnique({
       where: {
-        id
+        id,
       },
       include: {
         instructions: {
@@ -119,19 +124,19 @@ export class ActivityRepository implements IActivityRepository {
             options: {
               select: {
                 id: true,
-                text: true
-              }
+                text: true,
+              },
             },
             optionsAnswers: {
               select: {
                 id: true,
-                text: true
+                text: true,
               },
-            }
-          }
-        }
-      }
-    })
+            },
+          },
+        },
+      },
+    });
   }
 
   insertActivity(instructorId: string, activity: ActivityDTO) {
@@ -145,7 +150,7 @@ export class ActivityRepository implements IActivityRepository {
       cefr,
       // timeToComplete,
       instructions,
-      description
+      description,
     } = activity;
     return this.prisma.activity.create({
       data: {
@@ -159,36 +164,36 @@ export class ActivityRepository implements IActivityRepository {
         // timeToComplete,
         description,
         instructor: {
-          connect: {id: instructorId}
+          connect: { id: instructorId },
         },
         instructions: {
           create: [
-            ...instructions.map(instruction => ({
+            ...instructions.map((instruction) => ({
               text: instruction.text,
               textAnswer: instruction.textAnswer,
-              type:instruction.type,
+              type: instruction.type,
               isMultiCorrect: instruction.isMultiCorrect,
               options: {
-                create: instruction.options
+                create: instruction.options,
               },
               optionsAnswers: {
-                connect: instruction.optionsAnswers
-              }
-            }))
-          ]
-        }
+                connect: instruction.optionsAnswers,
+              },
+            })),
+          ],
+        },
       },
       include: {
         instructions: {
           include: {
             options: true,
-            optionsAnswers: true
-          }
-        }
-      }
-    })
+            optionsAnswers: true,
+          },
+        },
+      },
+    });
   }
-  
+
   // async insertNewInstructions(activityId: number, instructions: ActivityInstructionDTO[]) {
   //   return (await this.prisma.activity.update({
   //     where: { id: activityId },
@@ -211,5 +216,4 @@ export class ActivityRepository implements IActivityRepository {
   //     }
   //   })).instructions
   // }
-
 }

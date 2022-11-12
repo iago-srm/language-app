@@ -135,9 +135,7 @@ export const DetailsPage = () => {
             )}
             <InstructionsContainer>
               {Object.keys(instructions).map((instructionId, i) => (
-                <InstructionsContainerStyled
-                  key={instructionId}
-                >
+                <InstructionsContainerStyled key={instructionId}>
                   <Instruction
                     index={i}
                     instruction={instructions[instructionId]}

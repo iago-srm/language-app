@@ -23,11 +23,11 @@ import { useLanguage } from "@contexts";
 import { useRouter } from "next/router";
 
 export const DoActivity = () => {
-  const { 
-    getActivity, 
+  const {
+    getActivity,
     postStudentOutput,
     insertActivityIntoMyList,
-    deleteActivityFromMyList 
+    deleteActivityFromMyList,
   } = useApiBuilder();
   type Return = Awaited<ReturnType<typeof getActivity.apiCall>>;
   const [activity, setActivity] =
@@ -50,7 +50,7 @@ export const DoActivity = () => {
       const { response, error } = await getActivity.apiCall({ id });
       if (error) setGetActivityError(error);
       else {
-        setActivity({...response.activity});
+        setActivity({ ...response.activity });
         setIsMyList(response.activity.isMyList);
         setGetActivityError(undefined);
       }
@@ -59,7 +59,7 @@ export const DoActivity = () => {
 
   useEffect(() => {
     if (activity && !Object.keys(instructions).length) {
-      console.log("instructions")
+      console.log("instructions");
       let instructions = {};
       activity.instructions.forEach((inst) => {
         instructions = {
@@ -102,38 +102,32 @@ export const DoActivity = () => {
   };
 
   const toggleIsMyList = async () => {
-    const { 
-      apiCall: deleteApiCall, 
-    } = deleteActivityFromMyList;
-    const { 
-      apiCall: insertApiCall, 
-    } = insertActivityIntoMyList;
+    const { apiCall: deleteApiCall } = deleteActivityFromMyList;
+    const { apiCall: insertApiCall } = insertActivityIntoMyList;
 
     let apiCall: typeof deleteApiCall | typeof insertApiCall;
     let message: string;
 
-    if(isMyList) {
+    if (isMyList) {
       apiCall = deleteApiCall;
-      message = "Atividade removida da sua lista."
+      message = "Atividade removida da sua lista.";
     } else {
       apiCall = insertApiCall;
-      message = "Atividade adicionada à sua lista."
+      message = "Atividade adicionada à sua lista.";
     }
     const { error } = await apiCall({ activityId: Number(activity.id) });
-    if(!error) successToast(message);
+    if (!error) successToast(message);
 
     const id = Number(query.id);
-    const { 
-      response, 
-      error: getActivityError 
-    } = await getActivity.apiCall({ id });
+    const { response, error: getActivityError } = await getActivity.apiCall({
+      id,
+    });
     if (getActivityError) setGetActivityError(getActivityError);
     else {
       setIsMyList(response.activity.isMyList);
       setGetActivityError(undefined);
     }
-
-  }
+  };
 
   return (
     <Container>
@@ -154,7 +148,14 @@ export const DoActivity = () => {
               />
               <div className="icon-container" onClick={toggleIsMyList}>
                 <Tooltip content="Adicione esta atividade à sua lista">
-                  {deleteActivityFromMyList.loading || insertActivityIntoMyList.loading ? <Spinner animation="border" role="status"></Spinner> : isMyList ? <Icons.FULL_HEART /> : <Icons.EMPTY_HEART/>}
+                  {deleteActivityFromMyList.loading ||
+                  insertActivityIntoMyList.loading ? (
+                    <Spinner animation="border" role="status"></Spinner>
+                  ) : isMyList ? (
+                    <Icons.FULL_HEART />
+                  ) : (
+                    <Icons.EMPTY_HEART />
+                  )}
                 </Tooltip>
               </div>
             </div>

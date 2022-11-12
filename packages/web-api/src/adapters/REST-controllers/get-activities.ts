@@ -1,12 +1,10 @@
-import {
-  IGetActivitiesUseCase,
-} from '@application/use-cases';
-import { GetActivitiesHTTPDefinition } from '@language-app/common-core';
+import { IGetActivitiesUseCase } from "@application/use-cases";
+import { GetActivitiesHTTPDefinition } from "@language-app/common-core";
 import {
   IHTTPController,
   IHTTPControllerDescriptor,
-  controllerSerializer
-} from '@language-app/common-platform';
+  controllerSerializer,
+} from "@language-app/common-platform";
 
 export const GetActivitiesControllerFactory = ({
   getActivitiesUseCase,
@@ -14,7 +12,6 @@ export const GetActivitiesControllerFactory = ({
   getActivitiesUseCase: IGetActivitiesUseCase;
 }): IHTTPControllerDescriptor<IHTTPController> => {
   const fn: IHTTPController = async (_, __, query, { user }) => {
-
     const {
       title,
       cefr,
@@ -23,22 +20,24 @@ export const GetActivitiesControllerFactory = ({
       isMyList,
       cursor,
       thisInstructorOnly,
-      pageSize
+      pageSize,
     } = controllerSerializer(query, [
-      { name: 'title', optional: true }, 
-      { name: 'cefr', optional: true }, 
-      { name: 'cursor', optional: true },
-      { name: 'pageSize', optional: true },
-      { name: 'topics', optional: true, type: "array" },
-      { name: 'contentTypes', optional: true, type: "array" },
-      { name: 'isMyList', optional: true },
-      { name: 'thisInstructorOnly', optional: true },
+      { name: "title", optional: true },
+      { name: "cefr", optional: true },
+      { name: "cursor", optional: true },
+      { name: "pageSize", optional: true },
+      { name: "topics", optional: true, type: "array" },
+      { name: "contentTypes", optional: true, type: "array" },
+      { name: "isMyList", optional: true },
+      { name: "thisInstructorOnly", optional: true },
     ]);
 
     const { id, role } = user;
 
-    if(cursor && isNaN(Number(cursor))) throw new Error('cursor must be a number');
-    if(pageSize && isNaN(Number(pageSize))) throw new Error('pageSize must be a number');
+    if (cursor && isNaN(Number(cursor)))
+      throw new Error("cursor must be a number");
+    if (pageSize && isNaN(Number(pageSize)))
+      throw new Error("pageSize must be a number");
 
     return {
       response: await getActivitiesUseCase.execute({
@@ -50,7 +49,8 @@ export const GetActivitiesControllerFactory = ({
         topics,
         contentTypes,
         isMyList: role === "STUDENT" && isMyList === "true",
-        thisInstructorOnly: role === "INSTRUCTOR" && thisInstructorOnly === "true"
+        thisInstructorOnly:
+          role === "INSTRUCTOR" && thisInstructorOnly === "true",
       }),
       statusCode: 200,
     };
@@ -60,6 +60,6 @@ export const GetActivitiesControllerFactory = ({
     controller: fn,
     method: GetActivitiesHTTPDefinition.method,
     path: GetActivitiesHTTPDefinition.path,
-    middlewares: ['auth']
+    middlewares: ["auth"],
   };
 };

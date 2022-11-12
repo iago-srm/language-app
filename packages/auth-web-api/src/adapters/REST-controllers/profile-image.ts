@@ -1,23 +1,20 @@
-import {
-  IUpdateProfileImageUseCase
-} from '@application/use-cases';
-import { UpdateProfileImageHTTPDefinition } from '@language-app/common-core';
+import { IUpdateProfileImageUseCase } from "@application/use-cases";
+import { UpdateProfileImageHTTPDefinition } from "@language-app/common-core";
 import {
   IHTTPController,
   IHTTPControllerDescriptor,
-} from '@language-app/common-platform';
+} from "@language-app/common-platform";
 
 export const UpdateProfileImageControllerFactory = ({
-  updateProfileImageUseCase
+  updateProfileImageUseCase,
 }: {
   updateProfileImageUseCase: IUpdateProfileImageUseCase;
 }): IHTTPControllerDescriptor<IHTTPController> => {
   const fn: IHTTPController = async (_, __, ___, { file, user }) => {
-
     await updateProfileImageUseCase.execute({
       file,
-      userId: user.id
-    })
+      userId: user.id,
+    });
 
     return {
       response: "",
@@ -28,6 +25,6 @@ export const UpdateProfileImageControllerFactory = ({
   return {
     controller: fn,
     ...UpdateProfileImageHTTPDefinition,
-    middlewares: ['file', 'auth']
+    middlewares: ["file", "auth"],
   };
 };

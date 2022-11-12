@@ -1,166 +1,161 @@
 import {
-    IStudentOutputRepository,
-    ActivityDTO,
-    StudentOutputDTO
-  } from '@application/ports';
-  import { PrismaClient } from '@prisma-client';
-  
-  export class StudentOutputRepository implements IStudentOutputRepository {
-    prisma: PrismaClient;
-    private _pageSize = 1;
-  
-    constructor() {
-      this.prisma = new PrismaClient();
-    }
-  
-    _paginate(id) {
-      return id ? {
-        skip: 1,
-        cursor: {
-          id
-        }
-      } : undefined
-    }
+  IStudentOutputRepository,
+  ActivityDTO,
+  StudentOutputDTO,
+} from "@application/ports";
+import { PrismaClient } from "@prisma-client";
 
-    getStudentOutputById (id: number) {
-      return this.prisma.studentOutput.findUnique({
-        where: {
-          id
+export class StudentOutputRepository implements IStudentOutputRepository {
+  prisma: PrismaClient;
+  private _pageSize = 1;
+
+  constructor() {
+    this.prisma = new PrismaClient();
+  }
+
+  _paginate(id) {
+    return id
+      ? {
+          skip: 1,
+          cursor: {
+            id,
+          },
+        }
+      : undefined;
+  }
+
+  getStudentOutputById(id: number) {
+    return this.prisma.studentOutput.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        outputs: {
+          include: {
+            optionsSelections: true,
+            feedback: true,
+          },
         },
-        include: {
-          outputs: {
-            include: {
-              optionsSelections: true,
-              feedback: true
-            }
+        activity: {
+          include: {
+            instructions: {
+              include: {
+                options: true,
+                optionsAnswers: true,
+                // studentOutputs: true
+              },
+            },
           },
-          activity: {
-            include: {
-              instructions: {
-                include: {
-                  options: true,
-                  optionsAnswers: true
-                  // studentOutputs: true
-                }
-              }
-            }
-          }
-        }
-      })
-    }
-  
-    getStudentOutputsByStudentIds ({ 
-      studentIds, 
-      cursor, 
-      pageSize
-    }) {
-      return this.prisma.studentOutput.findMany({
-        take: pageSize || this._pageSize,
-        ...this._paginate(cursor),
-        orderBy: {
-          createdAt: 'desc'
         },
-        where: {
-          studentId: { in: studentIds }
-        }, 
-        include: {
-          student: {
-            include: {
-              user: {
-                select: {
-                  name: true
-                }
-              }
-            }
+      },
+    });
+  }
+
+  getStudentOutputsByStudentIds({ studentIds, cursor, pageSize }) {
+    return this.prisma.studentOutput.findMany({
+      take: pageSize || this._pageSize,
+      ...this._paginate(cursor),
+      orderBy: {
+        createdAt: "desc",
+      },
+      where: {
+        studentId: { in: studentIds },
+      },
+      include: {
+        student: {
+          include: {
+            user: {
+              select: {
+                name: true,
+              },
+            },
           },
-          activity: {
-            select: {
-              cefr: true,
-              title: true,
-              // timeToComplete: true,
-              topics: true,
-              contentType: true,
-              instructor: {
-                include: {
-                  user: {
-                    select: {
-                      name: true,
-                      image: true
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      })
-    }
-  
-    insertStudentOutput ({
-      outputs,
-      activityId,
-      studentId
-    }) {
-      return this.prisma.studentOutput.create({
-        data: {
-          feedbackGiven: false,
-          activity: {
-            connect: {
-              id: activityId
-            }
+        },
+        activity: {
+          select: {
+            cefr: true,
+            title: true,
+            // timeToComplete: true,
+            topics: true,
+            contentType: true,
+            instructor: {
+              include: {
+                user: {
+                  select: {
+                    name: true,
+                    image: true,
+                  },
+                },
+              },
+            },
           },
-          student: {
-            connect: {
-              id: studentId
-            }
+        },
+      },
+    });
+  }
+
+  insertStudentOutput({ outputs, activityId, studentId }) {
+    return this.prisma.studentOutput.create({
+      data: {
+        feedbackGiven: false,
+        activity: {
+          connect: {
+            id: activityId,
           },
-          outputs: {
-            create: outputs.map(output => ({
-              textOutput: output.textOutput || null,
-              optionsSelections: output.optionsSelectionsIds ? {
-                connect: output.optionsSelectionsIds.map(id => ({ id }))
-              } : undefined,
-              instruction: {
-                connect: {
-                  id: output.instructionId
+        },
+        student: {
+          connect: {
+            id: studentId,
+          },
+        },
+        outputs: {
+          create: outputs.map((output) => ({
+            textOutput: output.textOutput || null,
+            optionsSelections: output.optionsSelectionsIds
+              ? {
+                  connect: output.optionsSelectionsIds.map((id) => ({ id })),
                 }
-              }
-            }))
-          } 
-        }
-      })
-    }
-  
-    insertStudentOutputFeedbacks(
-      feedbacks
-    ) {
-      const promises = [];
-      for(let feedback of feedbacks) {
-        promises.push(this.prisma.instructionStudentOutput.update({
+              : undefined,
+            instruction: {
+              connect: {
+                id: output.instructionId,
+              },
+            },
+          })),
+        },
+      },
+    });
+  }
+
+  insertStudentOutputFeedbacks(feedbacks) {
+    const promises = [];
+    for (let feedback of feedbacks) {
+      promises.push(
+        this.prisma.instructionStudentOutput.update({
           where: {
-            id: feedback.instructionOutputId
+            id: feedback.instructionOutputId,
           },
           data: {
             feedback: {
-              create:{
-                message: feedback.feedback
-              }
-            }
-          }
-        }))
-      }
-      return Promise.all(promises);
+              create: {
+                message: feedback.feedback,
+              },
+            },
+          },
+        })
+      );
     }
-
-    updateStudentOutputById(outputId: number, args: Partial<StudentOutputDTO>) {
-      return this.prisma.studentOutput.update({
-        where: {
-          id: outputId
-        },
-        data: {
-          feedbackGiven: args.feedbackGiven
-        }
-      })
-    }
+    return Promise.all(promises);
   }
-  
+
+  updateStudentOutputById(outputId: number, args: Partial<StudentOutputDTO>) {
+    return this.prisma.studentOutput.update({
+      where: {
+        id: outputId,
+      },
+      data: {
+        feedbackGiven: args.feedbackGiven,
+      },
+    });
+  }
+}

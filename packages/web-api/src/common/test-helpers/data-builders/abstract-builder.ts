@@ -3,7 +3,7 @@ export abstract class AbstractBuilder {
   constructor() {
     this.reset();
   }
-  abstract reset()
+  abstract reset();
   getResult() {
     return this.data;
   }

@@ -7,9 +7,9 @@ on:
       - bugfix/*
       - hotfix/*
     paths:
-      - 'jest.config.js'
-      - 'eslintrc.js'
-      - 'tsconfig.json'
+      - "jest.config.js"
+      - "eslintrc.js"
+      - "tsconfig.json"
 
 jobs:
   deploy:

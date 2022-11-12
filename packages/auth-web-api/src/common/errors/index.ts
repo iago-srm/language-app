@@ -1,5 +1,5 @@
-import { CustomError } from '@language-app/common-utils';
-import { ErrorMessagesLabels } from '../locale/labels';
+import { CustomError } from "@language-app/common-utils";
+import { ErrorMessagesLabels } from "../locale/labels";
 
 export class PasswordsDontMatchError extends CustomError {
   HTTPstatusCode = 400;
@@ -46,7 +46,10 @@ export class InvalidValidationTokenError extends CustomError {
 export class UserNotVerifiedError extends CustomError {
   HTTPstatusCode = 400;
   constructor({ email }) {
-    super({ errorName: ErrorMessagesLabels.UNVERIFIED_USER, params: { email } });
+    super({
+      errorName: ErrorMessagesLabels.UNVERIFIED_USER,
+      params: { email },
+    });
   }
 }
 
@@ -63,4 +66,3 @@ export class CredentialsNotProvidedError extends CustomError {
     super({ errorName: ErrorMessagesLabels.CREDENTIALS_NOT_PROVIDED });
   }
 }
-

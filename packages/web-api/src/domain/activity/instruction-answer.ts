@@ -1,4 +1,3 @@
-
 interface ActivityInstructionAnswerConstructorParams {
   answer: string;
 }
@@ -9,7 +8,6 @@ export class ActivityInstructionAnswer {
   constructor(args: Partial<ActivityInstructionAnswerConstructorParams>) {
     args.answer && this.setAnswer(args.answer);
   }
-
 
   setAnswer(text: string) {
     this.answer = text;

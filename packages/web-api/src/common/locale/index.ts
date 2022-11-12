@@ -1,22 +1,21 @@
-export * from './labels';
-import { EnglishErrorMessages, EnglishEmailStrings } from './en';
-import { PortugueseErrorMessages, PortugueseEmailStrings } from './pt';
-import { IEmailStrings, IErrorMessages } from './types';
+export * from "./labels";
+import { EnglishErrorMessages, EnglishEmailStrings } from "./en";
+import { PortugueseErrorMessages, PortugueseEmailStrings } from "./pt";
+import { IEmailStrings, IErrorMessages } from "./types";
 
 const EmailStrings = {
   en: EnglishEmailStrings,
-  pt: PortugueseEmailStrings
-}
+  pt: PortugueseEmailStrings,
+};
 
 const ErrorStrings = {
   en: EnglishErrorMessages,
-  pt: PortugueseErrorMessages
-}
+  pt: PortugueseErrorMessages,
+};
 
-const availableLanguages = ['en', 'pt'];
+const availableLanguages = ["en", "pt"];
 
 export class Strings {
-
   public error: IErrorMessages;
   public email: IEmailStrings;
 
@@ -27,8 +26,7 @@ export class Strings {
   }
 
   static GetLanguage(language: string) {
-    if(!availableLanguages.includes(language)) return 'en';
+    if (!availableLanguages.includes(language)) return "en";
     return language;
   }
-
 }

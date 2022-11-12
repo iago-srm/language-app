@@ -1,8 +1,4 @@
-import {
-  UserDTO,
-  VerificationTokenDTO,
-  ForgotPasswordTokenDTO
-} from './dtos';
+import { UserDTO, VerificationTokenDTO, ForgotPasswordTokenDTO } from "./dtos";
 
 export interface IUserRepository {
   getUserById: (id: string) => Promise<UserDTO | null>;
@@ -17,9 +13,16 @@ export interface IVerificationTokenRepository {
 }
 
 export interface IForgotPasswordTokenRepository {
-  getTokenByTokenValue: (token: string) => Promise<ForgotPasswordTokenDTO | null>;
-  insertToken: (token: ForgotPasswordTokenDTO) => Promise<ForgotPasswordTokenDTO>;
-  updateToken: (id: string, data: Partial<ForgotPasswordTokenDTO>) => Promise<ForgotPasswordTokenDTO>;
+  getTokenByTokenValue: (
+    token: string
+  ) => Promise<ForgotPasswordTokenDTO | null>;
+  insertToken: (
+    token: ForgotPasswordTokenDTO
+  ) => Promise<ForgotPasswordTokenDTO>;
+  updateToken: (
+    id: string,
+    data: Partial<ForgotPasswordTokenDTO>
+  ) => Promise<ForgotPasswordTokenDTO>;
 }
 
 export interface IProfileImageRepository {

@@ -2,12 +2,10 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "esnext"],
-    "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
     "baseUrl": "./src/",
@@ -24,10 +22,7 @@
       "@atomic/organisms": ["atomic/organisms/index.ts"],
       "@atomic": ["atomic/index.ts"],
       "@modules/*": ["modules/*/index.tsx", "modules/*/index.ts"]
-    },
-    "allowJs": true,
-    "strict": false,
-    "incremental": true
+    }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

@@ -1,10 +1,10 @@
-import { IGoogleSignInUseCase } from '@application/use-cases';
-import { GoogleSignInHTTPDefinition } from '@language-app/common-core';
+import { IGoogleSignInUseCase } from "@application/use-cases";
+import { GoogleSignInHTTPDefinition } from "@language-app/common-core";
 import {
   IHTTPController,
   IHTTPControllerDescriptor,
-  controllerSerializer
-} from '@language-app/common-platform';
+  controllerSerializer,
+} from "@language-app/common-platform";
 
 export const GoogleSignInControllerFactory = ({
   googleSignInUseCase,
@@ -12,10 +12,7 @@ export const GoogleSignInControllerFactory = ({
   googleSignInUseCase: IGoogleSignInUseCase;
 }): IHTTPControllerDescriptor<IHTTPController> => {
   const fn: IHTTPController = async (_, body) => {
-
-    const {
-      email,
-    } = controllerSerializer(body, ['email']);
+    const { email } = controllerSerializer(body, ["email"]);
 
     return {
       response: await googleSignInUseCase.execute({
@@ -27,6 +24,6 @@ export const GoogleSignInControllerFactory = ({
 
   return {
     controller: fn,
-    ...GoogleSignInHTTPDefinition
+    ...GoogleSignInHTTPDefinition,
   };
 };

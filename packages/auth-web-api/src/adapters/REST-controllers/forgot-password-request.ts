@@ -1,27 +1,23 @@
-import {
-  IForgotPasswordRequestUseCase
-} from '@application/use-cases';
-import { ForgotPasswordRequestHTTPDefinition } from '@language-app/common-core';
+import { IForgotPasswordRequestUseCase } from "@application/use-cases";
+import { ForgotPasswordRequestHTTPDefinition } from "@language-app/common-core";
 import {
   IHTTPController,
   IHTTPControllerDescriptor,
-  controllerSerializer
-} from '@language-app/common-platform';
+  controllerSerializer,
+} from "@language-app/common-platform";
 
 export const ForgotPasswordRequestControllerFactory = ({
-  forgotPasswordRequestUseCase
+  forgotPasswordRequestUseCase,
 }: {
   forgotPasswordRequestUseCase: IForgotPasswordRequestUseCase;
 }): IHTTPControllerDescriptor<IHTTPController> => {
   const fn: IHTTPController = async (_, body, ___, { language }) => {
-    const {
-      email
-    } = controllerSerializer(body, ['email']);
+    const { email } = controllerSerializer(body, ["email"]);
 
     const response = await forgotPasswordRequestUseCase.execute({
       email,
-      language
-    })
+      language,
+    });
 
     return {
       response,
@@ -31,6 +27,6 @@ export const ForgotPasswordRequestControllerFactory = ({
 
   return {
     controller: fn,
-    ...ForgotPasswordRequestHTTPDefinition
+    ...ForgotPasswordRequestHTTPDefinition,
   };
 };

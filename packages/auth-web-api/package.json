@@ -14,7 +14,7 @@
     "format:ci": "npx prettier --check .",
     "db:sync": "npx prisma db push --accept-data-loss",
     "db:migrate:prod": "npx prisma migrate deploy",
-    "db:migrate:gen": "npx prisma migrate dev --name", 
+    "db:migrate:gen": "npx prisma migrate dev --name",
     "docker:build": "docker build -t language-app/auth-web-api -f ./Dockerfile ../..",
     "docker:exec": "docker exec -ti language-app-auth-web-api /bin/bash"
   },

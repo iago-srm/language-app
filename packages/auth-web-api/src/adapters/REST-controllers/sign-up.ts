@@ -1,32 +1,28 @@
-import { ISignUpUseCase } from '@application/use-cases';
-import { SignUpHTTPDefinition } from '@language-app/common-core';
+import { ISignUpUseCase } from "@application/use-cases";
+import { SignUpHTTPDefinition } from "@language-app/common-core";
 import {
   IHTTPController,
   IHTTPControllerDescriptor,
-  controllerSerializer
-} from '@language-app/common-platform';
+  controllerSerializer,
+} from "@language-app/common-platform";
 
 export const SignUpControllerFactory = ({
   signUpUseCase,
 }: {
   signUpUseCase: ISignUpUseCase;
 }): IHTTPControllerDescriptor<IHTTPController> => {
-
   const fn: IHTTPController = async (_, body, __, { language }) => {
-
-    const {
-      email,
-      password,
-      name,
-      confirmPassword
-    } =  controllerSerializer(body, ['email', 'password', { name: 'name', optional: true }, 'confirmPassword']);
+    const { email, password, name, confirmPassword } = controllerSerializer(
+      body,
+      ["email", "password", { name: "name", optional: true }, "confirmPassword"]
+    );
 
     await signUpUseCase.execute({
       email,
       name,
       password,
       confirmPassword,
-      language
+      language,
     });
 
     return {

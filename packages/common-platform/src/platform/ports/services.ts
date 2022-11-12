@@ -1,4 +1,4 @@
-import { HTTPDefinition } from '@language-app/common-core'
+import { HTTPDefinition } from "@language-app/common-core";
 
 export interface ITokenService {
   generate: (payload: any) => string;
@@ -17,16 +17,24 @@ export interface IEncryptionService {
 type EmailBody = {
   text?: string;
   html?: string;
-}
+};
 
 export interface IEmailService {
   sendEmail: (to: string, subject: string, body: EmailBody) => Promise<boolean>;
 }
 
 export interface IStorageService {
-  uploadFile: (file: any, fileName: string, bucketName: string) => Promise<boolean>;
+  uploadFile: (
+    file: any,
+    fileName: string,
+    bucketName: string
+  ) => Promise<boolean>;
 }
 
 export interface IQueueService {
-  sendMessage: (message: any, queueUrl: string, destinationEndpoint?: HTTPDefinition) => Promise<boolean>;
+  sendMessage: (
+    message: any,
+    queueUrl: string,
+    destinationEndpoint?: HTTPDefinition
+  ) => Promise<boolean>;
 }

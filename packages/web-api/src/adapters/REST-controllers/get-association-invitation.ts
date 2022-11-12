@@ -1,35 +1,30 @@
+import { IGetAssociationInvitationUseCase } from "@application/use-cases";
+import { GetAssociationInvitationHTTPDefinition } from "@language-app/common-core";
 import {
-    IGetAssociationInvitationUseCase,
-} from '@application/use-cases';
-import { GetAssociationInvitationHTTPDefinition } from '@language-app/common-core';
-import {
-    IHTTPController,
-    IHTTPControllerDescriptor,
-    controllerSerializer
-} from '@language-app/common-platform';
+  IHTTPController,
+  IHTTPControllerDescriptor,
+  controllerSerializer,
+} from "@language-app/common-platform";
 
 export const GetAssociationInvitationControllerFactory = ({
-    getAssociationInvitationUseCase,
+  getAssociationInvitationUseCase,
 }: {
-    getAssociationInvitationUseCase: IGetAssociationInvitationUseCase;
+  getAssociationInvitationUseCase: IGetAssociationInvitationUseCase;
 }): IHTTPControllerDescriptor<IHTTPController> => {
-const fn: IHTTPController = async (params) => {
-
-    const {
-        token
-    } = controllerSerializer(params, ['token']);
+  const fn: IHTTPController = async (params) => {
+    const { token } = controllerSerializer(params, ["token"]);
 
     return {
-    response: await getAssociationInvitationUseCase.execute({
-        token
-    }),
-    statusCode: 200,
+      response: await getAssociationInvitationUseCase.execute({
+        token,
+      }),
+      statusCode: 200,
     };
-};
+  };
 
-return {
+  return {
     controller: fn,
     ...GetAssociationInvitationHTTPDefinition,
-    middlewares: ['auth']
-};
+    middlewares: ["auth"],
+  };
 };

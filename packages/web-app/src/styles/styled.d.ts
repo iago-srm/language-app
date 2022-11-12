@@ -1,4 +1,3 @@
-
 import "styled-components";
 
 import { Theme } from "../contexts/color-mode-theme/types";

@@ -1,5 +1,5 @@
-import { CustomError } from '@language-app/common-utils';
-import { ErrorMessagesLabels } from '../locale/labels';
+import { CustomError } from "@language-app/common-utils";
+import { ErrorMessagesLabels } from "../locale/labels";
 
 export class PasswordsDontMatchError extends CustomError {
   HTTPstatusCode = 400;
@@ -22,15 +22,9 @@ export class InvalidPasswordError extends CustomError {
   }
 }
 
-
 export class UserNotFoundError extends CustomError {
   HTTPstatusCode = 404;
   constructor() {
     super({ errorName: ErrorMessagesLabels.USER_NOT_FOUND });
   }
 }
-
-
-
-
-

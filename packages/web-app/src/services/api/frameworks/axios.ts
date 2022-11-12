@@ -1,9 +1,9 @@
 import axios, { AxiosInstance } from "axios";
 
 interface IMethodArgs {
-  url: string,
-  body: any,
-  query?: { [k: string]: string }
+  url: string;
+  body: any;
+  query?: { [k: string]: string };
 }
 
 export interface Fetcher {

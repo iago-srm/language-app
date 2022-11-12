@@ -1,23 +1,23 @@
-import { EmailGenerator, PasswordGenerator } from '@language-app/common-utils';
-import { AbstractBuilder } from './abstract-builder';
+import { EmailGenerator, PasswordGenerator } from "@language-app/common-utils";
+import { AbstractBuilder } from "./abstract-builder";
 
 const emailGenerator = new EmailGenerator();
 const passwordGenerator = new PasswordGenerator();
 
-export class UserDTOHelperBuilder extends AbstractBuilder{
+export class UserDTOHelperBuilder extends AbstractBuilder {
   constructor() {
     super();
   }
 
   reset() {
     this.data = {
-      id: '1',
+      id: "1",
       email: emailGenerator.getValidEmail(),
-      hashedPassword: 'hashed-password',
-      name: 'valid',
-      role: 'STUDENT',
+      hashedPassword: "hashed-password",
+      name: "valid",
+      role: "STUDENT",
       tokenVersion: 0,
-      emailVerified: true
+      emailVerified: true,
     };
   }
 
@@ -35,5 +35,4 @@ export class UserDTOHelperBuilder extends AbstractBuilder{
     this.data.role = role;
     return this;
   }
-
 }

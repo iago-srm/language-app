@@ -1,5 +1,5 @@
-import { InvalidEmailError, InvalidNameError } from './errors';
-import { AuthRules } from '@language-app/common-core';
+import { InvalidEmailError, InvalidNameError } from "./errors";
+import { AuthRules } from "@language-app/common-core";
 
 interface PersonIdConstructorParams {
   id?: string;
@@ -8,14 +8,14 @@ interface PersonIdConstructorParams {
   name?: string;
 }
 
-export class  PersonId {
+export class PersonId {
   id?: string;
   email?: string;
   name?: string;
 
   constructor(args: PersonIdConstructorParams) {
-    if(args.email) this.setEmail(args.email, args.emailValidator);
-    if(args.name) this.setName(args.name);
+    if (args.email) this.setEmail(args.email, args.emailValidator);
+    if (args.name) this.setName(args.name);
 
     this.id = args.id;
   }

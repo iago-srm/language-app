@@ -6,18 +6,14 @@ import {
   IIdGenerator,
   IAuthEmailService,
   IProfileImageRepository,
-} from '../ports';
-import { User } from '@domain';
+} from "../ports";
+import { User } from "@domain";
 import {
   PasswordsDontMatchError,
   EmailAlreadySignedupError,
-} from '@common/errors';
-import {
-  ISignUpAPIParams,
-} from '@language-app/common-core';
-import {
-  IUseCase
-} from '@language-app/common-platform';
+} from "@common/errors";
+import { ISignUpAPIParams } from "@language-app/common-core";
+import { IUseCase } from "@language-app/common-platform";
 
 type InputParams = ISignUpAPIParams & { language: string };
 type Return = void;
@@ -25,15 +21,14 @@ type Return = void;
 export type ISignUpUseCase = IUseCase<InputParams, Return>;
 
 class UseCase implements ISignUpUseCase {
-
-  constructor (
+  constructor(
     private userRepository: IUserRepository,
     private encryptionService: IEncryptionService,
     private idService: IIdGenerator,
     private authEmailService: IAuthEmailService,
     private verificationTokenRepository: IVerificationTokenRepository,
     private profileImageRepository: IProfileImageRepository
-  ){}
+  ) {}
 
   async execute({ email, password, name, confirmPassword, language }) {
     const user = new User({ email, name, password });
@@ -60,16 +55,15 @@ class UseCase implements ISignUpUseCase {
     await this.authEmailService.sendVerifyAccountEmail({
       destination: email,
       language,
-      url: `${process.env.WEB_APP_URL}/verify-account?verificationToken=${token}`
+      url: `${process.env.WEB_APP_URL}/verify-account?verificationToken=${token}`,
     });
 
     await this.userRepository.insertUser(userDTO);
     await this.verificationTokenRepository.insertToken({
       token,
-      userId
+      userId,
     });
   }
-
 }
 
 export default UseCase;

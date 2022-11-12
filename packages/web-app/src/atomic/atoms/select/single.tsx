@@ -4,9 +4,8 @@ import {
   SelectedOptionIconContainer,
   SelectedOptionLabelContainer,
 } from "./styles";
-import { ISelectProps } from './types';
+import { ISelectProps } from "./types";
 import { useColorTheme } from "@contexts";
-
 
 export const SingleSelect = ({
   options,

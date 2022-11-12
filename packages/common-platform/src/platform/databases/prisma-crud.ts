@@ -1,10 +1,10 @@
-import { PrismaClient } from '@prisma/client';
-import { Prisma } from 'prisma';
+import { PrismaClient } from "@prisma/client";
+import { Prisma } from "prisma";
 import {
   IDatabase,
   IBaseCollection,
   // ITest
-} from '../ports';
+} from "../ports";
 // this is a workaround described in this issue: https://github.com/prisma/prisma/issues/5273
 
 type Dict = { [k: string]: any };
@@ -73,13 +73,13 @@ type Delegate = {
 };
 
 type FindManyWhereArg<T extends Delegate> = Parameters<
-  T['findMany']
->[0]['where'];
+  T["findMany"]
+>[0]["where"];
 type FindFirstWhereArg<T extends Delegate> = Parameters<
-  T['findFirst']
->[0]['where'];
-type CreateDataArg<T extends Delegate> = Parameters<T['create']>[0]['data'];
-type UpdateDataArg<T extends Delegate> = Parameters<T['update']>[0]['data'];
+  T["findFirst"]
+>[0]["where"];
+type CreateDataArg<T extends Delegate> = Parameters<T["create"]>[0]["data"];
+type UpdateDataArg<T extends Delegate> = Parameters<T["update"]>[0]["data"];
 
 class PrismaDatabase implements IDatabase {
   _connection: PrismaClient;
@@ -91,7 +91,7 @@ class PrismaDatabase implements IDatabase {
       await this._connection.$connect();
       return true;
     } catch (e) {
-      console.error('failed to create connection', e);
+      console.error("failed to create connection", e);
       return false;
     }
   }

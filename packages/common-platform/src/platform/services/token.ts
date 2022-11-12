@@ -1,6 +1,6 @@
-import { ITokenService } from '../ports';
-import { TokenGenerationError } from '@language-app/common-utils';
-import jwt from 'jsonwebtoken';
+import { ITokenService } from "../ports";
+import { TokenGenerationError } from "@language-app/common-utils";
+import jwt from "jsonwebtoken";
 
 export class JWTTokenService implements ITokenService {
   token_secret = process.env.TOKEN_SECRET;
@@ -15,9 +15,9 @@ export class JWTTokenService implements ITokenService {
         },
         this.token_secret
       );
-      return resp
-    } catch(e) {
-      throw new TokenGenerationError({ error: e.message })
+      return resp;
+    } catch (e) {
+      throw new TokenGenerationError({ error: e.message });
     }
   }
 

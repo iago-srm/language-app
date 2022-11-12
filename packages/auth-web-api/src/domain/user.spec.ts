@@ -1,7 +1,7 @@
-import { User } from './index';
-import { DomainRules } from '@language-app/common-core';
-import { ErrorMessagesLabels } from '@common/locale';
-import { EmailGenerator, PasswordGenerator } from '@language-app/common-utils';
+import { User } from "./index";
+import { DomainRules } from "@language-app/common-core";
+import { ErrorMessagesLabels } from "@common/locale";
+import { EmailGenerator, PasswordGenerator } from "@language-app/common-utils";
 
 class UserTestBuilder {
   emailGenerator = new EmailGenerator();
@@ -11,7 +11,7 @@ class UserTestBuilder {
     return new User({
       email: this.emailGenerator.getValidEmail(),
       password: this.passwordGenerator.getValidPassword(),
-      role: 'adfaefe',
+      role: "adfaefe",
     });
   }
 
@@ -33,10 +33,10 @@ class UserTestBuilder {
   }
 }
 
-describe('Unit Tests for User Entity', () => {
+describe("Unit Tests for User Entity", () => {
   const sutBuilder = new UserTestBuilder();
 
-  it('Should throw if invalid role is passed', () => {
+  it("Should throw if invalid role is passed", () => {
     expect(sutBuilder.withInvalidRole).toThrow();
 
     try {
@@ -48,7 +48,7 @@ describe('Unit Tests for User Entity', () => {
     }
   });
 
-  it('Should correctly set role, password and e-mail if validations pass', () => {
+  it("Should correctly set role, password and e-mail if validations pass", () => {
     const role = DomainRules.USER.ROLES[0];
     const email = sutBuilder.emailGenerator.getValidEmail();
     const password = sutBuilder.passwordGenerator.getValidPassword();
@@ -60,7 +60,7 @@ describe('Unit Tests for User Entity', () => {
     expect(sut.role).toEqual(role);
   });
 
-  it('Should throw if an invalid password is passed', () => {
+  it("Should throw if an invalid password is passed", () => {
     expect(sutBuilder.withInvalidPassword).toThrow();
 
     try {

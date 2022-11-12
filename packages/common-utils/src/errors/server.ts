@@ -1,10 +1,13 @@
-import { CustomError } from './custom-error';
-import { ErrorMessagesLabels } from '../locale';
+import { CustomError } from "./custom-error";
+import { ErrorMessagesLabels } from "../locale";
 
 export class TokenGenerationError extends CustomError {
   HTTPstatusCode = 400;
   constructor({ error }) {
-    super({ errorName: ErrorMessagesLabels.TOKEN_GENERATION, params: { error } });
+    super({
+      errorName: ErrorMessagesLabels.TOKEN_GENERATION,
+      params: { error },
+    });
   }
 }
 

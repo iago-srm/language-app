@@ -9,8 +9,8 @@ export interface UserDTO {
 }
 
 export interface StudentOutputDTO {
-  activityId: number,
-  studentId: string,
+  activityId: number;
+  studentId: string;
   outputs: InstructionStudentOutputDTO[];
   feedbackGiven: boolean;
 }
@@ -54,8 +54,8 @@ export interface ActivityInstructionDTO {
   type: INSTRUCTIONTYPE;
 }
 
-export type CEFR = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
-export type CONTENTTYPE = 'TEXT' | 'VIDEO';
+export type CEFR = "A1" | "A2" | "B1" | "B2" | "C1" | "C2";
+export type CONTENTTYPE = "TEXT" | "VIDEO";
 export type INSTRUCTIONTYPE = "TEXT" | "OPTIONS";
 
 export interface ActivityDTO {

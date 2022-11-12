@@ -1,3 +1,5 @@
-import multer from 'multer';
+import multer from "multer";
 
-export const putFileInReq = multer({ dest: '/tmp/files' }).single('profile-image');
+export const putFileInReq = multer({ dest: "/tmp/files" }).single(
+  "profile-image"
+);

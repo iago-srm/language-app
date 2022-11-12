@@ -1,5 +1,5 @@
-import { CustomError } from './custom-error';
-import { ErrorMessagesLabels } from '../locale';
+import { CustomError } from "./custom-error";
+import { ErrorMessagesLabels } from "../locale";
 
 export class RouteNotFoundError extends CustomError {
   HTTPstatusCode = 404;
@@ -18,9 +18,9 @@ export class CannotAlterUserError extends CustomError {
 export class ParameterNotProvidedError extends CustomError {
   HTTPstatusCode = 400;
   constructor({ parameter }) {
-    super({ 
-      errorName: ErrorMessagesLabels.PARAMETER_NOT_PROVIDED, 
-      params: { parameter } 
+    super({
+      errorName: ErrorMessagesLabels.PARAMETER_NOT_PROVIDED,
+      params: { parameter },
     });
   }
 }
@@ -28,8 +28,8 @@ export class ParameterNotProvidedError extends CustomError {
 export class InvalidParameterError extends CustomError {
   HTTPstatusCode = 400;
   constructor() {
-    super({ 
-      errorName: ErrorMessagesLabels.INVALID_PARAMETER
+    super({
+      errorName: ErrorMessagesLabels.INVALID_PARAMETER,
     });
   }
 }
@@ -75,5 +75,3 @@ export class Forbidden extends CustomError {
     super({ errorName: ErrorMessagesLabels.INVALID_TOKEN });
   }
 }
-
-

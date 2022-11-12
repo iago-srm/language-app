@@ -5,11 +5,11 @@ on:
     branches:
       - develop
     paths:
-      - 'packages/web-app/**'
-      - 'packages/common-core'
+      - "packages/web-app/**"
+      - "packages/common-core"
 
 jobs:
   build_and_test:
-    uses: 'iago-srm/language-app/.github/workflows/reusable-build-and-test.yml@main'
+    uses: "iago-srm/language-app/.github/workflows/reusable-build-and-test.yml@main"
     with:
-      package: 'web-app'
+      package: "web-app"

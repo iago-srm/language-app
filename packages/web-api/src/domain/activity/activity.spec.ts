@@ -1,22 +1,27 @@
-import { Activity } from '.';
-import { DomainRules } from '@language-app/common-core';
-import { ErrorMessagesLabels } from '@common/locale';
+import { Activity } from ".";
+import { DomainRules } from "@language-app/common-core";
+import { ErrorMessagesLabels } from "@common/locale";
 
-describe('Unit Tests for Activity Entity', () => {
-  it('Should throw an error if invalid activity topic is passed to constructor.', () => {
-    expect(() => new Activity({ topics: ['fdsfdsfs']})).toThrow();
+describe("Unit Tests for Activity Entity", () => {
+  it("Should throw an error if invalid activity topic is passed to constructor.", () => {
+    expect(() => new Activity({ topics: ["fdsfdsfs"] })).toThrow();
     try {
-      new Activity({ topics: ['fdsfdsfs']});
+      new Activity({ topics: ["fdsfdsfs"] });
     } catch (e) {
-      expect(e).toMatchObject({ errorName: ErrorMessagesLabels.ACTIVITY_TOPIC });
+      expect(e).toMatchObject({
+        errorName: ErrorMessagesLabels.ACTIVITY_TOPIC,
+      });
     }
   });
 
-  it('Should throw an error if time to complete is over max.', () => {
-    expect(() => new Activity({
-      topics: DomainRules.ACTIVITY.TOPICS,
-      // timeToComplete: DomainRules.ACTIVITY.MAX_TIME_TO_COMPLETE + 1,
-    })).toThrow();
+  it("Should throw an error if time to complete is over max.", () => {
+    expect(
+      () =>
+        new Activity({
+          topics: DomainRules.ACTIVITY.TOPICS,
+          // timeToComplete: DomainRules.ACTIVITY.MAX_TIME_TO_COMPLETE + 1,
+        })
+    ).toThrow();
     try {
       new Activity({
         topics: DomainRules.ACTIVITY.TOPICS,
@@ -29,7 +34,7 @@ describe('Unit Tests for Activity Entity', () => {
     }
   });
 
-  it('Should not throw an error if valid parameters are passed.', () => {
+  it("Should not throw an error if valid parameters are passed.", () => {
     const activity = new Activity({
       topics: DomainRules.ACTIVITY.TOPICS,
       // timeToComplete: DomainRules.ACTIVITY.MAX_TIME_TO_COMPLETE - 1,
@@ -40,15 +45,18 @@ describe('Unit Tests for Activity Entity', () => {
     );
   });
 
-  it('Should throw na error if activity text is too long', () => {
-    expect(() => new Activity({
-      contentType: 'TEXT',
-      content: 'a'.repeat(DomainRules.ACTIVITY.MAX_TEXT_LENGTH + 1),
-    })).toThrow();
+  it("Should throw na error if activity text is too long", () => {
+    expect(
+      () =>
+        new Activity({
+          contentType: "TEXT",
+          content: "a".repeat(DomainRules.ACTIVITY.MAX_TEXT_LENGTH + 1),
+        })
+    ).toThrow();
     try {
       new Activity({
-        contentType: 'TEXT',
-        content: 'a'.repeat(DomainRules.ACTIVITY.MAX_TEXT_LENGTH + 1),
+        contentType: "TEXT",
+        content: "a".repeat(DomainRules.ACTIVITY.MAX_TEXT_LENGTH + 1),
       });
     } catch (e) {
       expect(e).toMatchObject({
@@ -57,17 +65,17 @@ describe('Unit Tests for Activity Entity', () => {
     }
   });
 
-  it('Should throw an error if activity length is larger than max', () => {
+  it("Should throw an error if activity length is larger than max", () => {
     expect(() => {
       new Activity({
-        contentType: 'YOUTUBE',
+        contentType: "YOUTUBE",
         startTime: 0,
         endTime: DomainRules.ACTIVITY.MAX_VIDEO_LENGTH + 1,
-      })
+      });
     }).toThrow();
     try {
       new Activity({
-        contentType: 'YOUTUBE',
+        contentType: "YOUTUBE",
         startTime: 0,
         endTime: DomainRules.ACTIVITY.MAX_VIDEO_LENGTH + 1,
       });
@@ -78,10 +86,12 @@ describe('Unit Tests for Activity Entity', () => {
     }
   });
 
-  it('Should validate times so that start is before end', () => {
-    expect(() => new Activity({ contentType: 'VIDEO', startTime: 11, endTime: 10 })).toThrow();
+  it("Should validate times so that start is before end", () => {
+    expect(
+      () => new Activity({ contentType: "VIDEO", startTime: 11, endTime: 10 })
+    ).toThrow();
     try {
-      new Activity({ contentType: 'VIDEO', startTime: 11, endTime: 10 });
+      new Activity({ contentType: "VIDEO", startTime: 11, endTime: 10 });
     } catch (e) {
       expect(e).toMatchObject({
         errorName: ErrorMessagesLabels.ACTIVITY_VIDEO_TIMES,
@@ -90,33 +100,37 @@ describe('Unit Tests for Activity Entity', () => {
   });
 
   DomainRules.ACTIVITY.CONTENTTYPE.map((contentType) =>
-  it('Should not throw an error if valid activity type is passed to constructor.', () => {
+    it("Should not throw an error if valid activity type is passed to constructor.", () => {
       const sut = new Activity({ contentType });
       expect(sut.contentType).toEqual(contentType);
     })
   );
 
-  it('Should throw an error if invalid activity type is passed to constructor.', () => {
-    expect(() => new Activity({ contentType: 'fdsfdsfs' })).toThrow();
+  it("Should throw an error if invalid activity type is passed to constructor.", () => {
+    expect(() => new Activity({ contentType: "fdsfdsfs" })).toThrow();
     try {
-      new Activity({ contentType: 'fdsfdsfs' });
+      new Activity({ contentType: "fdsfdsfs" });
     } catch (e) {
       expect(e).toMatchObject({ errorName: ErrorMessagesLabels.ACTIVITY_TYPE });
     }
   });
 
-  it('Should validate video url with validator and throw an error if it is invalid', () => {
-    expect(() => new Activity({ contentType: 'VIDEO', content: 'ffdfdfedfed' })).toThrow();
+  it("Should validate video url with validator and throw an error if it is invalid", () => {
+    expect(
+      () => new Activity({ contentType: "VIDEO", content: "ffdfdfedfed" })
+    ).toThrow();
     try {
-      new Activity({ contentType: 'VIDEO', content: 'ffdfdfedfed' });
+      new Activity({ contentType: "VIDEO", content: "ffdfdfedfed" });
     } catch (e) {
-      expect(e).toMatchObject({ errorName: ErrorMessagesLabels.ACTIVITY_VIDEO_URL });
+      expect(e).toMatchObject({
+        errorName: ErrorMessagesLabels.ACTIVITY_VIDEO_URL,
+      });
     }
   });
 
-  it('Should not throw an error if video times are good, and set them', () => {
+  it("Should not throw an error if video times are good, and set them", () => {
     const sut = new Activity({
-      contentType: 'YOUTUBE',
+      contentType: "YOUTUBE",
       startTime: 0,
       endTime: DomainRules.ACTIVITY.MAX_VIDEO_LENGTH - 1,
     });
@@ -124,10 +138,10 @@ describe('Unit Tests for Activity Entity', () => {
     expect(sut.endTime).toEqual(DomainRules.ACTIVITY.MAX_VIDEO_LENGTH - 1);
   });
 
-  it('Should throw if invalid CEFR value is passed.', () => {
-    expect(() => new Activity({ cefr: 'C3' })).toThrow();
+  it("Should throw if invalid CEFR value is passed.", () => {
+    expect(() => new Activity({ cefr: "C3" })).toThrow();
     try {
-      new Activity({ cefr: 'C3' });
+      new Activity({ cefr: "C3" });
     } catch (e) {
       expect(e).toMatchObject({
         errorName: ErrorMessagesLabels.CEFR,
@@ -139,19 +153,20 @@ describe('Unit Tests for Activity Entity', () => {
   });
 
   DomainRules.CEFR.POSSIBLE_VALUES.map((cefr) =>
-    it('Should not throw if valid CEFR value is passed.', () => {
+    it("Should not throw if valid CEFR value is passed.", () => {
       const sut = new Activity({ cefr });
       expect(sut.cefr).toEqual(cefr);
     })
   );
 
-  it('Should throw an error if invalid parameters are passed to title', () => {
+  it("Should throw an error if invalid parameters are passed to title", () => {
     {
       // title above max length
-      const newActivity = () => new Activity({
-        title: 'a'.repeat(DomainRules.ACTIVITY.TITLE.MAX_LENGTH + 1),
-        description: 'a'.repeat(DomainRules.ACTIVITY.DESCRIPTION.MAX_LENGTH),
-      });
+      const newActivity = () =>
+        new Activity({
+          title: "a".repeat(DomainRules.ACTIVITY.TITLE.MAX_LENGTH + 1),
+          description: "a".repeat(DomainRules.ACTIVITY.DESCRIPTION.MAX_LENGTH),
+        });
       expect(newActivity()).toThrow();
       try {
         newActivity();
@@ -164,10 +179,11 @@ describe('Unit Tests for Activity Entity', () => {
 
     {
       // title below min length
-      const newActivity = () => new Activity({
-        title: 'a'.repeat(DomainRules.ACTIVITY.TITLE.MIN_LENGTH - 1),
-        description: 'a'.repeat(DomainRules.ACTIVITY.DESCRIPTION.MIN_LENGTH),
-      });
+      const newActivity = () =>
+        new Activity({
+          title: "a".repeat(DomainRules.ACTIVITY.TITLE.MIN_LENGTH - 1),
+          description: "a".repeat(DomainRules.ACTIVITY.DESCRIPTION.MIN_LENGTH),
+        });
       expect(newActivity()).toThrow();
       try {
         newActivity();
@@ -179,15 +195,16 @@ describe('Unit Tests for Activity Entity', () => {
     }
   });
 
-  it('Should throw an error if invalid parameters are passed to description', () => {
+  it("Should throw an error if invalid parameters are passed to description", () => {
     {
       // description below min length
-      const newActivity = () => new Activity({
-        title: 'a'.repeat(DomainRules.ACTIVITY.TITLE.MIN_LENGTH),
-        description: 'a'.repeat(
-          DomainRules.ACTIVITY.DESCRIPTION.MIN_LENGTH - 1
-        ),
-      });
+      const newActivity = () =>
+        new Activity({
+          title: "a".repeat(DomainRules.ACTIVITY.TITLE.MIN_LENGTH),
+          description: "a".repeat(
+            DomainRules.ACTIVITY.DESCRIPTION.MIN_LENGTH - 1
+          ),
+        });
       expect(newActivity()).toThrow();
       try {
         newActivity();
@@ -200,12 +217,13 @@ describe('Unit Tests for Activity Entity', () => {
 
     // description above max length
     {
-      const newActivity = () => new Activity({
-        title: 'a'.repeat(DomainRules.ACTIVITY.TITLE.MAX_LENGTH),
-        description: 'a'.repeat(
-          DomainRules.ACTIVITY.DESCRIPTION.MAX_LENGTH + 1
-        ),
-      });
+      const newActivity = () =>
+        new Activity({
+          title: "a".repeat(DomainRules.ACTIVITY.TITLE.MAX_LENGTH),
+          description: "a".repeat(
+            DomainRules.ACTIVITY.DESCRIPTION.MAX_LENGTH + 1
+          ),
+        });
       expect(newActivity()).toThrow();
       try {
         newActivity();
@@ -217,13 +235,13 @@ describe('Unit Tests for Activity Entity', () => {
     }
   });
 
-  it('Should not throw an error if valid title and description parameters are passed to constructor, and values should be set.', () => {
-    const minTitle = 'a'.repeat(DomainRules.ACTIVITY.TITLE.MIN_LENGTH);
-    const maxTitle = 'a'.repeat(DomainRules.ACTIVITY.TITLE.MAX_LENGTH);
-    const minDescription = 'a'.repeat(
+  it("Should not throw an error if valid title and description parameters are passed to constructor, and values should be set.", () => {
+    const minTitle = "a".repeat(DomainRules.ACTIVITY.TITLE.MIN_LENGTH);
+    const maxTitle = "a".repeat(DomainRules.ACTIVITY.TITLE.MAX_LENGTH);
+    const minDescription = "a".repeat(
       DomainRules.ACTIVITY.DESCRIPTION.MIN_LENGTH
     );
-    const maxDescription = 'a'.repeat(
+    const maxDescription = "a".repeat(
       DomainRules.ACTIVITY.DESCRIPTION.MAX_LENGTH
     );
 

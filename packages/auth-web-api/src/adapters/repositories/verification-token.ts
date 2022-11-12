@@ -1,7 +1,9 @@
-import { IVerificationTokenRepository } from '@application/ports';
-import { PrismaClient } from '@prisma-client';
+import { IVerificationTokenRepository } from "@application/ports";
+import { PrismaClient } from "@prisma-client";
 
-export class VerificationTokenRepository implements IVerificationTokenRepository {
+export class VerificationTokenRepository
+  implements IVerificationTokenRepository
+{
   prisma: PrismaClient;
 
   constructor() {
@@ -11,15 +13,14 @@ export class VerificationTokenRepository implements IVerificationTokenRepository
   getTokenByTokenValue(token: string) {
     return this.prisma.verificationToken.findUnique({
       where: {
-        token
-      }
-    })
+        token,
+      },
+    });
   }
 
   insertToken(token: any) {
     return this.prisma.verificationToken.create({
-      data: token
-    })
+      data: token,
+    });
   }
-
 }

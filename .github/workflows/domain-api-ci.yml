@@ -5,12 +5,12 @@ on:
     branches:
       - develop
     paths:
-      - 'packages/web-api/**'
-      - 'packages/common-platform'
-      - 'packages/common-core'
+      - "packages/web-api/**"
+      - "packages/common-platform"
+      - "packages/common-core"
 
 jobs:
   build_and_test:
-    uses: 'iago-srm/language-app/.github/workflows/reusable-build-and-test.yml@main'
+    uses: "iago-srm/language-app/.github/workflows/reusable-build-and-test.yml@main"
     with:
-      package: 'web-api'
+      package: "web-api"

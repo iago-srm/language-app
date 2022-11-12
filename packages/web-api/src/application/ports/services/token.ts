@@ -1,5 +1,3 @@
-import { ITokenService as ICommonTokenService } from '@language-app/common-platform';
+import { ITokenService as ICommonTokenService } from "@language-app/common-platform";
 
-export interface ITokenService extends ICommonTokenService {};
-
-
+export interface ITokenService extends ICommonTokenService {}

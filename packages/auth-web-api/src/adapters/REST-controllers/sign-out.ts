@@ -1,9 +1,9 @@
-import { ISignOutUseCase } from '@application/use-cases';
-import { SignOutHTTPDefinition } from '@language-app/common-core';
+import { ISignOutUseCase } from "@application/use-cases";
+import { SignOutHTTPDefinition } from "@language-app/common-core";
 import {
   IHTTPController,
   IHTTPControllerDescriptor,
-} from '@language-app/common-platform';
+} from "@language-app/common-platform";
 
 export const SignOutControllerFactory = ({
   signOutUseCase,
@@ -11,7 +11,6 @@ export const SignOutControllerFactory = ({
   signOutUseCase: ISignOutUseCase;
 }): IHTTPControllerDescriptor<IHTTPController> => {
   const fn: IHTTPController = async (_, __, ___, { user }) => {
-
     const { id, tokenVersion } = user;
 
     await signOutUseCase.execute({
@@ -29,6 +28,6 @@ export const SignOutControllerFactory = ({
     controller: fn,
     method: SignOutHTTPDefinition.method,
     path: SignOutHTTPDefinition.path,
-    middlewares: ['auth']
+    middlewares: ["auth"],
   };
 };

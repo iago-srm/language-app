@@ -10,12 +10,14 @@
     "lint": "turbo run lint",
     "dev": "turbo run dev",
     "install:ci": "npm i",
-    "psql:local:db": "docker exec -ti language-app-postgres psql -U postgres -h localhost -p 5432"
+    "psql:local:db": "docker exec -ti language-app-postgres psql -U postgres -h localhost -p 5432",
+    "prettier:format": "npx prettier --write ."
   },
   "workspaces": [
     "packages/*"
   ],
   "devDependencies": {
+    "@language-app/eslint-config": "*",
     "@types/axios": "^0.14.0",
     "@types/function-bind": "^1.1.6",
     "@types/jest": "^26.0.5",

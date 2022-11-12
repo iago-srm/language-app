@@ -1,33 +1,27 @@
-import {
-  IUpdateUserUseCase
-} from '@application/use-cases';
-import { AuthUpdateUserHTTPDefinition } from '@language-app/common-core';
+import { IUpdateUserUseCase } from "@application/use-cases";
+import { AuthUpdateUserHTTPDefinition } from "@language-app/common-core";
 import {
   IHTTPController,
   IHTTPControllerDescriptor,
-  controllerSerializer
-} from '@language-app/common-platform';
-
+  controllerSerializer,
+} from "@language-app/common-platform";
 
 export const UpdateUserControllerFactory = ({
-  updateUserUseCase
+  updateUserUseCase,
 }: {
   updateUserUseCase: IUpdateUserUseCase;
 }): IHTTPControllerDescriptor<IHTTPController> => {
   const fn: IHTTPController = async (_, body, ___, { user }) => {
-    const {
-      name,
-      role,
-    } = controllerSerializer(body, [
-      { name: 'name', optional: true }, 
-      { name: 'role', optional: true }
+    const { name, role } = controllerSerializer(body, [
+      { name: "name", optional: true },
+      { name: "role", optional: true },
     ]);
 
     await updateUserUseCase.execute({
       role: role as any,
       name: name as any,
-      userId: user.id
-    })
+      userId: user.id,
+    });
 
     return {
       response: "",
@@ -38,6 +32,6 @@ export const UpdateUserControllerFactory = ({
   return {
     controller: fn,
     ...AuthUpdateUserHTTPDefinition,
-    middlewares: ['auth']
+    middlewares: ["auth"],
   };
 };

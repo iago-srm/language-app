@@ -1,6 +1,6 @@
-import { DomainRules } from '@language-app/common-core';
+import { DomainRules } from "@language-app/common-core";
 import { CustomError } from "@language-app/common-utils";
-import { ErrorMessagesLabels } from '@common/locale';
+import { ErrorMessagesLabels } from "@common/locale";
 
 // student output
 export class InvalidStudentOutputStatusError extends CustomError {
@@ -43,7 +43,7 @@ export class InvalidCEFRError extends CustomError {
       errorName: ErrorMessagesLabels.CEFR,
       params: {
         possibleValues: DomainRules.CEFR.POSSIBLE_VALUES,
-        text
+        text,
       },
     });
   }
@@ -92,10 +92,10 @@ export class InvalidActivityOptionLengthError extends CustomError {
 
 export class InvalidInstructionOptionSetError extends CustomError {
   HTTPstatusCode = 400;
-  constructor( { text }) {
+  constructor({ text }) {
     super({
       errorName: ErrorMessagesLabels.ACTIVITY_OPTION_SET,
-      params: { text }
+      params: { text },
     });
   }
 }

@@ -14,48 +14,50 @@ export const ListingPage: React.FC = () => {
   const { user } = useAuth();
   const { query } = useRouter();
 
-  const [selectedStudent, setSelectedStudent] = useState({ id: "", name: ""});
+  const [selectedStudent, setSelectedStudent] = useState({ id: "", name: "" });
 
   const { useGetStudentOutputs, useGetStudents } = useApiBuilder();
 
   // useEffect(() => {}, []);
-  const { 
-    data: studentOutputs, 
-    loading: studentOutputsLoading, 
-    error: studentOutputsError 
+  const {
+    data: studentOutputs,
+    loading: studentOutputsLoading,
+    error: studentOutputsError,
   } = useGetStudentOutputs(query.studentId as string); // select puts student id in url
-  const { 
-    data: students, 
-    loading: studentsLoading, 
-    error: studentsError 
+  const {
+    data: students,
+    loading: studentsLoading,
+    error: studentsError,
   } = useGetStudents(); // select puts student id in url
 
   useEffect(() => {
-    if(students) {
+    if (students) {
       setSelectedStudent(students[0]);
     }
   }, [students]);
 
   const onChangeStudentSelect = ({ label, value }) => {
     setSelectedStudent({ name: label, id: value });
-    Router.push({
-      pathname: '/student-outputs',
-      query: { studentId: value }
-    }, 
-    undefined, { shallow: true }
-    )
-  }
+    Router.push(
+      {
+        pathname: "/student-outputs",
+        query: { studentId: value },
+      },
+      undefined,
+      { shallow: true }
+    );
+  };
 
   return (
     <Container>
       <Head>
         <title>{getPageTitle(Translations[language][Labels.DASHBOARD])}</title>
       </Head>
-      <SingleSelect 
-          options={(students || []).map(e => ({ label: e.name, value: e.id }))}
-          value={{ label: selectedStudent.name, value: selectedStudent.id }}
-          onChange={onChangeStudentSelect}
-        />
+      <SingleSelect
+        options={(students || []).map((e) => ({ label: e.name, value: e.id }))}
+        value={{ label: selectedStudent.name, value: selectedStudent.id }}
+        onChange={onChangeStudentSelect}
+      />
       <LoadingErrorData
         loading={studentOutputsLoading}
         error={studentOutputsError}

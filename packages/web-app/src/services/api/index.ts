@@ -45,7 +45,7 @@ import {
   EditAssociationInvitationHTTPDefinition,
   InsertActivityIntoStudentListHTTPDefinition,
   DeleteActivityFromStudentListHTTPDefinition,
-  GetInstructorStudentsHTTPDefinition
+  GetInstructorStudentsHTTPDefinition,
 } from "@language-app/common-core";
 import { useLanguage, handleAuthToken, useAuth } from "@contexts";
 import { useEffect } from "react";
@@ -97,7 +97,7 @@ export const useApiBuilder = () => {
       )
   );
 
-  const verifyAccount = useApiCall<IVerifyAccountParams, void>(({ token }) => 
+  const verifyAccount = useApiCall<IVerifyAccountParams, void>(({ token }) =>
     authFetcher[VerifyAccountHTTPDefinition.method](
       `${VerifyAccountHTTPDefinition.path.split("/")[0]}/${token}`
     )
@@ -209,7 +209,8 @@ export const useApiBuilder = () => {
 
   const useGetStudentOutputs = (studentId: string) =>
     useApiCallSWR<IGetStudentOutputs["response"]>(
-      tokenHeaderSet && `${GetStudentOutputsHTTPDefinition.path}?studentId=${studentId}`,
+      tokenHeaderSet &&
+        `${GetStudentOutputsHTTPDefinition.path}?studentId=${studentId}`,
       (url) =>
         domainFetcher[GetStudentOutputsHTTPDefinition.method](url, {
           pageSize: 10,
@@ -260,17 +261,19 @@ export const useApiBuilder = () => {
   );
 
   const insertActivityIntoMyList = useApiCall<{ activityId: number }, void>(
-    ({ activityId }) => 
+    ({ activityId }) =>
       domainFetcher[InsertActivityIntoStudentListHTTPDefinition.method](
-        InsertActivityIntoStudentListHTTPDefinition.path, { activityId }
+        InsertActivityIntoStudentListHTTPDefinition.path,
+        { activityId }
       )
-  )
+  );
 
   const deleteActivityFromMyList = useApiCall<{ activityId: number }, void>(
     ({ activityId }) => {
       return domainFetcher.del(
-        DeleteActivityFromStudentListHTTPDefinition.path, { activityId }
-      )
+        DeleteActivityFromStudentListHTTPDefinition.path,
+        { activityId }
+      );
     }
   );
 
@@ -304,7 +307,7 @@ export const useApiBuilder = () => {
     acceptAssociationInvitation,
     insertActivityIntoMyList,
     deleteActivityFromMyList,
-    useGetStudents
+    useGetStudents,
   };
 };
 
