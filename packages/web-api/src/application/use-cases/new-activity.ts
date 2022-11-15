@@ -6,8 +6,7 @@ import {
 } from "../ports";
 import { IUseCase } from "@language-app/common-platform";
 import { Activity, ActivityInstruction } from "@domain";
-import { timeStamp } from "console";
-import { InvalidInstructionOptionSetError } from "@/domain/errors";
+import { UserNotFoundError } from "@common/errors";
 
 type InputParams = {
   userId: string;
@@ -64,7 +63,7 @@ class UseCase implements INewActivityUseCase {
     const instructor = await this.instructorRepository.getInstructorByUserId(
       userId
     );
-    if (!instructor) throw new Error("Instructor not found");
+    if (!instructor) throw new UserNotFoundError();
 
     return this.activityRepository.insertActivity(instructor.id, {
       ...activity,

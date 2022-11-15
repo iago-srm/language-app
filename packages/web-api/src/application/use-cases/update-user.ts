@@ -1,5 +1,6 @@
 import { IUserRepository } from "../ports";
 import { IUseCase } from "@language-app/common-platform";
+import { UserNotFoundError } from "@common/errors";
 
 type InputParams = {
   authApiId: string;
@@ -16,8 +17,7 @@ class UseCase implements IUpdateUserUseCase {
   // new tokenVersion comes from auth API
   async execute({ authApiId, tokenVersion, image }) {
     const user = await this.userRepository.getUserByAuthApiId(authApiId);
-    if (!user)
-      throw new Error(`User with authApiId ${authApiId} does not exist`);
+    if (!user) throw new UserNotFoundError();
 
     await this.userRepository.updateUser(
       {

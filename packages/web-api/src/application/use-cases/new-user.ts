@@ -35,7 +35,8 @@ class UseCase implements INewUserUseCase {
       authApiId
     );
     if (existingUser)
-      throw new Error("User with that authApiId already exists");
+      // throw new Error("User with that authApiId already exists");
+      return; //Idempotency
 
     if (role === "STUDENT")
       await this.userRepository.insertUserAndStudent(newUser, authApiId);

@@ -1,5 +1,6 @@
 import { IInstructorRepository } from "../ports";
 import { IUseCase, IPaginatedParams } from "@language-app/common-platform";
+import { UserNotFoundError } from "@common/errors";
 
 interface InputParams {
   userId: string;
@@ -18,7 +19,7 @@ class UseCase implements IGetInstructorStudentsUseCase {
     const instructor = await this.instructorRepository.getInstructorByUserId(
       userId
     );
-    if (!instructor) throw new Error("Instructor not found");
+    if (!instructor) throw new UserNotFoundError();
     return this.instructorRepository.getThisInstructorStudents(instructor.id);
   }
 }

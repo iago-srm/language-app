@@ -1,5 +1,6 @@
 import { IActivityRepository, IStudentRepository } from "../ports";
 import { IUseCase } from "@language-app/common-platform";
+import { UserNotFoundError } from "@common/errors";
 
 type InputParams = {
   userId: string;
@@ -22,15 +23,14 @@ class UseCase implements IDeleteActivityFromStudentListUseCase {
     const student = await this.studentRepository.getStudentByUserId(userId);
 
     if (!student) {
-      throw new Error("Student not found");
+      throw new UserNotFoundError();
     }
 
     const studentList =
       await this.activityRepository.getStudentListActivityIdsByStudentId(
         student.id
       );
-    if (!studentList.includes(activityId))
-      throw new Error("Activity does not belong to this student's list"); // Idempotency. Or perhaps HTTP 304 would be more appropriate?
+    if (!studentList.includes(activityId)) return; // Idempotency. Or perhaps HTTP 304 would be more appropriate?
 
     return this.activityRepository.deleteActivityFromStudentList(
       student.id,

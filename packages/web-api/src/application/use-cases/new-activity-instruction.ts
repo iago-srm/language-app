@@ -1,6 +1,5 @@
 import {
   ActivityInstructionDTO,
-  ActivityDTO,
   IActivityRepository,
   IInstructorRepository,
 } from "../ports";
@@ -38,8 +37,6 @@ class UseCase implements INewActivityInstructionUseCase {
     instructions.forEach(
       (instruction) => new ActivityInstruction({ ...instruction })
     );
-
-    // return this.activityRepository.insertNewInstructions(activityId,instructions)
   }
 }
 

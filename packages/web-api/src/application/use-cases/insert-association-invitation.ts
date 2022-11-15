@@ -5,11 +5,10 @@ import {
   IIdGenerator,
   IInstructorRepository,
 } from "../ports";
-import { UserNotFoundError } from "@common/errors";
 import {
-  IForgotPasswordParams,
-  IForgotPasswordResponse,
-} from "@language-app/common-core";
+  UserNotFoundError,
+  StudentAlreadyAssociatedError,
+} from "@common/errors";
 import { IUseCase } from "@language-app/common-platform";
 
 type InputParams = {
@@ -49,9 +48,10 @@ class UseCase implements INewAssociationInvitationUseCase {
         student.id
       );
     if (existingInvitation)
-      throw new Error(
-        "An invitation to this student has already been sent by you."
-      );
+      // throw new Error(
+      //   "An invitation to this student has already been sent by you."
+      // );
+      return; //Idempotency
 
     //TODO: allow student to dissociate from current instructor
     const otherInvitationToThisStudent =
@@ -59,9 +59,7 @@ class UseCase implements INewAssociationInvitationUseCase {
         student.id
       );
     if (otherInvitationToThisStudent && otherInvitationToThisStudent.accepted)
-      throw new Error(
-        "This student is already associated to another instructor. Please ask them to remove that association."
-      );
+      throw new StudentAlreadyAssociatedError();
 
     await this.associationInvitationTokenRepository.insertToken({
       token,

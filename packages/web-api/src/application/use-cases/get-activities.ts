@@ -42,10 +42,6 @@ class UseCase implements IGetActivitiesUseCase {
     userId,
     thisInstructorOnly,
   }) {
-    // console.log({
-    //   cursor, title, cefr, topics, contentTypes, isInProgress, isComplete, thisInstructorOnly
-    // });
-
     let instructorId;
 
     if (thisInstructorOnly) {
@@ -66,7 +62,6 @@ class UseCase implements IGetActivitiesUseCase {
             student.id
           );
         studentActivitiesIds = myListActivityIds;
-        console.log({ studentActivitiesIds });
       }
     }
 

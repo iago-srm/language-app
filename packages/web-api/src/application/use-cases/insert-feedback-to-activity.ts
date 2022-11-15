@@ -1,5 +1,6 @@
 import { IInstructorRepository, IStudentOutputRepository } from "../ports";
 import { IUseCase } from "@language-app/common-platform";
+import { UserNotFoundError } from "@common/errors";
 
 type InputParams = {
   userId: string;
@@ -26,7 +27,7 @@ class UseCase implements IInsertFeedbackToActivityUseCase {
     );
 
     if (!instructor) {
-      throw new Error("Instructor not found");
+      throw new UserNotFoundError();
     }
 
     await this.studentOutputRepository.insertStudentOutputFeedbacks(feedbacks);

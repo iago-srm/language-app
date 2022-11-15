@@ -10,6 +10,7 @@ import {
   IPaginatedParams,
   IPaginatedResponse,
 } from "@language-app/common-platform";
+import { UserNotFoundError } from "@common/errors";
 
 interface InputParams extends IPaginatedParams {
   userId: string;
@@ -26,7 +27,6 @@ export type IGetStudentOutputsUseCase = IUseCase<InputParams, Return>;
 class UseCase implements IGetStudentOutputsUseCase {
   constructor(
     private studentOutputRepository: IStudentOutputRepository,
-    private instructorRepository: IInstructorRepository,
     private studentRepository: IStudentRepository
   ) {}
 
@@ -35,7 +35,7 @@ class UseCase implements IGetStudentOutputsUseCase {
 
     if (role === "STUDENT") {
       const student = await this.studentRepository.getStudentByUserId(userId);
-      if (!student) throw new Error("Student not found");
+      if (!student) throw new UserNotFoundError();
 
       studentOutputs =
         await this.studentOutputRepository.getStudentOutputsByStudentIds({

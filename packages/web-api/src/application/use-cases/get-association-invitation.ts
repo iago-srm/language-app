@@ -25,8 +25,7 @@ class UseCase implements IGetAssociationInvitationUseCase {
       await this.associationInvitationTokenRepository.getInstructorByTokenValue(
         token
       );
-    if (!instructor)
-      throw new Error("No instructor associated to token was found.");
+    if (!instructor) throw new UserNotFoundError();
 
     return {
       instructor,

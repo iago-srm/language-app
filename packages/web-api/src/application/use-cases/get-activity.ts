@@ -1,5 +1,6 @@
 import { ActivityDTO, IActivityRepository, IStudentRepository } from "../ports";
 import { IUseCase } from "@language-app/common-platform";
+import { ActivityNotFoundError } from "@common/errors";
 
 type InputParams = {
   activityId: number;
@@ -19,7 +20,7 @@ class UseCase implements IGetActivityUseCase {
   async execute({ activityId, userId, role }) {
     const activity = await this.activityRepository.getActivityById(activityId);
 
-    if (!activity) throw new Error("Activity not found");
+    if (!activity) throw new ActivityNotFoundError();
 
     if (role === "STUDENT") {
       const student = await this.studentRepository.getStudentByUserId(userId);

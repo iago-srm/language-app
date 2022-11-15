@@ -1,5 +1,6 @@
 import { IActivityRepository, IStudentRepository } from "../ports";
 import { IUseCase } from "@language-app/common-platform";
+import { UserNotFoundError, ActivityNotFoundError } from "@common/errors";
 
 type InputParams = {
   userId: string;
@@ -23,11 +24,11 @@ class UseCase implements IInsertActivityIntoStudentListUseCase {
     const activity = await this.activityRepository.getActivityById(activityId);
 
     if (!activity) {
-      throw new Error("Activity not found");
+      throw new ActivityNotFoundError();
     }
 
     if (!student) {
-      throw new Error("Student not found");
+      throw new UserNotFoundError();
     }
 
     const studentList =

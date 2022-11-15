@@ -2,6 +2,11 @@ import { IAssociationInvitationRepository, IStudentRepository } from "../ports";
 import { UserNotFoundError } from "@common/errors";
 import { IVerifyAccountParams } from "@language-app/common-core";
 import { IUseCase } from "@language-app/common-platform";
+import {
+  InvitationTokenNotFoundError,
+  NoStudentAssociationError,
+  AssociationDoesNotBelongToUserError,
+} from "@common/errors";
 
 type InputParams = {
   token: string;
@@ -21,16 +26,13 @@ class UseCase implements IAcceptAssociationInvitationUseCase {
       await this.associationInvitationTokenRepository.getTokenByTokenValue(
         token
       );
-    if (!invitationToken) throw new Error("Invitation token not found");
+    if (!invitationToken) throw new InvitationTokenNotFoundError();
 
     const student = await this.studentRepository.getStudentByUserId(userId);
-    if (!student)
-      throw new Error(
-        "There is no student associated to this authorization token"
-      );
+    if (!student) throw new NoStudentAssociationError();
 
     if (invitationToken.studentId !== student.id) {
-      throw new Error("This invitation does not belong to this user");
+      throw new AssociationDoesNotBelongToUserError();
     }
     await this.associationInvitationTokenRepository.updateToken(
       invitationToken.id,

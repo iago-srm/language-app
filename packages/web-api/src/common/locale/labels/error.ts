@@ -21,4 +21,9 @@ export const ErrorMessagesLabels = {
   FEEDBACK_GRADE: "feedback_grade",
   FEEDBACK_MESSAGE: "feedback_message",
   STUDENT_OUTPUT_FEEDBACK_STATUS: "student_output_feedback_status",
+  INVITATION_TOKEN_NOT_FOUND: "invitation_token_not_found",
+  NO_STUDENT_ASSOCIATION: "no_student_association",
+  ASSOCIATION_DOESNT_BELONG: "association_doesnt_belong",
+  ACTIVITY_NOT_FOUND: "activity_not_found",
+  EXISTING_ASSOCIATION: "existing_association",
 };

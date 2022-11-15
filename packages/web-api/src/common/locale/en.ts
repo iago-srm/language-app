@@ -15,6 +15,15 @@ export const EnglishErrorMessages = {
   [ErrorMessagesLabels.CEFR]:
     "%{text} is an invalid CEFR value. Allowed values are %{possibleValues}",
   [ErrorMessagesLabels.ACTIVITY_TIME_TO_COMPLETE]: `Invalid timeToComplete. Allowed values are numbers from ${DomainRules.ACTIVITY.MIN_TIME_TO_COMPLETE} to ${DomainRules.ACTIVITY.MAX_TIME_TO_COMPLETE}, expressed as minutes`,
+  [ErrorMessagesLabels.INVITATION_TOKEN_NOT_FOUND]:
+    "Invitation token not found",
+  [ErrorMessagesLabels.NO_STUDENT_ASSOCIATION]:
+    "There is no student associated to this authorization token",
+  [ErrorMessagesLabels.ASSOCIATION_DOESNT_BELONG]:
+    "This invitation does not belong to this user",
+  [ErrorMessagesLabels.ACTIVITY_NOT_FOUND]: "Activity not found",
+  [ErrorMessagesLabels.EXISTING_ASSOCIATION]:
+    "This student is already associated to another instructor. Please ask them to remove that association.",
 };
 
 export const EnglishEmailStrings = {
