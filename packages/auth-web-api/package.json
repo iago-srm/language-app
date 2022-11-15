@@ -11,7 +11,7 @@
     "test:ci": "cross-env NODE_ENV=test jest --no-cache --runInBand",
     "install:ci": "cross-env NODE_ENV=test npm i",
     "format": "npx prettier --write .",
-    "format:ci": "npx prettier --check .",
+    "format:ci": "npx prettier --config ../eslint-config/.prettierrc.json --ignore-path ../eslint-config/.prettierignore --check .",
     "db:sync": "npx prisma db push --accept-data-loss",
     "db:migrate:prod": "npx prisma migrate deploy",
     "db:migrate:gen": "npx prisma migrate dev --name",

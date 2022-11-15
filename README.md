@@ -17,16 +17,18 @@
 
 # TODO
 
+## Project Setup
+
+- lint backend code
+
 ## Infrastructure
 
-- Prometheus, Grafana and ElasticSearch monitoring
-- Turn controllers into Lambdas
-- Staging Environment identical to prod
+- AWS Distro and OTeL for observability
+- Improve CICD. Following options have been tried
+- - Option 1 (currently implemented): Use a Codepipeline that triggers whenever the develop or main receive pushes and builds and deploys the project to its respective environment. Problem: can't select monorepo paths that trigger builds. Any update anywhere in the monorepo triggers builds of all services. In order to prevent unecessary builds, I have disabled the transition from the Source to the Build stage, and just trigger the pipeline manually whenever I want a new deploy.
+- - Option 2 (partially implemented in branch cicd-1): Employ a Codebuild project to listen to Github code changes. This accepts a webhook, which, in turn, lets you select paths. Then, this Codebuild project uses AWS CLI to trigger only the desired Codepipeline. Problems: Couldn't figure out how to build a pipeline that starts with the build stage, or has a source stage that only triggers with the CLI call. Also, very hacky.
+- - Option 3 (not yet explored). Use Github Actions to do CD too. It is currently only doing CI (testing and linting)
 
 ## Frontend
 
-- Insert activity instruction modal:
-  - Text of multiple-choice should have between parenthesis what sub-type it is: only one correct answer (radio UI) or multiple (checkbox UI) and text in red if no correct answer.
-  - Not allow to save if no correct answers in multiple-choice.
 - [BUG] CEFR Select keeps last choice when filters are cleared.
-- Activities pagination

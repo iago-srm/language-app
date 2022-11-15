@@ -1,15 +1,5 @@
 module.exports = {
-  extends: [
-    "next",
-    "next/core-web-vitals",
-    "prettier",
-    "plugin:react/recommended",
-    "standard",
-    "plugin:@typescript-eslint/recommended",
-    "prettier/@typescript-eslint",
-    "prettier/standard",
-    "prettier/react",
-  ],
+  extends: ["next", "next/core-web-vitals", "prettier"],
   rules: {
     // "@typescript-eslint/no-empty-interface": "off"
   },
@@ -31,6 +21,9 @@ module.exports = {
     },
     react: {
       version: "detect",
+    },
+    next: {
+      rootDir: "packages/web-app/",
     },
   },
 };

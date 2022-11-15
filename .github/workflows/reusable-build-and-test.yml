@@ -6,9 +6,6 @@ on:
       package:
         required: true
         type: string
-    # secrets:
-    #   token:
-    #     required: true
 
 jobs:
   echo:
@@ -23,8 +20,12 @@ jobs:
         with:
           node-version: 18.x
 
-      # - name: Ensure code formatting
-      #   working-directory: './packages/${{ inputs.package }}'
+      - name: Ensure code formatting
+        working-directory: "./packages/${{ inputs.package }}"
+        run: npm run format:ci
+
+      # - name: Ensure code linting
+      #   working-directory: ".packages/${{ inputs.package }}"
       #   run: npm run format:ci
 
       - name: Install Dependencies
