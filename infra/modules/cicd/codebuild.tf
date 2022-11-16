@@ -4,55 +4,14 @@ resource "aws_s3_bucket" "build_cache" {
   tags = var.tags
 }
 
-# resource "aws_iam_role" "codebuild-hook" {
-#   name = "${var.server-name}-codebuild-webhook"
-
-#   assume_role_policy = <<EOF
-# {
-#   "Version": "2012-10-17",
-#   "Statement": [
-#     {
-#       "Effect": "Allow",
-#       "Principal": {
-#         "Service": "codebuild.amazonaws.com"
-#       },
-#       "Action": "sts:AssumeRole"
-#     }
-#   ]
-# }
-# EOF
-
-#   tags = var.tags
-# }
-
-# resource "aws_iam_role_policy" "codebuild-hook" {
-#   role = aws_iam_role.codebuild.name
-
-#   policy = jsonencode(
-# {
-#   "Version": "2012-10-17",
-#   "Statement": [
-#     {
-#       "Effect": "Allow",
-#       "Action": [
-#         "codepipeline:*",
-#       ],
-#       "Resource": [
-#         "*"
-#       ]
-#     }
-#   ]
-# })
-# }
-
-
 resource "aws_codebuild_project" "this" {
   name          = "${var.server-name}"
   build_timeout = "5"
   service_role  = aws_iam_role.codebuild.arn
 
   artifacts {
-    type = "NO_ARTIFACTS"
+    type = "CODEPIPELINE"
+    # type = "NO_ARTIFACTS"
   }
 
   cache {
@@ -96,32 +55,40 @@ resource "aws_codebuild_project" "this" {
   }
 
   source {
-    type = "GITHUB"
-    location        = "${var.git_repo}"
-    git_clone_depth = 1
+    type            = "CODEPIPELINE"
     buildspec       = "packages/${var.server-name}/buildspec.yml"
   }
 
   tags = var.tags
 }
 
-resource "aws_codebuild_webhook" "this" {
-  project_name = aws_codebuild_project.this.name
-  build_type   = "BUILD"
-  filter_group {
-    filter {
-      type    = "EVENT"
-      pattern = "PUSH"
-    }
+# resource "aws_codebuild_webhook" "example" {
+#   project_name = aws_codebuild_project.this.name
+#   build_type   = "BUILD"
+#   filter_group {
+#     filter {
+#       type    = "EVENT"
+#       pattern = "PUSH"
+#     }
 
-    filter {
-      type    = "HEAD_REF"
-      pattern = "main"
-    }
+#     filter {
+#       type    = "HEAD_REF"
+#       pattern = "main"
+#     }
 
-    filter {
-      type    = "FILE_PATH"
-      pattern = "(packages/${var.server-name}/*|packages/common-core|packages/common-platform)"
-    }
-  }
-}
+#     filter {
+#       type    = "FILE_PATH"
+#       pattern = "packages/${var.server-name}"
+#     }
+
+#     filter {
+#       type    = "FILE_PATH"
+#       pattern = "packages/common-core"
+#     }
+
+#     filter {
+#       type    = "FILE_PATH"
+#       pattern = "packages/common-platform"
+#     }
+#   }
+# }

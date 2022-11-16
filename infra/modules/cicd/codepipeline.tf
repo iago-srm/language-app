@@ -16,36 +16,39 @@ resource "aws_codepipeline" "this" {
     name = "Source"
 
     action {
-      name             = "Image"
+      name             = "Source"
       category         = "Source"
-      owner            = "AWS"
-      provider         = "ECR"
+      owner            = "ThirdParty"
+      provider         = "GitHub"
       version          = "1"
       output_artifacts = ["source"]
 
       configuration = {
-        RepositoryName = aws_ecr_repository.this.name
+        Owner  = "iago-srm"
+        Repo   = "language-app"
+        Branch = "main"
+        OAuthToken = "${var.github_oauth_token}"
       }
     }
   }
 
-  # stage {
-  #   name = "Build"
+  stage {
+    name = "Build"
 
-  #   action {
-  #     name             = "Build"
-  #     category         = "Build"
-  #     owner            = "AWS"
-  #     provider         = "CodeBuild"
-  #     version          = "1"
-  #     input_artifacts  = ["source"]
-  #     output_artifacts = ["imagedefinitions"]
+    action {
+      name             = "Build"
+      category         = "Build"
+      owner            = "AWS"
+      provider         = "CodeBuild"
+      version          = "1"
+      input_artifacts  = ["source"]
+      output_artifacts = ["imagedefinitions"]
 
-  #     configuration = {
-  #       ProjectName = "${var.server-name}"
-  #     }
-  #   }
-  # }
+      configuration = {
+        ProjectName = "${var.server-name}"
+      }
+    }
+  }
 
   stage {
     name = "Deploy"
@@ -59,7 +62,7 @@ resource "aws_codepipeline" "this" {
         #"DeploymentTimeout" = "15"
       }
       input_artifacts = [
-        "source",
+        "imagedefinitions",
       ]
       name             = "Deploy"
       output_artifacts = []
