@@ -11,7 +11,11 @@ variable "git_repo" {
   default = "https://github.com/iago-srm/language-app.git"
 }
 
-variable "ecs_cluster_name" {
+variable "ecs_cluster_name_production" {
+  type = string
+}
+
+variable "ecs_cluster_name_staging" {
   type = string
 }
 

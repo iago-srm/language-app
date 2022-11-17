@@ -1,5 +1,5 @@
 resource "aws_alb_target_group" "this" {
-  name        = "${var.server-name}"
+  name        = "${var.server-name}-${var.environment}"
   port        = 80
   protocol    = "HTTP"
   vpc_id      = var.vpc_id

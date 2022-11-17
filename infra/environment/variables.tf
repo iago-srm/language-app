@@ -17,9 +17,14 @@ variable "admin_ips" {
   type = list(string)
 }
 
-variable "domain_name" {
+variable "domain_name-production" {
   type = string
   default = "api.language-app.isrm.link"
+}
+
+variable "domain_name-staging" {
+  type = string
+  default = "staging.api.language-app.isrm.link"
 }
 
 variable "auth_token_secret" {

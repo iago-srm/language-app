@@ -44,7 +44,7 @@ resource "aws_ecs_task_definition" "this" {
 
 
 resource "aws_security_group" "ecs_security_group" {
-  name   = "${var.server-name}-ecs-sg"
+  name   = "${var.server-name}-ecs-sg-${var.environment}"
   vpc_id = var.vpc_id
 
   ingress {
@@ -80,7 +80,7 @@ resource "aws_security_group" "ecs_security_group" {
 }
 
 resource "aws_ecs_service" "this" {
-  name                               = "${var.server-name}"
+  name                               = "${var.server-name}-${var.environment}"
   launch_type                        = "FARGATE"
   cluster                            = var.cluster_id
   task_definition                    = aws_ecs_task_definition.this.arn

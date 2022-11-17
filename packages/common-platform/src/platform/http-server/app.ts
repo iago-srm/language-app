@@ -86,6 +86,10 @@ export class ExpressServer extends AbstractServer {
       res.sendStatus(200);
     });
 
+    this._app.get("/env", (_, res) => {
+      res.send(process.env.NODE_ENV);
+    });
+
     this._app.all("*", () => {
       throw new RouteNotFoundError();
     });

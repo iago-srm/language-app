@@ -1,0 +1,6 @@
+[
+  {
+    "name": "web-api",
+    "imageUri": "553239741950.dkr.ecr.us-east-1.amazonaws.com/language-app/web-api:latest"
+  }
+]

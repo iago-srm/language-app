@@ -4,7 +4,7 @@ data "aws_route53_zone" "this" {
 
 resource "aws_route53_record" "api-language-app" {
   zone_id = data.aws_route53_zone.this.zone_id
-  name    = "api.language-app.isrm.link"
+  name    = "${var.environment == "staging" ? "staging." : ""}api.language-app.isrm.link"
   type    = "A"
 
   alias {

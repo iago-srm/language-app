@@ -1,5 +1,5 @@
 resource "aws_security_group" "alb_sg" {
-  name   = "language-app-sg-alb"
+  name   = "language-app-sg-alb-${var.environment}"
   vpc_id = var.vpc_id
 
   ingress {
@@ -49,7 +49,7 @@ resource "aws_security_group" "alb_sg" {
 # }
 
 resource "aws_lb" "main" {
-  name               = "alb"
+  name               = "alb-${var.environment}"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb_sg.id]

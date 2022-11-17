@@ -17,3 +17,7 @@ variable "certificate_arn" {
 variable "default_tg_arn" {
   type = string
 }
+
+variable "environment" {
+  type = string
+}
