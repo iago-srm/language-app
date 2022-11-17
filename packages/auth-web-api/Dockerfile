@@ -2,7 +2,7 @@ FROM public.ecr.aws/bitnami/node:latest
 
 WORKDIR /app
 
-ENV npm_config_cache=./.npm
+# ENV npm_config_cache=./.npm
 
 COPY ./package*.json ./
 COPY ./tsconfig.json ./
@@ -13,7 +13,7 @@ COPY ./packages/common-utils/ ./packages/common-utils/
 
 RUN npm i
 
-RUN chmod -R 777 .
+# RUN chmod -R 777 .
 
 WORKDIR /app/packages/auth-web-api
 
