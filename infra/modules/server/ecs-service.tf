@@ -1,6 +1,6 @@
 resource "aws_ecs_task_definition" "this" {
   network_mode             = "awsvpc"
-  family                   = var.server-name
+  family                   = "${var.server-name}-${var.environment}"
   requires_compatibilities = ["FARGATE"]
   cpu                      = 256
   memory                   = 512
@@ -17,14 +17,15 @@ resource "aws_ecs_task_definition" "this" {
         { "Name" = "WEB_APP_URL", "Value" = "isrm.link" },
         { "Name" = "PORT", "Value" = "${var.container_port}" },
         { "Name" = "SENDGRID_API_KEY", "Value" = "${var.env_sendgrid_api_key}" },
-        { "Name" = "QUEUE_URL", "Value" = "${var.env_queue_url}" },  
+        { "Name" = "QUEUE_URL", "Value" = "${var.env_queue_url}" }, 
+        { "Name" = "NODE_ENV", "Value" = "${var.environment}" },  
       ]
       logConfiguration = {
         "logDriver": "awslogs",
         "options": {
             "awslogs-region" : "${var.aws_region}",
-            "awslogs-group" : "language-app-${var.server-name}",
-            "awslogs-stream-prefix" : "language-app-${var.server-name}",
+            "awslogs-group" : "language-app-${var.server-name}-${var.environment}",
+            "awslogs-stream-prefix" : "language-app-${var.server-name}-${var.environment}",
             "awslogs-create-group": "true",
         }
       },

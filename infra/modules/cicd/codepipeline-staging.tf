@@ -57,7 +57,7 @@ resource "aws_codepipeline" "staging" {
       category = "Deploy"
       configuration = {
         "ClusterName" = var.ecs_cluster_name_staging
-        "ServiceName" = var.ecs_service_name
+        "ServiceName" = "${var.ecs_service_name}-staging"
         "FileName"    = "packages/${var.server-name}/imagedefinitions.json"
         #"DeploymentTimeout" = "15"
       }
