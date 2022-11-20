@@ -10,3 +10,7 @@ variable "lambda-bucket_name" {
   type = string
   default = "language-app-lambda-bucket"
 }
+
+variable "environment" {
+  type = string
+}

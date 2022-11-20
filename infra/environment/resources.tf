@@ -91,7 +91,7 @@ module "server-staging" {
   env_database_url = "postgres://${module.db.rds_username}:${module.db.rds_password}@${module.db.rds_hostname}:${module.db.rds_port}/${each.value}-staging"
   env_profile_image_bucket = module.profile_image_bucket.bucket
   env_token_secret = var.auth_token_secret
-  env_queue_url = module.sqs.queue_url
+  env_queue_url = module.sqs-staging.queue_url
   env_sendgrid_api_key = var.sendgrid_api_key
   aws_access_key_id = var.aws_access_key_id
   aws_secret_access_key = var.aws_secret_access_key
@@ -117,7 +117,7 @@ module "server-production" {
   env_database_url = "postgres://${module.db.rds_username}:${module.db.rds_password}@${module.db.rds_hostname}:${module.db.rds_port}/${each.value}"
   env_profile_image_bucket = module.profile_image_bucket.bucket
   env_token_secret = var.auth_token_secret
-  env_queue_url = module.sqs.queue_url
+  env_queue_url = module.sqs-production.queue_url
   env_sendgrid_api_key = var.sendgrid_api_key
   aws_access_key_id = var.aws_access_key_id
   aws_secret_access_key = var.aws_secret_access_key
@@ -143,10 +143,20 @@ module "cicd-pipeline" {
 }
 
 
-module "sqs" {
+module "sqs-production" {
   source = "../modules/sqs"
+  environment = "production"
 
   tags = "${var.tags}"
 
   env_api_url = "api.language-app.isrm.link/web-api"
+}
+
+module "sqs-staging" {
+  source = "../modules/sqs"
+  environment = "staging"
+
+  tags = "${var.tags}"
+
+  env_api_url = "staging.api.language-app.isrm.link/web-api"
 }
