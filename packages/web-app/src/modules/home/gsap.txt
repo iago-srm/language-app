@@ -1,0 +1,33 @@
+gsap.fromTo(
+    section1Ref.current,
+    { x: -200 },
+    {
+    x: 0,
+    duration: 3,
+    scrollTrigger: {
+        trigger: section2Ref.current,
+        // triggers after element has appeared in te screen for 400 px
+        // start: 400,
+        // triggers when top of element meets center of viewport
+        // start: "top center",
+        // start and end can both receive the same types of values
+        // end: () => ``,
+
+        // shows markers on the screen for debugging
+        // animation starts when start meets scroller-start
+        // markers: true, // can receive an object to style the markers
+
+        // class to apply to element after start and before end.
+        // toggleClass: "className",
+
+        // controls what happens as scroll enters, leaves and goes back to area (from start to end)
+        // values can be 'restart', 'play', 'none', 'reverse', 'pause', 'resume', 'reset'
+        // toggleActions: "onEnter  onLeave  onEnterBack  onLeaveBack"
+
+        // makes the animation dependant on the scroll position
+        // scrub: true,
+        // makes the animation smooth
+        // scrub: 4 
+    },
+    }
+);
