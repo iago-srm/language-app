@@ -4,9 +4,16 @@ export const Container = styled.div`
   width: 98vw;
   margin: 0 auto;
 
-  .main-section {
+  .main-large {
     display: grid;
     grid-template-columns: 1fr 1fr;
+  }
+  .main-small {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .main-section {
     width: 100%;
     padding: 20px;
     height: 90vh;
@@ -33,6 +40,10 @@ export const Container = styled.div`
   }
 
   .section-title {
+    font-style: italic;
+  }
+
+  .sticky-title {
     position: sticky;
     top: 50%;
     height: 100px;
@@ -59,10 +70,24 @@ export const Container = styled.div`
     grid-template-columns: 1fr 2fr;
   }
 
+  .section-small {
+    h3 {
+      margin: 100px auto;
+    }
+  }
+
+  .section2-small {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
   .imgs-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    img {
+      cursor: pointer;
+    }
   }
 `;

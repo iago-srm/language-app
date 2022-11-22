@@ -1,57 +1,89 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Head from "next/head";
 import gsap from "gsap";
-import Image from "next/image";
-import insertActivity from "../../../public/images/logo.png";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { Container } from "./styles";
 import { getPageTitle } from "@services/browser";
-import { useLanguage } from "@contexts";
+import { useLanguage, useColorTheme } from "@contexts";
 import { Translations, Labels } from "@locale";
 import Ratio from "react-bootstrap/Ratio";
-// import { DoubleSection, Single } from "./components";
+import { ImgModal } from "./components/img-modal";
+import { useMediaQuery } from "react-responsive";
 
-const imgWidth = 400;
-const imgHeight = 400;
+const imgWidth = 300;
+const imgHeight = 300;
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const Page: React.FC = () => {
+  const {
+    theme: { responsiveBreakpoint },
+  } = useColorTheme();
   const { language } = useLanguage();
   const videoRef = useRef();
   const titleRef = useRef();
-  const section1Ref = useRef();
-  const section1TextRef = useRef();
-  const section2Ref = useRef();
-
-  // const section1ImageRef = useRef();
-  // const section1TextRef = useRef();
-  // const section2ImageRef = useRef();
-  // const section2TextRef = useRef();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalImageSrc, setModalImgSrc] = useState("");
+  const isBigScreen = useMediaQuery({ minWidth: responsiveBreakpoint });
 
   useEffect(() => {
     gsap.fromTo(videoRef.current, { x: -200 }, { x: 0, duration: 3 });
     gsap.fromTo(titleRef.current, { x: 200 }, { x: 0, duration: 3 });
-    // ["1", "2"].map((num) =>
-    //   gsap.to(`.section-title${num}`, {
-    //     x: "0",
-    //     scrollTrigger: {
-    //       start: "top center",
-    //       end: "bottom center",
-    //       pin: true,
-    //       trigger: `.section-title${num}`,
-    //       markers: true,
-    //     },
-    //   })
-    // );
   }, []);
+
+  const onClickImage = (src) => {
+    setModalImgSrc(src);
+    setModalOpen(true);
+  };
+
+  const section1Images = [
+    { src: "/images/logo.png", alt: "" },
+    { src: "/images/logo.png", alt: "" },
+    { src: "/images/logo.png", alt: "" },
+    { src: "/images/logo.png", alt: "" },
+  ].map(({ src, alt }) => (
+    <img
+      onClick={() => onClickImage(src)}
+      alt={alt}
+      src={src}
+      width={imgWidth}
+      height={imgHeight}
+    />
+  ));
+
+  const section2Images = [
+    { src: "/images/logo.png", alt: "" },
+    { src: "/images/logo.png", alt: "" },
+    { src: "/images/logo.png", alt: "" },
+    { src: "/images/logo.png", alt: "" },
+  ].map(({ src, alt }) => (
+    <img
+      onClick={() => onClickImage(src)}
+      alt={alt}
+      src={src}
+      width={imgWidth}
+      height={imgHeight}
+    />
+  ));
+
+  const section1Styles = `${
+    isBigScreen ? "single-section right" : "section-small"
+  }`;
+  const section2Styles = `${
+    isBigScreen ? "single-section left" : "section2-small section-small"
+  }`;
+  const sectionTitleStyles = `${
+    isBigScreen ? "sticky-title" : ""
+  } section-title`;
 
   return (
     <Container>
       <Head>
         <title>{getPageTitle(Translations[language][Labels.HOME])}</title>
       </Head>
-      <div className="main-section">
+      <div
+        className={`main-section ${isBigScreen ? "main-large" : "main-small"}`}
+      >
         <div className="video">
           <Ratio aspectRatio="16x9">
             <iframe
@@ -64,71 +96,26 @@ export const Page: React.FC = () => {
         </div>
         <div className="title" ref={titleRef}>
           <h1>language-app</h1>
-          <p>{Translations[language][Labels.SUBTITLE]}</p>
+          <p>{Translations[language][Labels.Home.SUBTITLE]}</p>
         </div>
       </div>
 
-      <div className="single-section right section1">
-        <h3 className="section-title">Estudantes realizam as atividades</h3>
-        <div className="imgs-container">
-          <img
-            alt="img"
-            src="/images/logo.png"
-            width={imgWidth}
-            height={imgHeight}
-          />
-          <img
-            alt="img"
-            src="/images/logo.png"
-            width={imgWidth}
-            height={imgHeight}
-          />
-          <img
-            alt="img"
-            src="/images/logo.png"
-            width={imgWidth}
-            height={imgHeight}
-          />
-          <img
-            alt="img"
-            src="/images/logo.png"
-            width={imgWidth}
-            height={imgHeight}
-          />
-        </div>
+      <div className={section1Styles}>
+        <h3 className={sectionTitleStyles}>
+          {Translations[language][Labels.Home.SECTION1]}
+        </h3>
+        <div className="imgs-container">{section1Images}</div>
       </div>
 
-      <div className="single-section left section2">
-        <div className="imgs-container">
-          <img
-            alt="img"
-            src="/images/logo.png"
-            width={imgWidth}
-            height={imgHeight}
-          />
-          <img
-            alt="img"
-            src="/images/logo.png"
-            width={imgWidth}
-            height={imgHeight}
-          />
-          <img
-            alt="img"
-            src="/images/logo.png"
-            width={imgWidth}
-            height={imgHeight}
-          />
-          <img
-            alt="img"
-            src="/images/logo.png"
-            width={imgWidth}
-            height={imgHeight}
-          />
-        </div>
-        <h3 ref={section1TextRef} className="section-title">
-          Estudantes realizam as atividades
+      <div className={section2Styles}>
+        <div className="imgs-container">{section2Images}</div>
+        <h3 className={sectionTitleStyles}>
+          {Translations[language][Labels.Home.SECTION2]}
         </h3>
       </div>
+      {modalOpen && (
+        <ImgModal src={modalImageSrc} onClose={() => setModalOpen(false)} />
+      )}
     </Container>
   );
 };
