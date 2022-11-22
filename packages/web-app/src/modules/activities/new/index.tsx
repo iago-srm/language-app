@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import {
   Container as PageContainer,
   CefrSelectContainer,
@@ -12,7 +13,13 @@ import { getPageTitle } from "@services/browser";
 import { useLanguage } from "@contexts";
 import { Translations, Labels } from "@locale";
 import { useApiBuilder } from "@services/api";
-import { EditableOptions, FormButton } from "@atomic";
+import {
+  EditableOptions,
+  FormButton,
+  Toast,
+  successToast,
+  errorToast,
+} from "@atomic";
 import { Section, CEFRSelect, TopicsSelect } from "../components";
 import {
   VideoIdInput,
@@ -35,6 +42,7 @@ const responsiveBreakpoint = 550;
 const contentSectionHeight = 500;
 
 export const NewActivity = () => {
+  const router = useRouter();
   const { language } = useLanguage();
   const [showNewInstructionModal, setShowNewInstructionModal] = useState(false);
   const [instructionUnderEdit, setInstructionUnderEdit] = useState<any>();
@@ -113,7 +121,7 @@ export const NewActivity = () => {
     else setShowNewInstructionModal(false);
   };
 
-  const onSubmitActivity = () => {
+  const onSubmitActivity = async () => {
     const activityToSend = {
       ...activity,
       content:
@@ -122,8 +130,14 @@ export const NewActivity = () => {
           : activity.content.videoId,
       topics: activity.topics.map(({ value }) => value),
     };
-    postActivity.apiCall(activityToSend);
-    console.log(activityToSend);
+    const { error } = await postActivity.apiCall(activityToSend);
+    if (!error) {
+      router.push("/activities?thisInstructorOnly=true");
+      setTimeout(() => successToast("Atividade registrada com sucesso"), 0);
+    } else {
+      errorToast("Algo deu errado");
+    }
+    // console.log(activityToSend);
   };
 
   return (
@@ -149,7 +163,12 @@ export const NewActivity = () => {
           </TitleInputContainer>
           <CefrSelectContainer>
             <CEFRSelect
-              value={{ label: activity.cefr, value: activity.cefr }}
+              value={
+                activity.cefr && {
+                  label: activity.cefr,
+                  value: activity.cefr,
+                }
+              }
               onChange={onChangeCEFR}
             />
           </CefrSelectContainer>

@@ -39,7 +39,7 @@ resource "aws_codepipeline" "prod" {
       category = "Deploy"
       configuration = {
         "ClusterName" = var.ecs_cluster_name_production
-        "ServiceName" = var.ecs_service_name
+        "ServiceName" = "${var.ecs_service_name}-production"
         "FileName"    = "packages/${var.server-name}/imagedefinitions.json"
         #"DeploymentTimeout" = "15"
       }

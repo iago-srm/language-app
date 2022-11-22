@@ -21,6 +21,15 @@ export const FiltersContainer = styled.div`
   ${FilterContainer}.content-type {
     grid-column: span 3;
   }
+  ${FilterContainer}.clear-all {
+    grid-column: span 3;
+    align-self: center;
+    button {
+      padding: 10px;
+      background-color: ${({ theme }) => theme.colors.secondary};
+      color: ${({ theme }) => theme.colors.text};
+    }
+  }
 `;
 
 export const FiltersDrawerMenu = styled.div`

@@ -7,6 +7,7 @@ export const French = {
   [Labels.PASSWORDS_DONT_MATCH]: "Confirmation de mot de passe ne colle pas",
   [Labels.ERROR]: "Erreur",
   [Labels.SUCCESS]: "Succès",
+  [Labels.NO_DATA]: "Il n'y a pas de donnés",
 
   [Labels.HOME]: "Accueil",
   [Labels.SIGNIN]: "Rentrer",

@@ -18,6 +18,7 @@ const SectionStyled = styled.div<{ isBigScreen?: boolean; height: string }>`
   div.content {
     display: flex;
     flex-direction: row;
+    // background-color: pink;
   }
   padding-top: 20px;
   span.tooltip-button {
@@ -73,7 +74,7 @@ export const Section = ({
       <span className="tooltip-button">
         {tooltipText && <QuestionTooltip content={tooltipText} />}
       </span>
-      {header}
+      <div>{header}</div>
       <div className="content">
         <LeftStyled>{left}</LeftStyled>
         {isBigScreen && <RightStyled>{right}</RightStyled>}

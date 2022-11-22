@@ -34,9 +34,9 @@ export const Alert: React.FC<AlertProps> & SubComponents = ({
       onClose={onClose}
     >
       <BootstrapAlert.Heading>
-        <TypographyHeading level={3}>{heading}</TypographyHeading>
+        <h3 style={{ color: "#16213E", fontWeight: 800 }}>{heading}</h3>
       </BootstrapAlert.Heading>
-      <P fontWeight="light">{content}</P>
+      <p style={{ color: "#16213E" }}>{content}</p>
     </BootstrapAlert>
   );
 };

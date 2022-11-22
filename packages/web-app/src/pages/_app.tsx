@@ -9,6 +9,7 @@ import { SessionProvider } from "next-auth/react";
 import { AuthProvider, LanguageProvider, ThemeProvider } from "@contexts";
 import { GlobalStyle } from "@styles";
 import { Navbar } from "@components";
+import { Toast } from "@atomic";
 
 const App: React.FC<AppProps> = ({
   Component,
@@ -33,6 +34,7 @@ const App: React.FC<AppProps> = ({
             <AuthProvider>
               <Navbar />
               <Component {...pageProps} />
+              <Toast />
             </AuthProvider>
           </SessionProvider>
           <GlobalStyle />

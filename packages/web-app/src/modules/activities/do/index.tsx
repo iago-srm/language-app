@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import Spinner from "react-bootstrap/Spinner";
 import { Container } from "./styles";
 import {
   LoadingErrorData,
   FormButton,
-  Toast,
   errorToast,
   successToast,
   Icons,
@@ -20,9 +20,9 @@ import {
 import { getLabeledTopics, Instruction as InstructionModel } from "@model";
 import { useApiBuilder } from "@services/api";
 import { useLanguage } from "@contexts";
-import { useRouter } from "next/router";
 
 export const DoActivity = () => {
+  const router = useRouter();
   const {
     getActivity,
     postStudentOutput,
@@ -98,7 +98,10 @@ export const DoActivity = () => {
       outputs,
     });
     if (error) errorToast(error.message);
-    else successToast("Atividade realizada com sucesso!");
+    else {
+      router.push("/student-outputs");
+      successToast("Atividade realizada com sucesso!");
+    }
   };
 
   const toggleIsMyList = async () => {
@@ -190,7 +193,6 @@ export const DoActivity = () => {
       >
         Salvar
       </FormButton>
-      <Toast />
     </Container>
   );
 };

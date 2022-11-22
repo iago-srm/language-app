@@ -50,6 +50,7 @@ import {
 import { useLanguage, handleAuthToken, useAuth } from "@contexts";
 import { useEffect } from "react";
 import { insertPathParam } from "./helpers";
+import { signInFetcherFactory } from "./fetchers";
 
 export const AUTH_BASE_URL = `${process.env.NEXT_PUBLIC_AUTH_URL}`;
 export const DOMAIN_BASE_URL = `${process.env.NEXT_PUBLIC_DOMAIN_URL}`;
@@ -65,7 +66,6 @@ signInFetcher.setInterceptor((res) => {
 
 export const setCommonHeaders = (header: string, value: any) => {
   const fetchers = [signInFetcher, authFetcher, domainFetcher];
-  // console.log({header, value})
   fetchers.forEach((fetcher) => fetcher.setHeader(header, value));
 };
 
@@ -81,8 +81,8 @@ export const useApiBuilder = () => {
     authFetcher[SignUpHTTPDefinition.method](SignUpHTTPDefinition.path, args)
   );
 
-  const signIn = useApiCall<ISignInAPIParams, ISignInAPIResponse>((args) =>
-    signInFetcher[SignInHTTPDefinition.method](SignInHTTPDefinition.path, args)
+  const signIn = useApiCall<ISignInAPIParams, ISignInAPIResponse>(
+    signInFetcherFactory(signInFetcher)
   );
 
   const signOut = useApiCall<void, void>((args) =>

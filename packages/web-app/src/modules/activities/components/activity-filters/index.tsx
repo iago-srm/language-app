@@ -71,7 +71,7 @@ export const ActivityFilters = ({ setFilters, filters, clearAll }) => {
     </>
   );
   return (
-    <>
+    <div>
       <MediaQuery maxWidth={responsiveBreakpoint}>
         <FiltersDrawerMenu>
           <p>Filtros</p>
@@ -86,6 +86,6 @@ export const ActivityFilters = ({ setFilters, filters, clearAll }) => {
       <MediaQuery minWidth={responsiveBreakpoint}>
         <FiltersContainer>{filterComponents}</FiltersContainer>
       </MediaQuery>
-    </>
+    </div>
   );
 };

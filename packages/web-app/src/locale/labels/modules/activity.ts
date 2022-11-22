@@ -1,0 +1,6 @@
+export const Activity = {
+  "SCIENCE_&_TECHNOLOGY": "SCIENCE_&_TECHNOLOGY",
+  CURRENT_AFFAIRS: "CURRENT_AFFAIRS",
+  ARTS: "ARTS",
+  SPORTS: "SPORTS",
+};

@@ -1,5 +1,5 @@
 data "aws_s3_bucket" "lambda-bucket" {
-  bucket = var.lambda-bucket_name
+  bucket = "${var.lambda-bucket_name}-${var.environment}"
 }
 
 data "archive_file" "this" {
@@ -19,7 +19,7 @@ resource "aws_s3_object" "this" {
 }
 
 resource "aws_lambda_function" "this" {
-  function_name = "language-app-consumer_lambda"
+  function_name = "language-app-consumer_lambda-${var.environment}"
   handler       = "index.handler"
 
   s3_bucket = data.aws_s3_bucket.lambda-bucket.bucket

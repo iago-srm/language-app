@@ -11,6 +11,7 @@ export const MainPage: React.FC = () => {
   const { user, isUserLoading } = useAuth();
   const router = useRouter();
 
+  console.log({ user });
   useEffect(() => {
     if (user) {
       !user?.role && router.push("/dashboard/set-role");
