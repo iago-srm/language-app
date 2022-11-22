@@ -6,6 +6,7 @@ export const Labels = {
   PASSWORDS_DONT_MATCH: "passwords_dont_match",
   ERROR: "error",
   SUCCESS: "success",
+  NO_DATA: "no_data",
 
   // pages
   HOME: "home",

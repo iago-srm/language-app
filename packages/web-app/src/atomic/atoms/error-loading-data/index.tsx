@@ -1,6 +1,7 @@
 import React from "react";
 import Spinner from "react-bootstrap/Spinner";
 import { SpinnerContainer } from "./styles";
+import { NoData as NoDataComponent } from "./no-data";
 
 const defaultLoading = (
   <SpinnerContainer>
@@ -8,7 +9,8 @@ const defaultLoading = (
   </SpinnerContainer>
 );
 const defaultError = <h3>There&apos;s been an error!</h3>;
-const defaultNoData = <h3>There&apos;s no data!</h3>;
+// const defaultNoData = <h3>There&apos;s no data!</h3>;
+const defaultNoData = <NoDataComponent />;
 
 export const LoadingErrorData = ({ loading, error, data, children }) => {
   const parseChildren = () => {

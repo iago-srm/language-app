@@ -7,6 +7,7 @@ export const Portuguese = {
   [Labels.PASSWORDS_DONT_MATCH]: "Confirmação de senha é diferente",
   [Labels.ERROR]: "Erro",
   [Labels.SUCCESS]: "Sucesso",
+  [Labels.NO_DATA]: "Nenhum dado foi encontrado",
 
   [Labels.HOME]: "Home",
   [Labels.SIGNIN]: "Entrar",

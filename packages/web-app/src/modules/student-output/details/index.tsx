@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { Container, InstructionsContainerStyled } from "./styles";
 import {
   TitleAndDetails,
@@ -7,17 +8,24 @@ import {
   InstructionsContainer,
   Instruction,
 } from "../../activities/components";
-
-import { LoadingErrorData, FormButton } from "@atomic";
+import {
+  LoadingErrorData,
+  FormButton,
+  Tooltip,
+  Icons,
+  errorToast,
+  successToast,
+} from "@atomic";
 import {
   getLabeledTopics,
   // Instruction
 } from "@model";
 import { useApiBuilder } from "@services/api";
 import { useLanguage, useAuth } from "@contexts";
-import { useRouter } from "next/router";
 
 export const DetailsPage = () => {
+  const router = useRouter();
+
   const { getStudentOutput, postFeedbackToOutput } = useApiBuilder();
   type Return = Awaited<ReturnType<typeof getStudentOutput.apiCall>>;
   const [output, setOutput] = useState<Return["response"]>(undefined);
@@ -82,29 +90,18 @@ export const DetailsPage = () => {
   }, [output]);
 
   const onClickSubmitFeedback = async () => {
-    // console.log({feedbacks, instructions, output})
-
-    const resp = await postFeedbackToOutput.apiCall({
+    const { error } = await postFeedbackToOutput.apiCall({
       outputId: Number(query.id),
       feedbacks: Object.keys(feedbacks).map((outputId) => ({
         instructionOutputId: outputId,
         feedback: feedbacks[outputId],
       })),
     });
-    console.log({ resp });
-
-    // const outputs = Object.keys(instructions).map(id => {
-    //     const thisInstruction = instructions[id];
-    //     return {
-    //         instructionId: id,
-    //         textOutput: thisInstruction.type === "TEXT" && thisInstruction.answer,
-    //         optionsSelectionsIds: thisInstruction.type === "OPTIONS" && (thisInstruction.isMultiCorrect ? thisInstruction.answer : [thisInstruction.answer])
-    //     }
-    // })
-    // postStudentOutput.apiCall({
-    //     activityId: activity.id,
-    //     outputs
-    // })
+    if (error) errorToast(error.message);
+    else {
+      router.push("/student-outputs");
+      successToast("Feedback registrado com sucesso!");
+    }
   };
 
   return (
@@ -116,14 +113,29 @@ export const DetailsPage = () => {
       >
         {output?.activity && (
           <>
-            <TitleAndDetails
-              title={output.activity.title}
-              cefr={output.activity.cefr}
-              topics={getLabeledTopics(language).filter((topic) => {
-                return output.activity.topics.includes(topic.value);
-              })}
-            />
+            <div className="header-section">
+              <TitleAndDetails
+                title={output.activity.title}
+                cefr={output.activity.cefr}
+                topics={getLabeledTopics(language).filter((topic) => {
+                  return output.activity.topics.includes(topic.value);
+                })}
+              />
+              <div className="icon-container">
+                {output.feedbackGiven ? (
+                  <Tooltip content="Feedback dado">
+                    <Icons.CHECK />
+                  </Tooltip>
+                ) : (
+                  <Tooltip content="Aguarde o feedback do seu instrutor">
+                    <Icons.IN_PROGRESS />
+                  </Tooltip>
+                )}
+              </div>
+            </div>
+            <hr />
             {output.activity.description}
+            <hr />
             {output.activity.contentType === "TEXT" ? (
               <TextContent text={output.activity.content} />
             ) : (
@@ -133,6 +145,8 @@ export const DetailsPage = () => {
                 end={output.activity.endTime}
               />
             )}
+            <hr />
+            Respostas dadas a esta atividade
             <InstructionsContainer>
               {Object.keys(instructions).map((instructionId, i) => (
                 <InstructionsContainerStyled key={instructionId}>
@@ -153,10 +167,12 @@ export const DetailsPage = () => {
                     />
                   )}
                   {!output.feedbackGiven && user?.role === "STUDENT" && (
-                    <p>Um feedback para esta pergunta será dado em breve</p>
+                    <p className="feedback-placeholder">
+                      Um feedback para esta pergunta será dado em breve
+                    </p>
                   )}
                   {output.feedbackGiven && (
-                    <p>
+                    <p className="feedback-text">
                       {
                         output.outputs.find(
                           (output) => output.instructionId === instructionId

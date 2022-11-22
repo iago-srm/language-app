@@ -13,12 +13,9 @@ export const ListingPage: React.FC = () => {
   const { language } = useLanguage();
   const { user } = useAuth();
   const { query } = useRouter();
-
   const [selectedStudent, setSelectedStudent] = useState({ id: "", name: "" });
-
   const { useGetStudentOutputs, useGetStudents } = useApiBuilder();
 
-  // useEffect(() => {}, []);
   const {
     data: studentOutputs,
     loading: studentOutputsLoading,
@@ -53,11 +50,16 @@ export const ListingPage: React.FC = () => {
       <Head>
         <title>{getPageTitle(Translations[language][Labels.DASHBOARD])}</title>
       </Head>
-      <SingleSelect
-        options={(students || []).map((e) => ({ label: e.name, value: e.id }))}
-        value={{ label: selectedStudent.name, value: selectedStudent.id }}
-        onChange={onChangeStudentSelect}
-      />
+      {user && user.role === "INSTRUCTOR" && selectedStudent && (
+        <SingleSelect
+          options={(students || []).map((e) => ({
+            label: e.name,
+            value: e.id,
+          }))}
+          value={{ label: selectedStudent.name, value: selectedStudent.id }}
+          onChange={onChangeStudentSelect}
+        />
+      )}
       <LoadingErrorData
         loading={studentOutputsLoading}
         error={studentOutputsError}

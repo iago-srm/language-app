@@ -7,7 +7,7 @@ import {
 } from "@language-app/common-core";
 
 export class AuthEventQueue implements IAuthEventQueue {
-  _domain_url = `http://${process.env.DOMAIN_IP}:3006/domain`;
+  // _domain_url = `http://${process.env.DOMAIN_IP}:3006/domain`;
   _queue_url = process.env.QUEUE_URL;
 
   constructor(private queueService: IQueueService) {}

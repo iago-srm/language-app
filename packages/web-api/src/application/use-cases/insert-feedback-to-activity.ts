@@ -30,6 +30,12 @@ class UseCase implements IInsertFeedbackToActivityUseCase {
       throw new UserNotFoundError();
     }
 
+    // if it is ever decided to disallow instructors to give feedback to students that aren't his:
+    // const studentOutput = await this.studentOutputRepository.getStudentOutputById(studentOutputId);
+    // const studentsThisInstructor = await this.instructorRepository.getThisInstructorStudents(instructor.id);
+
+    // if(!studentsThisInstructor.map(({id}) => id).includes(studentOutput.studentId)) throw new Error("Cannot give feedback to this student");
+
     await this.studentOutputRepository.insertStudentOutputFeedbacks(feedbacks);
     await this.studentOutputRepository.updateStudentOutputById(
       studentOutputId,

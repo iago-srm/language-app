@@ -67,9 +67,9 @@ export const ActivitiesListing: React.FC = () => {
         data={!!data?.length}
         // data={true}
       >
-        <LoadingErrorData.NoData>
+        {/* <LoadingErrorData.NoData>
           <h3>Não há atividades com esses filtros</h3>
-        </LoadingErrorData.NoData>
+        </LoadingErrorData.NoData> */}
         {data &&
           data.map((activity) => (
             <ActivityCard
