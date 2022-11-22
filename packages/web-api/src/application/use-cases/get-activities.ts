@@ -12,13 +12,13 @@ import {
 import { DomainRules } from "@language-app/common-core";
 
 interface InputParams extends IPaginatedParams {
-  userId: string;
+  userId?: string;
   title?: string;
   cefr?: string;
   topics?: string[];
   contentTypes?: string;
   isMyList?: boolean;
-  thisInstructorOnly: boolean;
+  thisInstructorOnly?: boolean;
 }
 interface Return extends IPaginatedResponse<Partial<ActivityDTO>> {}
 

@@ -20,6 +20,7 @@ import {
 import {
   AcceptAssociationInvitationControllerFactory,
   DeleteActivityFromStudentListControllerFactory,
+  GetActivitiesOpenControllerFactory,
   GetActivitiesControllerFactory,
   GetActivityControllerFactory,
   GetAssociationInvitationControllerFactory,
@@ -65,6 +66,9 @@ export const registerDependencies = (container: awilix.AwilixContainer) => {
     ),
     [Dependencies.GETACTIVITIESCONTROLLER]: awilix.asFunction(
       GetActivitiesControllerFactory
+    ),
+    getActivitiesOpenController: awilix.asFunction(
+      GetActivitiesOpenControllerFactory
     ),
     getActivityController: awilix.asFunction(GetActivityControllerFactory),
     getAssociationInvitationController: awilix.asFunction(

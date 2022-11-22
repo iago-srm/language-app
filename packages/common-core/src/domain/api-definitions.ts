@@ -1,5 +1,10 @@
 import { HTTPDefinition } from "../types";
 
+export const GetActivitiesOpenHTTPDefinition: HTTPDefinition = {
+  path: "activities-open",
+  method: "get",
+};
+
 export const GetActivitiesHTTPDefinition: HTTPDefinition = {
   path: "activities",
   method: "get",
