@@ -60,13 +60,7 @@ export const ActivitiesListing: React.FC = () => {
         filters={filters}
         clearAll={clearAllFilters}
       />
-      <LoadingErrorData
-        // loading={loading}
-        loading={false}
-        error={error}
-        data={!!data?.length}
-        // data={true}
-      >
+      <LoadingErrorData loading={loading} error={error} data={!!data?.length}>
         {/* <LoadingErrorData.NoData>
           <h3>Não há atividades com esses filtros</h3>
         </LoadingErrorData.NoData> */}
