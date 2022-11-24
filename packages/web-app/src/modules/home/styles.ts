@@ -4,16 +4,14 @@ export const Container = styled.div`
   width: 98vw;
   margin: 0 auto;
 
-  .main-large {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-  .main-small {
+  .main-section {
     display: flex;
     flex-direction: column-reverse;
-  }
-
-  .main-section {
+    // inside the media-query what happens when it's big
+    @media (min-width: ${({ theme }) => theme.responsiveBreakpoint}px) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
     width: 100%;
     padding: 20px;
     height: 90vh;
@@ -41,22 +39,23 @@ export const Container = styled.div`
 
   .section-title {
     font-style: italic;
-  }
-
-  .sticky-title {
-    position: sticky;
-    top: 50%;
-    height: 100px;
+    @media (min-width: ${({ theme }) => theme.responsiveBreakpoint}px) {
+      position: sticky;
+      top: 50%;
+      height: 100px;
+    }
   }
 
   .single-section {
-    display: grid;
-    grid-template-rows: auto;
+    h3 {
+      margin: 100px auto;
+    }
+    @media (min-width: ${({ theme }) => theme.responsiveBreakpoint}px) {
+      display: grid;
+    }
     width: 98%;
     margin: 50px auto;
     justify-items: center;
-    // align-items: center;
-
     img {
       margin: 20px;
     }
@@ -70,15 +69,11 @@ export const Container = styled.div`
     grid-template-columns: 1fr 2fr;
   }
 
-  .section-small {
-    h3 {
-      margin: 100px auto;
+  .section2 {
+    @media (max-width: ${({ theme }) => theme.responsiveBreakpoint}px) {
+      display: flex;
+      flex-direction: column-reverse;
     }
-  }
-
-  .section2-small {
-    display: flex;
-    flex-direction: column-reverse;
   }
 
   .imgs-container {
@@ -88,6 +83,22 @@ export const Container = styled.div`
     align-items: center;
     img {
       cursor: pointer;
+    }
+  }
+
+  .call-to-action {
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    .browse-activities {
+      background-color: pink;
+    }
+    .login {
+      background-color: pink;
+    }
+    .signup {
+      background-color: pink;
     }
   }
 `;

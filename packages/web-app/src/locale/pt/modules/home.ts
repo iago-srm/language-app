@@ -7,4 +7,7 @@ export const Home = {
   [Labels.SECTION1]: "Instrutores adicionam novas atividades ao sistema",
   [Labels.SECTION2]:
     "Estudantes realizam as atividades e recebem feedback dos instrutores",
+  [Labels.BROWSE_ACTIVITIES]: "Procure atividades",
+  [Labels.LOGIN]: "Já possui uma conta? Entrar",
+  [Labels.SIGNUP]: "Criar uma conta",
 };
