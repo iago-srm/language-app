@@ -73,18 +73,10 @@ export const Page: React.FC<IResetPasswordProps> = ({ verificationToken }) => {
             dismissible={false}
           />
           <Form onSubmit={handleSubmit} schema={schema}>
-            <PasswordInput
-              name="password"
-              label={Translations[language][Labels.PASSWORD]}
-              type="password"
-            />
-            <PasswordInput
-              name="confirmPassword"
-              label={Translations[language][Labels.CONFIRM_PASSWORD]}
-              type="password"
-            />
+            <PasswordInput name="password" type="password" />
+            <PasswordInput name="confirmPassword" type="password" />
             <Button loading={resetPassword.loading}>
-              {Translations[language][Labels.SEND]}
+              {Translations[language][Labels.Auth.SEND]}
             </Button>
           </Form>
         </Frame>

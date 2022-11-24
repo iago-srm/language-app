@@ -8,8 +8,8 @@ export const ConfirmPasswordInput = ({ ...rest }: any) => {
   return (
     <BasePasswordInput
       {...rest}
-      label={Translations[language][Labels.CONFIRM_PASSWORD]}
-      placeholder={Translations[language][Labels.CONFIRM_PASSWORD]}
+      label={Translations[language][Labels.Auth.CONFIRM_PASSWORD]}
+      placeholder={Translations[language][Labels.Auth.CONFIRM_PASSWORD]}
     />
   );
 };

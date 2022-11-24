@@ -65,7 +65,7 @@ export const Page: React.FC = () => {
           <Form onSubmit={handleSubmit} schema={schema}>
             <EmailInput name="email" />
             <Button loading={forgotPasswordRequest.loading}>
-              {Translations[language][Labels.SEND]}
+              {Translations[language][Labels.Auth.SEND]}
             </Button>
           </Form>
         </Frame>

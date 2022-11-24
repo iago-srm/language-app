@@ -8,8 +8,8 @@ export const NameInput = ({ ...rest }) => {
   return (
     <Input
       {...rest}
-      label={Translations[language][Labels.NAME]}
-      placeholder={Translations[language][Labels.NAME]}
+      label={Translations[language][Labels.Auth.NAME]}
+      placeholder={Translations[language][Labels.Auth.NAME]}
       canHaveErrors={true}
     />
   );

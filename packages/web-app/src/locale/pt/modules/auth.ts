@@ -1,4 +1,6 @@
-import { Labels } from "locale/labels";
+import { Labels as AllLabels } from "locale/labels";
+
+const { Auth: Labels } = AllLabels;
 
 export const Auth = {
   [Labels.NAME]: "Nome",

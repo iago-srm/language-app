@@ -42,8 +42,8 @@ export const getLabeledTopics = (language) => {
     "SCIENCE_&_TECHNOLOGY":
       Translations[language][Labels["SCIENCE_&_TECHNOLOGY"]],
     CURRENT_AFFAIRS: Translations[language][Labels["CURRENT_AFFAIRS"]],
-    SPORTS: Translations[language][Labels.SPORTS],
-    ARTS: Translations[language][Labels.ARTS],
+    SPORTS: Translations[language][Labels.Activity.SPORTS],
+    ARTS: Translations[language][Labels.Activity.ARTS],
   };
   return DomainRules.ACTIVITY.TOPICS.map((topic) => ({
     label: topicsLabels[topic],

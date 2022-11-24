@@ -63,13 +63,13 @@ export const Page: React.FC = () => {
             <EmailInput name="email" />
             <PasswordInput name="password" />
             <Anchor href={"/forgot-password"}>
-              {Translations[language][Labels.FORGOT_PASSWORD_QUESTION]}
+              {Translations[language][Labels.Auth.FORGOT_PASSWORD_QUESTION]}
             </Anchor>
             <Button loading={credentialsSignIn.loading}>
               {Translations[language][Labels.SIGNIN]}
             </Button>
           </Form>
-          <Separator>{Translations[language][Labels.OR]}</Separator>
+          <Separator>{Translations[language][Labels.Auth.OR]}</Separator>
           <GoogleButton type={mode} onClick={handleGoogleSignIn} />
         </Frame>
       </ResponsiveCenteredPageContent>
