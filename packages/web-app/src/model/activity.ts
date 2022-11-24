@@ -40,8 +40,8 @@ export enum TopicsColors {
 export const getLabeledTopics = (language) => {
   const topicsLabels = {
     "SCIENCE_&_TECHNOLOGY":
-      Translations[language][Labels["SCIENCE_&_TECHNOLOGY"]],
-    CURRENT_AFFAIRS: Translations[language][Labels["CURRENT_AFFAIRS"]],
+      Translations[language][Labels.Activity["SCIENCE_&_TECHNOLOGY"]],
+    CURRENT_AFFAIRS: Translations[language][Labels.Activity["CURRENT_AFFAIRS"]],
     SPORTS: Translations[language][Labels.Activity.SPORTS],
     ARTS: Translations[language][Labels.Activity.ARTS],
   };

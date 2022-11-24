@@ -140,6 +140,7 @@ export const NewActivity = () => {
     // console.log(activityToSend);
   };
 
+  console.log(Translations[language], [Labels.Activity]);
   return (
     <PageContainer>
       <Head>
@@ -148,15 +149,22 @@ export const NewActivity = () => {
       {isBigScreen && (
         <Section>
           <Section.Left>
-            <h3>Insira os dados</h3>
+            <h3>
+              {Translations[language][Labels.Activity.FILL_IN_INSTRUCTION]}
+            </h3>
           </Section.Left>
           <Section.Right>
-            <h3>Visualize a atividade</h3>
+            <h3>
+              {Translations[language][Labels.Activity.PREVIEW_INSTRUCTION]}
+            </h3>
           </Section.Right>
         </Section>
       )}
 
-      <Section name="Title and Details" tooltipText="Explicações">
+      <Section
+        name={Translations[language][Labels.Activity.TITLE_AND_DETAILS]}
+        tooltipText="Explicações"
+      >
         <Section.Left>
           <TitleInputContainer>
             <TitleInput value={activity.title} onChange={onChangeTitle} />
@@ -184,7 +192,10 @@ export const NewActivity = () => {
           />
         </Section.Right>
       </Section>
-      <Section name="Descripion" tooltipText="Explicações">
+      <Section
+        name={Translations[language][Labels.Activity.DESCRIPTION]}
+        tooltipText="Explicações"
+      >
         <Section.Left>
           <DescriptionTextAreaContainer>
             <textarea
@@ -199,7 +210,7 @@ export const NewActivity = () => {
       </Section>
       <Section
         height={`${contentSectionHeight + 20}px`}
-        name="Content"
+        name={Translations[language][Labels.Activity.CONTENT]}
         tooltipText="Explicações"
       >
         <Section.Header>
@@ -249,7 +260,10 @@ export const NewActivity = () => {
           </Section.Content>
         )}
       </Section>
-      <Section name="Instructions" tooltipText="Explicações">
+      <Section
+        name={Translations[language][Labels.Activity.INSTRUCTIONS]}
+        tooltipText="Explicações"
+      >
         <Section.Left>
           <EditableOptions<InstructionModel>
             onClickRemove={(instruction) => removeInstruction(instruction.id)}
@@ -294,7 +308,7 @@ export const NewActivity = () => {
           onClick={() => onSubmitActivity()}
           loading={postActivity.loading}
         >
-          Salvar
+          {Translations[language][Labels.Activity.SAVE]}
         </FormButton>
       </SubmitButtonContainer>
     </PageContainer>

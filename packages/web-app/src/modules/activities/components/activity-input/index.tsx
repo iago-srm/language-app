@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Input, RadioMenu, QuestionTooltip } from "@atomic";
+import { Translations, Labels } from "@locale";
 export * from "./instruction";
 export * from "./content-editor";
 
@@ -12,7 +13,7 @@ export const ContentTypeSelectionForm = ({ value, onChange }) => {
       value={value}
       onChange={onChange}
       options={[
-        { value: "TEXT", label: "Texto" },
+        { value: "TEXT", label: "Text" },
         { value: "VIDEO", label: "Video" },
       ]}
     />

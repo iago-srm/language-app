@@ -4,12 +4,12 @@ import {
   FormButton,
   Modal,
   Icons,
-  Separator,
   NewItemButton,
   SquareButton,
   Input,
 } from "@atomic";
 import { InstructionType, Instruction } from "@model";
+import { Translations, Labels } from "@locale";
 import {
   InstructionModalContentContainer,
   OptionContainer,
@@ -152,18 +152,19 @@ export const InstructionModal = ({
 
   return (
     <Modal
-      header={`${instructionUnderEdit ? "Editar" : "Adicionar"} instrução`}
+      header={`${instructionUnderEdit ? "Edit" : "Add"} instruction`}
       onClose={onClose}
     >
       <InstructionModalContentContainer>
         <label>
-          Texto da Instrução
+          {/* {Translations[language][Labels.DASHBOARD]} */}
+          Instruction Text
           <textarea
             value={instruction.text}
             onChange={(e) => onChangeInstructionText(e.target.value)}
           />
         </label>
-        Tipo de Instrução
+        Instruction Type
         <InstructionTypeSelectionForm
           value={instruction.type}
           onChange={(e) => onChangeInstructionType(e)}
@@ -179,7 +180,7 @@ export const InstructionModal = ({
                   }
                 />
                 <label>
-                  Alternativa correta?
+                  Correct option?
                   <input
                     type="checkbox"
                     checked={option.isCorrect}
@@ -197,14 +198,12 @@ export const InstructionModal = ({
               </OptionContainer>
             ))}
             <ButtonContainer>
-              <NewItemButton onClick={onAddOption}>
-                Nova alternativa
-              </NewItemButton>
+              <NewItemButton onClick={onAddOption}>New option</NewItemButton>
             </ButtonContainer>
           </>
         ) : (
           <>
-            <h6>Sugestão de resposta</h6>
+            <h6>Suggested answer</h6>
             <textarea
               value={instruction.textAnswer}
               onChange={(e) => onChangeInstructionAnswer(e.target.value)}
@@ -214,10 +213,10 @@ export const InstructionModal = ({
       </InstructionModalContentContainer>
       <ButtonsContainer>
         <FormButton variant="secondary" onClick={onClose}>
-          Cancelar
+          Cancel
         </FormButton>
         <FormButton variant="primary" onClick={saveChanges}>
-          Salvar alterações
+          Save changes
         </FormButton>
       </ButtonsContainer>
     </Modal>
@@ -230,8 +229,8 @@ export const InstructionTypeSelectionForm = ({ value, onChange }) => {
       value={value}
       onChange={onChange}
       options={[
-        { value: InstructionType.TEXT, label: "Dissertativa" },
-        { value: InstructionType.OPTIONS, label: "Alternativas" },
+        { value: InstructionType.TEXT, label: "Text" },
+        { value: InstructionType.OPTIONS, label: "Options" },
       ]}
     />
   );
