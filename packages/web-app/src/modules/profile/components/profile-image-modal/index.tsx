@@ -34,13 +34,13 @@ export const ProfileImageModal = ({ onClose, image }) => {
     const response = await uploadProfileImage.apiCall(formData);
     if (response.error) errorToast(response.error.message);
     else {
-      setTimeout(() => successToast("Imagem alterada com sucesso"), 0);
+      setTimeout(() => successToast("Profile picture successfully changed"), 0);
       refreshUser();
     }
   }, [selectedFile]);
 
   return (
-    <Modal header="Escolha uma foto de perfil" onClose={onClose}>
+    <Modal header="Choose a profile picture" onClose={onClose}>
       <ModalContentStyled>
         <div className="img-container">
           <img
@@ -55,7 +55,7 @@ export const ProfileImageModal = ({ onClose, image }) => {
         />
         <hr />
         <FormButton onClick={onFileUpload} loading={uploadProfileImage.loading}>
-          Salvar
+          Save
         </FormButton>
       </ModalContentStyled>
     </Modal>

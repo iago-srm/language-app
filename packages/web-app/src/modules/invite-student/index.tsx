@@ -59,7 +59,9 @@ export const Page: React.FC = () => {
             dismissible
           />
           <SuccessAlert
-            response={response && `O estudante receberá um e-mail de convite.`}
+            response={
+              response && `The student will receive an invitation e-mail`
+            }
             dismissible={false}
           />
           <Form onSubmit={handleSubmit} schema={schema}>

@@ -175,7 +175,7 @@ export const DoActivity = () => {
               />
             )}
             <hr />
-            <p>Responda às perguntas a seguir sobre o conteúdo</p>
+            <p>Answer the questions below regarding the content above</p>
             <InstructionsContainer>
               {Object.keys(instructions).map((instructionId, i) => (
                 <Instruction

@@ -30,7 +30,7 @@ export const ProfileImg = ({ src, onClick }) => {
     <ProfileImgContainerStyled>
       <img src={src} />
       <div onClick={onClick}>
-        <span>Editar</span>
+        <span>Change profile picture</span>
         <Icons.EDIT />
       </div>
     </ProfileImgContainerStyled>

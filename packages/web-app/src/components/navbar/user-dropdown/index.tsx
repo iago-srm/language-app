@@ -61,13 +61,13 @@ export const NavbarDropDown: React.FC<{
                 <NavImg src={user?.image} />
               </PanelImageContainer>
               <PanelNameContainer>
-                {user ? `Olá, ${user.name}` : "Olá!"}
+                {user ? `Hello, ${user.name}` : "Hello!"}
               </PanelNameContainer>
               <Dropdown.Item as={"button"} className="profile">
-                <NextLink href={"/profile"}>Perfil</NextLink>
+                <NextLink href={"/profile"}>Profile</NextLink>
               </Dropdown.Item>
               <Dropdown.Item onClick={onSignOut} as={"button"}>
-                Sair
+                Sign out
               </Dropdown.Item>
             </DropdownMenuContainer>
           </Dropdown.Menu>

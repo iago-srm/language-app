@@ -115,12 +115,11 @@ export interface IGetAssociationInvitation {
     token: string;
   };
   response: {
+    accepted: boolean;
     instructor: {
-      instructor: {
-        user: {
-          image: string;
-          name: string;
-        };
+      user: {
+        image: string;
+        name: string;
       };
     };
   };

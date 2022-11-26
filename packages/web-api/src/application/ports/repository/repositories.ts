@@ -95,8 +95,12 @@ export interface IStudentOutputRepository {
 export interface IAssociationInvitationRepository {
   getTokenByTokenValue: (
     token: string
-  ) => Promise<AssociationInvitationTokenDTO | null>;
-  getInstructorByTokenValue: (token: string) => Promise<Partial<InstructorDTO>>;
+  ) => Promise<
+    AssociationInvitationTokenDTO & {
+      instructor: Partial<InstructorDTO | { user: Partial<UserDTO> }>;
+    }
+  >;
+  // getInstructorByTokenValue: (token: string) => Promise<Partial<InstructorDTO>>;
   insertToken: (
     token: AssociationInvitationTokenDTO
   ) => Promise<AssociationInvitationTokenDTO>;

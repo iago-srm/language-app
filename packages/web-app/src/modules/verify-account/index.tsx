@@ -51,8 +51,8 @@ export const Page: React.FC<IVerifyAccountProps> = ({ verificationToken }) => {
           response={
             success && (
               <p>
-                Conta verificada com sucesso!{" "}
-                <AlertLink href="/signin">Entrar</AlertLink>
+                Account successfully verified!{" "}
+                <AlertLink href="/signin">Sign in</AlertLink>
               </p>
             )
           }

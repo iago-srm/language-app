@@ -42,6 +42,7 @@ export const Page = () => {
   const [instructor, setInstructor] = useState<IInstructorInfo>();
   const [token, setToken] = useState<string>();
   const [success, setSuccess] = useState<boolean>(false);
+  const [accepted, setAccepted] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -53,9 +54,12 @@ export const Page = () => {
       const { response, error } = await getAssociationInvitation.apiCall({
         token: query.token as string,
       });
+      console.log(response);
+
       if (error) setError(error.message);
+      else if (response.accepted) setAccepted(true);
       else if (response.instructor) {
-        setInstructor(response.instructor.instructor);
+        setInstructor(response.instructor);
         setError(undefined);
       }
     };
@@ -71,6 +75,9 @@ export const Page = () => {
     router.push("/");
   };
 
+  if (accepted) {
+    return <h3>This invitation has already been accepted</h3>;
+  }
   return (
     <PageContainer>
       <Head>
@@ -89,17 +96,18 @@ export const Page = () => {
           {/* <SuccessAlert dismissible={false} response={success && <p>Associação realizada com sucesso! <AlertLink href='/activities'>Procurar atividades</AlertLink></p>}/> */}
           <ErrorAlert dismissible={false} error={error} />
           <Heading level={4}>
-            Deseja ser estudante associada a este instrutor?
+            Would you like to become a student associated to this instructor?
           </Heading>
           <P>
-            Após esta associação, o instrutor saberá das suas realizações de
-            atividade e lhe dará feedbacks
+            After this association, the instructor will be notified of the
+            activities you complete and will be able to give you feedback on
+            them
           </P>
           {instructor && <InstructorDetails instructor={instructor.user} />}
           {success ? (
             <SuccessAlert
               dismissible={false}
-              response={<span>Associação realizada com sucesso</span>}
+              response={<span>Association successfully saved</span>}
             />
           ) : (
             <TwoColumns>

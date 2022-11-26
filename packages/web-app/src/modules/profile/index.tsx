@@ -30,7 +30,7 @@ export const Page: React.FC = () => {
         <LoadingErrorData data={user} loading={isUserLoading} error={userError}>
           {user && (
             <div>
-              <PStyled>Olá, {user.name}</PStyled>
+              <PStyled>Hello, {user.name}</PStyled>
               <PStyled>{user.email}</PStyled>
               <ProfileImg
                 src={user.image}
@@ -44,10 +44,10 @@ export const Page: React.FC = () => {
               )}
               <PStyled>
                 {user.role ? (
-                  `Eu sou ${user.role}`
+                  `I am ${user.role}`
                 ) : (
                   <Anchor href="/dashboard/set-role">
-                    Complete seu cadastro
+                    Complete your registration
                   </Anchor>
                 )}
               </PStyled>

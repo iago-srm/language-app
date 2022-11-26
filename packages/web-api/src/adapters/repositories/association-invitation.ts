@@ -12,15 +12,15 @@ export class AssociationInvitationRepository
     this.prisma = new PrismaClient();
   }
 
-  getTokenByTokenValue(token: string) {
-    return this.prisma.studentInstructorAssociationInvitation.findUnique({
-      where: {
-        token,
-      },
-    });
-  }
+  // getTokenByTokenValue(token: string) {
+  //   return this.prisma.studentInstructorAssociationInvitation.findUnique({
+  //     where: {
+  //       token,
+  //     },
+  //   });
+  // }
 
-  getInstructorByTokenValue(token: string) {
+  getTokenByTokenValue(token: string) {
     return this.prisma.studentInstructorAssociationInvitation.findUnique({
       where: {
         token,

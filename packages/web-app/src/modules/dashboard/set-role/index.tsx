@@ -53,7 +53,7 @@ export const SetRolePage: React.FC = () => {
                 error={error}
                 onClose={() => setError(undefined)}
               />
-              <h1>Complete o seu cadastro</h1>
+              <h1>Complete your registration</h1>
               <p>
                 {selectedRole === "STUDENT"
                   ? studentDescription
@@ -65,7 +65,7 @@ export const SetRolePage: React.FC = () => {
                     selected={selectedRole === "STUDENT"}
                     onClick={() => setSelectedRole("STUDENT")}
                   >
-                    Estudante
+                    Student
                   </SelectablePanel>
                 </Col>
                 <Col xs lg="3">
@@ -73,7 +73,7 @@ export const SetRolePage: React.FC = () => {
                     selected={selectedRole === "INSTRUCTOR"}
                     onClick={() => setSelectedRole("INSTRUCTOR")}
                   >
-                    Instrutor
+                    Instructor
                   </SelectablePanel>
                 </Col>
               </Row>
@@ -83,7 +83,7 @@ export const SetRolePage: React.FC = () => {
                     loading={updateUser.loading}
                     onClick={handleClickSave}
                   >
-                    Salvar
+                    Save
                   </Button>
                 </Col>
               </Row>
@@ -94,9 +94,9 @@ export const SetRolePage: React.FC = () => {
               dismissible={false}
               response={
                 <span>
-                  Cadastro completo. Acesse sua{" "}
-                  <AlertLink href="/dashboard">página principal</AlertLink> de{" "}
-                  {user.role === "INSTRUCTOR" ? "instrutor" : "estudante"}.
+                  Registration complete. Access your{" "}
+                  <AlertLink href="/dashboard">main page</AlertLink> as a{" "}
+                  {user.role === "INSTRUCTOR" ? "n instructor" : "student"}.
                 </span>
               }
             />
