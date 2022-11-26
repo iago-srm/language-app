@@ -24,6 +24,8 @@ export const PortugueseErrorMessages = {
   [ErrorMessagesLabels.ACTIVITY_NOT_FOUND]: "Atividade não encontrada",
   [ErrorMessagesLabels.EXISTING_ASSOCIATION]:
     "Este estudante já está associado a outro instrutor. Favor pedir para remover a associação",
+  [ErrorMessagesLabels.INSTRUCTOR_ACTIVITY_LIST]:
+    "Apenas estudantes podem ter uma lista de atividades (conte-nos se você gostaria dessa funcionalidade como instrutor)",
 };
 
 export const PortugueseEmailStrings = {

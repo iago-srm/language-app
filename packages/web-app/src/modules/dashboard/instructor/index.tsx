@@ -15,12 +15,12 @@ export const InstructorPage: React.FC = () => {
       <Head>
         <title>{getPageTitle(Translations[language][Labels.DASHBOARD])}</title>
       </Head>
-      <h3>Área do Instrutor</h3>
-      <p className="page-description">All you can do in the platform is here</p>
+      <h3>Instrutor Area</h3>
+      <p className="page-description">All you can do on the platform is here</p>
       <ButtonsContainer>
         <DashboardButton
           description={"Create a new activity"}
-          label={"Nova Atividade"}
+          label={"New Activity"}
           path="/activities/new"
           icon={<Icons.PLUS />}
         />
@@ -28,20 +28,20 @@ export const InstructorPage: React.FC = () => {
           description={
             "Give feedback on the activities your students have done"
           }
-          label={"Produção dos Estudantes"}
+          label={"Student's outputs"}
           path="/student-outputs"
           icon={<Icons.FOLDER />}
         />
         <DashboardButton
           description={"Browse through the activities you've made"}
-          label={"Minhas Atividades"}
+          label={"My Activities"}
           path="/activities"
           query={{ thisInstructorOnly: true }}
           icon={<Icons.LIST />}
         />
         <DashboardButton
           description={"Browse through all the activities in the platform"}
-          label={"Procurar Atividades"}
+          label={"Search Activities"}
           path="/activities"
           icon={<Icons.SEARCH />}
         />
@@ -49,7 +49,7 @@ export const InstructorPage: React.FC = () => {
           description={
             "Invite some one to be part of your network of students and give feedback on the activities they complete"
           }
-          label={"Convidar estudante"}
+          label={"Invite Student"}
           path="/invite-student"
           icon={<Icons.USER_PLUS />}
         />

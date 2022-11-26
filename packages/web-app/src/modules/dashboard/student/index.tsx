@@ -15,11 +15,13 @@ export const StudentPage: React.FC = () => {
       <Head>
         <title>{getPageTitle(Translations[language][Labels.DASHBOARD])}</title>
       </Head>
-      <h3>Área do Estudante</h3>
+      <h3>Studante Area</h3>
+      <p className="page-description">All you can do on the platform is here</p>
+
       <ButtonsContainer>
         <DashboardButton
           description={"Browse through all the activities in the platform"}
-          label={"Procurar Atividades"}
+          label={"Search Activities"}
           path="/activities"
           icon={<Icons.SEARCH />}
         />
@@ -27,16 +29,20 @@ export const StudentPage: React.FC = () => {
           description={
             "Browse through the activities you've saved in your list"
           }
-          label={"Atividades em Minha Lista"}
+          label={"Activities in My List"}
           path="/activities"
           query={{ isMyList: true }}
-          icon={<Icons.FULL_HEART />}
+          icon={
+            <div style={{ transform: "scale(5)", padding: 20 }}>
+              <Icons.FULL_HEART />
+            </div>
+          }
         />
         <DashboardButton
           description={
             "See feedback give to activities you've done in the past"
           }
-          label={"Atividades Realizadas"}
+          label={"My Completed Activities"}
           path="/student-outputs"
           icon={<Icons.CHECK />}
         />

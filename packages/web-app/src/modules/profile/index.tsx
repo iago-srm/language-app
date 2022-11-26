@@ -31,6 +31,7 @@ export const Page: React.FC = () => {
           {user && (
             <div>
               <PStyled>Olá, {user.name}</PStyled>
+              <PStyled>{user.email}</PStyled>
               <ProfileImg
                 src={user.image}
                 onClick={() => setModalVisible(true)}
@@ -54,7 +55,6 @@ export const Page: React.FC = () => {
           )}
         </LoadingErrorData>
       </ResponsiveCenteredPageContent>
-      <Toast />
     </PageContainer>
   );
 };

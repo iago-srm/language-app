@@ -63,3 +63,10 @@ export class StudentAlreadyAssociatedError extends CustomError {
     super({ errorName: ErrorMessagesLabels.ACTIVITY_NOT_FOUND });
   }
 }
+
+export class MustBeStudentToAddToListError extends CustomError {
+  HTTPstatusCode = 400;
+  constructor() {
+    super({ errorName: ErrorMessagesLabels.INSTRUCTOR_ACTIVITY_LIST });
+  }
+}

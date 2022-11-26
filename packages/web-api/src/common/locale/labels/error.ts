@@ -26,4 +26,5 @@ export const ErrorMessagesLabels = {
   ASSOCIATION_DOESNT_BELONG: "association_doesnt_belong",
   ACTIVITY_NOT_FOUND: "activity_not_found",
   EXISTING_ASSOCIATION: "existing_association",
+  INSTRUCTOR_ACTIVITY_LIST: "instructor_activity_list",
 };

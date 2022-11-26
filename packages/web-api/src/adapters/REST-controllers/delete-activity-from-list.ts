@@ -5,6 +5,7 @@ import {
   IHTTPControllerDescriptor,
   controllerSerializer,
 } from "@language-app/common-platform";
+import { MustBeStudentToAddToListError } from "@common/errors";
 
 export const DeleteActivityFromStudentListControllerFactory = ({
   deleteActivityFromStudentListUseCase,
@@ -17,7 +18,7 @@ export const DeleteActivityFromStudentListControllerFactory = ({
     const { id, role } = user;
 
     if (role !== "STUDENT") {
-      throw new Error("Must be a student to start or complete activity");
+      throw new MustBeStudentToAddToListError();
     }
 
     return {

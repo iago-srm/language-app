@@ -120,6 +120,7 @@ export const DoActivity = () => {
     }
     const { error } = await apiCall({ activityId: Number(activity.id) });
     if (!error) successToast(message);
+    if (error) errorToast(error.message);
 
     const id = Number(query.id);
     const { response, error: getActivityError } = await getActivity.apiCall({

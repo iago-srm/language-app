@@ -24,6 +24,8 @@ export const EnglishErrorMessages = {
   [ErrorMessagesLabels.ACTIVITY_NOT_FOUND]: "Activity not found",
   [ErrorMessagesLabels.EXISTING_ASSOCIATION]:
     "This student is already associated to another instructor. Please ask them to remove that association.",
+  [ErrorMessagesLabels.INSTRUCTOR_ACTIVITY_LIST]:
+    "Only students can have a list of activities (let us know if you'd like this feature as an instructor)",
 };
 
 export const EnglishEmailStrings = {

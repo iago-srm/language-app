@@ -9,14 +9,12 @@ export const DashboardButtonStyled = styled.button`
     width: 100%;
 
     .icon-name {
+      overflow: hidden;
       display: flex;
       flex-direction: row;
       justify-content: start;
-      // display: block;
       svg {
         font-size: 3rem;
-        // display: block;
-        // margin: 0 auto;
         padding: 20px;
       }
       .heading-container {
