@@ -10,4 +10,6 @@ export default {
   DASHBOARD: "dashboard",
   INVITE_STUDENT: "invite_student",
   ACCEPT_ASSOCIATION_INVITATION: "accept_association_invitation",
+  ACTIVITIES: "activities",
+  STUDENT_OUTPUTS: "student_outputs",
 };

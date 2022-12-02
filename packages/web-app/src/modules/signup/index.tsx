@@ -81,7 +81,7 @@ export const Page: React.FC = () => {
                 </Button>
               </Form>
               <Separator>{Translations[language][Labels.Auth.OR]}</Separator>
-              <GoogleButton type={mode} onClick={handleGoogleSignIn} />
+              {/* <GoogleButton type={mode} onClick={handleGoogleSignIn} /> */}
             </Frame>
           </Col>
         </Row>

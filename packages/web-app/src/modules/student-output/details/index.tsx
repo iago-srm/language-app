@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";
+import { getPageTitle } from "@services/browser";
+import { Translations, Labels } from "@locale";
+
 import { Container, InstructionsContainerStyled } from "./styles";
 import {
   TitleAndDetails,
@@ -106,6 +110,11 @@ export const DetailsPage = () => {
 
   return (
     <Container>
+      <Head>
+        <title>
+          {getPageTitle(Translations[language][Labels.STUDENT_OUTPUTS])}
+        </title>
+      </Head>
       <LoadingErrorData
         loading={getStudentOutput.loading}
         error={getStudentOutput}

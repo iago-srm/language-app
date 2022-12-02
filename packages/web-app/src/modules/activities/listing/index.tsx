@@ -53,7 +53,7 @@ export const ActivitiesListing: React.FC = () => {
   return (
     <Container>
       <Head>
-        <title>{getPageTitle(Translations[language][Labels.DASHBOARD])}</title>
+        <title>{getPageTitle(Translations[language][Labels.ACTIVITIES])}</title>
       </Head>
       <Filters
         setFilters={setFilters}

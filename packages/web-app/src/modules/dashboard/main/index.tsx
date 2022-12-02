@@ -23,7 +23,7 @@ export const MainPage: React.FC = () => {
   return (
     <>
       <Head>
-        <title>{getPageTitle(Translations[language][Labels.HOME])}</title>
+        <title>{getPageTitle(Translations[language][Labels.DASHBOARD])}</title>
       </Head>
     </>
   );

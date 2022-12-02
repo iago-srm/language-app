@@ -1,8 +1,9 @@
 import React from "react";
 import { NoData as NoDataComponent } from "./no-data";
 import { Loading as LoadingComponent } from "./loading";
+import { Error as ErrorComponent } from "./error";
 
-const defaultError = <h3>There&apos;s been an error!</h3>;
+const defaultError = <ErrorComponent />;
 const defaultNoData = <NoDataComponent />;
 const defaultLoading = <LoadingComponent />;
 

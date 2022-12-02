@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";
+import { Translations, Labels } from "@locale";
+import { getPageTitle } from "@services/browser";
+
 import Spinner from "react-bootstrap/Spinner";
 import { Container } from "./styles";
 import {
@@ -135,6 +139,9 @@ export const DoActivity = () => {
 
   return (
     <Container>
+      <Head>
+        <title>{getPageTitle(Translations[language][Labels.ACTIVITIES])}</title>
+      </Head>
       <LoadingErrorData
         loading={!activity && getActivity.loading}
         error={getActivityError}

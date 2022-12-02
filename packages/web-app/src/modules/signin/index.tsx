@@ -48,9 +48,7 @@ export const Page: React.FC = () => {
   return (
     <PageContainer>
       <Head>
-        <title>
-          {getPageTitle(Translations[language][Labels.FORGOT_PASSWORD])}
-        </title>
+        <title>{getPageTitle(Translations[language][Labels.SIGNIN])}</title>
       </Head>
       <ResponsiveCenteredPageContent>
         <Frame>
@@ -70,7 +68,7 @@ export const Page: React.FC = () => {
             </Button>
           </Form>
           <Separator>{Translations[language][Labels.Auth.OR]}</Separator>
-          <GoogleButton type={mode} onClick={handleGoogleSignIn} />
+          {/* <GoogleButton type={mode} onClick={handleGoogleSignIn} /> */}
         </Frame>
       </ResponsiveCenteredPageContent>
     </PageContainer>

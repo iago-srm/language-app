@@ -42,7 +42,7 @@ export const SetRolePage: React.FC = () => {
   return (
     <PageContainer>
       <Head>
-        <title>{getPageTitle(Translations[language][Labels.HOME])}</title>
+        <title>{getPageTitle(Translations[language][Labels.DASHBOARD])}</title>
       </Head>
       <Container fluid="sm">
         <LoadingErrorData loading={isUserLoading} data={user} error={userError}>

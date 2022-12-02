@@ -48,7 +48,9 @@ export const ListingPage: React.FC = () => {
   return (
     <Container>
       <Head>
-        <title>{getPageTitle(Translations[language][Labels.DASHBOARD])}</title>
+        <title>
+          {getPageTitle(Translations[language][Labels.STUDENT_OUTPUTS])}
+        </title>
       </Head>
       {user && user.role === "INSTRUCTOR" && selectedStudent && (
         <div className="student-select">
