@@ -17,6 +17,8 @@ variable "ecs_cluster_name_production" {
 
 variable "ecs_cluster_name_staging" {
   type = string
+  default = ""
+
 }
 
 variable "ecs_service_name" {

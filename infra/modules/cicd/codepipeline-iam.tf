@@ -70,9 +70,7 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
       ],
       "Resource": [
         "${aws_s3_bucket.codepipeline_bucket_prod.arn}",
-        "${aws_s3_bucket.codepipeline_bucket_prod.arn}/*",
-        "${aws_s3_bucket.codepipeline_bucket_staging.arn}",
-        "${aws_s3_bucket.codepipeline_bucket_staging.arn}/*"
+        "${aws_s3_bucket.codepipeline_bucket_prod.arn}/*"
       ]
     },
     {
