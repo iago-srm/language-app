@@ -6,6 +6,7 @@ interface ICheckboxProps {
   options: { value: string; label: string }[];
   vertical?: boolean;
   label?: string;
+  correctOptionsIds: string[];
 }
 
 // passes ALL THE SELECTED VALUES to the onChange funcion
@@ -15,6 +16,7 @@ export const CheckboxMenu = ({
   options,
   vertical,
   label,
+  correctOptionsIds,
 }: ICheckboxProps) => {
   const onClick = (e) => {
     const { value } = e.target;
@@ -37,7 +39,12 @@ export const CheckboxMenu = ({
     <CheckboxFormStyled vertical={vertical}>
       <p>{label}</p>
       {options.map((option, i) => (
-        <label key={i}>
+        <label
+          key={i}
+          className={
+            correctOptionsIds.includes(option.value) ? "correct" : null
+          }
+        >
           <input
             type="checkbox"
             value={option.value}

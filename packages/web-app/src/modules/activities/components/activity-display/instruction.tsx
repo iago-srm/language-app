@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 const ResponseTextArea = styled.textarea`
   width: 100%;
+  padding: 5px;
 `;
 
 const StyledHeader = styled(Accordion.Header)`
@@ -47,6 +48,7 @@ export const Instruction = ({ instruction, index }: IInstructionProps) => {
                 label: option.text,
               }))}
               vertical={true}
+              correctOptionsIds={instruction.optionsAnswers.map(({ id }) => id)}
             />
           ) : (
             <CheckboxMenu
@@ -57,6 +59,7 @@ export const Instruction = ({ instruction, index }: IInstructionProps) => {
                 label: option.text,
               }))}
               vertical={true}
+              correctOptionsIds={instruction.optionsAnswers.map(({ id }) => id)}
             />
           )
         ) : (

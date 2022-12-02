@@ -19,9 +19,9 @@ import {
 } from "@atomic";
 import { useApiBuilder } from "services/api";
 
-const studentDescription = "Realize atividades e aprenda inglês";
+const studentDescription = "Complete activities and learn English";
 const instructorDescription =
-  "Produza atividades para os seus estudantes aprenderem inglês";
+  "Make activities for your students to learn English";
 
 export const SetRolePage: React.FC = () => {
   const { user, isUserLoading, userError, refreshUser } = useAuth();

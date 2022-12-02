@@ -36,7 +36,7 @@ resource "aws_security_group" "this" {
       from_port        = 22
       to_port          = 22
       protocol         = "tcp"
-      cidr_blocks      = ["${ingress.value}/32"]
+      cidr_blocks      = ["${ingress.value}"]
     }
   }
 
@@ -47,7 +47,7 @@ resource "aws_security_group" "this" {
       from_port        = 5555
       to_port          = 5555
       protocol         = "tcp"
-      cidr_blocks      = ["${ingress.value}/32"]
+      cidr_blocks      = ["${ingress.value}"]
     }
   }
 
@@ -58,7 +58,7 @@ resource "aws_security_group" "this" {
       from_port        = 5556
       to_port          = 5556
       protocol         = "tcp"
-      cidr_blocks      = ["${ingress.value}/32"]
+      cidr_blocks      = ["${ingress.value}"]
     }
   }
 

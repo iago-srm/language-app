@@ -51,23 +51,30 @@ export const ListingPage: React.FC = () => {
         <title>{getPageTitle(Translations[language][Labels.DASHBOARD])}</title>
       </Head>
       {user && user.role === "INSTRUCTOR" && selectedStudent && (
-        <SingleSelect
-          options={(students || []).map((e) => ({
-            label: e.name,
-            value: e.id,
-          }))}
-          value={{ label: selectedStudent.name, value: selectedStudent.id }}
-          onChange={onChangeStudentSelect}
-        />
+        <div className="student-select">
+          <label>
+            <p>
+              Choose one of your students whose output you would like to list
+            </p>
+            <SingleSelect
+              options={(students || []).map((e) => ({
+                label: e.name,
+                value: e.id,
+              }))}
+              value={{ label: selectedStudent.name, value: selectedStudent.id }}
+              onChange={onChangeStudentSelect}
+            />
+          </label>
+        </div>
       )}
       <LoadingErrorData
         loading={studentOutputsLoading}
         error={studentOutputsError}
         data={studentOutputs?.data.length}
       >
-        <LoadingErrorData.NoData>
+        {/* <LoadingErrorData.NoData>
           Não foram encontradas atividades realizadas
-        </LoadingErrorData.NoData>
+        </LoadingErrorData.NoData> */}
 
         {studentOutputs &&
           studentOutputs.data.map((output) => (

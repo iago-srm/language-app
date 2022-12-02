@@ -5,7 +5,13 @@ export const RadioMenuFormStyled = styled.div<{ vertical: boolean }>`
     display: ${({ vertical }) => (vertical ? "block" : "inline-block")};
     padding: 3px 11px;
   }
-  input {
+  .correct {
+    background-color: #83f28fcc;
+    border-radius: 3px;
+    border: 1px solid green;
+    margin-bottom: 5px;
+  }
+  ks input {
     margin-right: 6px;
   }
 `;
@@ -15,17 +21,24 @@ interface IRadioMenuProps {
   onChange: (args) => any;
   options: { value: string; label: string }[];
   vertical?: boolean;
+  correctOptionsIds: string[];
 }
 export const RadioMenu = ({
   value,
   onChange,
   options,
   vertical,
+  correctOptionsIds,
 }: IRadioMenuProps) => {
   return (
     <RadioMenuFormStyled vertical={vertical}>
       {options.map((option, i) => (
-        <label key={i}>
+        <label
+          key={i}
+          className={
+            correctOptionsIds.includes(option.value) ? "correct" : null
+          }
+        >
           <input
             type="radio"
             value={option.value}
