@@ -10,7 +10,7 @@ import { useLanguage, useColorTheme } from "@contexts";
 import {
   Form,
   PasswordInput,
-  Button,
+  FormButton as Button,
   Frame,
   ErrorAlert,
   SuccessAlert,
