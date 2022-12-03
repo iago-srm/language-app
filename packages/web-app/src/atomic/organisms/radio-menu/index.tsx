@@ -21,7 +21,7 @@ interface IRadioMenuProps {
   onChange: (args) => any;
   options: { value: string; label: string }[];
   vertical?: boolean;
-  correctOptionsIds: string[];
+  correctOptionsIds?: string[];
 }
 export const RadioMenu = ({
   value,
@@ -36,7 +36,9 @@ export const RadioMenu = ({
         <label
           key={i}
           className={
-            correctOptionsIds.includes(option.value) ? "correct" : null
+            correctOptionsIds && correctOptionsIds.includes(option.value)
+              ? "correct"
+              : null
           }
         >
           <input

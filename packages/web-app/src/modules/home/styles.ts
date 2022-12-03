@@ -39,6 +39,7 @@ export const Container = styled.div`
 
   .section-title {
     font-style: italic;
+    text-align: center;
     @media (min-width: ${({ theme }) => theme.responsiveBreakpoint}px) {
       position: sticky;
       top: 50%;
@@ -86,7 +87,7 @@ export const Container = styled.div`
     }
   }
 
-  .call-to-action {
+  .end-section {
     height: 60vh;
     display: flex;
     flex-direction: column;
@@ -94,11 +95,25 @@ export const Container = styled.div`
     .browse-activities {
       background-color: pink;
     }
-    .login {
-      background-color: pink;
+
+    button {
+      min-width: 30%;
+      max-width: 80%;
+      margin: 10px auto;
+      a {
+        text-decoration: none;
+      }
     }
-    .signup {
-      background-color: pink;
+    .authenticate {
+      padding: 10px;
+      text-align: center;
+      a {
+        text-align: center;
+        :hover {
+          color: blue;
+          text-decoration: underline;
+        }
+      }
     }
   }
 `;

@@ -6,7 +6,7 @@ interface ICheckboxProps {
   options: { value: string; label: string }[];
   vertical?: boolean;
   label?: string;
-  correctOptionsIds: string[];
+  correctOptionsIds?: string[];
 }
 
 // passes ALL THE SELECTED VALUES to the onChange funcion
@@ -42,7 +42,9 @@ export const CheckboxMenu = ({
         <label
           key={i}
           className={
-            correctOptionsIds.includes(option.value) ? "correct" : null
+            correctOptionsIds && correctOptionsIds.includes(option.value)
+              ? "correct"
+              : null
           }
         >
           <input

@@ -25,6 +25,7 @@ import {
 } from "@language-app/common-core";
 import {
   GetActivitiesHTTPDefinition,
+  GetActivitiesOpenHTTPDefinition,
   IGetActivities,
   NewActivityHTTPDefinition,
   IPostActivity,
@@ -137,17 +138,18 @@ export const useApiBuilder = () => {
     )
   );
 
-  const getKey = (pageIndex, previousPageData) => {
-    // dont allow unauthenticated queries
-    if (!tokenHeaderSet) return null;
+  const getKey = (isOpen) => (pageIndex, previousPageData) => {
+    // // dont allow unauthenticated queries
+    // if (!tokenHeaderSet && !isOpen) return null;
 
     // reached the end
     if (previousPageData && !previousPageData.data.length) return null;
 
     const cursor = previousPageData && previousPageData.cursor;
-    const url = cursor
-      ? `${GetActivitiesHTTPDefinition.path}?cursor=${cursor}`
+    const path = isOpen
+      ? GetActivitiesOpenHTTPDefinition.path
       : GetActivitiesHTTPDefinition.path;
+    const url = cursor ? `${path}?cursor=${cursor}` : path;
     return url;
   };
 
@@ -159,9 +161,10 @@ export const useApiBuilder = () => {
     contentTypes,
     isMyList,
     thisInstructorOnly,
+    isOpen,
   }) =>
     useApiCallSWRPaginated<IGetActivities["response"]>(
-      getKey,
+      getKey(isOpen),
       (url) =>
         domainFetcher[GetActivitiesHTTPDefinition.method].bind(domainFetcher)(
           url,

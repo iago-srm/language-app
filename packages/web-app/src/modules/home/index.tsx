@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import Head from "next/head";
 import gsap from "gsap";
@@ -9,9 +10,10 @@ import { useLanguage } from "@contexts";
 import { Translations, Labels } from "@locale";
 import Ratio from "react-bootstrap/Ratio";
 import { ImgModal } from "./components/img-modal";
+import { DashboardButton } from "../dashboard/components";
+import { Icons } from "@atomic";
 
-const imgWidth = 300;
-const imgHeight = 300;
+const imgWidth = 600;
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,49 +22,76 @@ export const Page: React.FC = () => {
   const videoRef = useRef();
   const titleRef = useRef();
   const [modalOpen, setModalOpen] = useState(false);
-  const [modalImageSrc, setModalImgSrc] = useState("");
+  const [modalImage, setModalImg] = useState({ src: "", descr: "" });
 
   useEffect(() => {
     gsap.fromTo(videoRef.current, { x: -200 }, { x: 0, duration: 3 });
     gsap.fromTo(titleRef.current, { x: 200 }, { x: 0, duration: 3 });
   }, []);
 
-  const onClickImage = (src) => {
-    setModalImgSrc(src);
+  const onClickImage = ({ src, descr }) => {
+    setModalImg({ src, descr });
     setModalOpen(true);
   };
 
-  const section1Images = [
-    { src: "/images/logo.png", alt: "" },
-    { src: "/images/logo.png", alt: "" },
-    { src: "/images/logo.png", alt: "" },
-    { src: "/images/logo.png", alt: "" },
-  ].map(({ src, alt }, key) => (
+  const getImgComponent = ({ src, alt, descr }, key) => (
     <img
-      onClick={() => onClickImage(src)}
+      title={descr}
+      onClick={() => onClickImage({ src, descr })}
       key={key}
-      alt={alt}
+      alt={alt || descr}
       src={src}
       width={imgWidth}
-      height={imgHeight}
+      style={{ objectFit: "cover" }}
     />
-  ));
+  );
+
+  const section1Images = [
+    {
+      src: "/images/4.2.1.png",
+      descr:
+        "Choose a title, a description, a CEFR level and topics for the new activity",
+    },
+    {
+      src: "/images/4.2.2.png",
+      descr: "Insert some content into the activity, which can be a video",
+    },
+    {
+      src: "/images/4.2.5.png",
+      descr:
+        "Insert some content into the activity, which can be some formatted text",
+    },
+    {
+      src: "/images/4.2.3.png",
+      descr: "Come up with questions related to the activity content",
+    },
+    {
+      src: "/images/4.2.4.png",
+      descr: "Come up with questions related to the activity content",
+    },
+  ].map(getImgComponent);
 
   const section2Images = [
-    { src: "/images/logo.png", alt: "" },
-    { src: "/images/logo.png", alt: "" },
-    { src: "/images/logo.png", alt: "" },
-    { src: "/images/logo.png", alt: "" },
-  ].map(({ src, alt }, key) => (
-    <img
-      onClick={() => onClickImage(src)}
-      key={key}
-      alt={alt}
-      src={src}
-      width={imgWidth}
-      height={imgHeight}
-    />
-  ));
+    {
+      src: "/images/4.3.png",
+      descr: "List all possible activities based on filters",
+    },
+    { src: "/images/4.4.1.png", descr: "Check out the activity content" },
+    { src: "/images/4.4.2.png", descr: "Answer the questions" },
+    {
+      src: "/images/4.5.1.png",
+      descr: "See the activities you have already completed",
+    },
+    {
+      src: "/images/4.6.1.png",
+      descr:
+        "See past activities that have not gotten feedback from the instructor yet",
+    },
+    {
+      src: "/images/4.6.3.png",
+      descr: "See feedback from instructors on each question",
+    },
+  ].map(getImgComponent);
 
   return (
     <Container>
@@ -100,19 +129,33 @@ export const Page: React.FC = () => {
         </h3>
       </div>
 
-      <div className="call-to-action">
-        <button className="browse-activities">
+      <div className="end-section">
+        {/* <button className="browse-activities">
           {Translations[language][Labels.Home.BROWSE_ACTIVITIES]}
-        </button>
-        <button className="login">
-          {Translations[language][Labels.Home.LOGIN]}
-        </button>
-        <button className="signup">
-          {Translations[language][Labels.Home.SIGNUP]}
-        </button>
+        </button> */}
+        <DashboardButton
+          description={"Browse through all the activities in the platform"}
+          label={"Search Activities"}
+          path="/activities"
+          query={{ isOpen: true }}
+          icon={<Icons.SEARCH />}
+        />
+        <div className="authenticate">
+          {Translations[language][Labels.Home.LOGIN]}{" "}
+          <a>
+            <Link href="/signin">{Translations[language][Labels.SIGNIN]}</Link>.{" "}
+          </a>
+          <a>
+            <Link href="/signup">{Translations[language][Labels.SIGNUP]}</Link>
+          </a>
+        </div>
       </div>
       {modalOpen && (
-        <ImgModal src={modalImageSrc} onClose={() => setModalOpen(false)} />
+        <ImgModal
+          src={modalImage.src}
+          descr={modalImage.descr}
+          onClose={() => setModalOpen(false)}
+        />
       )}
     </Container>
   );

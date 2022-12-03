@@ -8,6 +8,6 @@ export const Home = {
   [Labels.SECTION2]:
     "Students do the activities and get feedback from instructors",
   [Labels.BROWSE_ACTIVITIES]: "Browse activities",
-  [Labels.LOGIN]: "Already have an account? Signin",
+  [Labels.LOGIN]: "Already have an account?",
   [Labels.SIGNUP]: "Create an account",
 };

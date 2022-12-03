@@ -37,6 +37,7 @@ export const ActivitiesListing: React.FC = () => {
     topics: `${filters.topics.map((t) => t.value)}`,
     cefr: filters.cefr && `${filters.cefr.value}`,
     pageSize: 4,
+    isOpen: query.isOpen,
   });
 
   const clearAllFilters = () => {
@@ -61,9 +62,6 @@ export const ActivitiesListing: React.FC = () => {
         clearAll={clearAllFilters}
       />
       <LoadingErrorData loading={loading} error={error} data={!!data?.length}>
-        {/* <LoadingErrorData.NoData>
-          <h3>Não há atividades com esses filtros</h3>
-        </LoadingErrorData.NoData> */}
         {data &&
           data.map((activity) => (
             <ActivityCard

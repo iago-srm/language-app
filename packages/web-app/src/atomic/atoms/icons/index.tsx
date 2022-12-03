@@ -22,9 +22,9 @@ import { FaRegHeart, FaHeart } from "react-icons/fa";
 export const Icons = {
   CLOSE: () => <FontAwesomeIcon icon={faTimes} />,
   DELETE: () => (
-    <div style={{ padding: "5px" }}>
-      <FontAwesomeIcon icon={faTimes} />
-    </div>
+    // <div style={{ padding: "5px" }}>
+    <FontAwesomeIcon icon={faTimes} />
+    // </div>
   ),
   EDIT: () => <FontAwesomeIcon icon={faPen} />,
   CAN_SEE: () => <FontAwesomeIcon icon={faEye} />,
