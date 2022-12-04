@@ -15,6 +15,11 @@ export const GetActivityHTTPDefinition: HTTPDefinition = {
   method: "get",
 };
 
+export const GetActivityOpenHTTPDefinition: HTTPDefinition = {
+  path: "activities-open/:id",
+  method: "get",
+};
+
 export const NewActivityHTTPDefinition: HTTPDefinition = {
   path: "activities",
   method: "post",
