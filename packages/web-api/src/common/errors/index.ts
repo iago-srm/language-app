@@ -60,7 +60,7 @@ export class ActivityNotFoundError extends CustomError {
 export class StudentAlreadyAssociatedError extends CustomError {
   HTTPstatusCode = 400;
   constructor() {
-    super({ errorName: ErrorMessagesLabels.ACTIVITY_NOT_FOUND });
+    super({ errorName: ErrorMessagesLabels.EXISTING_ASSOCIATION });
   }
 }
 
