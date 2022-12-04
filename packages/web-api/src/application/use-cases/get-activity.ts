@@ -4,8 +4,8 @@ import { ActivityNotFoundError } from "@common/errors";
 
 type InputParams = {
   activityId: number;
-  userId: string;
-  role: string;
+  userId?: string;
+  role?: string;
 };
 type Return = { activity: Partial<ActivityDTO> };
 
@@ -37,6 +37,7 @@ class UseCase implements IGetActivityUseCase {
         };
       }
     }
+
     return {
       activity: {
         ...activity,

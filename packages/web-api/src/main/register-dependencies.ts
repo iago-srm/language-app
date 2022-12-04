@@ -23,6 +23,7 @@ import {
   GetActivitiesOpenControllerFactory,
   GetActivitiesControllerFactory,
   GetActivityControllerFactory,
+  GetActivityOpenControllerFactory,
   GetAssociationInvitationControllerFactory,
   GetInstructorStudentsControllerFactory,
   GetStudentOutputControllerFactory,
@@ -71,6 +72,9 @@ export const registerDependencies = (container: awilix.AwilixContainer) => {
       GetActivitiesOpenControllerFactory
     ),
     getActivityController: awilix.asFunction(GetActivityControllerFactory),
+    getActivityOpenController: awilix.asFunction(
+      GetActivityOpenControllerFactory
+    ),
     getAssociationInvitationController: awilix.asFunction(
       GetAssociationInvitationControllerFactory
     ),
