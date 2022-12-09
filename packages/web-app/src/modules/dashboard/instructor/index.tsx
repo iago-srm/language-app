@@ -15,41 +15,55 @@ export const InstructorPage: React.FC = () => {
       <Head>
         <title>{getPageTitle(Translations[language][Labels.DASHBOARD])}</title>
       </Head>
-      <h3>Instrutor Area</h3>
-      <p className="page-description">All you can do on the platform is here</p>
+      <h3>{Translations[language][Labels.Dashboard.INSTRUCTOR_AREA]}</h3>
+      <p className="page-description">
+        {Translations[language][Labels.Dashboard.DESCRIPTION]}
+      </p>
       <ButtonsContainer>
         <DashboardButton
-          description={"Create a new activity"}
-          label={"New Activity"}
+          description={
+            Translations[language][
+              Labels.Dashboard.CREATE_NEW_ACTIVITY_DESCRIPTION
+            ]
+          }
+          label={Translations[language][Labels.Dashboard.CREATE_NEW_ACTIVITY]}
           path="/activities/new"
           icon={<Icons.PLUS />}
         />
         <DashboardButton
           description={
-            "Give feedback on the activities your students have done"
+            Translations[language][
+              Labels.Dashboard.STUDENTS_OUTPUTS_DESCRIPTION
+            ]
           }
-          label={"Student's outputs"}
+          label={Translations[language][Labels.Dashboard.STUDENTS_OUTPUTS]}
           path="/student-outputs"
           icon={<Icons.FOLDER />}
         />
         <DashboardButton
-          description={"Browse through the activities you've made"}
-          label={"My Activities"}
+          description={
+            Translations[language][Labels.Dashboard.MY_ACTIVITIES_DESCRIPTION]
+          }
+          label={Translations[language][Labels.Dashboard.MY_ACTIVITIES]}
           path="/activities"
           query={{ thisInstructorOnly: true }}
           icon={<Icons.LIST />}
         />
         <DashboardButton
-          description={"Browse through all the activities in the platform"}
-          label={"Search Activities"}
+          description={
+            Translations[language][
+              Labels.Dashboard.SEARCH_ACTIVITIES_DESCRIPTION
+            ]
+          }
+          label={Translations[language][Labels.Dashboard.SEARCH_ACTIVITIES]}
           path="/activities"
           icon={<Icons.SEARCH />}
         />
         <DashboardButton
           description={
-            "Invite some one to be part of your network of students and give feedback on the activities they complete"
+            Translations[language][Labels.Dashboard.INVITE_STUDENT_DESCRIPTION]
           }
-          label={"Invite Student"}
+          label={Translations[language][Labels.Dashboard.INVITE_STUDENT]}
           path="/invite-student"
           icon={<Icons.USER_PLUS />}
         />

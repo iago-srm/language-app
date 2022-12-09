@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import Head from "next/head";
 import gsap from "gsap";
@@ -27,6 +28,18 @@ export const Page: React.FC = () => {
   const titleRef = useRef();
   const [modalOpen, setModalOpen] = useState(false);
   const [modalImage, setModalImg] = useState({ src: "", descr: "" });
+  const [backendIsOn, setBackendIsOn] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        await axios.get(process.env.NEXT_PUBLIC_HEALTHCHECK_URL);
+        setBackendIsOn(true);
+      } catch (e) {
+        setBackendIsOn(false);
+      }
+    })();
+  }, []);
 
   useEffect(() => {
     gsap.fromTo(videoRef.current, { x: -200 }, { x: 0, duration: 3 });
@@ -45,8 +58,7 @@ export const Page: React.FC = () => {
       key={key}
       alt={alt || descr}
       src={src}
-      width={imgWidth}
-      style={{ objectFit: "cover" }}
+      style={{ objectFit: "cover", maxWidth: "90vw", width: imgWidth }}
     />
   );
 
@@ -102,6 +114,9 @@ export const Page: React.FC = () => {
       <Head>
         <title>{getPageTitle(Translations[language][Labels.HOME])}</title>
       </Head>
+      {!backendIsOn && (
+        <p className="warning">{Translations[language][Labels.NO_BACKEND]}</p>
+      )}
       <div className={`main-section`}>
         <div className="video">
           <Ratio aspectRatio="16x9">
@@ -164,3 +179,5 @@ export const Page: React.FC = () => {
     </Container>
   );
 };
+
+const useCheckBackend = async () => {};

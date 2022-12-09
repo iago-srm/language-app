@@ -8,4 +8,6 @@ export default {
   [Labels.ERROR]: "Error",
   [Labels.SUCCESS]: "Success",
   [Labels.NO_DATA]: "No data has been found",
+  [Labels.NO_BACKEND]:
+    "The platform is off at the moment. Send iago.srm.is@gmail.com if you would like to test it.",
 };

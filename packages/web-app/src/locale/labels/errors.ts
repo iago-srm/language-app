@@ -6,4 +6,5 @@ export default {
   ERROR: "error",
   SUCCESS: "success",
   NO_DATA: "no_data",
+  NO_BACKEND: "no_backend",
 };

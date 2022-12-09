@@ -4,6 +4,11 @@ export const Container = styled.div`
   width: 98vw;
   margin: 0 auto;
 
+  .warning {
+    color: red;
+    padding: 10px;
+    text-align: center;
+  }
   .main-section {
     display: flex;
     flex-direction: column-reverse;
