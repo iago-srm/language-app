@@ -21,13 +21,31 @@ resource "aws_codepipeline" "prod" {
       owner            = "ThirdParty"
       provider         = "GitHub"
       version          = "1"
-      output_artifacts = ["imagedefinitions"]
+      output_artifacts = ["source"]
 
       configuration = {
         Owner  = "iago-srm"
         Repo   = "language-app"
         Branch = "main"
         OAuthToken = "${var.github_oauth_token}"
+      }
+    }
+  }
+
+  stage {
+    name = "Build"
+
+    action {
+      name             = "Build"
+      category         = "Build"
+      owner            = "AWS"
+      provider         = "CodeBuild"
+      version          = "1"
+      input_artifacts  = ["source"]
+      output_artifacts = ["imagedefinitions"]
+
+      configuration = {
+        ProjectName = "${var.server-name}"
       }
     }
   }

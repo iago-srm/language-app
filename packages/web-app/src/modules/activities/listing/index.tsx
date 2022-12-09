@@ -72,6 +72,7 @@ export const ActivitiesListing: React.FC = () => {
               description={activity.description}
               title={activity.title}
               contentType={activity.contentType}
+              isOpen={query.isOpen}
             />
           ))}
         <div className="button-container">

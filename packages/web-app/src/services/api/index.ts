@@ -192,11 +192,16 @@ export const useApiBuilder = () => {
   );
 
   const getActivity = useApiCall<
-    IGetActivity["params"],
+    // IGetActivity["params"],
+    { id: number; isOpen: boolean },
     IGetActivity["response"]
-  >(({ id }) => {
+  >(({ id, isOpen }) => {
+    const path = isOpen
+      ? GetActivitiesOpenHTTPDefinition.path
+      : GetActivitiesHTTPDefinition.path;
+
     return domainFetcher[GetActivityHTTPDefinition.method](
-      insertPathParam(GetActivityHTTPDefinition.path, 1, id)
+      insertPathParam(path, 1, id)
     );
   });
 

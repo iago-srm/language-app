@@ -23,10 +23,11 @@ import {
 } from "../components";
 import { getLabeledTopics, Instruction as InstructionModel } from "@model";
 import { useApiBuilder } from "@services/api";
-import { useLanguage } from "@contexts";
+import { useLanguage, useAuth } from "@contexts";
 
 export const DoActivity = () => {
   const router = useRouter();
+  const { user } = useAuth();
   const {
     getActivity,
     postStudentOutput,
@@ -51,7 +52,10 @@ export const DoActivity = () => {
         message: "Activity id is invalid",
       });
     (async () => {
-      const { response, error } = await getActivity.apiCall({ id });
+      const { response, error } = await getActivity.apiCall({
+        id,
+        isOpen: !!query.isOpen,
+      });
       if (error) setGetActivityError(error);
       else {
         setActivity({ ...response.activity });
@@ -63,7 +67,6 @@ export const DoActivity = () => {
 
   useEffect(() => {
     if (activity && !Object.keys(instructions).length) {
-      console.log("instructions");
       let instructions = {};
       activity.instructions.forEach((inst) => {
         instructions = {
@@ -109,6 +112,8 @@ export const DoActivity = () => {
   };
 
   const toggleIsMyList = async () => {
+    if (query.isOpen) return;
+
     const { apiCall: deleteApiCall } = deleteActivityFromMyList;
     const { apiCall: insertApiCall } = insertActivityIntoMyList;
 
@@ -129,6 +134,7 @@ export const DoActivity = () => {
     const id = Number(query.id);
     const { response, error: getActivityError } = await getActivity.apiCall({
       id,
+      isOpen: false,
     });
     if (getActivityError) setGetActivityError(getActivityError);
     else {
@@ -142,6 +148,11 @@ export const DoActivity = () => {
       <Head>
         <title>{getPageTitle(Translations[language][Labels.ACTIVITIES])}</title>
       </Head>
+      {!user && (
+        <p className="singin-warning">
+          Please sign in in order to do this activity and save it to your list
+        </p>
+      )}
       <LoadingErrorData
         loading={!activity && getActivity.loading}
         error={getActivityError}
@@ -198,6 +209,7 @@ export const DoActivity = () => {
       <FormButton
         onClick={onClickSubmitOutput}
         loading={postStudentOutput.loading}
+        disabled={!user}
       >
         Salvar
       </FormButton>

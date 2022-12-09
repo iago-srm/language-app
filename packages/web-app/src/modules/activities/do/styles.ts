@@ -24,4 +24,10 @@ export const Container = styled.div`
 
     cursor: pointer;
   }
+  p.singin-warning {
+    text-align: center;
+    font-style: italic;
+    padding: 10px;
+    color: red;
+  }
 `;

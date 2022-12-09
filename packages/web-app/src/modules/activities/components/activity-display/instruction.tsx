@@ -31,9 +31,14 @@ interface IInstructionWithHandler extends InstructionModel {
 interface IInstructionProps {
   instruction: IInstructionWithHandler;
   index: number;
+  showAnswer?: boolean;
 }
 
-export const Instruction = ({ instruction, index }: IInstructionProps) => {
+export const Instruction = ({
+  instruction,
+  index,
+  showAnswer,
+}: IInstructionProps) => {
   return (
     <Accordion.Item eventKey={`${index}`}>
       <StyledHeader>{instruction.text}</StyledHeader>
@@ -48,7 +53,9 @@ export const Instruction = ({ instruction, index }: IInstructionProps) => {
                 label: option.text,
               }))}
               vertical={true}
-              correctOptionsIds={instruction.optionsAnswers.map(({ id }) => id)}
+              correctOptionsIds={
+                showAnswer && instruction.optionsAnswers.map(({ id }) => id)
+              }
             />
           ) : (
             <CheckboxMenu
@@ -59,7 +66,9 @@ export const Instruction = ({ instruction, index }: IInstructionProps) => {
                 label: option.text,
               }))}
               vertical={true}
-              correctOptionsIds={instruction.optionsAnswers.map(({ id }) => id)}
+              correctOptionsIds={
+                showAnswer && instruction.optionsAnswers.map(({ id }) => id)
+              }
             />
           )
         ) : (

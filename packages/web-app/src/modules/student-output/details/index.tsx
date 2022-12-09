@@ -160,6 +160,7 @@ export const DetailsPage = () => {
               {Object.keys(instructions).map((instructionId, i) => (
                 <InstructionsContainerStyled key={instructionId}>
                   <Instruction
+                    showAnswer={true}
                     index={i}
                     instruction={instructions[instructionId]}
                   />

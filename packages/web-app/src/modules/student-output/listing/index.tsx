@@ -28,8 +28,16 @@ export const ListingPage: React.FC = () => {
   } = useGetStudents(); // select puts student id in url
 
   useEffect(() => {
-    if (students) {
+    if (students && students.length) {
       setSelectedStudent(students[0]);
+      Router.push(
+        {
+          pathname: "/student-outputs",
+          query: { studentId: students[0].id },
+        },
+        undefined,
+        { shallow: true }
+      );
     }
   }, [students]);
 
