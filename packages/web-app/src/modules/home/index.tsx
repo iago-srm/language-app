@@ -14,6 +14,10 @@ import { DashboardButton } from "../dashboard/components";
 import { Icons } from "@atomic";
 
 const imgWidth = 600;
+const videoUrl = {
+  pt: "zu0unBdP3oI",
+  en: "zu0unBdP3oI",
+};
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -102,7 +106,7 @@ export const Page: React.FC = () => {
         <div className="video">
           <Ratio aspectRatio="16x9">
             <iframe
-              src={"https://youtube.com/embed/fsdfsdfs"}
+              src={`https://youtube.com/embed/${videoUrl[language]}`}
               title="YouTube video"
               allowFullScreen
               ref={videoRef}
