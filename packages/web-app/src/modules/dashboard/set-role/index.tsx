@@ -35,7 +35,6 @@ export const SetRolePage: React.FC = () => {
   const handleClickSave = async () => {
     const { error } = await updateUser.apiCall({ role: selectedRole });
     refreshUser();
-    console.log({ error });
     if (error) setError(error.message);
   };
 
@@ -53,11 +52,13 @@ export const SetRolePage: React.FC = () => {
                 error={error}
                 onClose={() => setError(undefined)}
               />
-              <h1>Complete your registration</h1>
+              <h1>{Translations[language][Labels.DASHBOARD]}</h1>
               <p>
                 {selectedRole === "STUDENT"
-                  ? studentDescription
-                  : instructorDescription}
+                  ? Translations[language][Labels.Dashboard.STUDENT_DESCRIPTION]
+                  : Translations[language][
+                      Labels.Dashboard.INSTRUCTOR_DESCRIPTION
+                    ]}
               </p>
               <Row className="justify-content-lg-center">
                 <Col xs lg="3">
@@ -65,7 +66,7 @@ export const SetRolePage: React.FC = () => {
                     selected={selectedRole === "STUDENT"}
                     onClick={() => setSelectedRole("STUDENT")}
                   >
-                    Student
+                    {Translations[language][Labels.Dashboard.STUDENT]}
                   </SelectablePanel>
                 </Col>
                 <Col xs lg="3">
@@ -73,7 +74,7 @@ export const SetRolePage: React.FC = () => {
                     selected={selectedRole === "INSTRUCTOR"}
                     onClick={() => setSelectedRole("INSTRUCTOR")}
                   >
-                    Instructor
+                    {Translations[language][Labels.Dashboard.INSTRUCTOR]}
                   </SelectablePanel>
                 </Col>
               </Row>
@@ -83,7 +84,7 @@ export const SetRolePage: React.FC = () => {
                     loading={updateUser.loading}
                     onClick={handleClickSave}
                   >
-                    Save
+                    {Translations[language][Labels.Activity.SAVE]}
                   </Button>
                 </Col>
               </Row>
@@ -94,9 +95,14 @@ export const SetRolePage: React.FC = () => {
               dismissible={false}
               response={
                 <span>
-                  Registration complete. Access your{" "}
+                  {
+                    Translations[language][
+                      Labels.Dashboard.REGISTRATION_COMPLETE
+                    ]
+                  }
+                  {/* Registration complete. Access your{" "}
                   <AlertLink href="/dashboard">main page</AlertLink> as a{" "}
-                  {user.role === "INSTRUCTOR" ? "n instructor" : "student"}.
+                  {user.role === "INSTRUCTOR" ? "n instructor" : "student"}. */}
                 </span>
               }
             />

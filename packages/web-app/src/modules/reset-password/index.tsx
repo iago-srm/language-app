@@ -69,7 +69,10 @@ export const Page: React.FC<IResetPasswordProps> = ({ verificationToken }) => {
             onClose={() => setUpdateUserError(undefined)}
           />
           <SuccessAlert
-            response={updateUserResponse && "Senha alterada com sucesso"}
+            response={
+              updateUserResponse &&
+              Translations[language][Labels.Auth.PASSWORD_SUCCESSFULLY_CHANGED]
+            }
             dismissible={false}
           />
           <Form onSubmit={handleSubmit} schema={schema}>

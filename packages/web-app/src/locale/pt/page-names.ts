@@ -10,4 +10,6 @@ export default {
   [Labels.FORGOT_PASSWORD]: "Esqueci a Senha",
   [Labels.RESET_PASSWORD]: "Redefinir Senha",
   [Labels.DASHBOARD]: "Minha área",
+  [Labels.ACTIVITIES]: "Atividades",
+  [Labels.STUDENT_OUTPUTS]: "Produção de Estudantes",
 };

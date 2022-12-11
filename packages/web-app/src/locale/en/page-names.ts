@@ -10,4 +10,6 @@ export default {
   [Labels.FORGOT_PASSWORD]: "Forgot Password",
   [Labels.RESET_PASSWORD]: "Reset Password",
   [Labels.DASHBOARD]: "Dasboard",
+  [Labels.ACTIVITIES]: "Activities",
+  [Labels.STUDENT_OUTPUTS]: "Student Outputs",
 };

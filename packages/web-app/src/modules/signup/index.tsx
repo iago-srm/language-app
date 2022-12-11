@@ -49,7 +49,7 @@ export const Page: React.FC = () => {
     if (error) {
       setError(error.message);
     } else {
-      setResponse("Aguarde um e-mail de confirmação");
+      setResponse(Translations[language][Labels.Auth.AWAIT_CONFIRMATION_EMAIL]);
     }
   };
 

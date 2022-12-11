@@ -144,7 +144,7 @@ export const NewActivity = () => {
   return (
     <PageContainer>
       <Head>
-        <title>{getPageTitle(Translations[language][Labels.DASHBOARD])}</title>
+        <title>{getPageTitle(Translations[language][Labels.ACTIVITIES])}</title>
       </Head>
       {isBigScreen && (
         <Section>

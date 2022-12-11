@@ -16,10 +16,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
     };
   }
-  const payload = jwt.verify(
-    token,
-    process.env.NEXT_PUBLIC_AUTH_TOKEN_SECRET
-  ) as any;
+  // const payload = jwt.verify(
+  //   token,
+  //   process.env.NEXT_PUBLIC_AUTH_TOKEN_SECRET
+  // ) as any;
 
   return {
     props: {},

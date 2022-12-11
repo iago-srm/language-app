@@ -12,4 +12,10 @@ export const Dashboard = {
   SEARCH_ACTIVITIES_DESCRIPTION: "search_activities_description",
   INVITE_STUDENT: "invite_student",
   INVITE_STUDENT_DESCRIPTION: "invite_student_description",
+  COMPLETE_REGISTRATION: "complete_registration",
+  REGISTRATION_COMPLETE: "registration_complete",
+  STUDENT: "student",
+  INSTRUCTOR: "instructor",
+  STUDENT_DESCRIPTION: "student_description",
+  INSTRUCTOR_DESCRIPTION: "instructor_description",
 };

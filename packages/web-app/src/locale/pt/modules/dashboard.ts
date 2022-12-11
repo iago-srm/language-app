@@ -20,4 +20,11 @@ export const Dashboard = {
   [Labels.STUDENTS_OUTPUTS]: "Produção de Estudantes",
   [Labels.STUDENTS_OUTPUTS_DESCRIPTION]:
     "Dê feedback para as atividades dos seus estudantes",
+  [Labels.COMPLETE_REGISTRATION]: "Complete seu cadastro",
+  [Labels.REGISTRATION_COMPLETE]: "Cadastro completo",
+  [Labels.STUDENT]: "Estudante",
+  [Labels.STUDENT_DESCRIPTION]: "Realize atividades e aprenda um novo idioma",
+  [Labels.INSTRUCTOR]: "Instrutor",
+  [Labels.INSTRUCTOR_DESCRIPTION]:
+    "Crie atividade para os seus estudantes aprenderem um novo idioma",
 };
