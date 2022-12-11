@@ -22,6 +22,11 @@ const StyledHeader = styled(Accordion.Header)`
 const StyledBody = styled(Accordion.Body)`
   background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.text};
+  .suggested-answer {
+    h6 {
+      font-style: italic;
+    }
+  }
 `;
 
 interface IInstructionWithHandler extends InstructionModel {
@@ -72,12 +77,19 @@ export const Instruction = ({
             />
           )
         ) : (
-          <ResponseTextArea
-            value={instruction.answer}
-            onChange={(e) =>
-              instruction.onChange(instruction.id, e.target.value)
-            }
-          />
+          <>
+            <ResponseTextArea
+              value={instruction.answer}
+              onChange={(e) =>
+                instruction.onChange(instruction.id, e.target.value)
+              }
+            />
+            <div className="suggested-answer">
+              <hr />
+              <h6>Suggested answer</h6>
+              {showAnswer && <p>{instruction.textAnswer}</p>}
+            </div>
+          </>
         )}
       </StyledBody>
     </Accordion.Item>
