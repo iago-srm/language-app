@@ -1,6 +1,36 @@
+![logo](img/readme_logo.png)
+
+![GitHub last commit](https://img.shields.io/github/last-commit/iago-srm/language-app)
+![GitHub language count](https://img.shields.io/github/languages/count/iago-srm/language-app)
+![GitHub top language](https://img.shields.io/github/languages/top/iago-srm/language-app)
+![Lines of code](https://img.shields.io/tokei/lines/github/iago-srm/language-app)
+
 # Overview
 
-# Techonologies
+This is my Computer Engineering senior thesis. I got my degree at the end of 2022 at the University of São Paulo.
+
+The product is a language learning platform. Users can sign in as either instructors or students. Instructors will author language learning activities and students will complete them and get written feedback from their instructors.
+
+Watch [this video]() for a demonstration of how it works.
+
+It is built using a microsservice architecture on AWS.
+
+# Technology
+
+## Architecture
+
+<img src="img/simplified-architecture.png" alt="drawing" width="450"/>
+
+<div>
+  <img src="https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white" alt="" />
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="" />
+  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="" />
+  <img src="https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white" alt="" />
+  <img src="https://img.shields.io/badge/terraform-%235835CC.svg?style=for-the-badge&logo=terraform&logoColor=white" alt="" />
+  <img src="https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white" alt="" />
+  <img src="https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white" alt="" />
+  <img src="https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white" alt="" />
+</div>
 
 # Development
 
@@ -30,5 +60,3 @@
 - - Option 3 (not yet explored). Use Github Actions to do CD too. It is currently only doing CI (testing and linting)
 
 ## Frontend
-
-- [BUG] CEFR Select keeps last choice when filters are cleared.
