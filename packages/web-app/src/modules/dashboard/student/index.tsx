@@ -15,21 +15,29 @@ export const StudentPage: React.FC = () => {
       <Head>
         <title>{getPageTitle(Translations[language][Labels.DASHBOARD])}</title>
       </Head>
-      <h3>Studante Area</h3>
-      <p className="page-description">All you can do on the platform is here</p>
+      <h3>{Translations[language][Labels.Dashboard.STUDENT_AREA]}</h3>
+      <p className="page-description">
+        {Translations[language][Labels.Dashboard.DESCRIPTION]}
+      </p>
 
       <ButtonsContainer>
         <DashboardButton
-          description={"Browse through all the activities in the platform"}
-          label={"Search Activities"}
+          description={
+            Translations[language][
+              Labels.Dashboard.SEARCH_ACTIVITIES_DESCRIPTION
+            ]
+          }
+          label={Translations[language][Labels.Dashboard.SEARCH_ACTIVITIES]}
           path="/activities"
           icon={<Icons.SEARCH />}
         />
         <DashboardButton
           description={
-            "Browse through the activities you've saved in your list"
+            Translations[language][
+              Labels.Dashboard.MY_LIST_ACTIVITIES_DESCRIPTION
+            ]
           }
-          label={"Activities in My List"}
+          label={Translations[language][Labels.Dashboard.MY_LIST_ACTIVITIES]}
           path="/activities"
           query={{ isMyList: true }}
           icon={
@@ -40,9 +48,13 @@ export const StudentPage: React.FC = () => {
         />
         <DashboardButton
           description={
-            "See feedback give to activities you've done in the past"
+            Translations[language][
+              Labels.Dashboard.MY_COMPLETED_ACTIVITIES_DESCRIPTION
+            ]
           }
-          label={"My Completed Activities"}
+          label={
+            Translations[language][Labels.Dashboard.MY_COMPLETED_ACTIVITIES]
+          }
           path="/student-outputs"
           icon={<Icons.CHECK />}
         />

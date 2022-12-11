@@ -4,7 +4,8 @@ export const NavImageContainer = styled.div`
   height: 100%;
   overflow: hidden;
   img {
-    height: 100%;
+    height: 9vh;
+    width: auto;
   }
 `;
 

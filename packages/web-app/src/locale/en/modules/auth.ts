@@ -16,4 +16,5 @@ export const Auth = {
   [Labels.EMAIL_WILL_BE_SENT]: "An e-mail will be sent to you",
   [Labels.PASSWORD_SUCCESSFULLY_CHANGED]:
     "Your password has been changed successfully",
+  [Labels.ACCOUNT_SUCCESSFULLY_VERIFIED]: "Account verified successfully!",
 };

@@ -18,4 +18,6 @@ export const Activity = {
   [Labels.SAVE]: "Save",
 
   [Labels.SUGGESTED_ANSWER]: "Suggested Answer",
+  [Labels.ANSWER_THE_QUESTIONS]:
+    "Answer the questions below regarding the content above",
 };

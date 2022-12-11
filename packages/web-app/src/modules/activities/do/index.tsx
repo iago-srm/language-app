@@ -193,7 +193,9 @@ export const DoActivity = () => {
               />
             )}
             <hr />
-            <p>Answer the questions below regarding the content above</p>
+            <p>
+              {Translations[language][Labels.Activity.ANSWER_THE_QUESTIONS]}
+            </p>
             <InstructionsContainer>
               {Object.keys(instructions).map((instructionId, i) => (
                 <Instruction

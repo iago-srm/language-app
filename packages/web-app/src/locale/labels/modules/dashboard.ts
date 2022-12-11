@@ -2,6 +2,8 @@ export const Dashboard = {
   INSTRUCTOR_AREA: "instructor_area",
   STUDENT_AREA: "student_area",
   DESCRIPTION: "dashboard_description",
+
+  // dashboard buttons
   CREATE_NEW_ACTIVITY: "create_new_activity",
   CREATE_NEW_ACTIVITY_DESCRIPTION: "create_new_activity_description",
   STUDENTS_OUTPUTS: "students_outputs",
@@ -12,6 +14,11 @@ export const Dashboard = {
   SEARCH_ACTIVITIES_DESCRIPTION: "search_activities_description",
   INVITE_STUDENT: "invite_student",
   INVITE_STUDENT_DESCRIPTION: "invite_student_description",
+  MY_LIST_ACTIVITIES: "my_list_activities",
+  MY_LIST_ACTIVITIES_DESCRIPTION: "my_list_activities_description",
+  MY_COMPLETED_ACTIVITIES: "my_completed_activities",
+  MY_COMPLETED_ACTIVITIES_DESCRIPTION: "my_completed_activities_description",
+
   COMPLETE_REGISTRATION: "complete_registration",
   REGISTRATION_COMPLETE: "registration_complete",
   STUDENT: "student",

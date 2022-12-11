@@ -12,4 +12,6 @@ export const Activity = {
   NEW: "new",
   SAVE: "save",
   SUGGESTED_ANSWER: "suggested_answer",
+
+  ANSWER_THE_QUESTIONS: "answer_the_questions",
 };

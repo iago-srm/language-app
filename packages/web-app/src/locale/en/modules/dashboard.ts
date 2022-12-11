@@ -20,6 +20,13 @@ export const Dashboard = {
   [Labels.STUDENTS_OUTPUTS]: "Students' outputs",
   [Labels.STUDENTS_OUTPUTS_DESCRIPTION]:
     "Give feedback on the activities your students have done",
+  [Labels.MY_LIST_ACTIVITIES]: "Activities in my List",
+  [Labels.MY_LIST_ACTIVITIES_DESCRIPTION]:
+    "Browse through the activities you have saved in your list",
+  [Labels.MY_COMPLETED_ACTIVITIES]: "My Completed Activities",
+  [Labels.MY_COMPLETED_ACTIVITIES_DESCRIPTION]:
+    "See activities you have done and their feedback",
+
   [Labels.COMPLETE_REGISTRATION]: "Complete your Registration",
   [Labels.REGISTRATION_COMPLETE]: "Registration complete",
   [Labels.STUDENT]: "Student",

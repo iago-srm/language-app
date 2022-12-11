@@ -9,4 +9,5 @@ export const Auth = {
   AWAIT_CONFIRMATION_EMAIL: "await_confirmation_email",
   EMAIL_WILL_BE_SENT: "email_will_be_sent",
   PASSWORD_SUCCESSFULLY_CHANGED: "password_successfully_changed",
+  ACCOUNT_SUCCESSFULLY_VERIFIED: "account_successfully_verified",
 };

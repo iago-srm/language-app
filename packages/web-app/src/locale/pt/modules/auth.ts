@@ -15,4 +15,5 @@ export const Auth = {
   [Labels.AWAIT_CONFIRMATION_EMAIL]: "Aguarde um e-mail de confirmação",
   [Labels.EMAIL_WILL_BE_SENT]: "Um e-mail será enviado para você",
   [Labels.PASSWORD_SUCCESSFULLY_CHANGED]: "Senha alterada com sucesso",
+  [Labels.ACCOUNT_SUCCESSFULLY_VERIFIED]: "Conta verificada com sucesso!",
 };
