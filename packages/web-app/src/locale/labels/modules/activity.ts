@@ -11,4 +11,5 @@ export const Activity = {
   INSTRUCTIONS: "instructions",
   NEW: "new",
   SAVE: "save",
+  SUGGESTED_ANSWER: "suggested_answer",
 };

@@ -2,6 +2,8 @@ import Accordion from "react-bootstrap/Accordion";
 import { Instruction as InstructionModel } from "@model";
 import { RadioMenu, CheckboxMenu } from "@atomic";
 import styled from "styled-components";
+import { Translations, Labels } from "@locale";
+import { useLanguage } from "@contexts";
 
 const ResponseTextArea = styled.textarea`
   width: 100%;
@@ -44,6 +46,8 @@ export const Instruction = ({
   index,
   showAnswer,
 }: IInstructionProps) => {
+  const { language } = useLanguage();
+
   return (
     <Accordion.Item eventKey={`${index}`}>
       <StyledHeader>{instruction.text}</StyledHeader>
@@ -84,11 +88,15 @@ export const Instruction = ({
                 instruction.onChange(instruction.id, e.target.value)
               }
             />
-            <div className="suggested-answer">
-              <hr />
-              <h6>Suggested answer</h6>
-              {showAnswer && <p>{instruction.textAnswer}</p>}
-            </div>
+            {showAnswer && instruction.textAnswer && (
+              <div className="suggested-answer">
+                <hr />
+                <h6>
+                  {Translations[language][Labels.Activity.SUGGESTED_ANSWER]}
+                </h6>
+                <p>{instruction.textAnswer}</p>
+              </div>
+            )}
           </>
         )}
       </StyledBody>

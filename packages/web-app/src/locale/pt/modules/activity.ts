@@ -16,4 +16,6 @@ export const Activity = {
   [Labels.INSTRUCTIONS]: "Instruções",
   [Labels.NEW]: "Novo",
   [Labels.SAVE]: "Salvar",
+
+  [Labels.SUGGESTED_ANSWER]: "Resposta Sugerida",
 };

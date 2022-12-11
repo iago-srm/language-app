@@ -14,7 +14,7 @@ resource "aws_ecs_task_definition" "this" {
         { "Name" = "DATABASE_URL", "Value" = "${var.env_database_url}" },
         { "Name" = "PROFILE_IMAGE_BUCKET", "Value" = "${var.env_profile_image_bucket}" },  
         { "Name" = "TOKEN_SECRET", "Value" = "${var.env_token_secret}" },
-        { "Name" = "WEB_APP_URL", "Value" = "isrm.link" },
+        { "Name" = "WEB_APP_URL", "Value" = "language-app.isrm.link" },
         { "Name" = "PORT", "Value" = "${var.container_port}" },
         { "Name" = "SENDGRID_API_KEY", "Value" = "${var.env_sendgrid_api_key}" },
         { "Name" = "QUEUE_URL", "Value" = "${var.env_queue_url}" }, 
@@ -85,7 +85,7 @@ resource "aws_ecs_service" "this" {
   launch_type                        = "FARGATE"
   cluster                            = var.cluster_id
   task_definition                    = aws_ecs_task_definition.this.arn
-  desired_count                      = 1
+  desired_count                      = 0
   deployment_minimum_healthy_percent = 50
   deployment_maximum_percent         = 200
   scheduling_strategy                = "REPLICA"
