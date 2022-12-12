@@ -7,43 +7,84 @@
 
 # Overview
 
-This is my Computer Engineering senior thesis. I got my degree at the end of 2022 at the University of São Paulo.
+This is my Computer Engineering senior thesis. I got my degree in 2022 from the University of São Paulo.
 
-The product is a language learning platform. Users can sign in as either instructors or students. Instructors will author language learning activities and students will complete them and get written feedback from their instructors.
+It is a language learning platform. Users can sign in as either instructors or students. Instructors will author language learning activities and students will complete them and get written feedback from their instructors.
 
-Watch [this video]() for a demonstration of how it works.
+![searching for activities](img/4.3.png)
+![doing activity](img/4.4.2.png)
+![seeing feedback](img/4.6.3.png)
 
-It is built using a microsservice architecture on AWS.
-
-# Technology
-
-## Architecture
-
-<img src="img/simplified-architecture.png" alt="drawing" width="450"/>
+Watch [this video](https://youtu.be/FuYyzwA2rWM) for a demonstration of how it works.
 
 <div>
   <img src="https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white" alt="" />
   <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="" />
   <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="" />
+    <img src="https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white" alt="" />
   <img src="https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white" alt="" />
   <img src="https://img.shields.io/badge/terraform-%235835CC.svg?style=for-the-badge&logo=terraform&logoColor=white" alt="" />
   <img src="https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white" alt="" />
   <img src="https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white" alt="" />
-  <img src="https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white" alt="" />
+
 </div>
 
-# Development
+# Architecture
 
-- When npm i is run (do it at project root), all package.json files are inspected and its dependencies are installed in the root node_modules
-- When postgres is started with a volume, its boot time is shorter, but it inherits the volume's database. To force it to create new databases, remove the volumes first.
-- If you add a new package to a server, you have to build the image all over again
+The app is designed as a client-server architecture with microsservices.
 
-## Prisma
+The frontend is in Next.js and deployed to Vercel.
 
-### [Schema Prototyping](https://www.prisma.io/docs/guides/database/prototyping-schema-db-push)
+The backend consists of two Node.js REST APIs, one that takes care of authentication and authorization and another one that does all the rest of the domain logic.
 
-- Do `npx prisma db push` to sync database with prisma schema. Used for dev only. If we add a required field without a default value, the table will have to be reset, losing its data. To do it, pass `--accept-data-loss`.
-- After having prototyped and arriving at a stable schema, do `npx prisma migrate dev --name initial-state` to generate an up migration of the initial schema, and after each change, do `npx prisma migrate dev --name migration-name`. This will generate migration files for each schema change. With this, we'll have a migration history. It will also create entries in a \_prisma_migrations table in the db.
+<img src="img/simplified-architecture.png" alt="drawing" width="450"/>
+
+All of the backend is in AWS. Both applications are Dockerized and deployed by ECS (with Fargate). They communicate via SQS, and persist their data on a single (for cost purposes) instance of RDS running Postgre. S3 is used to store user profile pictures.
+
+There is a bastion host inside the VPC which I can use to see the contents of the databases.
+
+There are two CICD pipelines, one which builds the Docker images and deploys the backend applications to a staging environment after pushes to _develop_ and another one which deploys those containers to a production environment after pushes to _main_. Github actions run tasks which check for linting, formatting and run automated tests.
+
+All of AWS infra is provisioned using Terraform (see the IaaC in _/infra_).
+
+# Authentication and Authorization
+
+The auth API takes care of all basic authentication funcionalities, such as sign up, sign in, change of passwords, verification of accounts, and change of profile pictures.
+
+When a user signs in, the auth app returns a JWT token with the user's current token version (which starts at 0 on sign up). The token is stored on the browser and sent on all requests to the domain app, which will respond to requests only if the token is valid and its token version is the user's most current one.
+
+When a user signs out, the auth app will increment the token version and send a message via the queue to the domain app, so that it persists the most current token version for that user. That allows me to invalidate and reject requests from all current sessions of a user.
+
+# Frontend
+
+It uses some version of [atomic design](https://atomicdesign.bradfrost.com/chapter-2/)
+
+# Backend
+
+## Clean Architecture
+
+The code design closely follows [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+
+![folder structure](img/clean-arch.png)
+
+## Platform Code
+
+Neither application needs to define framework code, s
+Since most dependencies, like the ones related to HTTP or AWS are shared, that code is treated as common [platform code](https://softwareengineeringdaily.com/2020/02/13/setting-the-stage-for-platform-engineering/).
+
+# Infrastructure
+
+## AWS and Terraform
+
+# Development Experience
+
+### Monorepo
+
+### Developing Locally
+
+### Pre-production and Production Environments
+
+### CICD
 
 # TODO
 
@@ -54,9 +95,6 @@ It is built using a microsservice architecture on AWS.
 ## Infrastructure
 
 - AWS Distro and OTeL for observability
-- Improve CICD. Following options have been tried
-- - Option 1 (currently implemented): Use a Codepipeline that triggers whenever the develop or main receive pushes and builds and deploys the project to its respective environment. Problem: can't select monorepo paths that trigger builds. Any update anywhere in the monorepo triggers builds of all services. In order to prevent unecessary builds, I have disabled the transition from the Source to the Build stage, and just trigger the pipeline manually whenever I want a new deploy.
-- - Option 2 (partially implemented in branch cicd-1): Employ a Codebuild project to listen to Github code changes. This accepts a webhook, which, in turn, lets you select paths. Then, this Codebuild project uses AWS CLI to trigger only the desired Codepipeline. Problems: Couldn't figure out how to build a pipeline that starts with the build stage, or has a source stage that only triggers with the CLI call. Also, very hacky.
-- - Option 3 (not yet explored). Use Github Actions to do CD too. It is currently only doing CI (testing and linting)
+- Improve CICD to support selective builds
 
 ## Frontend
