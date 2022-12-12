@@ -11,11 +11,11 @@ This is my Computer Engineering senior thesis. I got my degree in 2022 from the 
 
 It is a language learning platform. Users can sign in as either instructors or students. Instructors will author language learning activities and students will complete them and get written feedback from their instructors.
 
+Watch [this video](https://youtu.be/FuYyzwA2rWM) for a demonstration of how it works.
+
 ![searching for activities](img/4.3.png)
 ![doing activity](img/4.4.2.png)
 ![seeing feedback](img/4.6.3.png)
-
-Watch [this video](https://youtu.be/FuYyzwA2rWM) for a demonstration of how it works.
 
 <div>
   <img src="https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white" alt="" />
