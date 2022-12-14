@@ -9,5 +9,5 @@ export default {
   [Labels.SUCCESS]: "Sucesso",
   [Labels.NO_DATA]: "Nenhum dado foi encontrado",
   [Labels.NO_BACKEND]:
-    "A aplicação está desligada no momento. Entre em contato com iago.srm.is@gmail.com para testá-la",
+    "A aplicação está desligada no momento. Assista à demonstração abaixo ou entre em contato com iago.srm.is@gmail.com para testá-la",
 };

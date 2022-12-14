@@ -11,7 +11,7 @@ This is my Computer Engineering senior thesis. I got my degree in 2022 from the 
 
 It is a language learning platform. Users can sign in as either instructors or students. Instructors will author language learning activities and students will complete them and get written feedback from their instructors.
 
-Watch [this video](https://youtu.be/FuYyzwA2rWM) for a demonstration of how it works.
+Watch [this video](https://youtu.be/FuYyzwA2rWM) for a demonstration of how it works, or see the [application itself](https://language-app.isrm.link/).
 
 ![searching for activities](img/4.3.png)
 ![doing activity](img/4.4.2.png)

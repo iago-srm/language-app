@@ -9,5 +9,5 @@ export default {
   [Labels.SUCCESS]: "Success",
   [Labels.NO_DATA]: "No data has been found",
   [Labels.NO_BACKEND]:
-    "The platform is off at the moment. Send iago.srm.is@gmail.com if you would like to test it.",
+    "The platform is off at the moment. Watch te demonstration video below or send iago.srm.is@gmail.com if you would like to test it.",
 };

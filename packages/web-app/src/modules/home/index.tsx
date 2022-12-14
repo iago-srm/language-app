@@ -17,7 +17,7 @@ import { Icons } from "@atomic";
 const imgWidth = 600;
 const videoUrl = {
   pt: "zu0unBdP3oI",
-  en: "zu0unBdP3oI",
+  en: "FuYyzwA2rWM",
 };
 
 gsap.registerPlugin(ScrollTrigger);
