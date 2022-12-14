@@ -4,7 +4,7 @@ import { IStorageService } from "@language-app/common-platform";
 export class ProfileImageRepository implements IProfileImageRepository {
   constructor(private storageService: IStorageService) {}
 
-  _getBucketUrl(bucketName: string) {
+  _getBucketUrl() {
     return `https://${process.env.PROFILE_IMAGE_BUCKET}.s3.amazonaws.com`;
   }
   _getImageName(userId: string) {
@@ -23,16 +23,11 @@ export class ProfileImageRepository implements IProfileImageRepository {
       console.log("s3 error", e);
       throw new Error("S3 error");
     }
-    return (
-      this._getBucketUrl(process.env.PROFILE_IMAGE_BUCKET) + "/" + imageName
-    );
+    return this._getBucketUrl() + "/" + imageName;
   }
 
   getGenericImageUrl() {
-    return (
-      this._getBucketUrl(process.env.PROFILE_IMAGE_BUCKET) +
-      "/generic-avatar-1.jpg"
-    );
+    return this._getBucketUrl() + "/generic-avatar-1.jpg";
   }
   // getProfileImageUrl(userId?: string) {
   //   return userId ? `${process.env.PROFILE_IMAGE_BUCKET}/${this._getImageName(userId)}` : `${process.env.PROFILE_IMAGE_BUCKET}/generic-avatar-1.jpg`;
