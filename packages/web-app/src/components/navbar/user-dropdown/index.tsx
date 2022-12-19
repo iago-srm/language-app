@@ -83,7 +83,12 @@ export const NavbarDropDown: React.FC<{
             labelName="PROFILE"
             highlighted={currentPath === "/dashboard"}
           />
-          <NavbarButton path="/" labelName="SIGNOUT" highlighted={false} />
+          <NavbarButton
+            onClick={onSignOut}
+            path="/"
+            labelName="SIGNOUT"
+            highlighted={false}
+          />
         </DrawerContainer>
       </MediaQuery>
     </>

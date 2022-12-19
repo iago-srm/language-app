@@ -163,7 +163,7 @@ The front-end needs some serious refactoring and reconsidering of code design. A
 - Mixed activity types: video + text
 - Field to add source to text activities
 - See what's up with pagination
-- See what's up with mobile view (navbar)
+- See what's up with mobile view (navbar). Also happens when activity descriptions are too long
 - Separate instructions into gist and detail, and have some content for instructors on activity design.
 - Allow users to filer activities by instruction type
 - Notify instructors when their students make output
