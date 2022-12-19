@@ -3,7 +3,9 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/iago-srm/language-app)
 ![GitHub language count](https://img.shields.io/github/languages/count/iago-srm/language-app)
 ![GitHub top language](https://img.shields.io/github/languages/top/iago-srm/language-app)
-![Lines of code](https://img.shields.io/tokei/lines/github/iago-srm/language-app)
+![Lines of Code](https://tokei.ekzhang.com/b1/github/iago-srm/language-app)
+
+<!-- ![Lines of code](https://img.shields.io/tokei/lines/github/iago-srm/language-app) -->
 
 # Overview
 
@@ -11,7 +13,7 @@ This is my Computer Engineering senior thesis. I got my degree in 2022 from the 
 
 It is a language learning platform. Users can sign in as either instructors or students. Instructors will author language learning activities and students will complete them and get written feedback from their instructors.
 
-Watch [this video](https://youtu.be/FuYyzwA2rWM) for a demonstration of how it works, or see the [application itself](https://language-app.isrm.link/).
+Watch [this video](https://youtu.be/FuYyzwA2rWM) for a demonstration of how it works, or check out the [application itself](https://language-app.isrm.link/).
 
 ![searching for activities](img/4.3.png)
 ![doing activity](img/4.4.2.png)
@@ -57,7 +59,21 @@ When a user signs out, the auth app will increment the token version and send a 
 
 # Frontend
 
-It uses some version of [atomic design](https://atomicdesign.bradfrost.com/chapter-2/)
+## Atomic Design
+
+It uses some version of [atomic design](https://atomicdesign.bradfrost.com/chapter-2/).
+
+Check out in _packages/web-app/atomic_ the components that have been considered atoms, molecules and organisms.
+
+Outside the _atomic_ folder, a _components_ folder holds complex components that belong to the whole application, like the navigation bar and other components that are in it. Perhaps those would be atomic's organisms, but I found that they didn't really belong there.
+
+## Modules and Pages
+
+Next.js needs a _pages_ directory so it can set up the application's routing. However, all .jsx files in that folder are treated as pages. That makes it hard to keep components which belong exclusively to some page or set of pages, but are not pages themselves.
+
+So, this project has a _modules_ folder, which holds all pages and subcomponents related to one domain area. The routes in the _pages_ folder, then, import te pages to the correct route. For example, the activities module defines all pages related to activities, like _do_, _listing_ and _new_, as well as the components related exclusively to activities.
+
+## API Calls
 
 # Backend
 
