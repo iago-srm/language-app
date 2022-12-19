@@ -36,7 +36,7 @@ export const ActivitiesListing: React.FC = () => {
     isMyList: query.isMyList,
     topics: `${filters.topics.map((t) => t.value)}`,
     cefr: filters.cefr && `${filters.cefr.value}`,
-    pageSize: 4,
+    pageSize: 10,
     isOpen: query.isOpen,
   });
 

@@ -155,3 +155,18 @@ The front-end needs some serious refactoring and reconsidering of code design. A
 - [Refactor useEffects into custom hooks](https://www.youtube.com/watch?v=MFj_S0Nof90)
 - Rethink approach to internationalization of interface.
 - Provide loader components for pages, to avoid weird page transitions.
+
+## UX and Funcionalities
+
+- Start and end time of videos in minutes and seconds. Option for whole video.
+- Ability to change order of instruction options by drag and drop. Redesign instructions modal
+- Mixed activity types: video + text
+- Field to add source to text activities
+- See what's up with pagination
+- See what's up with mobile view (navbar)
+- Separate instructions into gist and detail, and have some content for instructors on activity design.
+- Allow users to filer activities by instruction type
+- Notify instructors when their students make output
+- Allow for audio output.
+- Have true/false be a different kind of answer, to disallow both being correct, and not make people type in "True" and "False"
+- Allow editing of activities (figure out business rules around existing student output)
