@@ -57,6 +57,29 @@ When a user signs in, the auth app returns a **JWT token** with the user's curre
 
 When a user signs out, the auth app will increment the token version and send a message via the queue to the domain app, so that it persists the most current token version for that user. That allows me to invalidate and reject requests from all current sessions of a user.
 
+# Internationalization
+
+## Frontend
+
+The app is (almost) fully internationalized.
+
+On the frontend, there is a select which sets the language in a global state. This state is then used on every page/component that has strings to select which entry in a big Translations object. Having pulled the entry with all of the labels of the chosen language, the correct label is then used. Something like this:
+
+```
+  const { language } = useLanguage();
+  Translations[language][labels.activities])
+```
+
+Whenever this global value is changed, the axios instance changes its _X-Accept-Language_ header and sends the new language setting to the backend, to intl it also.
+
+## Backend
+
+On the backend, all error messages as well as e-mails are sent are set to the preferred language informed in the request.
+
+Whenever a use-case needs to send an e-mail, the REST Controller adapter parses the preferred language header and passes it on to the use-case code, which then passes the language value to the e-mail service.
+
+To intl errors, I've used an Express middleware treats error messages as labels, or as keys to a Translations object, and responds with the corresponding value. The correct translation object is chosen according to the header. Check out the platform code to see this middleware.
+
 # Frontend
 
 ## Atomic Design
@@ -163,10 +186,10 @@ The front-end needs some serious refactoring and reconsidering of code design. A
 - Mixed activity types: video + text
 - Field to add source to text activities
 - See what's up with pagination
-- See what's up with mobile view (navbar). Also happens when activity descriptions are too long
 - Separate instructions into gist and detail, and have some content for instructors on activity design.
 - Allow users to filer activities by instruction type
 - Notify instructors when their students make output
 - Allow for audio output.
 - Have true/false be a different kind of answer, to disallow both being correct, and not make people type in "True" and "False"
 - Allow editing of activities (figure out business rules around existing student output)
+- A better dashboard
